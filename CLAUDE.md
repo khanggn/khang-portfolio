@@ -96,12 +96,14 @@ Filter tabs on works page: **ALL / SWE / UI/UX** — Spotify tab style with gold
 
 ### SWE Projects (git push --force origin main)
 **Campus Swipe**
+- Type: Full-Stack Development, UI/UX Design
 - Role: Frontend Developer + UI/UX Designer
 - Team: Team of 11
 - Live: https://cse110-sp25-group11.github.io/card-game/
 - GitHub: https://github.com/cse110-sp25-group11/card-game
 
 **Zippy**
+- Type: Full-Stack Development, UI/UX Design
 - Role: Frontend Developer + UI/UX Designer
 - GitHub + README: https://github.com/jadenseangmany/Zippy
 - Devpost: https://devpost.com/software/zippy
@@ -109,29 +111,37 @@ Filter tabs on works page: **ALL / SWE / UI/UX** — Spotify tab style with gold
 
 ### UI/UX Projects (user tested, khang approved)
 **PlateMate**
+- Type: UI/UX Design, Product Design
 - Role: UI/UX Designer
 - Figma: https://www.figma.com/proto/9su99fyj0UFOow7y6fBi2c/PlateMate?node-id=105-518
 - Slide Deck: https://docs.google.com/presentation/d/1zvstwKLch8cjnIP_77x44PG_3QWiv4K05XwJm1WG89c/edit?usp=sharing
 
 **Bontourismo**
+- Type: UI/UX Design, Product Design
 - Role: UI/UX Designer
 - Figma: https://www.figma.com/proto/OVBF2StEDZwMtYyTd77WgO/Catalyst-2025-UIUX-Designathon-Wireframe?node-id=19-252
 - Devpost: https://devpost.com/software/bontourismo
 
 **PlasticBeach**
+- Type: Product Design, UX Design, Web Redesign
+- Summary: Redesigned the site and recycling materials for a SoCal nonprofit cutting soft-plastic waste across 40+ retail and distribution partners.
 - Role: UI/UX Designer
 - Final: https://drive.google.com/file/d/1_jWW9Q3IAvawfwOCGiCDSiwZu14qLN4H/view?usp=sharing
 - Slide Deck: https://docs.google.com/presentation/d/1eZOh0YGScuLrV9li4Mf-52dDeLcBS564lIW7Wg6i3wU/edit?usp=sharing
 
 **West Coast Adult Soccer League**
-- Role: UI/UX Designer
-- Status: Work in Progress
+- Type: Web Design, Product Design
+- Summary: Designed and launched a full website for an 800+ player South OC soccer league — simple enough for schedule-checkers, smooth enough for first-time registrants.
+- Role: UI/UX Designer + Web Designer
+- Date: Apr 2025 – Present
 
 ## Project Card Fields
 Each project card should display:
 - Cover image
 - Track number (01, 02, 03 format — per playlist)
 - Project title
+- Type tags (e.g. "Product Design · Web Redesign")
+- Summary (one-liner)
 - Role
 - Team size (e.g. "Solo", "Team of 3", "Team of 11")
 - Start date — End date
