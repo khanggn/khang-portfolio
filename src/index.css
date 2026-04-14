@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #0a2218;
+  --bg: #262626;
   --accent-green: #4a7c5f;
-  --gold: #c9a84c;
+  --green-highlight: #C4B5FD;
 
   font-family: 'Inter', system-ui, sans-serif;
   font-synthesis: none;
@@ -20,10 +20,68 @@
 
 body {
   margin: 0;
-  background-color: #0a2218;
-  color: white;
+  background-color: #262626;
+  color: #E8E8E3;
 }
 
 #root {
   min-height: 100vh;
+}
+
+.gradient-shimmer {
+  background: linear-gradient(
+    90deg,
+    #C4B5FD 0%,
+    #E5DEFF 25%,
+    #FFC4E8 50%,
+    #E5DEFF 75%,
+    #C4B5FD 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.pulsing-glow {
+  display: inline-block;
+  color: #C4B5FD;
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    text-shadow:
+      0 0 10px rgba(196, 181, 253, 0.6),
+      0 0 20px rgba(196, 181, 253, 0.4),
+      0 0 30px rgba(196, 181, 253, 0.2);
+  }
+  50% {
+    text-shadow:
+      0 0 20px rgba(196, 181, 253, 0.9),
+      0 0 30px rgba(196, 181, 253, 0.6),
+      0 0 40px rgba(196, 181, 253, 0.4);
+  }
+}
+
+.gradient-text {
+  background: linear-gradient(
+    90deg,
+    #C4B5FD 0%,
+    #E5DEFF 50%,
+    #C4B5FD 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }

@@ -3,10 +3,10 @@ import { motion } from 'framer-motion';
 
 function CaseStudy() {
   return (
-    <div className="min-h-screen bg-[#0a2218] text-white flex flex-col">
+    <div className="min-h-screen bg-[#262626] text-white flex flex-col">
       {/* Navbar */}
       <nav
-        className="sticky top-0 z-50 bg-[#0a2218] border-b border-white/10"
+        className="sticky top-0 z-50 bg-[#262626] border-b border-white/10"
         style={{
           height: '80px',
           padding: '24px 176px',
@@ -25,23 +25,23 @@ function CaseStudy() {
             className="flex items-center text-base"
             style={{ fontFamily: "'Inter', sans-serif", gap: '32px' }}
           >
-            <Link to="/" className="hover:text-[#c9a84c] transition-colors">
+            <Link to="/" className="hover:text-[#C4B5FD] transition-colors">
               Home
             </Link>
-            <Link to="/#title-tracks" className="hover:text-[#c9a84c] transition-colors">
+            <Link to="/#title-tracks" className="hover:text-[#C4B5FD] transition-colors">
               Featured Tracks
             </Link>
-            <Link to="/playlist" className="hover:text-[#c9a84c] transition-colors">
+            <Link to="/playlist" className="hover:text-[#C4B5FD] transition-colors">
               Playlist
             </Link>
-            <a href="#about" className="hover:text-[#c9a84c] transition-colors">
+            <a href="#about" className="hover:text-[#C4B5FD] transition-colors">
               About
             </a>
             <a
               href="/resume/khangresume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-[#c9a84c] transition-colors"
+              className="hover:text-[#C4B5FD] transition-colors"
             >
               Resume
             </a>
@@ -72,7 +72,7 @@ function CaseStudy() {
             style={{
               height: '4px',
               width: '120px',
-              backgroundColor: '#c9a84c',
+              backgroundColor: '#C4B5FD',
               margin: '0 auto 48px'
             }}
           />
@@ -108,7 +108,7 @@ function CaseStudy() {
                   fontSize: '32px',
                   fontWeight: '600',
                   marginBottom: '16px',
-                  color: '#c9a84c'
+                  color: '#C4B5FD'
                 }}
               >
                 Overview
@@ -132,7 +132,7 @@ function CaseStudy() {
                   fontSize: '32px',
                   fontWeight: '600',
                   marginBottom: '16px',
-                  color: '#c9a84c'
+                  color: '#C4B5FD'
                 }}
               >
                 Problem Statement
@@ -156,7 +156,7 @@ function CaseStudy() {
                   fontSize: '32px',
                   fontWeight: '600',
                   marginBottom: '16px',
-                  color: '#c9a84c'
+                  color: '#C4B5FD'
                 }}
               >
                 Research & Design Process
@@ -180,7 +180,7 @@ function CaseStudy() {
                   fontSize: '32px',
                   fontWeight: '600',
                   marginBottom: '16px',
-                  color: '#c9a84c'
+                  color: '#C4B5FD'
                 }}
               >
                 Final Solution
@@ -204,7 +204,7 @@ function CaseStudy() {
                   fontSize: '32px',
                   fontWeight: '600',
                   marginBottom: '16px',
-                  color: '#c9a84c'
+                  color: '#C4B5FD'
                 }}
               >
                 Outcomes & Reflection
@@ -227,7 +227,7 @@ function CaseStudy() {
             style={{
               fontFamily: "'Inter', sans-serif",
               fontSize: '16px',
-              color: '#c9a84c',
+              color: '#C4B5FD',
               textDecoration: 'none',
               fontWeight: '600',
               marginTop: '80px',

@@ -4,10 +4,10 @@ import { motion } from 'framer-motion';
 
 function Playlist() {
   return (
-    <div className="min-h-screen bg-[#0a2218] text-white flex flex-col">
+    <div className="min-h-screen bg-[#262626] text-white flex flex-col">
       {/* Navbar */}
       <nav
-        className="sticky top-0 z-50 bg-[#0a2218] border-b border-white/10"
+        className="sticky top-0 z-50 bg-[#262626] border-b border-white/10"
         style={{
           height: '80px',
           padding: '24px 176px',
@@ -26,21 +26,23 @@ function Playlist() {
             className="flex items-center text-base"
             style={{ fontFamily: "'Inter', sans-serif", gap: '32px' }}
           >
-            <Link to="/" className="hover:text-[#c9a84c] transition-colors">
+            <Link to="/" className="hover:text-[#C4B5FD] transition-colors">
               Home
             </Link>
-            <Link to="/#title-tracks" className="hover:text-[#c9a84c] transition-colors">
-              Featured Tracks
-            </Link>
-            <Link to="/#about" className="hover:text-[#c9a84c] transition-colors">
+            <Link to="/#about" className="hover:text-[#C4B5FD] transition-colors">
               About
             </Link>
-            <Link to="/playlist" className="hover:text-[#c9a84c] transition-colors text-[#c9a84c]">
+            <Link to="/playlist" className="hover:text-[#C4B5FD] transition-colors text-[#C4B5FD]">
               Playlist
             </Link>
-            <Link to="/#resume" className="hover:text-[#c9a84c] transition-colors">
+            <a
+              href="/resume/khangresume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[#C4B5FD] transition-colors"
+            >
               Resume
-            </Link>
+            </a>
           </div>
         </div>
       </nav>
@@ -83,7 +85,7 @@ function Playlist() {
             {/* Projects will go here */}
             <div style={{
               height: '400px',
-              backgroundColor: '#243D2F',
+              backgroundColor: '#4E4A5C',
               borderRadius: '12px',
               display: 'flex',
               alignItems: 'center',

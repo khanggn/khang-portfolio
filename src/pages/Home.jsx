@@ -33,7 +33,7 @@ function JumpingText({ children, delay = 0 }) {
   }, [letters.length, delay]);
 
   return (
-    <span style={{ display: 'inline-block', color: '#c9a84c' }}>
+    <span style={{ display: 'inline-block', color: '#C4B5FD' }}>
       {letters.map((letter, index) => (
         <motion.span
           key={index}
@@ -97,6 +97,11 @@ function MusicCursorTrail() {
     const handleMouseMove = (e) => {
       // Only spawn notes occasionally (every ~50ms based on random chance)
       if (Math.random() > 0.85) {
+        // Detect if mouse is over light background by checking the element's background color
+        const element = document.elementFromPoint(e.clientX, e.clientY);
+        const bgColor = element ? window.getComputedStyle(element).backgroundColor : '';
+        const isOnLightBackground = bgColor.includes('232, 232, 227') || bgColor.includes('rgb(232, 232, 227)');
+
         const newNote = {
           id: noteId++,
           x: e.clientX,
@@ -104,7 +109,8 @@ function MusicCursorTrail() {
           rotation: Math.random() * 360,
           scale: 0.5 + Math.random() * 0.5,
           direction: Math.random() > 0.5 ? 1 : -1,
-          IconComponent: noteIcons[Math.floor(Math.random() * noteIcons.length)]
+          IconComponent: noteIcons[Math.floor(Math.random() * noteIcons.length)],
+          color: isOnLightBackground ? '#C4B5FD' : '#E8E8E3'
         };
 
         setNotes((prev) => [...prev, newNote]);
@@ -146,7 +152,7 @@ function MusicCursorTrail() {
             }}
             style={{ position: 'absolute' }}
           >
-            <IconComponent size={20} weight="fill" color="#ffffff" />
+            <IconComponent size={20} weight="fill" color={note.color} />
           </motion.div>
         );
       })}
@@ -196,6 +202,10 @@ function Home() {
   const [progress, setProgress] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [isCardHovered, setIsCardHovered] = useState(false);
+  const [isOnWhiteSection, setIsOnWhiteSection] = useState(false);
+  const [audioEnabled, setAudioEnabled] = useState(false);
+  const audioRef = useRef(null);
+  const mouseMoveTimeoutRef = useRef(null);
   const heroRef = useRef(null);
   const titleTracksRef = useRef(null);
   const titleTracksInView = useInView(titleTracksRef, {
@@ -215,6 +225,57 @@ function Home() {
       }, 100);
     }
   }, []);
+
+  // Track if we're scrolled to the white section
+  useEffect(() => {
+    const handleScroll = () => {
+      const titleTracksSection = document.getElementById('title-tracks');
+      if (titleTracksSection) {
+        const rect = titleTracksSection.getBoundingClientRect();
+        // Check if the top of the white section is at or above the navbar (80px)
+        const isInWhiteSection = rect.top <= 80 && rect.bottom > 80;
+        setIsOnWhiteSection(isInWhiteSection);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check initial state
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Mouse movement audio control
+  useEffect(() => {
+    const handleMouseMove = () => {
+      if (audioEnabled && audioRef.current) {
+        // Play audio and fade in
+        if (audioRef.current.paused) {
+          audioRef.current.play().catch(() => {});
+        }
+        audioRef.current.volume = 0.3;
+
+        // Clear existing timeout
+        if (mouseMoveTimeoutRef.current) {
+          clearTimeout(mouseMoveTimeoutRef.current);
+        }
+
+        // Set timeout to pause after 200ms of no movement
+        mouseMoveTimeoutRef.current = setTimeout(() => {
+          if (audioRef.current) {
+            audioRef.current.pause();
+          }
+        }, 200);
+      }
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      if (mouseMoveTimeoutRef.current) {
+        clearTimeout(mouseMoveTimeoutRef.current);
+      }
+    };
+  }, [audioEnabled]);
 
   // Track scroll position for hero section
   const { scrollYProgress } = useScroll({
@@ -245,7 +306,7 @@ function Home() {
     if (isPaused) return;
 
     const interval = 50; // Update every 50ms
-    const increment = (interval / 15000) * 100; // 15 second duration
+    const increment = (interval / 7000) * 100; // 7 second duration
 
     const progressInterval = setInterval(() => {
       setProgress((prev) => {
@@ -286,17 +347,51 @@ function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a2218] text-white flex flex-col">
+    <div className="min-h-screen bg-[#262626] text-white flex flex-col">
+      {/* Hidden audio element */}
+      <audio ref={audioRef} loop>
+        <source src="/audio/background-music.mp3" type="audio/mpeg" />
+      </audio>
+
+      {/* Enable Audio Button */}
+      {!audioEnabled && (
+        <button
+          onClick={() => setAudioEnabled(true)}
+          style={{
+            position: 'fixed',
+            bottom: '32px',
+            right: '32px',
+            zIndex: 9999,
+            backgroundColor: '#C4B5FD',
+            color: '#262626',
+            padding: '12px 24px',
+            borderRadius: '24px',
+            border: 'none',
+            fontFamily: "'Inter', sans-serif",
+            fontSize: '14px',
+            fontWeight: '600',
+            cursor: 'pointer',
+            boxShadow: '0 4px 12px rgba(196, 181, 253, 0.4)'
+          }}
+          className="hover:scale-105 transition-transform"
+        >
+          🎵 Enable Interactive Audio
+        </button>
+      )}
+
       {/* Music Note Cursor Trail */}
       <MusicCursorTrail />
 
       {/* Navbar - 80px height, 176px side padding, 24px vertical padding */}
       <nav
-        className="sticky top-0 z-50 bg-[#0a2218] border-b border-white/10"
+        className="sticky top-0 z-50 bg-[#262626] border-b border-white/10"
         style={{
           height: '80px',
           padding: '24px 176px',
-          boxShadow: '0 8px 24px rgba(255, 255, 255, 0.08)'
+          boxShadow: isOnWhiteSection
+            ? '0 8px 32px rgba(196, 181, 253, 0.6), 0 0 60px rgba(196, 181, 253, 0.4)'
+            : '0 8px 24px rgba(255, 255, 255, 0.08)',
+          transition: 'box-shadow 0.3s ease'
         }}
       >
         <div className="flex justify-between items-center h-full">
@@ -313,31 +408,21 @@ function Home() {
             <a
               href="#"
               onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-              className="hover:text-[#c9a84c] transition-colors"
+              className="hover:text-[#C4B5FD] transition-colors"
             >
               Home
             </a>
-            <a
-              href="#title-tracks"
-              onClick={(e) => {
-                e.preventDefault();
-                document.getElementById('title-tracks').scrollIntoView({ behavior: 'smooth' });
-              }}
-              className="hover:text-[#c9a84c] transition-colors"
-            >
-              Featured Tracks
-            </a>
-            <a href="#about" className="hover:text-[#c9a84c] transition-colors">
+            <a href="#about" className="hover:text-[#C4B5FD] transition-colors">
               About
             </a>
-            <Link to="/playlist" className="hover:text-[#c9a84c] transition-colors">
+            <Link to="/playlist" className="hover:text-[#C4B5FD] transition-colors">
               Playlist
             </Link>
             <a
               href="/resume/khangresume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-[#c9a84c] transition-colors"
+              className="hover:text-[#C4B5FD] transition-colors"
             >
               Resume
             </a>
@@ -370,12 +455,12 @@ function Home() {
                 fontFamily: "'Inter', sans-serif",
                 fontSize: '32px',
                 lineHeight: '1.2',
-                color: '#ffffff',
+                color: '#E8E8E3',
                 marginBottom: '24px'
               }}
             >
               Hi! I'm{' '}
-              <span className="italic" style={{ color: '#4a7c5f' }}>
+              <span className="italic pulsing-glow" style={{ fontWeight: '600' }}>
                 Khang Nguyen
               </span>
               .
@@ -402,9 +487,8 @@ function Home() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.5 }}
-                  className="inline-block"
+                  className="inline-block gradient-shimmer"
                   style={{
-                    color: '#c9a84c',
                     fontFamily: "'Clash Display', sans-serif"
                   }}
                 >
@@ -422,12 +506,12 @@ function Home() {
                 fontFamily: "'Inter', sans-serif",
                 fontSize: '24px',
                 lineHeight: '1.6',
-                color: '#ffffff',
+                color: '#E8E8E3',
                 marginBottom: '32px'
               }}
             >
-              I <JumpingText delay={0}>design</JumpingText> in Figma and{' '}
-              <JumpingText delay={1000}>code</JumpingText> in React. Whether it's for clients, hackathons, or just for fun, I'm always{' '}
+              I like to <JumpingText delay={0}>design</JumpingText> and{' '}
+              <JumpingText delay={1000}>code</JumpingText>. Whether it's for clients, hackathons, or just for fun, I'm always{' '}
               <JumpingText delay={2000}>building something</JumpingText>.
             </motion.p>
 
@@ -437,13 +521,13 @@ function Home() {
               transition={{ duration: 0.6, delay: 0.7 }}
               style={{
                 fontFamily: "'Inter', sans-serif",
-                fontSize: '14px',
+                fontSize: '16px',
                 lineHeight: '1.6',
-                color: 'rgba(255,255,255,0.5)',
+                color: '#E8E8E3',
                 marginBottom: '8px'
               }}
             >
-              CS + Cognitive Science @ UCSD
+              Computer Science <span style={{ fontSize: '24px' }}>∩</span> Cognitive Science @ UCSD
             </motion.p>
 
             <motion.p
@@ -453,12 +537,13 @@ function Home() {
               className="italic"
               style={{
                 fontFamily: "'Courier New', monospace",
-                fontSize: '13px',
+                fontSize: '16px',
                 lineHeight: '1.6',
-                color: 'rgba(255,255,255,0.5)'
+                color: '#E8E8E3',
+                opacity: 1
               }}
             >
-              fun fact: I spent <span style={{ color: '#6B8F71' }}><AnimatedCounter target={153601} duration={5000} /></span> minutes listening to music last year (that's 107 days I could've spent learning other programming languages... but music &gt; syntax errors)
+              fun fact: I spent <span style={{ color: '#C4B5FD' }}><AnimatedCounter target={153601} duration={5000} /></span> minutes listening to music last year (that's 107 days I could've spent learning other programming languages... but music &gt; syntax errors)
             </motion.p>
           </motion.div>
         </section>
@@ -470,7 +555,7 @@ function Home() {
           style={{
             paddingTop: '176px',
             paddingBottom: '176px',
-            backgroundColor: '#4a7c5f',
+            backgroundColor: '#E8E8E3',
             marginLeft: '-176px',
             marginRight: '-176px',
             paddingLeft: '176px',
@@ -484,11 +569,13 @@ function Home() {
             style={{ marginBottom: '48px' }}
           >
             <h3
-              className="font-semibold"
+              className="font-bold"
               style={{
                 fontFamily: "'Clash Display', sans-serif",
                 fontSize: '64px',
-                lineHeight: '1.2'
+                lineHeight: '1.2',
+                color: '#262626',
+                fontWeight: '700'
               }}
             >
               Featured Tracks
@@ -511,16 +598,14 @@ function Home() {
                 onHoverStart={() => setIsCardHovered(true)}
                 onHoverEnd={() => setIsCardHovered(false)}
                 whileHover={{
-                  scale: 1.02,
-                  boxShadow: '0 0 80px rgba(255, 255, 255, 0.3)'
+                  scale: 1.02
                 }}
                 style={{
-                  backgroundColor: '#243D2F',
+                  backgroundColor: '#262626',
                   borderRadius: '12px',
                   padding: '48px',
                   marginBottom: '48px',
-                  cursor: 'pointer',
-                  transition: 'box-shadow 0.3s ease'
+                  cursor: 'pointer'
                 }}
               >
               <div style={{ display: 'flex', gap: '48px', alignItems: 'start' }}>
@@ -529,7 +614,7 @@ function Home() {
                   style={{
                     width: '400px',
                     height: '400px',
-                    backgroundColor: '#0a2218',
+                    backgroundColor: '#262626',
                     borderRadius: '12px',
                     flexShrink: 0,
                     overflow: 'hidden',
@@ -572,7 +657,7 @@ function Home() {
                       style={{
                         fontSize: '80px',
                         fontWeight: 'bold',
-                        color: '#c9a84c',
+                        color: '#C4B5FD',
                         fontFamily: "'Clash Display', sans-serif"
                       }}
                     >
@@ -593,6 +678,7 @@ function Home() {
                 >
                   <div>
                     <h4
+                      className="gradient-text"
                       style={{
                         fontFamily: "'Clash Display', sans-serif",
                         fontSize: '64px',
@@ -607,7 +693,7 @@ function Home() {
                       style={{
                         fontFamily: "'Inter', sans-serif",
                         fontSize: '18px',
-                        color: 'rgba(255,255,255,0.8)',
+                        color: '#ffffff',
                         lineHeight: '1.6',
                         marginTop: 'auto',
                         marginBottom: 'auto'
@@ -628,11 +714,12 @@ function Home() {
                             fontFamily: "'Inter', sans-serif",
                             fontSize: '13px',
                             padding: '6px 14px',
-                            backgroundColor: 'rgba(201, 168, 76, 0.15)',
-                            border: '1px solid #c9a84c',
+                            backgroundColor: 'rgba(196, 181, 253, 0.15)',
+                            border: '1px solid #C4B5FD',
                             borderRadius: '20px',
-                            color: '#c9a84c',
-                            fontWeight: '500'
+                            color: '#C4B5FD',
+                            fontWeight: '500',
+                            boxShadow: '0 0 12px rgba(196, 181, 253, 0.4)'
                           }}
                         >
                           {type}
@@ -645,12 +732,12 @@ function Home() {
                       style={{
                         fontFamily: "'Inter', sans-serif",
                         fontSize: '14px',
-                        color: '#c9a84c',
+                        color: '#262626',
                         cursor: 'pointer',
                         fontWeight: '600',
                         flexShrink: 0
                       }}
-                      className="hover:text-white transition-colors"
+                      className="hover:text-[#4E4A5C] transition-colors"
                     >
                       View More →
                     </span>
@@ -681,7 +768,7 @@ function Home() {
                 style={{
                   fontFamily: "'Inter', sans-serif",
                   fontSize: '12px',
-                  color: 'rgba(255,255,255,0.6)',
+                  color: '#4E4A5C',
                   flexShrink: 0
                 }}
               >
@@ -693,7 +780,7 @@ function Home() {
                 style={{
                   flex: 1,
                   height: '4px',
-                  backgroundColor: '#243D2F',
+                  backgroundColor: '#4E4A5C',
                   borderRadius: '2px',
                   overflow: 'hidden'
                 }}
@@ -701,7 +788,7 @@ function Home() {
                 <motion.div
                   style={{
                     height: '100%',
-                    backgroundColor: '#c9a84c',
+                    background: 'linear-gradient(90deg, #C4B5FD 0%, #E5DEFF 50%, #C4B5FD 100%)',
                     width: `${progress}%`,
                     transition: 'width 0.05s linear'
                   }}
@@ -713,7 +800,7 @@ function Home() {
                 style={{
                   fontFamily: "'Inter', sans-serif",
                   fontSize: '12px',
-                  color: 'rgba(255,255,255,0.6)',
+                  color: '#4E4A5C',
                   flexShrink: 0
                 }}
               >
@@ -730,15 +817,15 @@ function Home() {
                   background: 'none',
                   border: 'none',
                   cursor: 'pointer',
-                  color: '#ffffff',
+                  color: '#262626',
                   padding: '8px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   transition: 'color 0.2s'
                 }}
-                onMouseEnter={(e) => e.currentTarget.style.color = '#c9a84c'}
-                onMouseLeave={(e) => e.currentTarget.style.color = '#ffffff'}
+                onMouseEnter={(e) => e.currentTarget.style.color = '#4E4A5C'}
+                onMouseLeave={(e) => e.currentTarget.style.color = '#262626'}
               >
                 <SkipBack size={32} weight="fill" />
               </button>
@@ -747,10 +834,10 @@ function Home() {
               <button
                 onClick={togglePause}
                 style={{
-                  background: '#ffffff',
+                  background: '#262626',
                   border: 'none',
                   cursor: 'pointer',
-                  color: '#0a2218',
+                  color: '#E8E8E3',
                   padding: '12px',
                   borderRadius: '50%',
                   display: 'flex',
@@ -773,15 +860,15 @@ function Home() {
                   background: 'none',
                   border: 'none',
                   cursor: 'pointer',
-                  color: '#ffffff',
+                  color: '#262626',
                   padding: '8px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   transition: 'color 0.2s'
                 }}
-                onMouseEnter={(e) => e.currentTarget.style.color = '#c9a84c'}
-                onMouseLeave={(e) => e.currentTarget.style.color = '#ffffff'}
+                onMouseEnter={(e) => e.currentTarget.style.color = '#4E4A5C'}
+                onMouseLeave={(e) => e.currentTarget.style.color = '#262626'}
               >
                 <SkipForward size={32} weight="fill" />
               </button>
@@ -798,7 +885,7 @@ function Home() {
                 style={{
                   fontFamily: "'Clash Display', sans-serif",
                   fontSize: '48px',
-                  color: '#ffffff',
+                  color: '#262626',
                   textDecoration: 'none',
                   fontWeight: '600',
                   display: 'flex',
@@ -825,7 +912,7 @@ function Home() {
         {/* Footer Section */}
         <footer
           style={{
-            backgroundColor: '#0a2218',
+            backgroundColor: '#262626',
             marginLeft: '-176px',
             marginRight: '-176px',
             paddingLeft: '176px',
@@ -842,7 +929,7 @@ function Home() {
                 fontFamily: "'Clash Display', sans-serif",
                 fontSize: '24px',
                 fontWeight: '600',
-                color: '#ffffff',
+                color: '#E8E8E3',
                 lineHeight: '1.4'
               }}>
                 Thanks for stopping by! Feel free to reach out if you'd like to collaborate or just chat about design and code.
@@ -857,7 +944,7 @@ function Home() {
                   fontFamily: "'Clash Display', sans-serif",
                   fontSize: '16px',
                   fontWeight: '600',
-                  color: '#c9a84c',
+                  color: '#C4B5FD',
                   marginBottom: '24px'
                 }}>
                   Navigation
@@ -939,7 +1026,7 @@ function Home() {
                   fontFamily: "'Clash Display', sans-serif",
                   fontSize: '16px',
                   fontWeight: '600',
-                  color: '#c9a84c',
+                  color: '#C4B5FD',
                   marginBottom: '24px'
                 }}>
                   Connections
@@ -1015,7 +1102,7 @@ function Home() {
                 border: 'none',
                 cursor: 'pointer'
               }}
-              className="hover:text-[#c9a84c] transition-colors"
+              className="hover:text-[#C4B5FD] transition-colors"
             >
               Back to Top ↑
             </button>

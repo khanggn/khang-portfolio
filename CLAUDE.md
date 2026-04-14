@@ -13,18 +13,48 @@ Personal portfolio for Khang Nguyen, 3rd year CS student at UCSD with a minor in
 - **Clash Display** — all headings, navbar brand, hero text
 - **Inter** — body text, nav links, subtext, UI elements
 
-## Color Palette
-Inspired by ASTRO's "All Light" album cover.
-- Background: `#0a2218` (dark green)
-- Sidebar/darker bg: `#071230`
-- Card background: `#243D2F`
-- Accent green: `#4a7c5f` (used for name in hero, italic)
-- Gold highlight: `#c9a84c` (used for rotating role text, progress bar, dividers, hover states)
-- Sage/muted green: `#6B8F71` (subtle text, secondary elements)
-- White: `#ffffff` (primary text)
-- Muted: `rgba(255,255,255,0.5)` (secondary text)
-- Off-white/cream: `#F2EDE3` (alternative primary text)
-
+# Design System — Color Palette
+ 
+## Background & Surfaces
+ 
+| Role | Name | Hex |
+|---|---|---|
+| Base background | Carbon Black | `#262626` |
+| Cards, sidebars, elevated surfaces | Vintage Grape | `#4E4A5C` |
+ 
+## Accent Colors
+ 
+| Role | Name | Hex |
+|---|---|---|
+| Primary accent — headlines, CTAs, highlights, active states | Periwinkle | `#C4B5FD` |
+| Secondary accent — icons, dividers, labels, placeholder text | Amethyst Smoke | `#9D92C8` |
+ 
+## Text
+ 
+| Role | Name | Hex |
+|---|---|---|
+| Primary body text | Alabaster Grey | `#E8E8E3` |
+| Secondary / muted text | — | `rgba(255,255,255,0.5)` |
+ 
+## Usage Rules
+ 
+- **Background:** Always use `#262626` as the base. Never place body text directly on `#4E4A5C` without sufficient contrast checking.
+- **Elevated surfaces:** Use `#4E4A5C` for cards, modals, sidebars, and drawers to create depth within the dark theme.
+- **Primary accent (`#C4B5FD`):** Reserve for the single most important interactive or highlighted element per view — headlines, primary buttons, active nav items, hover states.
+- **Secondary accent (`#9D92C8`):** Use freely for supporting UI — secondary labels, icon fills, border/divider lines, disabled states.
+- **Text:** Use `#E8E8E3` for all primary readable content. Use `rgba(255,255,255,0.5)` for helper text, timestamps, and metadata.
+- **Borders:** Default to `#4E4A5C` for subtle borders; use `#9D92C8` for emphasized or focused borders.
+ 
+## Palette at a Glance
+ 
+```
+#262626  ████  Carbon Black    — base background
+#4E4A5C  ████  Vintage Grape   — elevated surfaces
+#9D92C8  ████  Amethyst Smoke  — secondary accent
+#C4B5FD  ████  Periwinkle      — primary accent
+#E8E8E3  ████  Alabaster Grey  — primary text
+```
+ 
 ## Spacing & Layout
 - **Base unit:** 8px — all spacing should be multiples of 8
 - **Page outer padding:** 176px each side
@@ -90,7 +120,7 @@ Projects are organized as Spotify playlists:
 | **git push --force origin main** | "Built, debugged, shipped. Mostly debugged." | SWE projects |
 | **user tested, khang approved** | "Figma files and existential crises." | UI/UX projects |
 
-Filter tabs on works page: **ALL / SWE / UI/UX** — Spotify tab style with gold `#c9a84c` underline on active.
+Filter tabs on works page: **ALL / SWE / UI/UX** — Spotify tab style with gold `#F5F0E8` underline on active.
 
 ## Projects
 
@@ -171,7 +201,7 @@ Use **Framer Motion** for:
 
 ## Design Principles
 - Dark enough to feel like Spotify but unique with the forest green palette
-- Gold accent `#c9a84c` used sparingly for highlights — buttons, active states, dividers
+- Gold accent `#F5F0E8` used sparingly for highlights — buttons, active states, dividers
 - Cards should feel like album covers — square-ish cover image, title below
 - Scrollbar hidden on inner panels for clean look
 - Mobile responsive with breakpoints at `768px` (tablet) and `390px` (mobile)
