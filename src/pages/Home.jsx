@@ -166,8 +166,8 @@ const projects = [
     title: "West Coast Adult Soccer League",
     summary: "Designed and launched a full website for an 800+ player South OC soccer league — simple enough for schedule-checkers, smooth enough for first-time registrants.",
     types: ["Web Design", "Product Design"],
-    media: "/images/projects/wcasl.mp4",
-    mediaType: "video",
+    media: "/images/projects/wcaslcs.png",
+    mediaType: "img",
     date: "Apr 2025 – Present",
     links: {}
   },
@@ -176,8 +176,8 @@ const projects = [
     title: "PlasticBeach",
     summary: "Redesigned the site and recycling materials for a SoCal nonprofit cutting soft-plastic waste across 40+ retail and distribution partners.",
     types: ["Product Design", "UX Design", "Web Redesign"],
-    media: "/images/projects/plasticbeach.mp4",
-    mediaType: "video",
+    media: "/images/projects/plasticbeachcs.png",
+    mediaType: "img",
     date: "Apr 2025 - Jul 2025",
     links: {
       final: "https://drive.google.com/file/d/1_jWW9Q3IAvawfwOCGiCDSiwZu14qLN4H/view?usp=sharing",
@@ -211,7 +211,7 @@ function Home() {
     amount: 0.3  // Trigger when 30% of section is visible
   });
 
-  // Handle hash navigation on mount
+  // Handle hash navigation on mount and scroll to top
   useEffect(() => {
     const hash = window.location.hash;
     if (hash) {
@@ -221,6 +221,9 @@ function Home() {
           element.scrollIntoView({ behavior: 'smooth' });
         }
       }, 100);
+    } else {
+      // No hash, scroll to top instantly
+      window.scrollTo({ top: 0, behavior: 'instant' });
     }
   }, []);
 
@@ -317,12 +320,12 @@ function Home() {
       {/* Music Note Cursor Trail */}
       <MusicCursorTrail />
 
-      {/* Navbar - 80px height, 176px side padding, 24px vertical padding */}
+      {/* Navbar - 72px height, 158px side padding, 22px vertical padding */}
       <nav
         className="sticky top-0 z-50 bg-[#262626] border-b border-white/10"
         style={{
-          height: '80px',
-          padding: '24px 176px',
+          height: '72px',
+          padding: '22px 158px',
           boxShadow: isOnWhiteSection
             ? '0 8px 32px rgba(196, 181, 253, 0.6), 0 0 60px rgba(196, 181, 253, 0.4)'
             : '0 8px 24px rgba(255, 255, 255, 0.08)',
@@ -331,25 +334,25 @@ function Home() {
       >
         <div className="flex justify-between items-center h-full">
           <h1
-            className="text-3xl font-bold"
-            style={{ fontFamily: "'Clash Display', sans-serif" }}
+            className="font-bold"
+            style={{ fontFamily: "'Clash Display', sans-serif", fontSize: '27px' }}
           >
             Khang's Wrapped
           </h1>
           <div
-            className="flex items-center text-base"
-            style={{ fontFamily: "'Inter', sans-serif", gap: '32px' }}
+            className="flex items-center"
+            style={{ fontFamily: "'Inter', sans-serif", gap: '29px', fontSize: '14px' }}
           >
             <a
               href="#"
               onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-              className="hover:text-[#C4B5FD] transition-colors"
+              className="hover:text-[#C4B5FD] transition-colors text-[#C4B5FD]"
             >
               Home
             </a>
-            <a href="#about" className="hover:text-[#C4B5FD] transition-colors">
+            <Link to="/about" className="hover:text-[#C4B5FD] transition-colors">
               About
-            </a>
+            </Link>
             <Link to="/playlist" className="hover:text-[#C4B5FD] transition-colors">
               My Playlists
             </Link>
@@ -366,13 +369,13 @@ function Home() {
       </nav>
 
       {/* Main Content - fills middle, scrollable */}
-      <main className="flex-1 overflow-y-auto" style={{ padding: '0 176px' }}>
+      <main className="flex-1 overflow-y-auto" style={{ padding: '0 158px' }}>
         {/* Hero Section - fills viewport */}
         <section
           id="home"
           ref={heroRef}
           style={{
-            minHeight: 'calc(100vh - 80px)',
+            minHeight: 'calc(100vh - 72px)',
             display: 'flex',
             alignItems: 'center'
           }}
@@ -388,10 +391,10 @@ function Home() {
               transition={{ duration: 0.6, delay: 0.1 }}
               style={{
                 fontFamily: "'Inter', sans-serif",
-                fontSize: '32px',
+                fontSize: '29px',
                 lineHeight: '1.2',
                 color: '#E8E8E3',
-                marginBottom: '24px'
+                marginBottom: '22px'
               }}
             >
               Hi! I'm{' '}
@@ -407,11 +410,11 @@ function Home() {
               transition={{ duration: 0.6, delay: 0.3 }}
               style={{
                 fontFamily: "'Inter', sans-serif",
-                fontSize: '64px',
-                height: '80px',
+                fontSize: '58px',
+                height: '72px',
                 lineHeight: '1.2',
                 fontWeight: '700',
-                marginBottom: '48px'
+                marginBottom: '43px'
               }}
             >
               I am a{' '}
@@ -439,10 +442,10 @@ function Home() {
               className="max-w-3xl"
               style={{
                 fontFamily: "'Inter', sans-serif",
-                fontSize: '24px',
+                fontSize: '22px',
                 lineHeight: '1.6',
                 color: '#E8E8E3',
-                marginBottom: '32px'
+                marginBottom: '29px'
               }}
             >
               I like to <JumpingText delay={0}>design</JumpingText> and{' '}
@@ -456,13 +459,13 @@ function Home() {
               transition={{ duration: 0.6, delay: 0.7 }}
               style={{
                 fontFamily: "'Inter', sans-serif",
-                fontSize: '16px',
+                fontSize: '14px',
                 lineHeight: '1.6',
                 color: '#E8E8E3',
-                marginBottom: '8px'
+                marginBottom: '7px'
               }}
             >
-              Computer Science <span style={{ fontSize: '24px' }}>∩</span> Cognitive Science @ UCSD
+              Computer Science <span style={{ fontSize: '22px' }}>∩</span> Cognitive Science @ UCSD
             </motion.p>
 
             <motion.p
@@ -472,7 +475,7 @@ function Home() {
               className="italic"
               style={{
                 fontFamily: "'Courier New', monospace",
-                fontSize: '16px',
+                fontSize: '14px',
                 lineHeight: '1.6',
                 color: '#E8E8E3',
                 opacity: 1
@@ -488,26 +491,26 @@ function Home() {
           id="title-tracks"
           ref={titleTracksRef}
           style={{
-            paddingTop: '176px',
-            paddingBottom: '176px',
+            paddingTop: '158px',
+            paddingBottom: '158px',
             backgroundColor: '#E8E8E3',
-            marginLeft: '-176px',
-            marginRight: '-176px',
-            paddingLeft: '176px',
-            paddingRight: '176px'
+            marginLeft: '-158px',
+            marginRight: '-158px',
+            paddingLeft: '158px',
+            paddingRight: '158px'
           }}
         >
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={titleTracksInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            style={{ marginBottom: '48px' }}
+            style={{ marginBottom: '43px' }}
           >
             <h3
               className="font-bold"
               style={{
                 fontFamily: "'Clash Display', sans-serif",
-                fontSize: '64px',
+                fontSize: '58px',
                 lineHeight: '1.2',
                 color: '#262626',
                 fontWeight: '700'
@@ -537,20 +540,20 @@ function Home() {
                 }}
                 style={{
                   backgroundColor: '#262626',
-                  borderRadius: '12px',
-                  padding: '48px',
-                  marginBottom: '48px',
+                  borderRadius: '11px',
+                  padding: '43px',
+                  marginBottom: '43px',
                   cursor: 'pointer'
                 }}
               >
-              <div style={{ display: 'flex', gap: '48px', alignItems: 'start' }}>
+              <div style={{ display: 'flex', gap: '43px', alignItems: 'start' }}>
                 {/* Project Media (Image or Video) */}
                 <motion.div
                   style={{
-                    width: '400px',
-                    height: '400px',
+                    width: '360px',
+                    height: '360px',
                     backgroundColor: '#262626',
-                    borderRadius: '12px',
+                    borderRadius: '11px',
                     flexShrink: 0,
                     overflow: 'hidden',
                     display: 'flex',
@@ -590,7 +593,7 @@ function Home() {
                   ) : (
                     <span
                       style={{
-                        fontSize: '80px',
+                        fontSize: '72px',
                         fontWeight: 'bold',
                         color: '#C4B5FD',
                         fontFamily: "'Clash Display', sans-serif"
@@ -607,7 +610,7 @@ function Home() {
                     flex: 1,
                     display: 'flex',
                     flexDirection: 'column',
-                    height: '400px',
+                    height: '360px',
                     justifyContent: 'space-between'
                   }}
                 >
@@ -616,9 +619,9 @@ function Home() {
                       className="gradient-text"
                       style={{
                         fontFamily: "'Clash Display', sans-serif",
-                        fontSize: '64px',
+                        fontSize: '58px',
                         fontWeight: '700',
-                        marginBottom: '32px',
+                        marginBottom: '29px',
                         lineHeight: '1.2'
                       }}
                     >
@@ -627,7 +630,7 @@ function Home() {
                     <p
                       style={{
                         fontFamily: "'Inter', sans-serif",
-                        fontSize: '18px',
+                        fontSize: '16px',
                         color: '#ffffff',
                         lineHeight: '1.6',
                         marginTop: 'auto',
@@ -641,20 +644,20 @@ function Home() {
                   {/* Bottom row: Type tags on left, View More on right - aligned with image bottom */}
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
                     {/* Type tags - left side */}
-                    <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center' }}>
+                    <div style={{ display: 'flex', gap: '11px', flexWrap: 'wrap', alignItems: 'center' }}>
                       {projects[currentProjectIndex].types.map((type) => (
                         <span
                           key={type}
                           style={{
                             fontFamily: "'Inter', sans-serif",
-                            fontSize: '13px',
-                            padding: '6px 14px',
+                            fontSize: '12px',
+                            padding: '5px 13px',
                             backgroundColor: 'rgba(196, 181, 253, 0.15)',
                             border: '1px solid #C4B5FD',
-                            borderRadius: '20px',
+                            borderRadius: '18px',
                             color: '#C4B5FD',
                             fontWeight: '500',
-                            boxShadow: '0 0 12px rgba(196, 181, 253, 0.4)'
+                            boxShadow: '0 0 11px rgba(196, 181, 253, 0.4)'
                           }}
                         >
                           {type}
@@ -666,7 +669,7 @@ function Home() {
                     <span
                       style={{
                         fontFamily: "'Inter', sans-serif",
-                        fontSize: '14px',
+                        fontSize: '13px',
                         color: '#262626',
                         cursor: 'pointer',
                         fontWeight: '600',
@@ -694,15 +697,15 @@ function Home() {
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '16px',
-                marginBottom: '24px'
+                gap: '14px',
+                marginBottom: '22px'
               }}
             >
               {/* Start timestamp */}
               <span
                 style={{
                   fontFamily: "'Inter', sans-serif",
-                  fontSize: '12px',
+                  fontSize: '11px',
                   color: '#4E4A5C',
                   flexShrink: 0
                 }}
@@ -734,7 +737,7 @@ function Home() {
               <span
                 style={{
                   fontFamily: "'Inter', sans-serif",
-                  fontSize: '12px',
+                  fontSize: '11px',
                   color: '#4E4A5C',
                   flexShrink: 0
                 }}
@@ -744,7 +747,7 @@ function Home() {
             </div>
 
             {/* Control Buttons */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '14px' }}>
               {/* Previous Button */}
               <button
                 onClick={handlePrevProject}
@@ -753,7 +756,7 @@ function Home() {
                   border: 'none',
                   cursor: 'pointer',
                   color: '#262626',
-                  padding: '8px',
+                  padding: '7px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -762,7 +765,7 @@ function Home() {
                 onMouseEnter={(e) => e.currentTarget.style.color = '#4E4A5C'}
                 onMouseLeave={(e) => e.currentTarget.style.color = '#262626'}
               >
-                <SkipBack size={32} weight="fill" />
+                <SkipBack size={29} weight="fill" />
               </button>
 
               {/* Pause/Play Button */}
@@ -773,19 +776,19 @@ function Home() {
                   border: 'none',
                   cursor: 'pointer',
                   color: '#E8E8E3',
-                  padding: '12px',
+                  padding: '11px',
                   borderRadius: '50%',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  width: '56px',
-                  height: '56px',
+                  width: '50px',
+                  height: '50px',
                   transition: 'transform 0.2s'
                 }}
                 onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
                 onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
               >
-                {isPaused ? <Play size={28} weight="fill" /> : <Pause size={28} weight="fill" />}
+                {isPaused ? <Play size={25} weight="fill" /> : <Pause size={25} weight="fill" />}
               </button>
 
               {/* Next Button */}
@@ -796,7 +799,7 @@ function Home() {
                   border: 'none',
                   cursor: 'pointer',
                   color: '#262626',
-                  padding: '8px',
+                  padding: '7px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -805,13 +808,13 @@ function Home() {
                 onMouseEnter={(e) => e.currentTarget.style.color = '#4E4A5C'}
                 onMouseLeave={(e) => e.currentTarget.style.color = '#262626'}
               >
-                <SkipForward size={32} weight="fill" />
+                <SkipForward size={29} weight="fill" />
               </button>
             </div>
 
             {/* View All My Work Link */}
             <motion.div
-              style={{ marginTop: '48px' }}
+              style={{ marginTop: '43px' }}
               whileHover="hover"
               initial="rest"
             >
@@ -821,12 +824,12 @@ function Home() {
                 onMouseLeave={() => setIsViewAllHovered(false)}
                 style={{
                   fontFamily: "'Clash Display', sans-serif",
-                  fontSize: '48px',
+                  fontSize: '43px',
                   textDecoration: 'none',
                   fontWeight: '700',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '16px',
+                  gap: '14px',
                   color: '#262626'
                 }}
               >
@@ -842,7 +845,7 @@ function Home() {
                   style={{ display: 'flex', color: '#262626' }}
                   className={isViewAllHovered ? 'pulsing-glow' : ''}
                 >
-                  <ArrowRight size={48} weight="bold" />
+                  <ArrowRight size={43} weight="bold" />
                 </motion.span>
               </Link>
             </motion.div>
@@ -853,21 +856,21 @@ function Home() {
         <footer
           style={{
             backgroundColor: '#262626',
-            marginLeft: '-176px',
-            marginRight: '-176px',
-            paddingLeft: '176px',
-            paddingRight: '176px',
-            paddingTop: '80px',
-            paddingBottom: '40px',
+            marginLeft: '-158px',
+            marginRight: '-158px',
+            paddingLeft: '158px',
+            paddingRight: '158px',
+            paddingTop: '72px',
+            paddingBottom: '36px',
             borderTop: '1px solid rgba(255,255,255,0.1)'
           }}
         >
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '64px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '58px' }}>
             {/* Left side - Message */}
-            <div style={{ maxWidth: '400px' }}>
+            <div style={{ maxWidth: '360px' }}>
               <p style={{
                 fontFamily: "'Clash Display', sans-serif",
-                fontSize: '24px',
+                fontSize: '22px',
                 fontWeight: '600',
                 color: '#E8E8E3',
                 lineHeight: '1.4'
@@ -877,25 +880,25 @@ function Home() {
             </div>
 
             {/* Right side - Navigation and Connections */}
-            <div style={{ display: 'flex', gap: '80px' }}>
+            <div style={{ display: 'flex', gap: '72px' }}>
               {/* Navigation */}
               <div>
                 <h4 style={{
                   fontFamily: "'Clash Display', sans-serif",
-                  fontSize: '16px',
+                  fontSize: '14px',
                   fontWeight: '600',
                   color: '#C4B5FD',
-                  marginBottom: '24px'
+                  marginBottom: '22px'
                 }}>
                   Navigation
                 </h4>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                   <a
                     href="#"
                     onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                     style={{
                       fontFamily: "'Inter', sans-serif",
-                      fontSize: '14px',
+                      fontSize: '13px',
                       color: 'rgba(255,255,255,0.7)',
                       textDecoration: 'none'
                     }}
@@ -903,53 +906,37 @@ function Home() {
                   >
                     Home
                   </a>
-                  <a
-                    href="#title-tracks"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      document.getElementById('title-tracks').scrollIntoView({ behavior: 'smooth' });
-                    }}
-                    style={{
-                      fontFamily: "'Inter', sans-serif",
-                      fontSize: '14px',
-                      color: 'rgba(255,255,255,0.7)',
-                      textDecoration: 'none'
-                    }}
-                    className="hover:text-white transition-colors"
-                  >
-                    Featured Tracks
-                  </a>
                   <Link
-                    to="/playlist"
+                    to="/about"
                     style={{
                       fontFamily: "'Inter', sans-serif",
-                      fontSize: '14px',
-                      color: 'rgba(255,255,255,0.7)',
-                      textDecoration: 'none'
-                    }}
-                    className="hover:text-white transition-colors"
-                  >
-                    Playlist
-                  </Link>
-                  <a
-                    href="#about"
-                    style={{
-                      fontFamily: "'Inter', sans-serif",
-                      fontSize: '14px',
+                      fontSize: '13px',
                       color: 'rgba(255,255,255,0.7)',
                       textDecoration: 'none'
                     }}
                     className="hover:text-white transition-colors"
                   >
                     About
-                  </a>
+                  </Link>
+                  <Link
+                    to="/playlist"
+                    style={{
+                      fontFamily: "'Inter', sans-serif",
+                      fontSize: '13px',
+                      color: 'rgba(255,255,255,0.7)',
+                      textDecoration: 'none'
+                    }}
+                    className="hover:text-white transition-colors"
+                  >
+                    My Playlists
+                  </Link>
                   <a
                     href="/resume/khangresume.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{
                       fontFamily: "'Inter', sans-serif",
-                      fontSize: '14px',
+                      fontSize: '13px',
                       color: 'rgba(255,255,255,0.7)',
                       textDecoration: 'none'
                     }}
@@ -964,21 +951,21 @@ function Home() {
               <div>
                 <h4 style={{
                   fontFamily: "'Clash Display', sans-serif",
-                  fontSize: '16px',
+                  fontSize: '14px',
                   fontWeight: '600',
                   color: '#C4B5FD',
-                  marginBottom: '24px'
+                  marginBottom: '22px'
                 }}>
                   Connections
                 </h4>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                   <a
                     href="https://www.linkedin.com/in/yourprofile"
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{
                       fontFamily: "'Inter', sans-serif",
-                      fontSize: '14px',
+                      fontSize: '13px',
                       color: 'rgba(255,255,255,0.7)',
                       textDecoration: 'none'
                     }}
@@ -992,7 +979,7 @@ function Home() {
                     rel="noopener noreferrer"
                     style={{
                       fontFamily: "'Inter', sans-serif",
-                      fontSize: '14px',
+                      fontSize: '13px',
                       color: 'rgba(255,255,255,0.7)',
                       textDecoration: 'none'
                     }}
@@ -1004,7 +991,7 @@ function Home() {
                     href="mailto:your.email@example.com"
                     style={{
                       fontFamily: "'Inter', sans-serif",
-                      fontSize: '14px',
+                      fontSize: '13px',
                       color: 'rgba(255,255,255,0.7)',
                       textDecoration: 'none'
                     }}
@@ -1022,12 +1009,12 @@ function Home() {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            paddingTop: '32px',
+            paddingTop: '29px',
             borderTop: '1px solid rgba(255,255,255,0.1)'
           }}>
             <p style={{
               fontFamily: "'Inter', sans-serif",
-              fontSize: '14px',
+              fontSize: '13px',
               color: 'rgba(255,255,255,0.5)'
             }}>
               © 2026 Khang Nguyen
@@ -1036,7 +1023,7 @@ function Home() {
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               style={{
                 fontFamily: "'Inter', sans-serif",
-                fontSize: '14px',
+                fontSize: '13px',
                 color: 'rgba(255,255,255,0.7)',
                 background: 'none',
                 border: 'none',

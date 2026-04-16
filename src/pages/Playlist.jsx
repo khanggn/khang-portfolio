@@ -314,7 +314,7 @@ function Playlist() {
 
   // Scroll to top when component mounts
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }, []);
 
   // Cleanup on unmount
@@ -492,8 +492,10 @@ function Playlist() {
         console.log('♻️ Reusing existing analyser');
       }
 
-      // Play new audio
-      audio.currentTime = 0;
+      // Play audio (only reset to 0 if switching from a different playlist)
+      if (playingPlaylist && playingPlaylist !== playlistId) {
+        audio.currentTime = 0;
+      }
       audio.volume = audioVolume;
       audio.play();
       setPlayingPlaylist(playlistId);
@@ -592,29 +594,29 @@ function Playlist() {
       <nav
         className="sticky top-0 z-50 bg-[#262626] border-b border-white/10"
         style={{
-          height: '80px',
-          padding: '24px 176px',
+          height: '72px',
+          padding: '22px 158px',
           boxShadow: '0 8px 24px rgba(255, 255, 255, 0.08)'
         }}
       >
         <div className="flex justify-between items-center h-full">
           <Link
             to="/"
-            className="text-3xl font-bold"
-            style={{ fontFamily: "'Clash Display', sans-serif" }}
+            className="font-bold"
+            style={{ fontFamily: "'Clash Display', sans-serif", fontSize: '27px' }}
           >
             Khang's Wrapped
           </Link>
           <div
-            className="flex items-center text-base"
-            style={{ fontFamily: "'Inter', sans-serif", gap: '32px' }}
+            className="flex items-center"
+            style={{ fontFamily: "'Inter', sans-serif", gap: '29px', fontSize: '14px' }}
           >
             <Link to="/" className="hover:text-[#C4B5FD] transition-colors">
               Home
             </Link>
-            <a href="/#about" className="hover:text-[#C4B5FD] transition-colors">
+            <Link to="/about" className="hover:text-[#C4B5FD] transition-colors">
               About
-            </a>
+            </Link>
             <Link
               to="/playlist"
               onClick={(e) => {
@@ -645,7 +647,7 @@ function Playlist() {
         }}
       >
         {/* Landing Section */}
-        <section style={{ padding: '80px 176px 176px 176px' }}>
+        <section style={{ padding: '72px 158px 158px 158px' }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -656,9 +658,9 @@ function Playlist() {
               className="font-bold"
               style={{
                 fontFamily: "'Clash Display', sans-serif",
-                fontSize: '64px',
+                fontSize: '58px',
                 lineHeight: '1.2',
-                marginBottom: '16px'
+                marginBottom: '14px'
               }}
             >
               <span className="gradient-shimmer">Discover My Projects </span>
@@ -668,9 +670,9 @@ function Playlist() {
             <p
               style={{
                 fontFamily: "'Inter', sans-serif",
-                fontSize: '18px',
+                fontSize: '16px',
                 color: 'rgba(255,255,255,0.7)',
-                marginBottom: '48px',
+                marginBottom: '43px',
                 lineHeight: '1.6'
               }}
             >
@@ -681,13 +683,13 @@ function Playlist() {
             <div
               style={{
                 border: '1px solid rgba(196, 181, 253, 0.3)',
-                borderRadius: '16px',
-                padding: '64px 48px',
+                borderRadius: '14px',
+                padding: '58px 43px',
                 backgroundColor: 'rgba(78, 74, 92, 0.2)'
               }}
             >
               {/* Filter Tabs */}
-              <div style={{ display: 'flex', gap: '16px', marginBottom: '48px' }}>
+              <div style={{ display: 'flex', gap: '14px', marginBottom: '43px' }}>
             {['all', 'swe', 'uiux'].map((filter) => (
               <motion.button
                 key={filter}
@@ -696,10 +698,10 @@ function Playlist() {
                 whileTap={{ scale: 0.95 }}
                 style={{
                   fontFamily: "'Inter', sans-serif",
-                  fontSize: '16px',
+                  fontSize: '14px',
                   fontWeight: '500',
-                  padding: '12px 32px',
-                  borderRadius: '24px',
+                  padding: '11px 29px',
+                  borderRadius: '22px',
                   border: '2px solid #C4B5FD',
                   cursor: 'pointer',
                   position: 'relative',
@@ -727,7 +729,7 @@ function Playlist() {
                     right: 0,
                     bottom: 0,
                     background: 'linear-gradient(90deg, #C4B5FD 0%, #E5DEFF 50%, #C4B5FD 100%)',
-                    borderRadius: '22px',
+                    borderRadius: '20px',
                     zIndex: -1
                   }}
                 />
@@ -741,7 +743,7 @@ function Playlist() {
           </div>
 
           {/* Playlist Cards Grid - Filtered */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '22px' }}>
             <AnimatePresence mode="wait">
             {playlists
               .filter(playlist => selectedPlaylist === 'all' || playlist.category === selectedPlaylist)
@@ -767,18 +769,18 @@ function Playlist() {
                   display: 'flex',
                   alignItems: 'center',
                   backgroundColor: playlist.color,
-                  borderRadius: '8px',
+                  borderRadius: '7px',
                   overflow: 'hidden',
                   cursor: 'pointer',
-                  height: '120px',
+                  height: '108px',
                   boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)'
                 }}
               >
                 {/* Playlist Image */}
                 <div
                   style={{
-                    width: '120px',
-                    height: '120px',
+                    width: '108px',
+                    height: '108px',
                     backgroundColor: '#4E4A5C',
                     flexShrink: 0,
                     overflow: 'hidden',
@@ -807,8 +809,8 @@ function Playlist() {
                           position: 'absolute',
                           top: '0',
                           left: '0',
-                          width: '120px',
-                          height: '120px',
+                          width: '108px',
+                          height: '108px',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
@@ -817,8 +819,8 @@ function Playlist() {
                       >
                         <div
                           style={{
-                            width: '48px',
-                            height: '48px',
+                            width: '43px',
+                            height: '43px',
                             borderRadius: '50%',
                             backgroundColor: '#C4B5FD',
                             display: 'flex',
@@ -835,11 +837,11 @@ function Playlist() {
                 </div>
 
                 {/* Playlist Title & Description */}
-                <div style={{ padding: '0 20px', flex: 1 }}>
+                <div style={{ padding: '0 18px', flex: 1 }}>
                   <h3
                     style={{
                       fontFamily: "'Clash Display', sans-serif",
-                      fontSize: '20px',
+                      fontSize: '18px',
                       fontWeight: '600',
                       color: '#262626',
                       lineHeight: '1.3',
@@ -851,7 +853,7 @@ function Playlist() {
                   <p
                     style={{
                       fontFamily: "'Inter', sans-serif",
-                      fontSize: '12px',
+                      fontSize: '11px',
                       color: 'rgba(38, 38, 38, 0.7)',
                       lineHeight: '1.4'
                     }}
@@ -872,12 +874,12 @@ function Playlist() {
           style={{
             height: '1px',
             background: 'linear-gradient(90deg, transparent 0%, rgba(196, 181, 253, 0.5) 50%, transparent 100%)',
-            margin: '0 176px'
+            margin: '0 158px'
           }}
         />
 
         {/* Playlist Detail Sections */}
-        <section style={{ padding: '0 176px 176px 176px' }}>
+        <section style={{ padding: '0 158px 158px 158px' }}>
           {playlists.map((playlist, index) => {
             const playlistProjects = projects
               .filter(p => playlist.category === 'all' || p.category === playlist.category)
@@ -895,8 +897,8 @@ function Playlist() {
                     style={{
                       height: '1px',
                       background: 'linear-gradient(90deg, transparent 0%, rgba(196, 181, 253, 0.5) 50%, transparent 100%)',
-                      marginTop: '120px',
-                      marginBottom: '120px'
+                      marginTop: '108px',
+                      marginBottom: '108px'
                     }}
                   />
                 )}
@@ -906,7 +908,7 @@ function Playlist() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.2 * index }}
                   style={{
-                    marginTop: index === 0 ? '120px' : '0',
+                    marginTop: index === 0 ? '108px' : '0',
                     position: 'relative'
                   }}
                 >
@@ -928,13 +930,13 @@ function Playlist() {
                 </motion.div>
 
                 {/* Playlist Header */}
-                <div style={{ display: 'flex', gap: '32px', marginBottom: '48px' }}>
+                <div style={{ display: 'flex', gap: '29px', marginBottom: '43px' }}>
                   {/* Playlist Image */}
                   <div
                     style={{
-                      width: '232px',
-                      height: '232px',
-                      borderRadius: '8px',
+                      width: '209px',
+                      height: '209px',
+                      borderRadius: '7px',
                       overflow: 'hidden',
                       flexShrink: 0,
                       boxShadow: '0 8px 24px rgba(0, 0, 0, 0.5)'
@@ -956,10 +958,10 @@ function Playlist() {
                     <p
                       style={{
                         fontFamily: "'Inter', sans-serif",
-                        fontSize: '14px',
+                        fontSize: '13px',
                         fontWeight: '600',
                         color: '#E8E8E3',
-                        marginBottom: '8px'
+                        marginBottom: '7px'
                       }}
                     >
                       Public Playlist
@@ -967,11 +969,11 @@ function Playlist() {
                     <h2
                       style={{
                         fontFamily: "'Clash Display', sans-serif",
-                        fontSize: '48px',
+                        fontSize: '43px',
                         fontWeight: '700',
                         color: '#E8E8E3',
                         lineHeight: '1.2',
-                        marginBottom: '16px'
+                        marginBottom: '14px'
                       }}
                     >
                       {playlist.title}
@@ -979,7 +981,7 @@ function Playlist() {
                     <p
                       style={{
                         fontFamily: "'Inter', sans-serif",
-                        fontSize: '14px',
+                        fontSize: '13px',
                         color: 'rgba(255,255,255,0.7)',
                         lineHeight: '1.6'
                       }}
@@ -989,14 +991,14 @@ function Playlist() {
                   </div>
 
                   {/* Play/Pause Button */}
-                  <div style={{ display: 'flex', alignItems: 'flex-end', paddingBottom: '8px' }}>
+                  <div style={{ display: 'flex', alignItems: 'flex-end', paddingBottom: '7px' }}>
                     <motion.button
                       onClick={() => handlePlayPause(playlist.id)}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       style={{
-                        width: '64px',
-                        height: '64px',
+                        width: '58px',
+                        height: '58px',
                         borderRadius: '50%',
                         backgroundColor: '#C4B5FD',
                         border: 'none',
@@ -1027,18 +1029,18 @@ function Playlist() {
                 </div>
 
                 {/* Progress Bar and Volume Control */}
-                <div style={{ marginTop: '24px', marginBottom: '32px' }}>
+                <div style={{ marginTop: '22px', marginBottom: '29px' }}>
                   {/* Progress Bar */}
                   <div
                     onClick={(e) => handleProgressClick(playlist.id, e)}
                     style={{
                       width: '100%',
-                      height: '6px',
+                      height: '5px',
                       backgroundColor: 'rgba(255, 255, 255, 0.1)',
                       borderRadius: '3px',
                       cursor: 'pointer',
                       overflow: 'hidden',
-                      marginBottom: '12px'
+                      marginBottom: '11px'
                     }}
                   >
                     <div
@@ -1055,17 +1057,17 @@ function Playlist() {
                   {/* Now Playing and Volume Control */}
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     {/* Now Playing */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '12px', color: 'rgba(255,255,255,0.5)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
+                      <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '11px', color: 'rgba(255,255,255,0.5)' }}>
                         Now Playing:
                       </span>
-                      <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '12px', color: '#C4B5FD', fontWeight: '500' }}>
+                      <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '11px', color: '#C4B5FD', fontWeight: '500' }}>
                         {playlist.songName}
                       </span>
                     </div>
 
                     {/* Volume Control */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
                       {audioVolume === 0 ? (
                         <SpeakerSlash size={18} weight="fill" color="rgba(255,255,255,0.5)" />
                       ) : audioVolume < 0.5 ? (
@@ -1081,7 +1083,7 @@ function Playlist() {
                         value={audioVolume}
                         onChange={handleVolumeChange}
                         style={{
-                          width: '100px',
+                          width: '90px',
                           height: '4px',
                           borderRadius: '2px',
                           outline: 'none',
@@ -1099,9 +1101,9 @@ function Playlist() {
                 <div
                   style={{
                     backgroundColor: 'rgba(78, 74, 92, 0.2)',
-                    borderRadius: '8px',
-                    padding: '24px',
-                    maxHeight: '440px',
+                    borderRadius: '7px',
+                    padding: '22px',
+                    maxHeight: '396px',
                     overflowY: 'auto',
                     border: playingPlaylist === playlist.id
                       ? `2px solid rgba(196, 181, 253, ${0.3 + pulseIntensity * 0.3})`
@@ -1120,17 +1122,17 @@ function Playlist() {
                   <div
                     style={{
                       display: 'grid',
-                      gridTemplateColumns: '40px 1fr 200px',
-                      gap: '16px',
-                      padding: '0 16px 16px 16px',
+                      gridTemplateColumns: '36px 1fr 180px',
+                      gap: '14px',
+                      padding: '0 14px 14px 14px',
                       borderBottom: '1px solid rgba(255,255,255,0.1)',
-                      marginBottom: '8px'
+                      marginBottom: '7px'
                     }}
                   >
                     <span
                       style={{
                         fontFamily: "'Inter', sans-serif",
-                        fontSize: '14px',
+                        fontSize: '13px',
                         color: 'rgba(255,255,255,0.5)',
                         fontWeight: '500'
                       }}
@@ -1140,7 +1142,7 @@ function Playlist() {
                     <span
                       style={{
                         fontFamily: "'Inter', sans-serif",
-                        fontSize: '14px',
+                        fontSize: '13px',
                         color: 'rgba(255,255,255,0.5)',
                         fontWeight: '500'
                       }}
@@ -1150,7 +1152,7 @@ function Playlist() {
                     <span
                       style={{
                         fontFamily: "'Inter', sans-serif",
-                        fontSize: '14px',
+                        fontSize: '13px',
                         color: 'rgba(255,255,255,0.5)',
                         fontWeight: '500',
                         textAlign: 'right'
@@ -1169,9 +1171,9 @@ function Playlist() {
                       }}
                       style={{
                         display: 'grid',
-                        gridTemplateColumns: '40px 1fr 200px',
-                        gap: '16px',
-                        padding: '12px 16px',
+                        gridTemplateColumns: '36px 1fr 180px',
+                        gap: '14px',
+                        padding: '11px 14px',
                         borderRadius: '4px',
                         cursor: 'pointer',
                         transition: 'background-color 0.2s ease'
@@ -1181,7 +1183,7 @@ function Playlist() {
                       <span
                         style={{
                           fontFamily: "'Inter', sans-serif",
-                          fontSize: '14px',
+                          fontSize: '13px',
                           color: 'rgba(255,255,255,0.7)',
                           display: 'flex',
                           alignItems: 'center'
@@ -1191,10 +1193,10 @@ function Playlist() {
                       </span>
 
                       {/* Project Info */}
-                      <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+                      <div style={{ display: 'flex', gap: '14px', alignItems: 'center' }}>
                         <div style={{
-                          width: '48px',
-                          height: '48px',
+                          width: '43px',
+                          height: '43px',
                           borderRadius: '4px',
                           overflow: 'hidden',
                           position: 'relative'
@@ -1214,7 +1216,7 @@ function Playlist() {
                           <p
                             style={{
                               fontFamily: "'Inter', sans-serif",
-                              fontSize: '16px',
+                              fontSize: '14px',
                               fontWeight: '500',
                               color: '#E8E8E3',
                               marginBottom: '4px'
@@ -1225,7 +1227,7 @@ function Playlist() {
                           <p
                             style={{
                               fontFamily: "'Inter', sans-serif",
-                              fontSize: '13px',
+                              fontSize: '12px',
                               color: 'rgba(255,255,255,0.5)'
                             }}
                           >
@@ -1238,7 +1240,7 @@ function Playlist() {
                       <span
                         style={{
                           fontFamily: "'Inter', sans-serif",
-                          fontSize: '14px',
+                          fontSize: '13px',
                           color: 'rgba(255,255,255,0.7)',
                           display: 'flex',
                           alignItems: 'center',
@@ -1261,19 +1263,19 @@ function Playlist() {
       <footer
         style={{
           backgroundColor: '#262626',
-          paddingLeft: '176px',
-          paddingRight: '176px',
-          paddingTop: '80px',
-          paddingBottom: '40px',
+          paddingLeft: '158px',
+          paddingRight: '158px',
+          paddingTop: '72px',
+          paddingBottom: '36px',
           borderTop: '1px solid rgba(255,255,255,0.1)'
         }}
       >
-        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '64px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '58px' }}>
           {/* Left side - Message */}
-          <div style={{ maxWidth: '400px' }}>
+          <div style={{ maxWidth: '360px' }}>
             <p style={{
               fontFamily: "'Clash Display', sans-serif",
-              fontSize: '24px',
+              fontSize: '22px',
               fontWeight: '600',
               color: '#E8E8E3',
               lineHeight: '1.4'
@@ -1283,24 +1285,24 @@ function Playlist() {
           </div>
 
           {/* Right side - Navigation and Connections */}
-          <div style={{ display: 'flex', gap: '80px' }}>
+          <div style={{ display: 'flex', gap: '72px' }}>
             {/* Navigation */}
             <div>
               <h4 style={{
                 fontFamily: "'Clash Display', sans-serif",
-                fontSize: '16px',
+                fontSize: '14px',
                 fontWeight: '600',
                 color: '#C4B5FD',
-                marginBottom: '24px'
+                marginBottom: '22px'
               }}>
                 Navigation
               </h4>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                 <Link
                   to="/"
                   style={{
                     fontFamily: "'Inter', sans-serif",
-                    fontSize: '14px',
+                    fontSize: '13px',
                     color: 'rgba(255,255,255,0.7)',
                     textDecoration: 'none'
                   }}
@@ -1308,49 +1310,37 @@ function Playlist() {
                 >
                   Home
                 </Link>
-                <a
-                  href="/#title-tracks"
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: '14px',
-                    color: 'rgba(255,255,255,0.7)',
-                    textDecoration: 'none'
-                  }}
-                  className="hover:text-white transition-colors"
-                >
-                  Featured Tracks
-                </a>
                 <Link
-                  to="/playlist"
+                  to="/about"
                   style={{
                     fontFamily: "'Inter', sans-serif",
-                    fontSize: '14px',
-                    color: 'rgba(255,255,255,0.7)',
-                    textDecoration: 'none'
-                  }}
-                  className="hover:text-white transition-colors"
-                >
-                  Playlist
-                </Link>
-                <a
-                  href="/#about"
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: '14px',
+                    fontSize: '13px',
                     color: 'rgba(255,255,255,0.7)',
                     textDecoration: 'none'
                   }}
                   className="hover:text-white transition-colors"
                 >
                   About
-                </a>
+                </Link>
+                <Link
+                  to="/playlist"
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: '13px',
+                    color: 'rgba(255,255,255,0.7)',
+                    textDecoration: 'none'
+                  }}
+                  className="hover:text-white transition-colors"
+                >
+                  My Playlists
+                </Link>
                 <a
                   href="/resume/khangresume.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
                     fontFamily: "'Inter', sans-serif",
-                    fontSize: '14px',
+                    fontSize: '13px',
                     color: 'rgba(255,255,255,0.7)',
                     textDecoration: 'none'
                   }}
@@ -1365,21 +1355,21 @@ function Playlist() {
             <div>
               <h4 style={{
                 fontFamily: "'Clash Display', sans-serif",
-                fontSize: '16px',
+                fontSize: '14px',
                 fontWeight: '600',
                 color: '#C4B5FD',
-                marginBottom: '24px'
+                marginBottom: '22px'
               }}>
                 Connections
               </h4>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                 <a
                   href="https://www.linkedin.com/in/yourprofile"
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
                     fontFamily: "'Inter', sans-serif",
-                    fontSize: '14px',
+                    fontSize: '13px',
                     color: 'rgba(255,255,255,0.7)',
                     textDecoration: 'none'
                   }}
@@ -1393,7 +1383,7 @@ function Playlist() {
                   rel="noopener noreferrer"
                   style={{
                     fontFamily: "'Inter', sans-serif",
-                    fontSize: '14px',
+                    fontSize: '13px',
                     color: 'rgba(255,255,255,0.7)',
                     textDecoration: 'none'
                   }}
@@ -1405,7 +1395,7 @@ function Playlist() {
                   href="mailto:your.email@example.com"
                   style={{
                     fontFamily: "'Inter', sans-serif",
-                    fontSize: '14px',
+                    fontSize: '13px',
                     color: 'rgba(255,255,255,0.7)',
                     textDecoration: 'none'
                   }}
@@ -1423,12 +1413,12 @@ function Playlist() {
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          paddingTop: '32px',
+          paddingTop: '29px',
           borderTop: '1px solid rgba(255,255,255,0.1)'
         }}>
           <p style={{
             fontFamily: "'Inter', sans-serif",
-            fontSize: '14px',
+            fontSize: '13px',
             color: 'rgba(255,255,255,0.5)'
           }}>
             © 2026 Khang Nguyen
@@ -1437,7 +1427,7 @@ function Playlist() {
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             style={{
               fontFamily: "'Inter', sans-serif",
-              fontSize: '14px',
+              fontSize: '13px',
               color: 'rgba(255,255,255,0.7)',
               background: 'none',
               border: 'none',
