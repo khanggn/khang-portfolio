@@ -203,9 +203,7 @@ function Home() {
   const [isPaused, setIsPaused] = useState(false);
   const [isCardHovered, setIsCardHovered] = useState(false);
   const [isOnWhiteSection, setIsOnWhiteSection] = useState(false);
-  const [audioEnabled, setAudioEnabled] = useState(false);
-  const audioRef = useRef(null);
-  const mouseMoveTimeoutRef = useRef(null);
+  const [isViewAllHovered, setIsViewAllHovered] = useState(false);
   const heroRef = useRef(null);
   const titleTracksRef = useRef(null);
   const titleTracksInView = useInView(titleTracksRef, {
@@ -244,38 +242,6 @@ function Home() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Mouse movement audio control
-  useEffect(() => {
-    const handleMouseMove = () => {
-      if (audioEnabled && audioRef.current) {
-        // Play audio and fade in
-        if (audioRef.current.paused) {
-          audioRef.current.play().catch(() => {});
-        }
-        audioRef.current.volume = 0.3;
-
-        // Clear existing timeout
-        if (mouseMoveTimeoutRef.current) {
-          clearTimeout(mouseMoveTimeoutRef.current);
-        }
-
-        // Set timeout to pause after 200ms of no movement
-        mouseMoveTimeoutRef.current = setTimeout(() => {
-          if (audioRef.current) {
-            audioRef.current.pause();
-          }
-        }, 200);
-      }
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      if (mouseMoveTimeoutRef.current) {
-        clearTimeout(mouseMoveTimeoutRef.current);
-      }
-    };
-  }, [audioEnabled]);
 
   // Track scroll position for hero section
   const { scrollYProgress } = useScroll({
@@ -348,37 +314,6 @@ function Home() {
 
   return (
     <div className="min-h-screen bg-[#262626] text-white flex flex-col">
-      {/* Hidden audio element */}
-      <audio ref={audioRef} loop>
-        <source src="/audio/background-music.mp3" type="audio/mpeg" />
-      </audio>
-
-      {/* Enable Audio Button */}
-      {!audioEnabled && (
-        <button
-          onClick={() => setAudioEnabled(true)}
-          style={{
-            position: 'fixed',
-            bottom: '32px',
-            right: '32px',
-            zIndex: 9999,
-            backgroundColor: '#C4B5FD',
-            color: '#262626',
-            padding: '12px 24px',
-            borderRadius: '24px',
-            border: 'none',
-            fontFamily: "'Inter', sans-serif",
-            fontSize: '14px',
-            fontWeight: '600',
-            cursor: 'pointer',
-            boxShadow: '0 4px 12px rgba(196, 181, 253, 0.4)'
-          }}
-          className="hover:scale-105 transition-transform"
-        >
-          🎵 Enable Interactive Audio
-        </button>
-      )}
-
       {/* Music Note Cursor Trail */}
       <MusicCursorTrail />
 
@@ -416,7 +351,7 @@ function Home() {
               About
             </a>
             <Link to="/playlist" className="hover:text-[#C4B5FD] transition-colors">
-              Playlist
+              My Playlists
             </Link>
             <a
               href="/resume/khangresume.pdf"
@@ -882,25 +817,30 @@ function Home() {
             >
               <Link
                 to="/playlist"
+                onMouseEnter={() => setIsViewAllHovered(true)}
+                onMouseLeave={() => setIsViewAllHovered(false)}
                 style={{
                   fontFamily: "'Clash Display', sans-serif",
                   fontSize: '48px',
-                  color: '#262626',
                   textDecoration: 'none',
-                  fontWeight: '600',
+                  fontWeight: '700',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '16px'
+                  gap: '16px',
+                  color: '#262626'
                 }}
               >
-                View all my work
+                <span className={isViewAllHovered ? 'pulsing-glow' : ''} style={{ color: '#262626' }}>
+                  View all my work
+                </span>
                 <motion.span
                   variants={{
                     rest: { x: 0 },
                     hover: { x: 10 }
                   }}
                   transition={{ duration: 0.3, ease: "easeOut" }}
-                  style={{ display: 'flex' }}
+                  style={{ display: 'flex', color: '#262626' }}
+                  className={isViewAllHovered ? 'pulsing-glow' : ''}
                 >
                   <ArrowRight size={48} weight="bold" />
                 </motion.span>

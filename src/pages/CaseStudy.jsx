@@ -28,15 +28,12 @@ function CaseStudy() {
             <Link to="/" className="hover:text-[#C4B5FD] transition-colors">
               Home
             </Link>
-            <Link to="/#title-tracks" className="hover:text-[#C4B5FD] transition-colors">
-              Featured Tracks
-            </Link>
-            <Link to="/playlist" className="hover:text-[#C4B5FD] transition-colors">
-              Playlist
-            </Link>
-            <a href="#about" className="hover:text-[#C4B5FD] transition-colors">
+            <a href="/#about" className="hover:text-[#C4B5FD] transition-colors">
               About
             </a>
+            <Link to="/playlist" className="hover:text-[#C4B5FD] transition-colors">
+              My Playlists
+            </Link>
             <a
               href="/resume/khangresume.pdf"
               target="_blank"
@@ -239,6 +236,199 @@ function CaseStudy() {
           </Link>
         </motion.div>
       </main>
+
+      {/* Footer Section */}
+      <footer
+        style={{
+          backgroundColor: '#262626',
+          paddingLeft: '176px',
+          paddingRight: '176px',
+          paddingTop: '80px',
+          paddingBottom: '40px',
+          borderTop: '1px solid rgba(255,255,255,0.1)'
+        }}
+      >
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '64px' }}>
+          {/* Left side - Message */}
+          <div style={{ maxWidth: '400px' }}>
+            <p style={{
+              fontFamily: "'Clash Display', sans-serif",
+              fontSize: '24px',
+              fontWeight: '600',
+              color: '#E8E8E3',
+              lineHeight: '1.4'
+            }}>
+              Thanks for stopping by! Feel free to reach out if you'd like to collaborate or just chat about design and code.
+            </p>
+          </div>
+
+          {/* Right side - Navigation and Connections */}
+          <div style={{ display: 'flex', gap: '80px' }}>
+            {/* Navigation */}
+            <div>
+              <h4 style={{
+                fontFamily: "'Clash Display', sans-serif",
+                fontSize: '16px',
+                fontWeight: '600',
+                color: '#C4B5FD',
+                marginBottom: '24px'
+              }}>
+                Navigation
+              </h4>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <Link
+                  to="/"
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: '14px',
+                    color: 'rgba(255,255,255,0.7)',
+                    textDecoration: 'none'
+                  }}
+                  className="hover:text-white transition-colors"
+                >
+                  Home
+                </Link>
+                <a
+                  href="/#title-tracks"
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: '14px',
+                    color: 'rgba(255,255,255,0.7)',
+                    textDecoration: 'none'
+                  }}
+                  className="hover:text-white transition-colors"
+                >
+                  Featured Tracks
+                </a>
+                <Link
+                  to="/playlist"
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: '14px',
+                    color: 'rgba(255,255,255,0.7)',
+                    textDecoration: 'none'
+                  }}
+                  className="hover:text-white transition-colors"
+                >
+                  Playlist
+                </Link>
+                <a
+                  href="/#about"
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: '14px',
+                    color: 'rgba(255,255,255,0.7)',
+                    textDecoration: 'none'
+                  }}
+                  className="hover:text-white transition-colors"
+                >
+                  About
+                </a>
+                <a
+                  href="/resume/khangresume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: '14px',
+                    color: 'rgba(255,255,255,0.7)',
+                    textDecoration: 'none'
+                  }}
+                  className="hover:text-white transition-colors"
+                >
+                  Resume
+                </a>
+              </div>
+            </div>
+
+            {/* Connections */}
+            <div>
+              <h4 style={{
+                fontFamily: "'Clash Display', sans-serif",
+                fontSize: '16px',
+                fontWeight: '600',
+                color: '#C4B5FD',
+                marginBottom: '24px'
+              }}>
+                Connections
+              </h4>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <a
+                  href="https://www.linkedin.com/in/yourprofile"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: '14px',
+                    color: 'rgba(255,255,255,0.7)',
+                    textDecoration: 'none'
+                  }}
+                  className="hover:text-white transition-colors"
+                >
+                  LinkedIn
+                </a>
+                <a
+                  href="https://github.com/yourusername"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: '14px',
+                    color: 'rgba(255,255,255,0.7)',
+                    textDecoration: 'none'
+                  }}
+                  className="hover:text-white transition-colors"
+                >
+                  GitHub
+                </a>
+                <a
+                  href="mailto:your.email@example.com"
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: '14px',
+                    color: 'rgba(255,255,255,0.7)',
+                    textDecoration: 'none'
+                  }}
+                  className="hover:text-white transition-colors"
+                >
+                  Email
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          paddingTop: '32px',
+          borderTop: '1px solid rgba(255,255,255,0.1)'
+        }}>
+          <p style={{
+            fontFamily: "'Inter', sans-serif",
+            fontSize: '14px',
+            color: 'rgba(255,255,255,0.5)'
+          }}>
+            © 2026 Khang Nguyen
+          </p>
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontSize: '14px',
+              color: 'rgba(255,255,255,0.7)',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer'
+            }}
+            className="hover:text-[#C4B5FD] transition-colors"
+          >
+            Back to Top ↑
+          </button>
+        </div>
+      </footer>
     </div>
   );
 }
