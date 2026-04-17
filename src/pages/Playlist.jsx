@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MusicNote, MusicNotes, MusicNotesSimple, Play, Pause, X, SpeakerHigh, SpeakerLow, SpeakerSlash } from 'phosphor-react';
+import { MusicNote, MusicNotes, MusicNotesSimple, Play, Pause, X, SpeakerHigh, SpeakerLow, SpeakerSlash, CaretDown } from 'phosphor-react';
+import ProjectDetail from '../components/ProjectDetail';
 
 // Music note cursor trail component
 function MusicCursorTrail() {
@@ -157,37 +158,26 @@ function ScrollMusicNotes({ isScrolling, shouldSpawn }) {
 
 const playlists = [
   {
-    id: 'all',
-    title: 'this is khang',
-    description: 'All projects. SWE, UI/UX, and everything in between.',
-    color: '#E8E8E3',
-    image: '/images/projects/snorlax.jpeg',
-    category: 'all',
-    audio: '/audio/crazy(130bpm).mp3',
-    bpm: 130,
-    songName: 'CRAZY - LE SSERAFIM'
-  },
-  {
     id: 'swe',
     title: 'git push --force origin main',
     description: 'Full-stack development, coding projects, and technical builds.',
     color: '#E8E8E3',
-    image: '/images/projects/pysduck.jpg',
+    image: '/images/projects/snorlax.jpeg',
     category: 'swe',
-    audio: '/audio/bubblegum(105bpm).mp3',
-    bpm: 105,
-    songName: 'Bubble Gum - NewJeans'
+    audio: '/audio/crazy(130bpm).mp3',
+    bpm: 130,
+    songName: 'CRAZY - LE SSERAFIM'
   },
   {
     id: 'uiux',
     title: 'user tested, khang approved',
     description: 'Product design, UX research, and Figma prototypes.',
     color: '#E8E8E3',
-    image: '/images/projects/rowlet.jpeg',
+    image: '/images/projects/pysduck.jpg',
     category: 'uiux',
-    audio: '/audio/Supernatural(109bpm).mp3',
-    bpm: 109,
-    songName: 'Supernatural - NewJeans'
+    audio: '/audio/bubblegum(105bpm).mp3',
+    bpm: 105,
+    songName: 'Bubble Gum - NewJeans'
   }
 ];
 
@@ -197,7 +187,7 @@ const projects = [
     title: 'West Coast Adult Soccer League',
     role: 'Product Designer',
     category: 'uiux',
-    image: '/images/projects/wcasl.jpeg',
+    image: '/images/projects/wcasl.png',
     startDate: 'Apr 2025',
     endDate: 'Present'
   },
@@ -226,7 +216,47 @@ const projects = [
     category: 'swe',
     image: '/images/projects/snapshot.png',
     startDate: 'Jan 2026',
-    endDate: 'Mar 2026'
+    endDate: 'Mar 2026',
+        tags: ['Python', 'Git', 'Developer Tools', 'Diff Algorithms', 'Tkinter UI'],
+    links: {
+      live: '',
+      github: '',
+      devpost: '',
+      figma: ''
+    },
+    description: 'Built a Git source control interface inside Python IDLE, enabling beginners to stage, commit, and visualize code changes through an interactive split-view diff editor.',
+    previews: [
+      { id: 1, type: 'image', src: '/images/projects/snapshotp1.jpeg', alt: 'Preview 1' },
+      { id: 2, type: 'image', src: '/images/projects/snapshotp2.jpeg', alt: 'Preview 2' },
+    ],
+    keyFeatures: [
+        'VS Code–style source control UI inside IDLE',
+        'Side-by-side diff view with line and character highlighting',
+        'Live editing with synchronized split-view updates',
+        'Stage, commit, and push directly from the editor',
+        'Debounced diff engine for smooth performance on large files'
+    ],
+    team: {
+      members: ['Jaden Seangmany', 'Jonathan Ty', 'Eric Nguyen'],
+      myContributions: [  
+      'Developed a split-view diff editor with synchronized scrolling and real-time updates',
+      'Implemented VS Code–style highlighting for line and character-level differences',
+      ]
+    },
+    challenges: [
+      {
+        challenge: 'Real-time Diff Performance',
+        solution: 'Debounced updates to prevent lag while typing and improve responsiveness.'
+      },
+      {
+        challenge: 'Accurate Diff Visualization',
+        solution: 'Combined line-level and character-level diffing for precise highlighting.'
+      },
+      {
+        challenge: 'Split-View Synchronization',
+        solution: 'Synced scrolling and state between panes for a seamless comparison experience.'
+      }
+    ]
   },
   {
     id: 5,
@@ -235,7 +265,54 @@ const projects = [
     category: 'swe',
     image: '/images/projects/decidr.png',
     startDate: 'Oct 2025',
-    endDate: 'Jan 2026'
+    endDate: 'Jan 2026',
+            tags: [  
+              'React Native',
+              'TypeScript',
+              'Node.js',
+              'REST API',
+              'Mobile App'],
+    links: {
+      live: '',
+      github: 'https://github.com/jadenseangmany/decidr',
+      devpost: '',
+      figma: ''
+    },
+    description: 'A mobile app that eliminates group indecision by recommending nearby restaurants using a rating-weighted algorithm that balances quality and credibility.',
+    previews: [
+      { id: 1, type: 'image', src: '/images/projects/', alt: 'Preview 1' },
+      { id: 2, type: 'image', src: '/images/projects/', alt: 'Preview 2' },
+      { id: 3, type: 'image', src: '/images/projects/', alt: 'Preview 3' },
+      { id: 4, type: 'image', src: '/images/projects/', alt: 'Preview 4' }
+    ],
+    keyFeatures: [
+        'Location-based restaurant recommendations',
+        'Rating-weighted algorithm balancing quality and review count',
+        'Reroll system for alternative high-quality options',
+        'Mobile-first UI built with React Native (Expo)',
+        'Client-server architecture with REST API'
+    ],
+    team: {
+      members: ['Jaden Seangmany','Christine Le','Hoang Lam', 'Tom Situ', 'Sarthak Kapoor', 'Katelyn Li'],
+      myContributions: [  
+        'Co-led a team of 5 developers, enforcing code reviews and structured workflows',
+        'Led frontend development from concept to implementation using React Native',
+      ]
+    },
+    challenges: [
+    {
+      challenge: 'Balancing Rating vs Review Count',
+      solution: 'Designed a weighted scoring algorithm to prioritize both quality and credibility.'
+    },
+    {
+      challenge: 'Avoiding Repetitive Recommendations',
+      solution: 'Implemented randomized selection from top-ranked results to ensure variety.'
+    },
+    {
+      challenge: 'Coordinating a Team of Developers',
+      solution: 'Established structured workflows and code reviews to maintain consistency and velocity.'
+    }
+    ]
   },
   {
     id: 6,
@@ -244,7 +321,50 @@ const projects = [
     category: 'swe',
     image: '/images/projects/campusswipe.png',
     startDate: 'Mar 2025',
-    endDate: 'Jun 2025'
+    endDate: 'Jun 2025',
+            tags: ['JavaScript','HTML/CSS','Frontend Development','Agile','CI/CD'],
+    links: {
+      live: 'https://cse110-sp25-group11.github.io/card-game/',
+      github: 'https://github.com/cse110-sp25-group11/card-game',
+      devpost: '',
+      figma: ''
+    },
+    description: 'A swipe-based web app for discovering UCSD events, enabling students to browse, like, and share events through an interactive interface.',
+    previews: [
+      { id: 1, type: 'image', src: '/images/projects/campusswipep1.png', alt: 'Preview 1' },
+      { id: 2, type: 'image', src: '/images/projects/campusswipep2.png', alt: 'Preview 2' },
+      { id: 3, type: 'image', src: '/images/projects/campusswipep3.png', alt: 'Preview 3' },
+      { id: 4, type: 'image', src: '/images/projects/campusswipep4.png', alt: 'Preview 4' }
+    ],
+    keyFeatures: [
+      'Swipe-based event discovery interface',
+      'Like system for saving events',
+      'User-submitted event creation flow',
+      'Categorized browsing (upcoming, ongoing events)',
+      'Responsive UI built with vanilla JavaScript'
+    ],
+    team: {
+      members: ['Verania Salcido', 'Mia Chen', 'Wyatt Fong', 'Lucas Hlaing', 'Benjamin Miller', 'Alan De Luna', 'Aryan Ahuja', 'Sachin Ramanathan', 'Charles Nguyen', 'Prasham Shah'
+      ],
+      myContributions: [  
+      'Designed wireframes and translated Figma mockups into a functional frontend using HTML, CSS, and JavaScript',
+      'Collaborated in an 11-person agile team with pull request reviews, testing, and CI/CD workflows',
+      ]
+    },
+    challenges: [
+    {
+      challenge: 'Coordinating a Large Team',
+      solution: 'Followed structured workflows with PR reviews and CI/CD to maintain code quality.'
+    },
+    {
+      challenge: 'Building Without Frameworks',
+      solution: 'Implemented UI and state logic using vanilla JavaScript without relying on libraries.'
+    },
+    {
+      challenge: 'Maintaining Consistent UI',
+      solution: 'Used shared Figma designs and code reviews to ensure visual and functional consistency.'
+    }
+    ]
   },
   {
     id: 7,
@@ -253,7 +373,49 @@ const projects = [
     category: 'swe',
     image: '/images/projects/zippy.png',
     startDate: 'Apr 2025',
-    endDate: 'Apr 2025'
+    endDate: 'Apr 2025',
+            tags: ['Next.js','TypeScript','Real-time UI','Gamification','Gemini API'],
+    links: {
+      live: '',
+      github: 'https://github.com/jadenseangmany/zippy',
+      devpost: 'https://devpost.com/software/zippy',
+      figma: ''
+    },
+    description: 'A gamified education platform that motivates students to complete homework through real-time leaderboards, AI feedback, and a reward-driven gacha system.',
+    previews: [
+      { id: 1, type: 'image', src: '/images/projects/zippyp1.png', alt: 'Preview 1' },
+      { id: 2, type: 'image', src: '/images/projects/zippyp2.png', alt: 'Preview 2' },
+      { id: 3, type: 'image', src: '/images/projects/zippyp3.png', alt: 'Preview 3' },
+      { id: 4, type: 'image', src: '/images/projects/zippyp4.png', alt: 'Preview 4' }
+    ],
+    keyFeatures: [
+    'Gamified homework system with points, leaderboards, and rewards',
+    'Real-time leaderboard updates using Socket.IO',
+    'AI-powered feedback and grading via Gemini API',
+    'Gacha system for unlocking virtual pets and items',
+    'Responsive UI with smooth animations and interactions'
+    ],
+    team: {
+      members: ['Jaden Seangmany', 'Manjusri Gobiraj'],
+      myContributions: [  
+      'Designed and implemented a high-fidelity UI from Figma using Next.js and TypeScript',
+      'Built smooth, interactive animations including a gacha pull sequence with Framer Motion',
+      ]
+    },
+    challenges: [
+    {
+      challenge: 'Framework Compatibility Issues',
+      solution: 'Pivoted to Next.js to resolve Tailwind limitations and support dynamic UI features.'
+    },
+    {
+      challenge: 'Gemini API Integration',
+      solution: 'Handled API configuration and data flow to reliably surface AI-generated feedback.'
+    },
+    {
+      challenge: 'Inconsistent Design Assets',
+      solution: 'Optimized and standardized custom illustrations for consistent UI rendering.'
+    }
+    ]
   },
   {
     id: 8,
@@ -262,7 +424,50 @@ const projects = [
     category: 'swe',
     image: '/images/projects/agentux.svg',
     startDate: 'Apr 2026',
-    endDate: 'Apr 2026'
+    endDate: 'Apr 2026',
+    tags: ['HTML / CSS / JS', 'Chrome Extension', 'AI Agents', 'Browser Automation', 'Real-Time UI'],
+    links: {
+      live: 'https://www.agentux.dev/',
+      github: '',
+      devpost: 'https://devpost.com/software/agent-ux',
+      figma: ''
+    },
+    description: 'AI-powered Chrome extension that automates usability testing by deploying real browsing agents to simulate user behavior, uncover friction points, and generate actionable UI fixes in minutes.',
+    previews: [
+      { id: 1, type: 'image', src: '/images/projects/agentuxp1.png', alt: 'Preview 1' },
+      { id: 2, type: 'image', src: '/images/projects/agentuxp2.webp', alt: 'Preview 2' },
+      { id: 3, type: 'gif', src: '/images/projects/agentuxp3.gif', alt: 'Preview 3' },
+      { id: 4, type: 'image', src: '/images/projects/agentuxp4.png', alt: 'Preview 4' }
+    ],
+    keyFeatures: [
+      'AI agents simulate real user personas in live browser sessions',
+      'Real time activity feed with actions and reasoning',
+      'Detects usability issues from behavior (misclicks and hesitation)',
+      'One-click UI fixes with live preview',
+      'Parallel testing across multiple personas',
+      'End-to-end flow: URL → issues → fixes → deploy prompt'
+    ],
+    team: {
+      members: ['Jaden Seangmany', 'Manjusri Gobiraj', 'Alice Lan'],
+      myContributions: [  
+      'Developed a responsive Chrome extension UI with smooth, performant animations',
+      'Implemented intuitive interaction logic to create a seamless user experience',
+      ]
+    },
+    challenges: [
+    {
+      challenge: 'Raw Agent Output',
+      solution: 'Parsed low level actions into human readable logs with simulated persona reasoning.'
+    },
+    {
+      challenge: 'Noisy Execution Logs',
+      solution: 'Filtered internal commands to clean up the live activity feed.'
+    },
+    {
+      challenge: 'Missed Agent Actions',
+      solution: 'Improved polling and consumed full step data to capture all events.'
+    }
+    ]
   },
   {
     id: 9,
@@ -294,7 +499,7 @@ const projects = [
 ];
 
 function Playlist() {
-  const [selectedPlaylist, setSelectedPlaylist] = useState('all');
+  const [selectedPlaylist, setSelectedPlaylist] = useState(null);
   const [blurAmount, setBlurAmount] = useState(0);
   const [isScrolling, setIsScrolling] = useState(false);
   const [shouldSpawnNotes, setShouldSpawnNotes] = useState(false);
@@ -303,6 +508,7 @@ function Playlist() {
   const [pulseIntensity, setPulseIntensity] = useState(0);
   const [audioProgress, setAudioProgress] = useState({});
   const [audioVolume, setAudioVolume] = useState(0.15);
+  const [selectedProject, setSelectedProject] = useState(null);
 
   const audioRefs = useRef({});
   const audioContextRef = useRef(null);
@@ -690,10 +896,10 @@ function Playlist() {
             >
               {/* Filter Tabs */}
               <div style={{ display: 'flex', gap: '14px', marginBottom: '43px' }}>
-            {['all', 'swe', 'uiux'].map((filter) => (
+            {['swe', 'uiux'].map((filter) => (
               <motion.button
                 key={filter}
-                onClick={() => setSelectedPlaylist(filter)}
+                onClick={() => setSelectedPlaylist(selectedPlaylist === filter ? null : filter)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 style={{
@@ -734,7 +940,6 @@ function Playlist() {
                   }}
                 />
                 <span style={{ position: 'relative', zIndex: 2 }}>
-                  {filter === 'all' && 'ALL'}
                   {filter === 'swe' && 'SWE'}
                   {filter === 'uiux' && 'UI/UX'}
                 </span>
@@ -743,10 +948,10 @@ function Playlist() {
           </div>
 
           {/* Playlist Cards Grid - Filtered */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '22px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '22px' }}>
             <AnimatePresence mode="wait">
             {playlists
-              .filter(playlist => selectedPlaylist === 'all' || playlist.category === selectedPlaylist)
+              .filter(playlist => !selectedPlaylist || playlist.category === selectedPlaylist)
               .map((playlist) => (
               <motion.div
                 key={`${playlist.id}-${selectedPlaylist}`}
@@ -1103,8 +1308,6 @@ function Playlist() {
                     backgroundColor: 'rgba(78, 74, 92, 0.2)',
                     borderRadius: '7px',
                     padding: '22px',
-                    maxHeight: '396px',
-                    overflowY: 'auto',
                     border: playingPlaylist === playlist.id
                       ? `2px solid rgba(196, 181, 253, ${0.3 + pulseIntensity * 0.3})`
                       : '2px solid transparent',
@@ -1166,89 +1369,122 @@ function Playlist() {
                   {playlistProjects.map((project, idx) => (
                     <motion.div
                       key={project.id}
-                      whileHover={{
-                        backgroundColor: 'rgba(196, 181, 253, 0.1)'
-                      }}
                       style={{
-                        display: 'grid',
-                        gridTemplateColumns: '36px 1fr 180px',
-                        gap: '14px',
-                        padding: '11px 14px',
-                        borderRadius: '4px',
-                        cursor: 'pointer',
-                        transition: 'background-color 0.2s ease'
+                        borderRadius: '7px',
+                        overflow: 'hidden',
+                        border: selectedProject?.id === project.id
+                          ? '2px solid rgba(196, 181, 253, 0.3)'
+                          : '2px solid transparent',
+                        transition: 'all 0.3s ease',
+                        marginBottom: '7px'
                       }}
                     >
-                      {/* Track Number */}
-                      <span
+                      <motion.div
+                        onClick={() => setSelectedProject(selectedProject?.id === project.id ? null : project)}
+                        whileHover={{
+                          backgroundColor: 'rgba(196, 181, 253, 0.1)'
+                        }}
                         style={{
-                          fontFamily: "'Inter', sans-serif",
-                          fontSize: '13px',
-                          color: 'rgba(255,255,255,0.7)',
-                          display: 'flex',
-                          alignItems: 'center'
+                          display: 'grid',
+                          gridTemplateColumns: '36px 1fr 180px',
+                          gap: '14px',
+                          padding: '11px 14px',
+                          cursor: 'pointer',
+                          transition: 'background-color 0.2s ease',
+                          backgroundColor: selectedProject?.id === project.id ? 'rgba(196, 181, 253, 0.05)' : 'transparent'
                         }}
                       >
-                        {idx + 1}
-                      </span>
+                        {/* Track Number */}
+                        <span
+                          style={{
+                            fontFamily: "'Inter', sans-serif",
+                            fontSize: '13px',
+                            color: 'rgba(255,255,255,0.7)',
+                            display: 'flex',
+                            alignItems: 'center'
+                          }}
+                        >
+                          {idx + 1}
+                        </span>
 
-                      {/* Project Info */}
-                      <div style={{ display: 'flex', gap: '14px', alignItems: 'center' }}>
-                        <div style={{
-                          width: '43px',
-                          height: '43px',
-                          borderRadius: '4px',
-                          overflow: 'hidden',
-                          position: 'relative'
-                        }}>
-                          <img
-                            src={project.image}
-                            alt={project.title}
-                            style={{
-                              width: '100%',
-                              height: '100%',
-                              objectFit: 'cover',
-                              transform: project.title === 'Project Nafasi' ? 'scale(1.8) translateX(1.5px)' : 'scale(1)'
-                            }}
-                          />
+                        {/* Project Info */}
+                        <div style={{ display: 'flex', gap: '14px', alignItems: 'center' }}>
+                          <div style={{
+                            width: '43px',
+                            height: '43px',
+                            borderRadius: '4px',
+                            overflow: 'hidden',
+                            position: 'relative'
+                          }}>
+                            <img
+                              src={project.image}
+                              alt={project.title}
+                              style={{
+                                width: '100%',
+                                height: '100%',
+                                objectFit: 'cover',
+                                transform: project.title === 'Project Nafasi' ? 'scale(1.8) translateX(1.5px)' : 'scale(1)'
+                              }}
+                            />
+                          </div>
+                          <div>
+                            <p
+                              style={{
+                                fontFamily: "'Inter', sans-serif",
+                                fontSize: '14px',
+                                fontWeight: '500',
+                                color: '#E8E8E3',
+                                marginBottom: '4px'
+                              }}
+                            >
+                              {project.title}
+                            </p>
+                            <p
+                              style={{
+                                fontFamily: "'Inter', sans-serif",
+                                fontSize: '12px',
+                                color: 'rgba(255,255,255,0.5)'
+                              }}
+                            >
+                              {project.role}
+                            </p>
+                          </div>
                         </div>
-                        <div>
-                          <p
+
+                        {/* Date */}
+                        <div
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'flex-end',
+                            gap: '7px'
+                          }}
+                        >
+                          <span
                             style={{
                               fontFamily: "'Inter', sans-serif",
-                              fontSize: '14px',
-                              fontWeight: '500',
-                              color: '#E8E8E3',
-                              marginBottom: '4px'
+                              fontSize: '13px',
+                              color: 'rgba(255,255,255,0.7)'
                             }}
                           >
-                            {project.title}
-                          </p>
-                          <p
-                            style={{
-                              fontFamily: "'Inter', sans-serif",
-                              fontSize: '12px',
-                              color: 'rgba(255,255,255,0.5)'
+                            {project.startDate} - {project.endDate}
+                          </span>
+                          <motion.div
+                            animate={{
+                              rotate: selectedProject?.id === project.id ? 180 : 0
                             }}
+                            transition={{ duration: 0.2 }}
                           >
-                            {project.role}
-                          </p>
+                            <CaretDown size={16} weight="bold" color="rgba(255,255,255,0.5)" />
+                          </motion.div>
                         </div>
-                      </div>
+                      </motion.div>
 
-                      {/* Date */}
-                      <span
-                        style={{
-                          fontFamily: "'Inter', sans-serif",
-                          fontSize: '13px',
-                          color: 'rgba(255,255,255,0.7)',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'flex-end'
-                        }}
-                      >
-                        {project.startDate} - {project.endDate}
-                      </span>
+                      {/* Inline Project Detail */}
+                      <ProjectDetail
+                        project={project}
+                        isOpen={selectedProject?.id === project.id}
+                      />
                     </motion.div>
                   ))}
                 </div>
