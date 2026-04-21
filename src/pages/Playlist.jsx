@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MusicNote, MusicNotes, MusicNotesSimple, Play, Pause, X, SpeakerHigh, SpeakerLow, SpeakerSlash, CaretDown } from 'phosphor-react';
+import { MusicNote, MusicNotes, MusicNotesSimple, Play, Pause, X, SpeakerHigh, SpeakerLow, SpeakerSlash, CaretDown, CheckCircle } from 'phosphor-react';
 import ProjectDetail from '../components/ProjectDetail';
 
 // Music note cursor trail component
@@ -186,6 +186,7 @@ const projects = [
     id: 1,
     title: 'West Coast Adult Soccer League',
     role: 'Product Designer',
+    projectType: 'Case Study',
     category: 'uiux',
     image: '/images/projects/wcasl.png',
     startDate: 'Apr 2025',
@@ -195,6 +196,7 @@ const projects = [
     id: 2,
     title: 'Plastic Beach',
     role: 'Product Designer',
+    projectType: 'Case Study',
     category: 'uiux',
     image: '/images/projects/plasticbeach.png',
     startDate: 'Apr 2025',
@@ -204,6 +206,7 @@ const projects = [
     id: 3,
     title: 'Project Nafasi',
     role: 'Product Designer',
+    projectType: 'Designathon',
     category: 'uiux',
     image: '/images/projects/nafasi.png',
     startDate: 'Mar 2026',
@@ -213,11 +216,12 @@ const projects = [
     id: 4,
     title: 'SnapShot',
     role: 'Software Engineer',
+    projectType: 'Project',
     category: 'swe',
     image: '/images/projects/snapshot.png',
     startDate: 'Jan 2026',
     endDate: 'Mar 2026',
-        tags: ['Python', 'Git', 'Developer Tools', 'Diff Algorithms', 'Tkinter UI'],
+    tags: ['Python', 'Git', 'Developer Tools', 'Diff Algorithms', 'Tkinter UI'],
     links: {
       live: '',
       github: '',
@@ -238,40 +242,27 @@ const projects = [
     ],
     team: {
       members: ['Jaden Seangmany', 'Jonathan Ty', 'Eric Nguyen'],
-      myContributions: [  
+      myContributions: [
       'Developed a split-view diff editor with synchronized scrolling and real-time updates',
       'Implemented VS Code–style highlighting for line and character-level differences',
       ]
-    },
-    challenges: [
-      {
-        challenge: 'Real-time Diff Performance',
-        solution: 'Debounced updates to prevent lag while typing and improve responsiveness.'
-      },
-      {
-        challenge: 'Accurate Diff Visualization',
-        solution: 'Combined line-level and character-level diffing for precise highlighting.'
-      },
-      {
-        challenge: 'Split-View Synchronization',
-        solution: 'Synced scrolling and state between panes for a seamless comparison experience.'
-      }
-    ]
+    }
   },
   {
     id: 5,
     title: 'Decidr',
-    role: 'Tech Lead + Frontend Developer',
+    role: 'Tech Lead & Frontend Developer',
+    projectType: 'Project',
     category: 'swe',
     image: '/images/projects/decidr.png',
     startDate: 'Oct 2025',
     endDate: 'Jan 2026',
-            tags: [  
-              'React Native',
-              'TypeScript',
-              'Node.js',
-              'REST API',
-              'Mobile App'],
+    tags: [
+      'React Native',
+      'TypeScript',
+      'Node.js',
+      'REST API',
+      'Mobile App'],
     links: {
       live: '',
       github: 'https://github.com/jadenseangmany/decidr',
@@ -294,35 +285,22 @@ const projects = [
     ],
     team: {
       members: ['Jaden Seangmany','Christine Le','Hoang Lam', 'Tom Situ', 'Sarthak Kapoor', 'Katelyn Li'],
-      myContributions: [  
+      myContributions: [
         'Co-led a team of 5 developers, enforcing code reviews and structured workflows',
         'Led frontend development from concept to implementation using React Native',
       ]
-    },
-    challenges: [
-    {
-      challenge: 'Balancing Rating vs Review Count',
-      solution: 'Designed a weighted scoring algorithm to prioritize both quality and credibility.'
-    },
-    {
-      challenge: 'Avoiding Repetitive Recommendations',
-      solution: 'Implemented randomized selection from top-ranked results to ensure variety.'
-    },
-    {
-      challenge: 'Coordinating a Team of Developers',
-      solution: 'Established structured workflows and code reviews to maintain consistency and velocity.'
     }
-    ]
   },
   {
     id: 6,
     title: 'Campus Swipe',
     role: 'Frontend Developer',
+    projectType: 'Project',
     category: 'swe',
     image: '/images/projects/campusswipe.png',
     startDate: 'Mar 2025',
     endDate: 'Jun 2025',
-            tags: ['JavaScript','HTML/CSS','Frontend Development','Agile','CI/CD'],
+    tags: ['JavaScript','HTML/CSS','Frontend Development','Agile','CI/CD'],
     links: {
       live: 'https://cse110-sp25-group11.github.io/card-game/',
       github: 'https://github.com/cse110-sp25-group11/card-game',
@@ -346,35 +324,22 @@ const projects = [
     team: {
       members: ['Verania Salcido', 'Mia Chen', 'Wyatt Fong', 'Lucas Hlaing', 'Benjamin Miller', 'Alan De Luna', 'Aryan Ahuja', 'Sachin Ramanathan', 'Charles Nguyen', 'Prasham Shah'
       ],
-      myContributions: [  
+      myContributions: [
       'Designed wireframes and translated Figma mockups into a functional frontend using HTML, CSS, and JavaScript',
       'Collaborated in an 11-person agile team with pull request reviews, testing, and CI/CD workflows',
       ]
-    },
-    challenges: [
-    {
-      challenge: 'Coordinating a Large Team',
-      solution: 'Followed structured workflows with PR reviews and CI/CD to maintain code quality.'
-    },
-    {
-      challenge: 'Building Without Frameworks',
-      solution: 'Implemented UI and state logic using vanilla JavaScript without relying on libraries.'
-    },
-    {
-      challenge: 'Maintaining Consistent UI',
-      solution: 'Used shared Figma designs and code reviews to ensure visual and functional consistency.'
     }
-    ]
   },
   {
     id: 7,
     title: 'Zippy',
     role: 'Frontend Developer',
+    projectType: 'Hackathon',
     category: 'swe',
     image: '/images/projects/zippy.png',
     startDate: 'Apr 2025',
     endDate: 'Apr 2025',
-            tags: ['Next.js','TypeScript','Real-time UI','Gamification','Gemini API'],
+    tags: ['Next.js','TypeScript','Real-time UI','Gamification','Gemini API'],
     links: {
       live: '',
       github: 'https://github.com/jadenseangmany/zippy',
@@ -397,30 +362,17 @@ const projects = [
     ],
     team: {
       members: ['Jaden Seangmany', 'Manjusri Gobiraj'],
-      myContributions: [  
+      myContributions: [
       'Designed and implemented a high-fidelity UI from Figma using Next.js and TypeScript',
       'Built smooth, interactive animations including a gacha pull sequence with Framer Motion',
       ]
-    },
-    challenges: [
-    {
-      challenge: 'Framework Compatibility Issues',
-      solution: 'Pivoted to Next.js to resolve Tailwind limitations and support dynamic UI features.'
-    },
-    {
-      challenge: 'Gemini API Integration',
-      solution: 'Handled API configuration and data flow to reliably surface AI-generated feedback.'
-    },
-    {
-      challenge: 'Inconsistent Design Assets',
-      solution: 'Optimized and standardized custom illustrations for consistent UI rendering.'
     }
-    ]
   },
   {
     id: 8,
     title: 'AgentUX',
     role: 'Frontend Developer',
+    projectType: 'Hackathon',
     category: 'swe',
     image: '/images/projects/agentux.svg',
     startDate: 'Apr 2026',
@@ -449,30 +401,17 @@ const projects = [
     ],
     team: {
       members: ['Jaden Seangmany', 'Manjusri Gobiraj', 'Alice Lan'],
-      myContributions: [  
+      myContributions: [
       'Developed a responsive Chrome extension UI with smooth, performant animations',
       'Implemented intuitive interaction logic to create a seamless user experience',
       ]
-    },
-    challenges: [
-    {
-      challenge: 'Raw Agent Output',
-      solution: 'Parsed low level actions into human readable logs with simulated persona reasoning.'
-    },
-    {
-      challenge: 'Noisy Execution Logs',
-      solution: 'Filtered internal commands to clean up the live activity feed.'
-    },
-    {
-      challenge: 'Missed Agent Actions',
-      solution: 'Improved polling and consumed full step data to capture all events.'
     }
-    ]
   },
   {
     id: 9,
     title: 'Bontourismo',
     role: 'UI/UX Designer',
+    projectType: 'Designathon',
     category: 'uiux',
     image: '/images/projects/bontourismo.png',
     startDate: 'Mar 2025',
@@ -482,6 +421,7 @@ const projects = [
     id: 10,
     title: 'PlateMate',
     role: 'UI/UX Designer',
+    projectType: 'Project',
     category: 'uiux',
     image: '/images/projects/platemate.png',
     startDate: 'Oct 2024',
@@ -491,6 +431,7 @@ const projects = [
     id: 11,
     title: 'VendorDex',
     role: 'UI/UX Designer',
+    projectType: 'Project',
     category: 'uiux',
     image: '/images/projects/vendordex.png',
     startDate: 'Sep 2025',
@@ -509,6 +450,8 @@ function Playlist() {
   const [audioProgress, setAudioProgress] = useState({});
   const [audioVolume, setAudioVolume] = useState(0.15);
   const [selectedProject, setSelectedProject] = useState(null);
+  const [sortOrder, setSortOrder] = useState({});
+  const [openSortDropdown, setOpenSortDropdown] = useState(null);
 
   const audioRefs = useRef({});
   const audioContextRef = useRef(null);
@@ -517,11 +460,31 @@ function Playlist() {
   const animationFrameRef = useRef(null);
   const lastBeatTime = useRef(0);
   const energyHistory = useRef([]);
+  const dropdownRef = useRef(null);
 
   // Scroll to top when component mounts
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, []);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // Check if click is on a dropdown button or option
+      const isDropdownClick = event.target.closest('[data-dropdown]');
+      if (!isDropdownClick && openSortDropdown !== null) {
+        setOpenSortDropdown(null);
+      }
+    };
+
+    if (openSortDropdown !== null) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [openSortDropdown]);
 
   // Cleanup on unmount
   useEffect(() => {
@@ -1086,13 +1049,37 @@ function Playlist() {
         {/* Playlist Detail Sections */}
         <section style={{ padding: '0 158px 158px 158px' }}>
           {playlists.map((playlist, index) => {
+            const currentSort = sortOrder[playlist.id] || 'newest';
+
             const playlistProjects = projects
               .filter(p => playlist.category === 'all' || p.category === playlist.category)
               .sort((a, b) => {
-                // Convert date strings to Date objects for comparison
-                const dateA = new Date(a.startDate);
-                const dateB = new Date(b.startDate);
-                return dateB - dateA; // Most recent first
+                if (currentSort === 'newest') {
+                  const dateA = new Date(a.startDate);
+                  const dateB = new Date(b.startDate);
+                  return dateB - dateA; // Most recent first
+                } else if (currentSort === 'oldest') {
+                  const dateA = new Date(a.startDate);
+                  const dateB = new Date(b.startDate);
+                  return dateA - dateB; // Oldest first
+                } else if (currentSort === 'type') {
+                  // Custom order based on category
+                  const typeOrder = playlist.category === 'swe'
+                    ? { 'Hackathon': 1, 'Project': 2 }
+                    : { 'Case Study': 1, 'Designathon': 2, 'Project': 3 };
+
+                  const orderA = typeOrder[a.projectType] || 999;
+                  const orderB = typeOrder[b.projectType] || 999;
+
+                  if (orderA !== orderB) {
+                    return orderA - orderB;
+                  }
+                  // If same type, sort by newest first
+                  const dateA = new Date(a.startDate);
+                  const dateB = new Date(b.startDate);
+                  return dateB - dateA;
+                }
+                return 0;
               });
 
             return (
@@ -1234,7 +1221,7 @@ function Playlist() {
                 </div>
 
                 {/* Progress Bar and Volume Control */}
-                <div style={{ marginTop: '22px', marginBottom: '29px' }}>
+                <div style={{ marginTop: '22px' }}>
                   {/* Progress Bar */}
                   <div
                     onClick={(e) => handleProgressClick(playlist.id, e)}
@@ -1302,15 +1289,125 @@ function Playlist() {
                   </div>
                 </div>
 
+                {/* Sort Control */}
+                <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '14px', marginBottom: '14px' }}>
+                  {/* Sort Dropdown */}
+                  <div data-dropdown style={{ position: 'relative' }}>
+                    <button
+                      data-dropdown
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setOpenSortDropdown(openSortDropdown === playlist.id ? null : playlist.id);
+                      }}
+                      style={{
+                        fontFamily: "'Inter', sans-serif",
+                        fontSize: '12px',
+                        color: '#C4B5FD',
+                        background: 'rgba(196, 181, 253, 0.1)',
+                        border: '1px solid rgba(196, 181, 253, 0.3)',
+                        borderRadius: '5px',
+                        padding: '7px 12px',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '7px',
+                        transition: 'all 0.2s',
+                        whiteSpace: 'nowrap'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = 'rgba(196, 181, 253, 0.2)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = 'rgba(196, 181, 253, 0.1)';
+                      }}
+                    >
+                      <span style={{ color: 'rgba(255,255,255,0.5)' }}>Sort by:</span>
+                      {currentSort === 'newest' && 'Newest First'}
+                      {currentSort === 'oldest' && 'Oldest First'}
+                      {currentSort === 'type' && 'Project Type'}
+                      <CaretDown size={12} weight="bold" color="#C4B5FD" />
+                    </button>
+
+                    {/* Dropdown Menu */}
+                    {openSortDropdown === playlist.id && (
+                      <motion.div
+                        data-dropdown
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.2 }}
+                        style={{
+                          position: 'absolute',
+                          top: '100%',
+                          right: 0,
+                          marginTop: '5px',
+                          background: '#4E4A5C',
+                          border: '1px solid rgba(196, 181, 253, 0.3)',
+                          borderRadius: '5px',
+                          overflow: 'hidden',
+                          zIndex: 1000,
+                          minWidth: '160px',
+                          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
+                        }}
+                      >
+                        {[
+                          { value: 'newest', label: 'Newest First' },
+                          { value: 'oldest', label: 'Oldest First' },
+                          { value: 'type', label: 'Project Type' }
+                        ].map((option, idx) => (
+                          <button
+                            key={option.value}
+                            data-dropdown
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              console.log('Clicked:', option.value, 'for playlist:', playlist.id);
+                              setSortOrder(prev => ({ ...prev, [playlist.id]: option.value }));
+                              setOpenSortDropdown(null);
+                            }}
+                            style={{
+                              width: '100%',
+                              padding: '10px 14px',
+                              background: currentSort === option.value ? 'rgba(196, 181, 253, 0.2)' : 'transparent',
+                              border: 'none',
+                              borderBottom: idx < 2 ? '1px solid rgba(255, 255, 255, 0.05)' : 'none',
+                              cursor: 'pointer',
+                              fontFamily: "'Inter', sans-serif",
+                              fontSize: '12px',
+                              color: currentSort === option.value ? '#C4B5FD' : '#E8E8E3',
+                              textAlign: 'left',
+                              transition: 'all 0.2s',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'space-between'
+                            }}
+                            onMouseEnter={(e) => {
+                              if (currentSort !== option.value) {
+                                e.currentTarget.style.background = 'rgba(196, 181, 253, 0.1)';
+                              }
+                            }}
+                            onMouseLeave={(e) => {
+                              if (currentSort !== option.value) {
+                                e.currentTarget.style.background = 'transparent';
+                              }
+                            }}
+                          >
+                            {option.label}
+                            {currentSort === option.value && (
+                              <CheckCircle size={14} weight="fill" color="#C4B5FD" />
+                            )}
+                          </button>
+                        ))}
+                      </motion.div>
+                    )}
+                  </div>
+                </div>
+
                 {/* Projects List */}
                 <div
                   style={{
                     backgroundColor: 'rgba(78, 74, 92, 0.2)',
                     borderRadius: '7px',
                     padding: '22px',
-                    border: playingPlaylist === playlist.id
-                      ? `2px solid rgba(196, 181, 253, ${0.3 + pulseIntensity * 0.3})`
-                      : '2px solid transparent',
                     boxShadow: playingPlaylist === playlist.id && pulseIntensity > 0
                       ? `0 0 ${15 + pulseIntensity * 25}px rgba(196, 181, 253, ${0.3 + pulseIntensity * 0.3}),
                          0 0 ${10 + pulseIntensity * 20}px rgba(196, 181, 253, ${0.4 + pulseIntensity * 0.2}),
@@ -1366,16 +1463,24 @@ function Playlist() {
                   </div>
 
                   {/* Project Rows */}
+                  <AnimatePresence mode="wait">
                   {playlistProjects.map((project, idx) => (
                     <motion.div
-                      key={project.id}
+                      key={`${project.id}-${currentSort}`}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      transition={{
+                        duration: 0.3,
+                        delay: idx * 0.05,
+                        ease: "easeOut"
+                      }}
                       style={{
                         borderRadius: '7px',
                         overflow: 'hidden',
                         border: selectedProject?.id === project.id
-                          ? '2px solid rgba(196, 181, 253, 0.3)'
-                          : '2px solid transparent',
-                        transition: 'all 0.3s ease',
+                          ? '1px solid rgba(196, 181, 253, 0.3)'
+                          : '1px solid transparent',
                         marginBottom: '7px'
                       }}
                     >
@@ -1446,7 +1551,7 @@ function Playlist() {
                                 color: 'rgba(255,255,255,0.5)'
                               }}
                             >
-                              {project.role}
+                              {project.role}{project.projectType ? ` · ${project.projectType}` : ''}
                             </p>
                           </div>
                         </div>
@@ -1487,6 +1592,7 @@ function Playlist() {
                       />
                     </motion.div>
                   ))}
+                  </AnimatePresence>
                 </div>
               </motion.section>
               </div>
@@ -1499,46 +1605,52 @@ function Playlist() {
       <footer
         style={{
           backgroundColor: '#262626',
+          minHeight: 'calc(100vh - 72px)',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
           paddingLeft: '158px',
           paddingRight: '158px',
-          paddingTop: '72px',
-          paddingBottom: '36px',
+          paddingTop: '108px',
+          paddingBottom: '72px',
           borderTop: '1px solid rgba(255,255,255,0.1)'
         }}
       >
-        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '58px' }}>
+        {/* Main Footer Content */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           {/* Left side - Message */}
-          <div style={{ maxWidth: '360px' }}>
+          <div style={{ maxWidth: '540px' }}>
             <p style={{
               fontFamily: "'Clash Display', sans-serif",
-              fontSize: '22px',
+              fontSize: '43px',
               fontWeight: '600',
               color: '#E8E8E3',
-              lineHeight: '1.4'
+              lineHeight: '1.3',
+              marginBottom: '29px'
             }}>
               Thanks for stopping by! Feel free to reach out if you'd like to collaborate or just chat about design and code.
             </p>
           </div>
 
           {/* Right side - Navigation and Connections */}
-          <div style={{ display: 'flex', gap: '72px' }}>
+          <div style={{ display: 'flex', gap: '108px' }}>
             {/* Navigation */}
             <div>
               <h4 style={{
                 fontFamily: "'Clash Display', sans-serif",
-                fontSize: '14px',
+                fontSize: '16px',
                 fontWeight: '600',
                 color: '#C4B5FD',
-                marginBottom: '22px'
+                marginBottom: '29px'
               }}>
                 Navigation
               </h4>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
                 <Link
                   to="/"
                   style={{
                     fontFamily: "'Inter', sans-serif",
-                    fontSize: '13px',
+                    fontSize: '14px',
                     color: 'rgba(255,255,255,0.7)',
                     textDecoration: 'none'
                   }}
@@ -1550,7 +1662,7 @@ function Playlist() {
                   to="/about"
                   style={{
                     fontFamily: "'Inter', sans-serif",
-                    fontSize: '13px',
+                    fontSize: '14px',
                     color: 'rgba(255,255,255,0.7)',
                     textDecoration: 'none'
                   }}
@@ -1562,7 +1674,7 @@ function Playlist() {
                   to="/playlist"
                   style={{
                     fontFamily: "'Inter', sans-serif",
-                    fontSize: '13px',
+                    fontSize: '14px',
                     color: 'rgba(255,255,255,0.7)',
                     textDecoration: 'none'
                   }}
@@ -1576,7 +1688,7 @@ function Playlist() {
                   rel="noopener noreferrer"
                   style={{
                     fontFamily: "'Inter', sans-serif",
-                    fontSize: '13px',
+                    fontSize: '14px',
                     color: 'rgba(255,255,255,0.7)',
                     textDecoration: 'none'
                   }}
@@ -1591,21 +1703,21 @@ function Playlist() {
             <div>
               <h4 style={{
                 fontFamily: "'Clash Display', sans-serif",
-                fontSize: '14px',
+                fontSize: '16px',
                 fontWeight: '600',
                 color: '#C4B5FD',
-                marginBottom: '22px'
+                marginBottom: '29px'
               }}>
                 Connections
               </h4>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
                 <a
                   href="https://www.linkedin.com/in/yourprofile"
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
                     fontFamily: "'Inter', sans-serif",
-                    fontSize: '13px',
+                    fontSize: '14px',
                     color: 'rgba(255,255,255,0.7)',
                     textDecoration: 'none'
                   }}
@@ -1619,7 +1731,7 @@ function Playlist() {
                   rel="noopener noreferrer"
                   style={{
                     fontFamily: "'Inter', sans-serif",
-                    fontSize: '13px',
+                    fontSize: '14px',
                     color: 'rgba(255,255,255,0.7)',
                     textDecoration: 'none'
                   }}
@@ -1631,7 +1743,7 @@ function Playlist() {
                   href="mailto:your.email@example.com"
                   style={{
                     fontFamily: "'Inter', sans-serif",
-                    fontSize: '13px',
+                    fontSize: '14px',
                     color: 'rgba(255,255,255,0.7)',
                     textDecoration: 'none'
                   }}
@@ -1649,12 +1761,12 @@ function Playlist() {
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          paddingTop: '29px',
+          paddingTop: '43px',
           borderTop: '1px solid rgba(255,255,255,0.1)'
         }}>
           <p style={{
             fontFamily: "'Inter', sans-serif",
-            fontSize: '13px',
+            fontSize: '14px',
             color: 'rgba(255,255,255,0.5)'
           }}>
             © 2026 Khang Nguyen
@@ -1663,7 +1775,7 @@ function Playlist() {
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             style={{
               fontFamily: "'Inter', sans-serif",
-              fontSize: '13px',
+              fontSize: '14px',
               color: 'rgba(255,255,255,0.7)',
               background: 'none',
               border: 'none',

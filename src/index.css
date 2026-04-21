@@ -85,3 +85,48 @@ body {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
+/* Fluid blob cursor animation - keeps all sides rounded */
+@keyframes blobMorph {
+  0%, 100% {
+    border-radius: 58% 42% 55% 45% / 45% 58% 42% 55%;
+  }
+  20% {
+    border-radius: 42% 58% 45% 55% / 58% 42% 55% 45%;
+  }
+  40% {
+    border-radius: 55% 45% 58% 42% / 42% 55% 45% 58%;
+  }
+  60% {
+    border-radius: 45% 55% 42% 58% / 55% 45% 58% 42%;
+  }
+  80% {
+    border-radius: 50% 50% 55% 45% / 50% 50% 45% 55%;
+  }
+}
+
+.blob-cursor {
+  animation: blobMorph 8s ease-in-out infinite;
+}
+
+/* Blob morphing for clip-path using CSS Houdini (fallback to circle) */
+@property --blob-1 {
+  syntax: '<percentage>';
+  initial-value: 60%;
+  inherits: false;
+}
+@property --blob-2 {
+  syntax: '<percentage>';
+  initial-value: 40%;
+  inherits: false;
+}
+@property --blob-3 {
+  syntax: '<percentage>';
+  initial-value: 30%;
+  inherits: false;
+}
+@property --blob-4 {
+  syntax: '<percentage>';
+  initial-value: 70%;
+  inherits: false;
+}

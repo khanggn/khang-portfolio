@@ -219,9 +219,9 @@ function ProjectDetail({ project, isOpen }) {
                 <p
                   style={{
                     fontFamily: "'Inter', sans-serif",
-                    fontSize: '14px',
-                    lineHeight: '1.6',
-                    color: 'rgba(255,255,255,0.7)'
+                    fontSize: '15px',
+                    lineHeight: '1.7',
+                    color: 'rgba(255,255,255,0.8)'
                   }}
                 >
                   {project.description}
@@ -229,7 +229,122 @@ function ProjectDetail({ project, isOpen }) {
               </div>
             )}
 
-            {/* Media Preview Section */}
+            {/* Key Features */}
+            {project.keyFeatures && (
+              <div style={{ marginBottom: '29px' }}>
+                <h3
+                  style={{
+                    fontFamily: "'Clash Display', sans-serif",
+                    fontSize: '18px',
+                    fontWeight: '600',
+                    color: '#C4B5FD',
+                    marginBottom: '14px'
+                  }}
+                >
+                  Key Features
+                </h3>
+                <ul style={{ listStyle: 'none', padding: 0 }}>
+                  {project.keyFeatures.map((feature, index) => (
+                    <li
+                      key={index}
+                      style={{
+                        fontFamily: "'Inter', sans-serif",
+                        fontSize: '15px',
+                        lineHeight: '1.7',
+                        color: 'rgba(255,255,255,0.8)',
+                        marginBottom: '11px',
+                        paddingLeft: '18px',
+                        position: 'relative'
+                      }}
+                    >
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: 0,
+                          color: '#9D92C8'
+                        }}
+                      >
+                        •
+                      </span>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {/* Team Members */}
+            {project.team?.members && (
+              <div style={{ marginBottom: '29px' }}>
+                <h3
+                  style={{
+                    fontFamily: "'Clash Display', sans-serif",
+                    fontSize: '18px',
+                    fontWeight: '600',
+                    color: '#C4B5FD',
+                    marginBottom: '14px'
+                  }}
+                >
+                  Team Members
+                </h3>
+                <p
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: '15px',
+                    lineHeight: '1.7',
+                    color: 'rgba(255,255,255,0.8)'
+                  }}
+                >
+                  {project.team.members.join(', ')}
+                </p>
+              </div>
+            )}
+
+            {/* My Contributions */}
+            {project.team?.myContributions && (
+              <div style={{ marginBottom: '29px' }}>
+                <h3
+                  style={{
+                    fontFamily: "'Clash Display', sans-serif",
+                    fontSize: '18px',
+                    fontWeight: '600',
+                    color: '#C4B5FD',
+                    marginBottom: '14px'
+                  }}
+                >
+                  My Contributions
+                </h3>
+                <ul style={{ listStyle: 'none', padding: 0 }}>
+                  {project.team.myContributions.map((contribution, index) => (
+                    <li
+                      key={index}
+                      style={{
+                        fontFamily: "'Inter', sans-serif",
+                        fontSize: '15px',
+                        lineHeight: '1.7',
+                        color: 'rgba(255,255,255,0.8)',
+                        marginBottom: '11px',
+                        paddingLeft: '18px',
+                        position: 'relative'
+                      }}
+                    >
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: 0,
+                          color: '#9D92C8'
+                        }}
+                      >
+                        •
+                      </span>
+                      {contribution}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {/* Media Preview Section - 2x2 Grid at Bottom */}
             {project.previews && project.previews.length > 0 && (
               <div style={{ marginBottom: '29px' }}>
                 <h3
@@ -246,8 +361,8 @@ function ProjectDetail({ project, isOpen }) {
                 <div
                   style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(4, 1fr)',
-                    gap: '14px'
+                    gridTemplateColumns: 'repeat(2, 1fr)',
+                    gap: '18px'
                   }}
                 >
                   {project.previews.map((preview, index) => (
@@ -255,14 +370,14 @@ function ProjectDetail({ project, isOpen }) {
                     key={preview.id}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ duration: 0.4, delay: index * 0.15 }}
-                    whileHover={{ scale: 1.05, boxShadow: '0 8px 24px rgba(196, 181, 253, 0.3)' }}
+                    transition={{ duration: 0.4, delay: index * 0.1 }}
+                    whileHover={{ scale: 1.02, boxShadow: '0 8px 24px rgba(196, 181, 253, 0.3)' }}
                     onClick={(e) => {
                       e.stopPropagation();
                       setExpandedImage(preview);
                     }}
                     style={{
-                      height: '140px',
+                      height: '280px',
                       borderRadius: '11px',
                       overflow: 'hidden',
                       backgroundColor: '#4E4A5C',
@@ -302,201 +417,6 @@ function ProjectDetail({ project, isOpen }) {
                 </div>
               </div>
             )}
-
-            {/* Info Section - Two Columns */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '22px', marginBottom: '29px' }}>
-              {/* Key Features */}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4, delay: 0.2 }}
-                style={{
-                  backgroundColor: 'rgba(78, 74, 92, 0.2)',
-                  border: '1px solid rgba(196, 181, 253, 0.3)',
-                  borderRadius: '11px',
-                  padding: '29px'
-                }}
-              >
-                <h3
-                  style={{
-                    fontFamily: "'Clash Display', sans-serif",
-                    fontSize: '18px',
-                    fontWeight: '600',
-                    color: '#C4B5FD',
-                    marginBottom: '14px'
-                  }}
-                >
-                  Key Features
-                </h3>
-                <ul style={{ listStyle: 'none', padding: 0 }}>
-                  {project.keyFeatures?.map((feature, index) => (
-                    <li
-                      key={index}
-                      style={{
-                        fontFamily: "'Inter', sans-serif",
-                        fontSize: '13px',
-                        lineHeight: '1.6',
-                        color: '#E8E8E3',
-                        marginBottom: '11px',
-                        paddingLeft: '18px',
-                        position: 'relative'
-                      }}
-                    >
-                      <span
-                        style={{
-                          position: 'absolute',
-                          left: 0,
-                          color: '#9D92C8'
-                        }}
-                      >
-                        •
-                      </span>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-
-              {/* Team & Contributions */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4, delay: 0.3 }}
-                style={{
-                  backgroundColor: 'rgba(78, 74, 92, 0.2)',
-                  border: '1px solid rgba(196, 181, 253, 0.3)',
-                  borderRadius: '11px',
-                  padding: '29px'
-                }}
-              >
-                <h3
-                  style={{
-                    fontFamily: "'Clash Display', sans-serif",
-                    fontSize: '18px',
-                    fontWeight: '600',
-                    color: '#C4B5FD',
-                    marginBottom: '14px'
-                  }}
-                >
-                  Team & My Contributions
-                </h3>
-
-                <h4
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: '13px',
-                    fontWeight: '600',
-                    color: '#9D92C8',
-                    marginBottom: '7px',
-                    marginTop: '14px'
-                  }}
-                >
-                  Team Members:
-                </h4>
-                <p
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: '13px',
-                    color: '#E8E8E3',
-                    marginBottom: '14px'
-                  }}
-                >
-                  {project.team?.members?.join(', ')}
-                </p>
-
-                <h4
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: '13px',
-                    fontWeight: '600',
-                    color: '#9D92C8',
-                    marginBottom: '7px'
-                  }}
-                >
-                  My Contributions:
-                </h4>
-                <ul style={{ listStyle: 'none', padding: 0 }}>
-                  {project.team?.myContributions?.map((contribution, index) => (
-                    <li
-                      key={index}
-                      style={{
-                        fontFamily: "'Inter', sans-serif",
-                        fontSize: '13px',
-                        lineHeight: '1.6',
-                        color: '#E8E8E3',
-                        marginBottom: '7px',
-                        paddingLeft: '18px',
-                        position: 'relative'
-                      }}
-                    >
-                      <span
-                        style={{
-                          position: 'absolute',
-                          left: 0,
-                          color: '#9D92C8'
-                        }}
-                      >
-                        •
-                      </span>
-                      {contribution}
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            </div>
-
-            {/* Challenges & Solutions Section */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.4 }}
-              style={{
-                backgroundColor: 'rgba(78, 74, 92, 0.2)',
-                border: '1px solid rgba(196, 181, 253, 0.3)',
-                borderRadius: '11px',
-                padding: '29px'
-              }}
-            >
-              <h3
-                style={{
-                  fontFamily: "'Clash Display', sans-serif",
-                  fontSize: '18px',
-                  fontWeight: '600',
-                  color: '#C4B5FD',
-                  marginBottom: '18px'
-                }}
-              >
-                Challenges & Solutions
-              </h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
-                {project.challenges?.map((item, index) => (
-                  <div key={index}>
-                    <h4
-                      style={{
-                        fontFamily: "'Inter', sans-serif",
-                        fontSize: '14px',
-                        fontWeight: '600',
-                        color: '#E8E8E3',
-                        marginBottom: '7px'
-                      }}
-                    >
-                      <span style={{ color: '#9D92C8' }}>Challenge:</span> {item.challenge}
-                    </h4>
-                    <p
-                      style={{
-                        fontFamily: "'Inter', sans-serif",
-                        fontSize: '13px',
-                        lineHeight: '1.6',
-                        color: 'rgba(255,255,255,0.7)',
-                        paddingLeft: '18px'
-                      }}
-                    >
-                      <span style={{ color: '#C4B5FD', fontWeight: '500' }}>Solution:</span> {item.solution}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
           </div>
         </motion.div>
         )}

@@ -155,44 +155,50 @@ function About() {
           backgroundColor: '#262626',
           paddingLeft: '158px',
           paddingRight: '158px',
-          paddingTop: '72px',
-          paddingBottom: '36px',
+          minHeight: 'calc(100vh - 72px)',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          paddingTop: '108px',
+          paddingBottom: '72px',
           borderTop: '1px solid rgba(255,255,255,0.1)'
         }}
       >
-        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '58px' }}>
+        {/* Main Footer Content */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           {/* Left side - Message */}
-          <div style={{ maxWidth: '360px' }}>
+          <div style={{ maxWidth: '540px' }}>
             <p style={{
               fontFamily: "'Clash Display', sans-serif",
-              fontSize: '22px',
+              fontSize: '43px',
               fontWeight: '600',
               color: '#E8E8E3',
-              lineHeight: '1.4'
+              lineHeight: '1.3',
+              marginBottom: '29px'
             }}>
               Thanks for stopping by! Feel free to reach out if you'd like to collaborate or just chat about design and code.
             </p>
           </div>
 
           {/* Right side - Navigation and Connections */}
-          <div style={{ display: 'flex', gap: '72px' }}>
+          <div style={{ display: 'flex', gap: '108px' }}>
             {/* Navigation */}
             <div>
               <h4 style={{
                 fontFamily: "'Clash Display', sans-serif",
-                fontSize: '14px',
+                fontSize: '16px',
                 fontWeight: '600',
                 color: '#C4B5FD',
-                marginBottom: '22px'
+                marginBottom: '29px'
               }}>
                 Navigation
               </h4>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
                 <Link
                   to="/"
                   style={{
                     fontFamily: "'Inter', sans-serif",
-                    fontSize: '13px',
+                    fontSize: '14px',
                     color: 'rgba(255,255,255,0.7)',
                     textDecoration: 'none'
                   }}
@@ -204,7 +210,7 @@ function About() {
                   to="/about"
                   style={{
                     fontFamily: "'Inter', sans-serif",
-                    fontSize: '13px',
+                    fontSize: '14px',
                     color: 'rgba(255,255,255,0.7)',
                     textDecoration: 'none'
                   }}
@@ -216,7 +222,7 @@ function About() {
                   to="/playlist"
                   style={{
                     fontFamily: "'Inter', sans-serif",
-                    fontSize: '13px',
+                    fontSize: '14px',
                     color: 'rgba(255,255,255,0.7)',
                     textDecoration: 'none'
                   }}
@@ -230,7 +236,7 @@ function About() {
                   rel="noopener noreferrer"
                   style={{
                     fontFamily: "'Inter', sans-serif",
-                    fontSize: '13px',
+                    fontSize: '14px',
                     color: 'rgba(255,255,255,0.7)',
                     textDecoration: 'none'
                   }}
@@ -245,21 +251,21 @@ function About() {
             <div>
               <h4 style={{
                 fontFamily: "'Clash Display', sans-serif",
-                fontSize: '14px',
+                fontSize: '16px',
                 fontWeight: '600',
                 color: '#C4B5FD',
-                marginBottom: '22px'
+                marginBottom: '29px'
               }}>
                 Connections
               </h4>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
                 <a
                   href="https://www.linkedin.com/in/yourprofile"
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
                     fontFamily: "'Inter', sans-serif",
-                    fontSize: '13px',
+                    fontSize: '14px',
                     color: 'rgba(255,255,255,0.7)',
                     textDecoration: 'none'
                   }}
@@ -273,7 +279,7 @@ function About() {
                   rel="noopener noreferrer"
                   style={{
                     fontFamily: "'Inter', sans-serif",
-                    fontSize: '13px',
+                    fontSize: '14px',
                     color: 'rgba(255,255,255,0.7)',
                     textDecoration: 'none'
                   }}
@@ -285,7 +291,7 @@ function About() {
                   href="mailto:your.email@example.com"
                   style={{
                     fontFamily: "'Inter', sans-serif",
-                    fontSize: '13px',
+                    fontSize: '14px',
                     color: 'rgba(255,255,255,0.7)',
                     textDecoration: 'none'
                   }}
@@ -303,12 +309,12 @@ function About() {
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          paddingTop: '29px',
+          paddingTop: '43px',
           borderTop: '1px solid rgba(255,255,255,0.1)'
         }}>
           <p style={{
             fontFamily: "'Inter', sans-serif",
-            fontSize: '13px',
+            fontSize: '14px',
             color: 'rgba(255,255,255,0.5)'
           }}>
             © 2026 Khang Nguyen
@@ -317,7 +323,7 @@ function About() {
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             style={{
               fontFamily: "'Inter', sans-serif",
-              fontSize: '13px',
+              fontSize: '14px',
               color: 'rgba(255,255,255,0.7)',
               background: 'none',
               border: 'none',
