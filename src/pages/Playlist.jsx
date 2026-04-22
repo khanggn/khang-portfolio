@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MusicNote, MusicNotes, MusicNotesSimple, Play, Pause, X, SpeakerHigh, SpeakerLow, SpeakerSlash, CaretDown, CheckCircle } from 'phosphor-react';
 import ProjectDetail from '../components/ProjectDetail';
+import FooterWithSpotlight from '../components/FooterWithSpotlight';
 
 // Music note cursor trail component
 function MusicCursorTrail() {
@@ -812,11 +813,13 @@ function Playlist() {
       <main
         className="flex-1"
         style={{
-          filter: `blur(${blurAmount}px)`
+          padding: '0 158px'
         }}
       >
-        {/* Landing Section */}
-        <section style={{ padding: '72px 158px 158px 158px' }}>
+        {/* Content wrapper with blur effect */}
+        <div style={{ filter: `blur(${blurAmount}px)` }}>
+          {/* Landing Section */}
+          <section style={{ padding: '72px 0 158px 0' }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -1041,13 +1044,12 @@ function Playlist() {
         <div
           style={{
             height: '1px',
-            background: 'linear-gradient(90deg, transparent 0%, rgba(196, 181, 253, 0.5) 50%, transparent 100%)',
-            margin: '0 158px'
+            background: 'linear-gradient(90deg, transparent 0%, rgba(196, 181, 253, 0.5) 50%, transparent 100%)'
           }}
         />
 
         {/* Playlist Detail Sections */}
-        <section style={{ padding: '0 158px 158px 158px' }}>
+        <section style={{ paddingBottom: '158px' }}>
           {playlists.map((playlist, index) => {
             const currentSort = sortOrder[playlist.id] || 'newest';
 
@@ -1599,194 +1601,12 @@ function Playlist() {
             );
           })}
         </section>
+        </div>
+        {/* End blur wrapper */}
+
+        {/* Footer Section */}
+        <FooterWithSpotlight />
       </main>
-
-      {/* Footer Section */}
-      <footer
-        style={{
-          backgroundColor: '#262626',
-          minHeight: 'calc(100vh - 72px)',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          paddingLeft: '158px',
-          paddingRight: '158px',
-          paddingTop: '108px',
-          paddingBottom: '72px',
-          borderTop: '1px solid rgba(255,255,255,0.1)'
-        }}
-      >
-        {/* Main Footer Content */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-          {/* Left side - Message */}
-          <div style={{ maxWidth: '540px' }}>
-            <p style={{
-              fontFamily: "'Clash Display', sans-serif",
-              fontSize: '43px',
-              fontWeight: '600',
-              color: '#E8E8E3',
-              lineHeight: '1.3',
-              marginBottom: '29px'
-            }}>
-              Thanks for stopping by! Feel free to reach out if you'd like to collaborate or just chat about design and code.
-            </p>
-          </div>
-
-          {/* Right side - Navigation and Connections */}
-          <div style={{ display: 'flex', gap: '108px' }}>
-            {/* Navigation */}
-            <div>
-              <h4 style={{
-                fontFamily: "'Clash Display', sans-serif",
-                fontSize: '16px',
-                fontWeight: '600',
-                color: '#C4B5FD',
-                marginBottom: '29px'
-              }}>
-                Navigation
-              </h4>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
-                <Link
-                  to="/"
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: '14px',
-                    color: 'rgba(255,255,255,0.7)',
-                    textDecoration: 'none'
-                  }}
-                  className="hover:text-white transition-colors"
-                >
-                  Home
-                </Link>
-                <Link
-                  to="/about"
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: '14px',
-                    color: 'rgba(255,255,255,0.7)',
-                    textDecoration: 'none'
-                  }}
-                  className="hover:text-white transition-colors"
-                >
-                  About
-                </Link>
-                <Link
-                  to="/playlist"
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: '14px',
-                    color: 'rgba(255,255,255,0.7)',
-                    textDecoration: 'none'
-                  }}
-                  className="hover:text-white transition-colors"
-                >
-                  My Playlists
-                </Link>
-                <a
-                  href="/resume/khangresume.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: '14px',
-                    color: 'rgba(255,255,255,0.7)',
-                    textDecoration: 'none'
-                  }}
-                  className="hover:text-white transition-colors"
-                >
-                  Resume
-                </a>
-              </div>
-            </div>
-
-            {/* Connections */}
-            <div>
-              <h4 style={{
-                fontFamily: "'Clash Display', sans-serif",
-                fontSize: '16px',
-                fontWeight: '600',
-                color: '#C4B5FD',
-                marginBottom: '29px'
-              }}>
-                Connections
-              </h4>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
-                <a
-                  href="https://www.linkedin.com/in/yourprofile"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: '14px',
-                    color: 'rgba(255,255,255,0.7)',
-                    textDecoration: 'none'
-                  }}
-                  className="hover:text-white transition-colors"
-                >
-                  LinkedIn
-                </a>
-                <a
-                  href="https://github.com/yourusername"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: '14px',
-                    color: 'rgba(255,255,255,0.7)',
-                    textDecoration: 'none'
-                  }}
-                  className="hover:text-white transition-colors"
-                >
-                  GitHub
-                </a>
-                <a
-                  href="mailto:your.email@example.com"
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: '14px',
-                    color: 'rgba(255,255,255,0.7)',
-                    textDecoration: 'none'
-                  }}
-                  className="hover:text-white transition-colors"
-                >
-                  Email
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom Bar */}
-        <div style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          paddingTop: '43px',
-          borderTop: '1px solid rgba(255,255,255,0.1)'
-        }}>
-          <p style={{
-            fontFamily: "'Inter', sans-serif",
-            fontSize: '14px',
-            color: 'rgba(255,255,255,0.5)'
-          }}>
-            © 2026 Khang Nguyen
-          </p>
-          <button
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            style={{
-              fontFamily: "'Inter', sans-serif",
-              fontSize: '14px',
-              color: 'rgba(255,255,255,0.7)',
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer'
-            }}
-            className="hover:text-[#C4B5FD] transition-colors"
-          >
-            Back to Top ↑
-          </button>
-        </div>
-      </footer>
     </div>
   );
 }
