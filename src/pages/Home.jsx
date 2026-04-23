@@ -167,8 +167,8 @@ const projects = [
     title: "West Coast Adult Soccer League",
     summary: "Designed and launched a full website for an 800+ player South OC soccer league — simple enough for schedule-checkers, smooth enough for first-time registrants.",
     types: ["Web Design", "Product Design"],
-    media: "/images/projects/wcaslcs.png",
-    mediaType: "img",
+    media: "/images/projects/wcasl.mp4",
+    mediaType: "video",
     date: "Apr 2025 – Present",
     links: {}
   },
@@ -176,9 +176,9 @@ const projects = [
     id: 2,
     title: "PlasticBeach",
     summary: "Redesigned the site and recycling materials for a SoCal nonprofit cutting soft-plastic waste across 40+ retail and distribution partners.",
-    types: ["Product Design", "UX Design", "Web Redesign"],
-    media: "/images/projects/plasticbeachcs.png",
-    mediaType: "img",
+    types: ["Product Design", "UI/UX Design", "Web Redesign"],
+    media: "/images/projects/plasticbeach.mp4",
+    mediaType: "video",
     date: "Apr 2025 - Jul 2025",
     links: {
       final: "https://drive.google.com/file/d/1_jWW9Q3IAvawfwOCGiCDSiwZu14qLN4H/view?usp=sharing",
@@ -205,7 +205,9 @@ function Home() {
   const [isCardHovered, setIsCardHovered] = useState(false);
   const [isOnWhiteSection, setIsOnWhiteSection] = useState(false);
   const [isViewAllHovered, setIsViewAllHovered] = useState(false);
+  const [isDittoHovered, setIsDittoHovered] = useState(false);
   const heroRef = useRef(null);
+  const dittoImgRef = useRef(null);
   const titleTracksRef = useRef(null);
   const titleTracksInView = useInView(titleTracksRef, {
     once: false,  // Allow reverse animation
@@ -253,8 +255,8 @@ function Home() {
     offset: ["start start", "end start"]
   });
 
-  // Transform scroll progress to animation values
-  const blurValue = useTransform(scrollYProgress, [0, 0.5], [0, 10]);
+  // Transform scroll progress to animation values - delayed blur
+  const blurValue = useTransform(scrollYProgress, [0.5, 0.85], [0, 10]);
   const filter = useTransform(blurValue, (value) => `blur(${value}px)`);
 
   // Role rotation
@@ -271,9 +273,9 @@ function Home() {
     return () => clearInterval(interval);
   }, [currentRoleIndex]);
 
-  // Progress bar update
+  // Progress bar update - only when section is in view
   useEffect(() => {
-    if (isPaused) return;
+    if (isPaused || !titleTracksInView) return;
 
     const interval = 50; // Update every 50ms
     const increment = (interval / 7000) * 100; // 7 second duration
@@ -288,11 +290,11 @@ function Home() {
     }, interval);
 
     return () => clearInterval(progressInterval);
-  }, [isPaused]);
+  }, [isPaused, titleTracksInView]);
 
-  // Auto-advance when progress completes
+  // Auto-advance when progress completes - only when section is in view
   useEffect(() => {
-    if (progress >= 100 && !isPaused) {
+    if (progress >= 100 && !isPaused && titleTracksInView) {
       const timeout = setTimeout(() => {
         setCurrentProjectIndex((prev) => (prev + 1) % projects.length);
         setProgress(0);
@@ -300,7 +302,7 @@ function Home() {
 
       return () => clearTimeout(timeout);
     }
-  }, [progress, isPaused]);
+  }, [progress, isPaused, titleTracksInView]);
 
   const handlePrevProject = () => {
     setCurrentProjectIndex((prev) => (prev - 1 + projects.length) % projects.length);
@@ -376,16 +378,19 @@ function Home() {
           id="home"
           ref={heroRef}
           style={{
-            minHeight: 'calc(100vh - 72px)',
+            height: 'calc(100vh - 72px)',
             display: 'flex',
             alignItems: 'center'
           }}
         >
-          <motion.div
-            style={{
-              filter
-            }}
-          >
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '16px', width: '100%' }}>
+            <motion.div
+              style={{
+                filter,
+                flex: 1,
+                position: 'relative'
+              }}
+            >
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -440,13 +445,13 @@ function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="max-w-3xl"
               style={{
                 fontFamily: "'Inter', sans-serif",
                 fontSize: '22px',
                 lineHeight: '1.6',
                 color: '#E8E8E3',
-                marginBottom: '29px'
+                marginBottom: '29px',
+                maxWidth: '100%'
               }}
             >
               I like to <JumpingText delay={0}>design</JumpingText> and{' '}
@@ -463,10 +468,10 @@ function Home() {
                 fontSize: '14px',
                 lineHeight: '1.6',
                 color: '#E8E8E3',
-                marginBottom: '7px'
+                marginBottom: '64px'
               }}
             >
-              Computer Science <span style={{ fontSize: '22px' }}>∩</span> Cognitive Science @ UCSD
+              Computer Science & Cognitive Science @ UCSD
             </motion.p>
 
             <motion.p
@@ -479,12 +484,67 @@ function Home() {
                 fontSize: '14px',
                 lineHeight: '1.6',
                 color: '#E8E8E3',
-                opacity: 1
+                opacity: 1,
+                position: 'absolute',
+                left: 0,
+                right: '-312px',
+                bottom: 0
               }}
             >
               fun fact: I spent <span style={{ color: '#C4B5FD' }}><AnimatedCounter target={153601} duration={5000} /></span> minutes listening to music last year (that's 107 days I could've spent learning other programming languages... but music &gt; syntax errors)
             </motion.p>
           </motion.div>
+
+          {/* Ditto GIF - Aligned with text */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            onMouseEnter={() => setIsDittoHovered(true)}
+            onMouseLeave={() => setIsDittoHovered(false)}
+            style={{
+              width: '280px',
+              height: 'auto',
+              flexShrink: 0,
+              cursor: 'pointer'
+            }}
+          >
+            {/* Static first frame - hidden on hover */}
+            <canvas
+              ref={dittoImgRef}
+              style={{
+                width: '100%',
+                height: 'auto',
+                display: isDittoHovered ? 'none' : 'block'
+              }}
+            />
+            {/* Animated GIF - shown on hover */}
+            <img
+              src="/images/projects/ditto.gif"
+              alt="Ditto"
+              style={{
+                width: '100%',
+                height: 'auto',
+                display: isDittoHovered ? 'block' : 'none'
+              }}
+            />
+            {/* Hidden img to load GIF and extract first frame */}
+            <img
+              src="/images/projects/ditto.gif"
+              alt=""
+              style={{ display: 'none' }}
+              onLoad={(e) => {
+                const canvas = dittoImgRef.current;
+                if (canvas && e.target) {
+                  const ctx = canvas.getContext('2d');
+                  canvas.width = e.target.naturalWidth;
+                  canvas.height = e.target.naturalHeight;
+                  ctx.drawImage(e.target, 0, 0);
+                }
+              }}
+            />
+          </motion.div>
+          </div>
         </section>
 
         {/* Title Tracks Section */}
@@ -537,17 +597,64 @@ function Home() {
                 onHoverStart={() => setIsCardHovered(true)}
                 onHoverEnd={() => setIsCardHovered(false)}
                 whileHover={{
-                  scale: 1.02
+                  scale: 1.01
                 }}
                 style={{
                   backgroundColor: '#262626',
                   borderRadius: '11px',
                   padding: '43px',
                   marginBottom: '43px',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  position: 'relative',
+                  overflow: 'hidden'
                 }}
               >
-              <div style={{ display: 'flex', gap: '43px', alignItems: 'start' }}>
+              {/* Soccer player slide-in animation - only for WCASL project */}
+              {currentProjectIndex === 0 && (
+                <motion.img
+                  src="/images/projects/soccer.webp"
+                  alt="Soccer player"
+                  initial={{ x: 200, y: 200, opacity: 0 }}
+                  animate={isCardHovered ? { x: 0, y: 0, opacity: 1 } : { x: 200, y: 200, opacity: 0 }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                  style={{
+                    position: 'absolute',
+                    right: -70,
+                    bottom: -120,
+                    height: '60%',
+                    width: 'auto',
+                    objectFit: 'contain',
+                    pointerEvents: 'none',
+                    zIndex: 1,
+                    filter: 'invert(1) brightness(1.2)'
+                  }}
+                />
+              )}
+
+              {/* Plastic bag slide-in animation - only for PlasticBeach project */}
+              {currentProjectIndex === 1 && (
+                <motion.img
+                  src="/images/projects/plasticbag.avif"
+                  alt="Plastic bag"
+                  initial={{ x: 200, y: 200, opacity: 0, rotate: -30 }}
+                  animate={isCardHovered ? { x: 0, y: 0, opacity: 1, rotate: -30 } : { x: 200, y: 200, opacity: 0, rotate: -30 }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                  style={{
+                    position: 'absolute',
+                    right: -70,
+                    bottom: -120,
+                    height: '70%',
+                    width: 'auto',
+                    objectFit: 'contain',
+                    pointerEvents: 'none',
+                    zIndex: 1,
+                    filter: 'invert(1) brightness(1.2)',
+                    mixBlendMode: 'screen'
+                  }}
+                />
+              )}
+
+              <div style={{ display: 'flex', gap: '43px', alignItems: 'start', position: 'relative', zIndex: 2 }}>
                 {/* Project Media (Image or Video) */}
                 <motion.div
                   style={{
@@ -570,7 +677,7 @@ function Home() {
                         loop
                         muted
                         playsInline
-                        animate={{ scale: isCardHovered ? 1.4 : 1.3 }}
+                        animate={{ scale: 1 }}
                         transition={{ duration: 0.4, ease: 'easeOut' }}
                         style={{
                           width: '100%',
@@ -582,7 +689,7 @@ function Home() {
                       <motion.img
                         src={projects[currentProjectIndex].media}
                         alt={projects[currentProjectIndex].title}
-                        animate={{ scale: isCardHovered ? 1.1 : 1 }}
+                        animate={{ scale: 1 }}
                         transition={{ duration: 0.4, ease: 'easeOut' }}
                         style={{
                           width: '100%',
@@ -642,44 +749,26 @@ function Home() {
                     </p>
                   </div>
 
-                  {/* Bottom row: Type tags on left, View More on right - aligned with image bottom */}
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-                    {/* Type tags - left side */}
-                    <div style={{ display: 'flex', gap: '11px', flexWrap: 'wrap', alignItems: 'center' }}>
-                      {projects[currentProjectIndex].types.map((type) => (
-                        <span
-                          key={type}
-                          style={{
-                            fontFamily: "'Inter', sans-serif",
-                            fontSize: '12px',
-                            padding: '5px 13px',
-                            backgroundColor: 'rgba(196, 181, 253, 0.15)',
-                            border: '1px solid #C4B5FD',
-                            borderRadius: '18px',
-                            color: '#C4B5FD',
-                            fontWeight: '500',
-                            boxShadow: '0 0 11px rgba(196, 181, 253, 0.4)'
-                          }}
-                        >
-                          {type}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* View More text - right side */}
-                    <span
-                      style={{
-                        fontFamily: "'Inter', sans-serif",
-                        fontSize: '13px',
-                        color: '#262626',
-                        cursor: 'pointer',
-                        fontWeight: '600',
-                        flexShrink: 0
-                      }}
-                      className="hover:text-[#4E4A5C] transition-colors"
-                    >
-                      View More →
-                    </span>
+                  {/* Type tags */}
+                  <div style={{ display: 'flex', gap: '11px', flexWrap: 'wrap', alignItems: 'center' }}>
+                    {projects[currentProjectIndex].types.map((type) => (
+                      <span
+                        key={type}
+                        style={{
+                          fontFamily: "'Inter', sans-serif",
+                          fontSize: '12px',
+                          padding: '5px 13px',
+                          backgroundColor: 'rgba(196, 181, 253, 0.15)',
+                          border: '1px solid #C4B5FD',
+                          borderRadius: '18px',
+                          color: '#C4B5FD',
+                          fontWeight: '500',
+                          boxShadow: '0 0 11px rgba(196, 181, 253, 0.4)'
+                        }}
+                      >
+                        {type}
+                      </span>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -748,7 +837,7 @@ function Home() {
             </div>
 
             {/* Control Buttons */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '14px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '32px' }}>
               {/* Previous Button */}
               <button
                 onClick={handlePrevProject}
@@ -761,10 +850,17 @@ function Home() {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  transition: 'color 0.2s'
+                  transition: 'all 0.3s',
+                  filter: 'drop-shadow(0 0 0px rgba(196, 181, 253, 0))'
                 }}
-                onMouseEnter={(e) => e.currentTarget.style.color = '#4E4A5C'}
-                onMouseLeave={(e) => e.currentTarget.style.color = '#262626'}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = '#C4B5FD';
+                  e.currentTarget.style.filter = 'drop-shadow(0 0 8px rgba(196, 181, 253, 0.6))';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = '#262626';
+                  e.currentTarget.style.filter = 'drop-shadow(0 0 0px rgba(196, 181, 253, 0))';
+                }}
               >
                 <SkipBack size={29} weight="fill" />
               </button>
@@ -784,10 +880,17 @@ function Home() {
                   justifyContent: 'center',
                   width: '50px',
                   height: '50px',
-                  transition: 'transform 0.2s'
+                  transition: 'all 0.3s',
+                  boxShadow: '0 0 0px rgba(196, 181, 253, 0)'
                 }}
-                onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-                onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'scale(1.05)';
+                  e.currentTarget.style.boxShadow = '0 0 16px rgba(196, 181, 253, 0.8)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'scale(1)';
+                  e.currentTarget.style.boxShadow = '0 0 0px rgba(196, 181, 253, 0)';
+                }}
               >
                 {isPaused ? <Play size={25} weight="fill" /> : <Pause size={25} weight="fill" />}
               </button>
@@ -804,10 +907,17 @@ function Home() {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  transition: 'color 0.2s'
+                  transition: 'all 0.3s',
+                  filter: 'drop-shadow(0 0 0px rgba(196, 181, 253, 0))'
                 }}
-                onMouseEnter={(e) => e.currentTarget.style.color = '#4E4A5C'}
-                onMouseLeave={(e) => e.currentTarget.style.color = '#262626'}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = '#C4B5FD';
+                  e.currentTarget.style.filter = 'drop-shadow(0 0 8px rgba(196, 181, 253, 0.6))';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = '#262626';
+                  e.currentTarget.style.filter = 'drop-shadow(0 0 0px rgba(196, 181, 253, 0))';
+                }}
               >
                 <SkipForward size={29} weight="fill" />
               </button>

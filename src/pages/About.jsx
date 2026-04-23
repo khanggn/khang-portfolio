@@ -130,23 +130,116 @@ function About() {
       {/* Main Content */}
       <main className="flex-1" style={{ padding: '0 158px' }}>
         {/* Hero Section */}
-        <section style={{ paddingTop: '108px', paddingBottom: '108px' }}>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <h1
-              className="font-bold gradient-shimmer"
+        <section
+          style={{
+            height: 'calc(100vh - 72px)',
+            display: 'flex',
+            alignItems: 'center'
+          }}
+        >
+          <div style={{ display: 'flex', gap: '64px', alignItems: 'center', width: '100%' }}>
+            {/* Left side - Text content */}
+            <div style={{ flex: 1 }}>
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="font-bold"
+                style={{
+                  fontFamily: "'Clash Display', sans-serif",
+                  fontSize: '58px',
+                  lineHeight: '1.2',
+                  marginBottom: '32px',
+                  color: '#E8E8E3'
+                }}
+              >
+                Hey! I'm <span className="gradient-shimmer">Khang</span>
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: '16px',
+                  lineHeight: '1.6',
+                  color: '#E8E8E3',
+                  marginBottom: '16px'
+                }}
+              >
+                I'm a developer and designer based in San Diego who loves building websites that are visually appealing and intuitive to use.
+              </motion.p>
+
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: '16px',
+                  lineHeight: '1.6',
+                  color: '#E8E8E3',
+                  marginBottom: '16px'
+                }}
+              >
+                For a while, I was committed to straight up coding. I wasn't really thinking beyond just writing code. That's when I got introduced to UI/UX design and it changed everything. Now I get to work right between design and development, with the user always in the back of my mind.
+              </motion.p>
+
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: '16px',
+                  lineHeight: '1.6',
+                  color: '#E8E8E3',
+                  marginBottom: '16px'
+                }}
+              >
+              I've worked with clients and organizations, redesigning websites for nonprofits and building new ones from scratch for people who use them every day.
+              </motion.p>
+
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.8 }}
+                style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: '16px',
+                  lineHeight: '1.6',
+                  color: '#E8E8E3'
+                }}
+              >
+                If you want someone who thinks about both the look and the feels, I'd love to connect.
+              </motion.p>
+            </div>
+
+            {/* Right side - Headshot */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
               style={{
-                fontFamily: "'Clash Display', sans-serif",
-                fontSize: '58px',
-                lineHeight: '1.2'
+                width: '400px',
+                height: '400px',
+                flexShrink: 0
               }}
             >
-              About Me
-            </h1>
-          </motion.div>
+              <img
+                src="/images/projects/headshot.png"
+                alt="Khang Nguyen"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  borderRadius: '16px',
+                  border: '2px solid #E8E8E3'
+                }}
+              />
+            </motion.div>
+          </div>
         </section>
 
         {/* Footer Section */}

@@ -819,37 +819,42 @@ function Playlist() {
         {/* Content wrapper with blur effect */}
         <div style={{ filter: `blur(${blurAmount}px)` }}>
           {/* Landing Section */}
-          <section style={{ padding: '72px 0 158px 0' }}>
+          <section style={{ paddingTop: '120px', paddingBottom: '158px' }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            {/* Page Title */}
-            <h1
-              className="font-bold"
-              style={{
-                fontFamily: "'Clash Display', sans-serif",
-                fontSize: '58px',
-                lineHeight: '1.2',
-                marginBottom: '14px'
-              }}
-            >
-              <span className="gradient-shimmer">Discover My Projects </span>
-            </h1>
+            {/* Header Section with Title and Description */}
+            <div style={{ marginBottom: '40px' }}>
+              <div style={{ maxWidth: '800px' }}>
+                {/* Page Title */}
+                <h1
+                  className="font-bold"
+                  style={{
+                    fontFamily: "'Clash Display', sans-serif",
+                    fontSize: '58px',
+                    lineHeight: '1.2',
+                    marginBottom: '14px'
+                  }}
+                >
+                  <span className="gradient-shimmer">Discover My Projects </span>
+                </h1>
 
-            {/* Description */}
-            <p
-              style={{
-                fontFamily: "'Inter', sans-serif",
-                fontSize: '16px',
-                color: 'rgba(255,255,255,0.7)',
-                marginBottom: '43px',
-                lineHeight: '1.6'
-              }}
-            >
-              what i've been making instead of sleeping.
-            </p>
+                {/* Description */}
+                <p
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: '16px',
+                    color: 'rgba(255,255,255,0.7)',
+                    lineHeight: '1.6',
+                    marginTop: '24px'
+                  }}
+                >
+                  what i've been making instead of sleeping.
+                </p>
+              </div>
+            </div>
 
             {/* Bordered Wrapper for Filters and Playlists */}
             <div
@@ -857,9 +862,24 @@ function Playlist() {
                 border: '1px solid rgba(196, 181, 253, 0.3)',
                 borderRadius: '14px',
                 padding: '58px 43px',
-                backgroundColor: 'rgba(78, 74, 92, 0.2)'
+                backgroundColor: 'rgba(78, 74, 92, 0.2)',
+                position: 'relative'
               }}
             >
+              {/* Music Notes GIF - Inside Box */}
+              <img
+                src="/images/projects/musicnotes.gif"
+                alt="Music notes"
+                style={{
+                  position: 'absolute',
+                  top: '58px',
+                  right: '43px',
+                  width: '150px',
+                  height: 'auto',
+                  opacity: 0.9,
+                  pointerEvents: 'none'
+                }}
+              />
               {/* Filter Tabs */}
               <div style={{ display: 'flex', gap: '14px', marginBottom: '43px' }}>
             {['swe', 'uiux'].map((filter) => (
@@ -914,7 +934,7 @@ function Playlist() {
           </div>
 
           {/* Playlist Cards Grid - Filtered */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '22px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(280px, 400px))', gap: '22px', justifyContent: 'start' }}>
             <AnimatePresence mode="wait">
             {playlists
               .filter(playlist => !selectedPlaylist || playlist.category === selectedPlaylist)
