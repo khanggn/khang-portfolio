@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { LinkedinLogo, GithubLogo, Envelope } from '@phosphor-icons/react';
-import VisitorCounter from './VisitorCounter';
 
 // Animated text component with random jumping animation
 function JumpingText({ children, delay = 0 }) {
@@ -232,8 +231,8 @@ function FooterWithSpotlight() {
         <JumpingText delay={0}>thanks</JumpingText> for stopping by {'>.<'}
       </motion.p>
 
-      {/* Bottom Left Copyright & Visitor Counter */}
-      <motion.div
+      {/* Bottom Left Copyright */}
+      <motion.p
         key={`footer-copyright-${animationKey}`}
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -242,21 +241,17 @@ function FooterWithSpotlight() {
           position: 'absolute',
           bottom: '137px',
           left: '158px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '16px',
           fontFamily: "'Inter', sans-serif",
           fontSize: '14px',
           fontWeight: '400',
           color: '#E8E8E3',
+          margin: 0,
           cursor: 'default',
           userSelect: 'none'
         }}
       >
-        <p style={{ margin: 0 }}>© 2026 Khang Nguyen</p>
-        <span style={{ color: 'rgba(255,255,255,0.3)' }}>|</span>
-        <VisitorCounter />
-      </motion.div>
+        © 2026 Khang Nguyen
+      </motion.p>
 
       {/* Bottom Right Text with Social Icons */}
       <motion.div
