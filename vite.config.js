@@ -7,4 +7,12 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  optimizeDeps: {
+    include: ['@phosphor-icons/react', 'lucide-react']
+  },
+  build: {
+    rollupOptions: {
+      external: []
+    }
+  }
 })
