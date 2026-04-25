@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { MusicNote, MusicNotes, MusicNotesSimple } from 'phosphor-react';
+import { MusicNote, MusicNotes, MusicNotesSimple } from '@phosphor-icons/react';
 import FooterWithSpotlight from '../components/FooterWithSpotlight';
 
 // Music note cursor trail component
@@ -240,6 +240,34 @@ function About() {
               />
             </motion.div>
           </div>
+        </section>
+
+        {/* Divider */}
+        <div
+          style={{
+            width: '100%',
+            height: '1px',
+            backgroundColor: 'rgba(255, 255, 255, 0.1)',
+            marginLeft: '-158px',
+            marginRight: '-158px'
+          }}
+        />
+
+        {/* New Section - Blank for now */}
+        <section
+          style={{
+            height: '100vh',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: '#E8E8E3',
+            marginLeft: '-158px',
+            marginRight: '-158px',
+            paddingLeft: '158px',
+            paddingRight: '158px'
+          }}
+        >
+          {/* Content placeholder */}
         </section>
 
         {/* Footer Section */}

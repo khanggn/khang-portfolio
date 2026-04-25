@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence, useScroll, useTransform, useInView } from 'framer-motion';
 import { Home as HomeIcon, Mic2, Library, Music, Download } from 'lucide-react';
-import { SkipBack, SkipForward, Play, Pause, MusicNote, MusicNotes, MusicNotesSimple, ArrowRight } from 'phosphor-react';
+import { SkipBack, SkipForward, Play, Pause, MusicNote, MusicNotes, MusicNotesSimple, ArrowRight } from '@phosphor-icons/react';
 import FooterWithSpotlight from '../components/FooterWithSpotlight';
 
 const roles = [

@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { CheckCircle, ArrowSquareOut, GithubLogo, Article, FigmaLogo, X, CaretLeft, CaretRight } from 'phosphor-react';
+import { CheckCircle, ArrowSquareOut, GithubLogo, Article, FigmaLogo, X, CaretLeft, CaretRight } from '@phosphor-icons/react';
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 

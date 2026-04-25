@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MusicNote, MusicNotes, MusicNotesSimple, Play, Pause, X, SpeakerHigh, SpeakerLow, SpeakerSlash, CaretDown, CheckCircle } from 'phosphor-react';
+import { MusicNote, MusicNotes, MusicNotesSimple, Play, Pause, X, SpeakerHigh, SpeakerLow, SpeakerSlash, CaretDown, CheckCircle } from '@phosphor-icons/react';
 import ProjectDetail from '../components/ProjectDetail';
 import FooterWithSpotlight from '../components/FooterWithSpotlight';
 
