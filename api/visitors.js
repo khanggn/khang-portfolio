@@ -18,8 +18,8 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: 'Server configuration error' });
     }
 
-    // Calculate date range (last 7 days)
-    const since = Date.now() - (7 * 24 * 60 * 60 * 1000);
+    // Calculate date range (all-time - starting from Jan 1, 2020)
+    const since = new Date('2020-01-01').getTime();
     const until = Date.now();
 
     // Build API URL
