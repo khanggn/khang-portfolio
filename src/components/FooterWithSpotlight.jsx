@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { LinkedinLogo, GithubLogo, Envelope } from 'phosphor-react';
+import { LinkedinLogo, GithubLogo, Envelope } from '@phosphor-icons/react';
+import VisitorCounter from './VisitorCounter';
 
 // Animated text component with random jumping animation
 function JumpingText({ children, delay = 0 }) {
@@ -45,13 +46,15 @@ function JumpingText({ children, delay = 0 }) {
 
 // Footer with spotlight cursor effect
 function FooterWithSpotlight() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [mousePosition, setMousePosition] = useState({ x: -100, y: -100 }); // Start off-screen
   const [isHovering, setIsHovering] = useState(false);
+  const [isActive, setIsActive] = useState(false); // Track cursor activity
   const [isInView, setIsInView] = useState(false);
   const [animationKey, setAnimationKey] = useState(0);
   const footerRef = useRef(null);
   const khangsRef = useRef(null);
   const wrappedRef = useRef(null);
+  const inactivityTimerRef = useRef(null);
 
   // Intersection Observer to detect when footer is in view
   useEffect(() => {
@@ -86,15 +89,34 @@ function FooterWithSpotlight() {
           x: e.clientX - rect.left,
           y: e.clientY - rect.top
         });
+
+        // Show spotlight effect and reset inactivity timer
+        setIsActive(true);
+
+        // Clear existing timer
+        if (inactivityTimerRef.current) {
+          clearTimeout(inactivityTimerRef.current);
+        }
+
+        // Set new timer to hide spotlight after 2 seconds of inactivity
+        inactivityTimerRef.current = setTimeout(() => {
+          setIsActive(false);
+        }, 2000);
       }
     };
 
     const handleMouseEnter = () => {
       setIsHovering(true);
+      setIsActive(true);
     };
 
     const handleMouseLeave = () => {
       setIsHovering(false);
+      setIsActive(false);
+      // Clear timer when leaving footer
+      if (inactivityTimerRef.current) {
+        clearTimeout(inactivityTimerRef.current);
+      }
     };
 
     const footer = footerRef.current;
@@ -110,13 +132,17 @@ function FooterWithSpotlight() {
         footer.removeEventListener('mouseenter', handleMouseEnter);
         footer.removeEventListener('mouseleave', handleMouseLeave);
       }
+      // Clean up timer on unmount
+      if (inactivityTimerRef.current) {
+        clearTimeout(inactivityTimerRef.current);
+      }
     };
   }, []);
 
   // Calculate position relative to KHANG'S element
   // Use ellipse to compensate for scaleY(2) transform
   const getKhangsClipPath = () => {
-    if (!khangsRef.current) return 'ellipse(0px 0px at 0px 0px)';
+    if (!isActive || !khangsRef.current) return 'ellipse(0px 0px at 0px 0px)';
     const rect = khangsRef.current.getBoundingClientRect();
     const footerRect = footerRef.current?.getBoundingClientRect();
     if (!footerRect) return 'ellipse(0px 0px at 0px 0px)';
@@ -137,7 +163,7 @@ function FooterWithSpotlight() {
 
   // Calculate position relative to WRAPPED element
   const getWrappedClipPath = () => {
-    if (!wrappedRef.current) return 'circle(0px at 0px 0px)';
+    if (!isActive || !wrappedRef.current) return 'circle(0px at 0px 0px)';
     const rect = wrappedRef.current.getBoundingClientRect();
     const footerRect = footerRef.current?.getBoundingClientRect();
     if (!footerRect) return 'circle(0px at 0px 0px)';
@@ -176,10 +202,11 @@ function FooterWithSpotlight() {
           left: `${mousePosition.x}px`,
           top: `${mousePosition.y}px`,
           zIndex: 9999,
-          opacity: isHovering ? 0.95 : 0,
+          opacity: isHovering && isActive ? 0.95 : 0,
+          visibility: isHovering && isActive ? 'visible' : 'hidden',
           boxShadow: '0 0 30px rgba(196, 181, 253, 0.8), 0 0 60px rgba(196, 181, 253, 0.5), 0 0 90px rgba(196, 181, 253, 0.3), inset 0 0 30px rgba(196, 181, 253, 0.3)',
           background: 'rgba(196, 181, 253, 0.1)',
-          transition: 'opacity 0.4s ease-in-out'
+          transition: 'opacity 0.4s ease-in-out, visibility 0.4s ease-in-out'
         }}
       />
 
@@ -205,8 +232,8 @@ function FooterWithSpotlight() {
         <JumpingText delay={0}>thanks</JumpingText> for stopping by {'>.<'}
       </motion.p>
 
-      {/* Bottom Left Copyright */}
-      <motion.p
+      {/* Bottom Left Copyright & Visitor Counter */}
+      <motion.div
         key={`footer-copyright-${animationKey}`}
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -215,17 +242,21 @@ function FooterWithSpotlight() {
           position: 'absolute',
           bottom: '137px',
           left: '158px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '16px',
           fontFamily: "'Inter', sans-serif",
           fontSize: '14px',
           fontWeight: '400',
           color: '#E8E8E3',
-          margin: 0,
           cursor: 'default',
           userSelect: 'none'
         }}
       >
-        © 2026 Khang Nguyen
-      </motion.p>
+        <p style={{ margin: 0 }}>© 2026 Khang Nguyen</p>
+        <span style={{ color: 'rgba(255,255,255,0.3)' }}>|</span>
+        <VisitorCounter />
+      </motion.div>
 
       {/* Bottom Right Text with Social Icons */}
       <motion.div
@@ -459,7 +490,7 @@ function FooterWithSpotlight() {
               top: 0,
               left: 0,
               clipPath: (() => {
-                if (!wrappedRef.current) return 'circle(0px at 0px 0px)';
+                if (!isActive || !wrappedRef.current) return 'circle(0px at 0px 0px)';
                 const rect = wrappedRef.current.getBoundingClientRect();
                 const footerRect = footerRef.current?.getBoundingClientRect();
                 if (!footerRect) return 'circle(0px at 0px 0px)';
