@@ -176,10 +176,11 @@ function FooterWithSpotlight() {
   return (
     <footer
       ref={footerRef}
+      className="footer-section"
       style={{
         backgroundColor: '#262626',
-        marginLeft: '-158px',
-        marginRight: '-158px',
+        marginLeft: 'calc(var(--page-padding) * -1)',
+        marginRight: 'calc(var(--page-padding) * -1)',
         minHeight: 'calc(100vh - 72px)',
         display: 'flex',
         alignItems: 'center',
@@ -212,15 +213,16 @@ function FooterWithSpotlight() {
       {/* Top Left Text */}
       <motion.p
         key={`footer-text-left-${animationKey}`}
+        className="footer-positioned footer-top-text"
         initial={{ opacity: 0, y: -20 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
         transition={{ duration: 0.6, delay: 0.8 }}
         style={{
           position: 'absolute',
           top: '120px',
-          left: '158px',
+          left: 'var(--page-padding)',
           fontFamily: "'Inter', sans-serif",
-          fontSize: '28px',
+          fontSize: 'clamp(18px, 2.5vw, 28px)',
           fontWeight: '400',
           color: '#E8E8E3',
           margin: 0,
@@ -234,13 +236,14 @@ function FooterWithSpotlight() {
       {/* Bottom Left Copyright */}
       <motion.p
         key={`footer-copyright-${animationKey}`}
+        className="footer-positioned footer-bottom-left"
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.6, delay: 0.8 }}
         style={{
           position: 'absolute',
           bottom: '137px',
-          left: '158px',
+          left: 'var(--page-padding)',
           fontFamily: "'Inter', sans-serif",
           fontSize: '14px',
           fontWeight: '400',
@@ -254,24 +257,26 @@ function FooterWithSpotlight() {
       </motion.p>
 
       {/* Bottom Right Text with Social Icons */}
-      <motion.div
-        key={`footer-text-right-${animationKey}`}
-        initial={{ opacity: 0, y: 20 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-        transition={{ duration: 0.6, delay: 0.8 }}
+      <div
+        className="footer-positioned footer-bottom-right"
         style={{
           position: 'absolute',
           bottom: '120px',
-          right: '158px',
+          right: 'var(--page-padding)',
           display: 'flex',
           alignItems: 'center',
           gap: '24px'
         }}
       >
-        <p
+        <motion.p
+          key={`footer-connect-${animationKey}`}
+          className="footer-connect-text"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
           style={{
             fontFamily: "'Inter', sans-serif",
-            fontSize: '28px',
+            fontSize: 'clamp(18px, 2.5vw, 28px)',
             fontWeight: '400',
             color: '#E8E8E3',
             margin: 0,
@@ -280,10 +285,17 @@ function FooterWithSpotlight() {
           }}
         >
           feel free to <JumpingText delay={1000}>connect</JumpingText> with me!
-        </p>
+        </motion.p>
 
         {/* Social Icons */}
-        <div style={{ display: 'flex', gap: '16px', zIndex: 20, position: 'relative' }}>
+        <motion.div
+          key={`footer-icons-${animationKey}`}
+          className="footer-icons"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          style={{ display: 'flex', gap: '16px', zIndex: 20, position: 'relative' }}
+        >
           <a
             href="https://www.linkedin.com/in/khangnguyen05/"
             target="_blank"
@@ -336,18 +348,17 @@ function FooterWithSpotlight() {
           >
             <Envelope size={24} color="#C4B5FD" weight="fill" />
           </a>
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
 
       {/* Typography Container */}
       <div
+        className="footer-typography"
         style={{
           position: 'relative',
           display: 'flex',
           alignItems: 'center',
-          gap: '36px',
-          paddingLeft: '158px',
-          paddingRight: '158px',
+          gap: 'clamp(16px, 3vw, 36px)',
           cursor: 'default',
           userSelect: 'none'
         }}
@@ -355,15 +366,16 @@ function FooterWithSpotlight() {
         {/* Base Layer - Regular Text with letter-by-letter animation */}
         <div
           ref={khangsRef}
+          className="khangs-container"
           style={{
             position: 'relative',
-            display: 'flex'
+            display: 'flex',
+            flex: 1
           }}
         >
           <h2
             style={{
               fontFamily: "'Clash Display', sans-serif",
-              fontSize: '222px',
               fontWeight: '900',
               color: '#E8E8E3',
               lineHeight: '1',
@@ -397,7 +409,6 @@ function FooterWithSpotlight() {
             className="gradient-shimmer"
             style={{
               fontFamily: "'Clash Display', sans-serif",
-              fontSize: '222px',
               fontWeight: '900',
               lineHeight: '1',
               margin: 0,
@@ -438,7 +449,7 @@ function FooterWithSpotlight() {
           <div
             style={{
               fontFamily: "'Clash Display', sans-serif",
-              fontSize: '60px',
+              fontSize: 'clamp(24px, 4vw, 60px)',
               fontWeight: '900',
               color: '#E8E8E3',
               lineHeight: '1',
@@ -472,7 +483,7 @@ function FooterWithSpotlight() {
             className="gradient-shimmer"
             style={{
               fontFamily: "'Clash Display', sans-serif",
-              fontSize: '60px',
+              fontSize: 'clamp(24px, 4vw, 60px)',
               fontWeight: '900',
               lineHeight: '1',
               writingMode: 'vertical-rl',

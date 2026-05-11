@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence, useScroll, useTransform, useInView } from 'framer-motion';
-import { Home as HomeIcon, Mic2, Library, Music, Download } from 'lucide-react';
+import { Home as HomeIcon, Mic2, Library, Music, Download, Menu, X } from 'lucide-react';
 import { SkipBack, SkipForward, Play, Pause, MusicNote, MusicNotes, MusicNotesSimple, ArrowRight } from '@phosphor-icons/react';
 import FooterWithSpotlight from '../components/FooterWithSpotlight';
 
@@ -128,7 +128,7 @@ function MusicCursorTrail() {
   }, []);
 
   return (
-    <div style={{ position: 'fixed', top: 0, left: 0, pointerEvents: 'none', zIndex: 9999 }}>
+    <div className="music-cursor-trail" style={{ position: 'fixed', top: 0, left: 0, pointerEvents: 'none', zIndex: 9999 }}>
       {notes.map((note) => {
         const IconComponent = note.IconComponent;
         return (
@@ -206,6 +206,7 @@ function Home() {
   const [isOnWhiteSection, setIsOnWhiteSection] = useState(false);
   const [isViewAllHovered, setIsViewAllHovered] = useState(false);
   const [isDittoHovered, setIsDittoHovered] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const heroRef = useRef(null);
   const dittoImgRef = useRef(null);
   const titleTracksRef = useRef(null);
@@ -213,6 +214,21 @@ function Home() {
     once: false,  // Allow reverse animation
     amount: 0.3  // Trigger when 30% of section is visible
   });
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = isMobileMenuOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [isMobileMenuOpen]);
+
+  // Close mobile menu on resize to desktop
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768) setIsMobileMenuOpen(false);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Handle hash navigation on mount and scroll to top
   useEffect(() => {
@@ -323,12 +339,12 @@ function Home() {
       {/* Music Note Cursor Trail */}
       <MusicCursorTrail />
 
-      {/* Navbar - 72px height, 158px side padding, 22px vertical padding */}
+      {/* Navbar */}
       <nav
         className="sticky top-0 z-50 bg-[#262626] border-b border-white/10"
         style={{
           height: '72px',
-          padding: '22px 158px',
+          padding: '22px var(--page-padding)',
           boxShadow: isOnWhiteSection
             ? '0 8px 32px rgba(196, 181, 253, 0.6), 0 0 60px rgba(196, 181, 253, 0.4)'
             : '0 8px 24px rgba(255, 255, 255, 0.08)',
@@ -338,12 +354,14 @@ function Home() {
         <div className="flex justify-between items-center h-full">
           <h1
             className="font-bold"
-            style={{ fontFamily: "'Clash Display', sans-serif", fontSize: '27px' }}
+            style={{ fontFamily: "'Clash Display', sans-serif", fontSize: 'clamp(20px, 2.5vw, 27px)' }}
           >
             Khang's Wrapped
           </h1>
+
+          {/* Desktop nav links */}
           <div
-            className="flex items-center"
+            className="nav-links-desktop items-center"
             style={{ fontFamily: "'Inter', sans-serif", gap: '29px', fontSize: '14px' }}
           >
             <a
@@ -368,22 +386,90 @@ function Home() {
               Resume
             </a>
           </div>
+
+          {/* Hamburger button (mobile) */}
+          <button
+            className="nav-hamburger"
+            onClick={() => setIsMobileMenuOpen(true)}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: '#E8E8E3',
+              cursor: 'pointer',
+              padding: '8px',
+              minWidth: '44px',
+              minHeight: '44px',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+            aria-label="Open menu"
+          >
+            <Menu size={24} />
+          </button>
         </div>
       </nav>
 
+      {/* Mobile menu overlay */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            className="mobile-menu-overlay"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.25 }}
+          >
+            <button
+              className="mobile-menu-close"
+              onClick={() => setIsMobileMenuOpen(false)}
+              aria-label="Close menu"
+            >
+              <X size={28} />
+            </button>
+            <a
+              href="#"
+              className="active"
+              onClick={(e) => {
+                e.preventDefault();
+                setIsMobileMenuOpen(false);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            >
+              Home
+            </a>
+            <Link to="/about" onClick={() => setIsMobileMenuOpen(false)}>
+              About
+            </Link>
+            <Link to="/playlist" onClick={() => setIsMobileMenuOpen(false)}>
+              My Playlists
+            </Link>
+            <a
+              href="/resume/khangresume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Resume
+            </a>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Main Content - fills middle, scrollable */}
-      <main className="flex-1 overflow-y-auto" style={{ padding: '0 158px' }}>
+      <main className="flex-1 overflow-y-auto" style={{ padding: '0 var(--page-padding)' }}>
         {/* Hero Section - fills viewport */}
         <section
           id="home"
           ref={heroRef}
           style={{
-            height: 'calc(100vh - 72px)',
+            minHeight: 'calc(100vh - 72px)',
             display: 'flex',
-            alignItems: 'center'
+            alignItems: 'center',
+            paddingTop: 'clamp(40px, 8vh, 80px)',
+            paddingBottom: 'clamp(40px, 8vh, 80px)'
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '16px', width: '100%' }}>
+          <div className="hero-flex">
             <motion.div
               style={{
                 filter,
@@ -397,10 +483,10 @@ function Home() {
               transition={{ duration: 0.6, delay: 0.1 }}
               style={{
                 fontFamily: "'Inter', sans-serif",
-                fontSize: '29px',
+                fontSize: 'clamp(18px, 2.5vw, 29px)',
                 lineHeight: '1.2',
                 color: '#E8E8E3',
-                marginBottom: '22px'
+                marginBottom: 'clamp(12px, 2vw, 22px)'
               }}
             >
               Hi! I'm{' '}
@@ -416,11 +502,12 @@ function Home() {
               transition={{ duration: 0.6, delay: 0.3 }}
               style={{
                 fontFamily: "'Inter', sans-serif",
-                fontSize: '58px',
-                height: '72px',
+                fontSize: 'clamp(28px, 5vw, 58px)',
+                height: 'auto',
+                minHeight: 'clamp(36px, 6vw, 72px)',
                 lineHeight: '1.2',
                 fontWeight: '700',
-                marginBottom: '43px'
+                marginBottom: 'clamp(20px, 3.5vw, 43px)'
               }}
             >
               I am a{' '}
@@ -447,10 +534,10 @@ function Home() {
               transition={{ duration: 0.6, delay: 0.5 }}
               style={{
                 fontFamily: "'Inter', sans-serif",
-                fontSize: '22px',
+                fontSize: 'clamp(15px, 2vw, 22px)',
                 lineHeight: '1.6',
                 color: '#E8E8E3',
-                marginBottom: '29px',
+                marginBottom: 'clamp(16px, 2.5vw, 29px)',
                 maxWidth: '100%'
               }}
             >
@@ -465,10 +552,10 @@ function Home() {
               transition={{ duration: 0.6, delay: 0.7 }}
               style={{
                 fontFamily: "'Inter', sans-serif",
-                fontSize: '14px',
+                fontSize: 'clamp(12px, 1.2vw, 14px)',
                 lineHeight: '1.6',
                 color: '#E8E8E3',
-                marginBottom: '64px'
+                marginBottom: 'clamp(32px, 5vw, 64px)'
               }}
             >
               Computer Science & Cognitive Science @ UCSD
@@ -478,17 +565,13 @@ function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.9 }}
-              className="italic"
+              className="italic fun-fact"
               style={{
                 fontFamily: "'Courier New', monospace",
-                fontSize: '14px',
+                fontSize: 'clamp(11px, 1.1vw, 14px)',
                 lineHeight: '1.6',
                 color: '#E8E8E3',
-                opacity: 1,
-                position: 'absolute',
-                left: 0,
-                right: '-312px',
-                bottom: 0
+                opacity: 1
               }}
             >
               fun fact: I spent <span style={{ color: '#C4B5FD' }}><AnimatedCounter target={153601} duration={5000} /></span> minutes listening to music last year (that's 107 days I could've spent learning other programming languages... but music &gt; syntax errors)
@@ -500,13 +583,12 @@ function Home() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
+            className="ditto-wrapper"
             onMouseEnter={() => setIsDittoHovered(true)}
             onMouseLeave={() => setIsDittoHovered(false)}
             style={{
-              width: '280px',
-              height: 'auto',
-              flexShrink: 0,
-              cursor: 'pointer'
+              width: 'clamp(160px, 20vw, 280px)',
+              height: 'auto'
             }}
           >
             {/* Static first frame - hidden on hover */}
@@ -552,13 +634,13 @@ function Home() {
           id="title-tracks"
           ref={titleTracksRef}
           style={{
-            paddingTop: '158px',
-            paddingBottom: '158px',
+            paddingTop: 'var(--section-padding)',
+            paddingBottom: 'var(--section-padding)',
             backgroundColor: '#E8E8E3',
-            marginLeft: '-158px',
-            marginRight: '-158px',
-            paddingLeft: '158px',
-            paddingRight: '158px'
+            marginLeft: 'calc(var(--page-padding) * -1)',
+            marginRight: 'calc(var(--page-padding) * -1)',
+            paddingLeft: 'var(--page-padding)',
+            paddingRight: 'var(--page-padding)'
           }}
         >
           <motion.div
@@ -571,7 +653,7 @@ function Home() {
               className="font-bold"
               style={{
                 fontFamily: "'Clash Display', sans-serif",
-                fontSize: '58px',
+                fontSize: 'clamp(28px, 5vw, 58px)',
                 lineHeight: '1.2',
                 color: '#262626',
                 fontWeight: '700'
@@ -602,8 +684,8 @@ function Home() {
                 style={{
                   backgroundColor: '#262626',
                   borderRadius: '11px',
-                  padding: '43px',
-                  marginBottom: '43px',
+                  padding: 'clamp(20px, 3.5vw, 43px)',
+                  marginBottom: 'clamp(20px, 3.5vw, 43px)',
                   cursor: 'pointer',
                   position: 'relative',
                   overflow: 'hidden'
@@ -612,6 +694,7 @@ function Home() {
               {/* Soccer player slide-in animation - only for WCASL project */}
               {currentProjectIndex === 0 && (
                 <motion.img
+                  className="card-hover-image"
                   src="/images/projects/soccer.webp"
                   alt="Soccer player"
                   initial={{ x: 200, y: 200, opacity: 0 }}
@@ -634,6 +717,7 @@ function Home() {
               {/* Plastic bag slide-in animation - only for PlasticBeach project */}
               {currentProjectIndex === 1 && (
                 <motion.img
+                  className="card-hover-image"
                   src="/images/projects/plasticbag.avif"
                   alt="Plastic bag"
                   initial={{ x: 200, y: 200, opacity: 0, rotate: -30 }}
@@ -654,21 +738,9 @@ function Home() {
                 />
               )}
 
-              <div style={{ display: 'flex', gap: '43px', alignItems: 'start', position: 'relative', zIndex: 2 }}>
+              <div className="card-content-flex">
                 {/* Project Media (Image or Video) */}
-                <motion.div
-                  style={{
-                    width: '360px',
-                    height: '360px',
-                    backgroundColor: '#262626',
-                    borderRadius: '11px',
-                    flexShrink: 0,
-                    overflow: 'hidden',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}
-                >
+                <motion.div className="card-media">
                   {projects[currentProjectIndex].media ? (
                     projects[currentProjectIndex].mediaType === 'video' ? (
                       <motion.video
@@ -713,23 +785,15 @@ function Home() {
                 </motion.div>
 
                 {/* Project Info */}
-                <div
-                  style={{
-                    flex: 1,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: '360px',
-                    justifyContent: 'space-between'
-                  }}
-                >
+                <div className="card-info">
                   <div>
                     <h4
                       className="gradient-text"
                       style={{
                         fontFamily: "'Clash Display', sans-serif",
-                        fontSize: '58px',
+                        fontSize: 'clamp(24px, 4.5vw, 58px)',
                         fontWeight: '700',
-                        marginBottom: '29px',
+                        marginBottom: 'clamp(14px, 2.5vw, 29px)',
                         lineHeight: '1.2'
                       }}
                     >
@@ -846,7 +910,9 @@ function Home() {
                   border: 'none',
                   cursor: 'pointer',
                   color: '#262626',
-                  padding: '7px',
+                  padding: '10px',
+                  minWidth: '44px',
+                  minHeight: '44px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -903,7 +969,9 @@ function Home() {
                   border: 'none',
                   cursor: 'pointer',
                   color: '#262626',
-                  padding: '7px',
+                  padding: '10px',
+                  minWidth: '44px',
+                  minHeight: '44px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -925,7 +993,7 @@ function Home() {
 
             {/* View All My Work Link */}
             <motion.div
-              style={{ marginTop: '43px' }}
+              style={{ marginTop: 'clamp(24px, 3.5vw, 43px)' }}
               whileHover="hover"
               initial="rest"
             >
@@ -935,12 +1003,12 @@ function Home() {
                 onMouseLeave={() => setIsViewAllHovered(false)}
                 style={{
                   fontFamily: "'Clash Display', sans-serif",
-                  fontSize: '43px',
+                  fontSize: 'clamp(22px, 3.5vw, 43px)',
                   textDecoration: 'none',
                   fontWeight: '700',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '14px',
+                  gap: 'clamp(8px, 1.2vw, 14px)',
                   color: '#262626'
                 }}
               >

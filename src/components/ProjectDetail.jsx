@@ -61,7 +61,7 @@ function ProjectDetail({ project, isOpen }) {
             <div
               style={{
                 backgroundColor: 'rgba(78, 74, 92, 0.15)',
-                padding: '29px',
+                padding: 'clamp(16px, 3vw, 29px)',
                 borderTop: '1px solid rgba(196, 181, 253, 0.2)'
               }}
             >
@@ -358,13 +358,7 @@ function ProjectDetail({ project, isOpen }) {
                 >
                   Preview
                 </h3>
-                <div
-                  style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(2, 1fr)',
-                    gap: '18px'
-                  }}
-                >
+                <div className="preview-grid">
                   {project.previews.map((preview, index) => (
                   <motion.div
                     key={preview.id}
@@ -377,7 +371,7 @@ function ProjectDetail({ project, isOpen }) {
                       setExpandedImage(preview);
                     }}
                     style={{
-                      height: '280px',
+                      height: 'clamp(180px, 30vw, 280px)',
                       borderRadius: '11px',
                       overflow: 'hidden',
                       backgroundColor: '#4E4A5C',
@@ -438,7 +432,7 @@ function ProjectDetail({ project, isOpen }) {
               height: '100vh',
               backgroundColor: 'rgba(0, 0, 0, 0.9)',
               zIndex: 10000,
-              padding: '158px',
+              padding: 'clamp(16px, 5vw, 80px)',
               boxSizing: 'border-box'
             }}
           >
@@ -447,15 +441,20 @@ function ProjectDetail({ project, isOpen }) {
               onClick={() => setExpandedImage(null)}
               style={{
                 position: 'fixed',
-                top: '158px',
-                right: '158px',
+                top: 'clamp(16px, 3vw, 40px)',
+                right: 'clamp(16px, 3vw, 40px)',
                 background: 'none',
                 border: 'none',
                 cursor: 'pointer',
                 color: '#E8E8E3',
                 opacity: 0.7,
                 transition: 'opacity 0.2s',
-                zIndex: 10001
+                zIndex: 10001,
+                minWidth: '44px',
+                minHeight: '44px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
               }}
               onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
               onMouseLeave={(e) => e.currentTarget.style.opacity = '0.7'}
@@ -471,14 +470,14 @@ function ProjectDetail({ project, isOpen }) {
               }}
               style={{
                 position: 'fixed',
-                left: '158px',
+                left: 'clamp(8px, 2vw, 40px)',
                 top: '50%',
                 transform: 'translateY(-50%)',
                 background: 'rgba(255, 255, 255, 0.1)',
                 border: '1px solid rgba(196, 181, 253, 0.3)',
                 borderRadius: '50%',
-                width: '58px',
-                height: '58px',
+                width: 'clamp(44px, 6vw, 58px)',
+                height: 'clamp(44px, 6vw, 58px)',
                 cursor: 'pointer',
                 color: '#E8E8E3',
                 display: 'flex',
@@ -507,14 +506,14 @@ function ProjectDetail({ project, isOpen }) {
               }}
               style={{
                 position: 'fixed',
-                right: '158px',
+                right: 'clamp(8px, 2vw, 40px)',
                 top: '50%',
                 transform: 'translateY(-50%)',
                 background: 'rgba(255, 255, 255, 0.1)',
                 border: '1px solid rgba(196, 181, 253, 0.3)',
                 borderRadius: '50%',
-                width: '58px',
-                height: '58px',
+                width: 'clamp(44px, 6vw, 58px)',
+                height: 'clamp(44px, 6vw, 58px)',
                 cursor: 'pointer',
                 color: '#E8E8E3',
                 display: 'flex',

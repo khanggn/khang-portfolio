@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Menu } from 'lucide-react';
 import { MusicNote, MusicNotes, MusicNotesSimple, Play, Pause, X, SpeakerHigh, SpeakerLow, SpeakerSlash, CaretDown, CheckCircle } from '@phosphor-icons/react';
 import ProjectDetail from '../components/ProjectDetail';
 import FooterWithSpotlight from '../components/FooterWithSpotlight';
@@ -46,7 +47,7 @@ function MusicCursorTrail() {
   }, []);
 
   return (
-    <div style={{ position: 'fixed', top: 0, left: 0, pointerEvents: 'none', zIndex: 9999 }}>
+    <div className="music-cursor-trail" style={{ position: 'fixed', top: 0, left: 0, pointerEvents: 'none', zIndex: 9999 }}>
       {notes.map((note) => {
         const IconComponent = note.IconComponent;
         return (
@@ -453,6 +454,7 @@ function Playlist() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [sortOrder, setSortOrder] = useState({});
   const [openSortDropdown, setOpenSortDropdown] = useState(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const audioRefs = useRef({});
   const audioContextRef = useRef(null);
@@ -466,6 +468,21 @@ function Playlist() {
   // Scroll to top when component mounts
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
+  }, []);
+
+  // Mobile menu body scroll lock
+  useEffect(() => {
+    document.body.style.overflow = isMobileMenuOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [isMobileMenuOpen]);
+
+  // Close mobile menu on resize above 768px
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768) setIsMobileMenuOpen(false);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   // Close dropdown when clicking outside
@@ -765,7 +782,7 @@ function Playlist() {
         className="sticky top-0 z-50 bg-[#262626] border-b border-white/10"
         style={{
           height: '72px',
-          padding: '22px 158px',
+          padding: '22px var(--page-padding)',
           boxShadow: '0 8px 24px rgba(255, 255, 255, 0.08)'
         }}
       >
@@ -773,12 +790,14 @@ function Playlist() {
           <Link
             to="/"
             className="font-bold"
-            style={{ fontFamily: "'Clash Display', sans-serif", fontSize: '27px' }}
+            style={{ fontFamily: "'Clash Display', sans-serif", fontSize: 'clamp(20px, 2.5vw, 27px)' }}
           >
             Khang's Wrapped
           </Link>
+
+          {/* Desktop nav */}
           <div
-            className="flex items-center"
+            className="nav-links-desktop items-center"
             style={{ fontFamily: "'Inter', sans-serif", gap: '29px', fontSize: '14px' }}
           >
             <Link to="/" className="hover:text-[#C4B5FD] transition-colors">
@@ -806,20 +825,78 @@ function Playlist() {
               Resume
             </a>
           </div>
+
+          {/* Hamburger (mobile) */}
+          <button
+            className="nav-hamburger"
+            onClick={() => setIsMobileMenuOpen(true)}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: '#E8E8E3',
+              cursor: 'pointer',
+              padding: '8px',
+              minWidth: '44px',
+              minHeight: '44px',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+            aria-label="Open menu"
+          >
+            <Menu size={24} />
+          </button>
         </div>
       </nav>
+
+      {/* Mobile menu overlay */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            className="mobile-menu-overlay"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.25 }}
+          >
+            <button
+              className="mobile-menu-close"
+              onClick={() => setIsMobileMenuOpen(false)}
+              aria-label="Close menu"
+            >
+              <X size={28} />
+            </button>
+            <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>
+              Home
+            </Link>
+            <Link to="/about" onClick={() => setIsMobileMenuOpen(false)}>
+              About
+            </Link>
+            <Link to="/playlist" className="active" onClick={() => setIsMobileMenuOpen(false)}>
+              My Playlists
+            </Link>
+            <a
+              href="/resume/khangresume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Resume
+            </a>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Main Content */}
       <main
         className="flex-1"
         style={{
-          padding: '0 158px'
+          padding: '0 var(--page-padding)'
         }}
       >
         {/* Content wrapper with blur effect */}
         <div style={{ filter: `blur(${blurAmount}px)` }}>
           {/* Landing Section */}
-          <section style={{ paddingTop: '120px', paddingBottom: '158px' }}>
+          <section style={{ paddingTop: 'clamp(64px, 10vw, 120px)', paddingBottom: 'var(--section-padding)' }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -833,7 +910,7 @@ function Playlist() {
                   className="font-bold"
                   style={{
                     fontFamily: "'Clash Display', sans-serif",
-                    fontSize: '58px',
+                    fontSize: 'clamp(32px, 5vw, 58px)',
                     lineHeight: '1.2',
                     marginBottom: '14px'
                   }}
@@ -861,7 +938,7 @@ function Playlist() {
               style={{
                 border: '1px solid rgba(196, 181, 253, 0.3)',
                 borderRadius: '14px',
-                padding: '58px 43px',
+                padding: 'clamp(24px, 4vw, 58px) clamp(16px, 3vw, 43px)',
                 backgroundColor: 'rgba(78, 74, 92, 0.2)',
                 position: 'relative'
               }}
@@ -870,15 +947,7 @@ function Playlist() {
               <img
                 src="/images/projects/musicnotes.gif"
                 alt="Music notes"
-                style={{
-                  position: 'absolute',
-                  top: '58px',
-                  right: '43px',
-                  width: '150px',
-                  height: 'auto',
-                  opacity: 0.9,
-                  pointerEvents: 'none'
-                }}
+                className="playlist-music-gif"
               />
               {/* Filter Tabs */}
               <div style={{ display: 'flex', gap: '14px', marginBottom: '43px' }}>
@@ -893,6 +962,7 @@ function Playlist() {
                   fontSize: '14px',
                   fontWeight: '500',
                   padding: '11px 29px',
+                  minHeight: '44px',
                   borderRadius: '22px',
                   border: '2px solid #C4B5FD',
                   cursor: 'pointer',
@@ -934,7 +1004,7 @@ function Playlist() {
           </div>
 
           {/* Playlist Cards Grid - Filtered */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(280px, 400px))', gap: '22px', justifyContent: 'start' }}>
+          <div className="playlist-cards-grid">
             <AnimatePresence mode="wait">
             {playlists
               .filter(playlist => !selectedPlaylist || playlist.category === selectedPlaylist)
@@ -1069,7 +1139,7 @@ function Playlist() {
         />
 
         {/* Playlist Detail Sections */}
-        <section style={{ paddingBottom: '158px' }}>
+        <section style={{ paddingBottom: 'var(--section-padding)' }}>
           {playlists.map((playlist, index) => {
             const currentSort = sortOrder[playlist.id] || 'newest';
 
@@ -1111,8 +1181,8 @@ function Playlist() {
                     style={{
                       height: '1px',
                       background: 'linear-gradient(90deg, transparent 0%, rgba(196, 181, 253, 0.5) 50%, transparent 100%)',
-                      marginTop: '108px',
-                      marginBottom: '108px'
+                      marginTop: 'clamp(48px, 8vw, 108px)',
+                      marginBottom: 'clamp(48px, 8vw, 108px)'
                     }}
                   />
                 )}
@@ -1122,7 +1192,7 @@ function Playlist() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.2 * index }}
                   style={{
-                    marginTop: index === 0 ? '108px' : '0',
+                    marginTop: index === 0 ? 'clamp(48px, 8vw, 108px)' : '0',
                     position: 'relative'
                   }}
                 >
@@ -1144,18 +1214,9 @@ function Playlist() {
                 </motion.div>
 
                 {/* Playlist Header */}
-                <div style={{ display: 'flex', gap: '29px', marginBottom: '43px' }}>
+                <div className="playlist-header">
                   {/* Playlist Image */}
-                  <div
-                    style={{
-                      width: '209px',
-                      height: '209px',
-                      borderRadius: '7px',
-                      overflow: 'hidden',
-                      flexShrink: 0,
-                      boxShadow: '0 8px 24px rgba(0, 0, 0, 0.5)'
-                    }}
-                  >
+                  <div className="playlist-header-image">
                     <img
                       src={playlist.image}
                       alt={playlist.title}
@@ -1168,7 +1229,7 @@ function Playlist() {
                   </div>
 
                   {/* Playlist Info */}
-                  <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', flex: 1 }}>
+                  <div className="playlist-header-info" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', flex: 1 }}>
                     <p
                       style={{
                         fontFamily: "'Inter', sans-serif",
@@ -1183,7 +1244,7 @@ function Playlist() {
                     <h2
                       style={{
                         fontFamily: "'Clash Display', sans-serif",
-                        fontSize: '43px',
+                        fontSize: 'clamp(24px, 4vw, 43px)',
                         fontWeight: '700',
                         color: '#E8E8E3',
                         lineHeight: '1.2',
@@ -1205,7 +1266,7 @@ function Playlist() {
                   </div>
 
                   {/* Play/Pause Button */}
-                  <div style={{ display: 'flex', alignItems: 'flex-end', paddingBottom: '7px' }}>
+                  <div className="playlist-header-play" style={{ display: 'flex', alignItems: 'flex-end', paddingBottom: '7px' }}>
                     <motion.button
                       onClick={() => handlePlayPause(playlist.id)}
                       whileHover={{ scale: 1.05 }}
@@ -1269,7 +1330,7 @@ function Playlist() {
                   </div>
 
                   {/* Now Playing and Volume Control */}
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div className="now-playing-row">
                     {/* Now Playing */}
                     <div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
                       <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '11px', color: 'rgba(255,255,255,0.5)' }}>
@@ -1329,6 +1390,7 @@ function Playlist() {
                         border: '1px solid rgba(196, 181, 253, 0.3)',
                         borderRadius: '5px',
                         padding: '7px 12px',
+                        minHeight: '44px',
                         cursor: 'pointer',
                         display: 'flex',
                         alignItems: 'center',
@@ -1442,10 +1504,8 @@ function Playlist() {
                 >
                   {/* Table Header */}
                   <div
+                    className="project-table-header"
                     style={{
-                      display: 'grid',
-                      gridTemplateColumns: '36px 1fr 180px',
-                      gap: '14px',
                       padding: '0 14px 14px 14px',
                       borderBottom: '1px solid rgba(255,255,255,0.1)',
                       marginBottom: '7px'
@@ -1472,6 +1532,7 @@ function Playlist() {
                       Project
                     </span>
                     <span
+                      className="project-date-column"
                       style={{
                         fontFamily: "'Inter', sans-serif",
                         fontSize: '13px',
@@ -1507,14 +1568,12 @@ function Playlist() {
                       }}
                     >
                       <motion.div
+                        className="project-table-row"
                         onClick={() => setSelectedProject(selectedProject?.id === project.id ? null : project)}
                         whileHover={{
                           backgroundColor: 'rgba(196, 181, 253, 0.1)'
                         }}
                         style={{
-                          display: 'grid',
-                          gridTemplateColumns: '36px 1fr 180px',
-                          gap: '14px',
                           padding: '11px 14px',
                           cursor: 'pointer',
                           transition: 'background-color 0.2s ease',
@@ -1580,6 +1639,7 @@ function Playlist() {
 
                         {/* Date */}
                         <div
+                          className="project-date-column"
                           style={{
                             display: 'flex',
                             alignItems: 'center',

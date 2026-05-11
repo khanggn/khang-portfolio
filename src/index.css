@@ -130,3 +130,493 @@ body {
   initial-value: 70%;
   inherits: false;
 }
+
+/* ===== Responsive Design System ===== */
+:root {
+  --page-padding: 158px;
+  --section-padding: 158px;
+}
+
+@media (max-width: 1279px) {
+  :root {
+    --page-padding: 80px;
+    --section-padding: 100px;
+  }
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --page-padding: 48px;
+    --section-padding: 80px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --page-padding: 24px;
+    --section-padding: 64px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --page-padding: 16px;
+    --section-padding: 48px;
+  }
+}
+
+/* Nav toggle: desktop links vs hamburger */
+.nav-links-desktop {
+  display: flex;
+}
+
+.nav-hamburger {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .nav-links-desktop {
+    display: none !important;
+  }
+  .nav-hamburger {
+    display: flex !important;
+  }
+}
+
+/* Mobile menu overlay */
+.mobile-menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: #262626;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+
+.mobile-menu-overlay a {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: #E8E8E3;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.mobile-menu-overlay a:hover,
+.mobile-menu-overlay a.active {
+  color: #C4B5FD;
+}
+
+.mobile-menu-close {
+  position: absolute;
+  top: 22px;
+  right: var(--page-padding);
+  background: none;
+  border: none;
+  color: #E8E8E3;
+  cursor: pointer;
+  padding: 8px;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Hero responsive layout */
+.hero-flex {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .hero-flex {
+    flex-direction: column-reverse;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+/* Ditto image container */
+.ditto-wrapper {
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .ditto-wrapper {
+    width: 160px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .ditto-wrapper {
+    width: 120px !important;
+  }
+}
+
+/* Fun fact text */
+.fun-fact {
+  position: absolute;
+  left: 0;
+  right: -312px;
+  bottom: 0;
+}
+
+@media (max-width: 1024px) {
+  .fun-fact {
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    margin-top: 32px;
+  }
+}
+
+/* Title tracks card layout */
+.card-content-flex {
+  display: flex;
+  gap: 43px;
+  align-items: start;
+  position: relative;
+  z-index: 2;
+}
+
+@media (max-width: 1024px) {
+  .card-content-flex {
+    gap: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .card-content-flex {
+    flex-direction: column;
+    gap: 24px;
+  }
+}
+
+/* Card media box */
+.card-media {
+  border-radius: 11px;
+  flex-shrink: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #262626;
+  width: 360px;
+  height: 360px;
+}
+
+@media (max-width: 1024px) {
+  .card-media {
+    width: 240px;
+    height: 240px;
+  }
+}
+
+@media (max-width: 768px) {
+  .card-media {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+  }
+}
+
+/* Card info column */
+.card-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 360px;
+}
+
+@media (max-width: 1024px) {
+  .card-info {
+    height: 240px;
+  }
+}
+
+@media (max-width: 768px) {
+  .card-info {
+    height: auto;
+    gap: 20px;
+  }
+}
+
+/* Footer responsive */
+.footer-positioned {
+  position: absolute;
+}
+
+.footer-typography {
+  padding-left: var(--page-padding);
+  padding-right: var(--page-padding);
+  width: 100%;
+}
+
+/* KHANG'S text scales to fill its flex container */
+.khangs-container {
+  container-type: inline-size;
+}
+
+.khangs-container h2 {
+  font-size: 22cqw;
+}
+
+@media (max-width: 768px) {
+  .footer-section {
+    display: grid !important;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto auto;
+    align-items: center;
+    align-content: center;
+    padding: var(--section-padding) var(--page-padding) !important;
+    min-height: 100vh !important;
+    min-height: 100dvh !important;
+  }
+
+  .footer-positioned {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+  }
+
+  /* Row 1: "thanks" left, icons right */
+  .footer-top-text {
+    grid-row: 1;
+    grid-column: 1;
+    text-align: left;
+    align-self: center;
+  }
+
+  /* Row 2: KHANG'S WRAPPED full width */
+  .footer-typography {
+    grid-row: 2;
+    grid-column: 1 / -1;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  .footer-typography > div:first-child h2 {
+    transform: scaleY(2) !important;
+  }
+
+  /* Break the wrapper so children join the grid */
+  .footer-bottom-right {
+    display: contents !important;
+  }
+
+  /* Row 3: copyright left, "connect" right */
+  .footer-connect-text {
+    grid-row: 3;
+    grid-column: 2;
+    text-align: right;
+    justify-self: end;
+  }
+
+  /* Row 1: icons top-right */
+  .footer-icons {
+    grid-row: 1;
+    grid-column: 2;
+    justify-self: end;
+    align-self: center;
+  }
+
+  .footer-bottom-left {
+    grid-row: 3;
+    grid-column: 1;
+    text-align: left;
+    align-self: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-typography > div:first-child h2 {
+    transform: scaleY(2) !important;
+  }
+
+  .footer-typography {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+}
+
+/* About page hero layout */
+.about-hero-flex {
+  display: flex;
+}
+
+@media (max-width: 768px) {
+  .about-hero-flex {
+    flex-direction: column-reverse !important;
+    align-items: center !important;
+    text-align: center;
+  }
+
+  .about-headshot {
+    width: 200px !important;
+    height: 200px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-headshot {
+    width: 160px !important;
+    height: 160px !important;
+  }
+}
+
+/* Hide card hover images on mobile */
+@media (max-width: 768px) {
+  .card-hover-image {
+    display: none !important;
+  }
+}
+
+/* Hide cursor effects on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .music-cursor-trail,
+  .blob-cursor {
+    display: none !important;
+  }
+}
+
+/* ===== Playlist Page Responsive ===== */
+
+/* Playlist cards grid */
+.playlist-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(280px, 400px));
+  gap: 22px;
+  justify-content: start;
+}
+
+@media (max-width: 768px) {
+  .playlist-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Playlist header (image + info + play) */
+.playlist-header {
+  display: flex;
+  gap: 29px;
+  margin-bottom: 43px;
+}
+
+@media (max-width: 768px) {
+  .playlist-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+
+  .playlist-header-info {
+    align-items: center;
+  }
+
+  .playlist-header-play {
+    align-items: center !important;
+    padding-bottom: 0 !important;
+  }
+}
+
+.playlist-header-image {
+  width: 209px;
+  height: 209px;
+  border-radius: 7px;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 768px) {
+  .playlist-header-image {
+    width: 160px;
+    height: 160px;
+  }
+}
+
+@media (max-width: 480px) {
+  .playlist-header-image {
+    width: 140px;
+    height: 140px;
+  }
+}
+
+/* Project table grid */
+.project-table-header,
+.project-table-row {
+  display: grid;
+  grid-template-columns: 36px 1fr 180px;
+  gap: 14px;
+}
+
+@media (max-width: 768px) {
+  .project-table-header,
+  .project-table-row {
+    grid-template-columns: 36px 1fr;
+  }
+
+  .project-date-column {
+    display: none !important;
+  }
+}
+
+/* Music notes GIF in bordered box */
+.playlist-music-gif {
+  position: absolute;
+  top: 58px;
+  right: 43px;
+  width: 150px;
+  height: auto;
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .playlist-music-gif {
+    display: none;
+  }
+}
+
+/* Preview grid (ProjectDetail) */
+.preview-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+@media (max-width: 768px) {
+  .preview-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Now playing + volume row */
+.now-playing-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (max-width: 480px) {
+  .now-playing-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
