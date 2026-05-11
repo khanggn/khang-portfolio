@@ -108,10 +108,10 @@ function CaseStudy() {
                   47 million Americans face food insecurity. 40 million of them get SNAP benefits. And a lot of them still run out before the month is over.
                 </p>
                 <p>
-                  Two out of three on this team use EBT. So when we decided to build something for EBT users, we thought we had a head start on understanding the problem. We didn't. Most of what we assumed about how people shop and cook turned out to be wrong.
+                  Two out of three on our team use EBT. So when we decided to build something for EBT users, we thought we had a head start on understanding the problem. We didn't. Most of what we assumed about how people shop and cook turned out to be wrong.
                 </p>
                 <p>
-                  We're extending <strong style={{ color: '#C4B5FD' }}>Propel</strong>, an app that lets you check your EBT balance and see recent transactions. We're adding a meal planning feature so users can find recipes, see what a week of groceries might cost, and plan around what they actually have left on their card. One of our research participants was already using Propel to track her balance, which is part of why we landed on it.
+                  We're extending <strong style={{ color: '#C4B5FD' }}>Propel</strong>, an app that lets you check your EBT balance and see recent transactions. We're adding a meal planning feature so users can find recipes, see what a week of groceries might cost, and plan around what they actually have left on their card. One of our research participants was already using Propel to track her balance, which helped us decided which app to extend.
                 </p>
               </div>
             </div>
@@ -131,7 +131,7 @@ function CaseStudy() {
               </h2>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6' }}>
                 <p>
-                  People using EBT run out of money before the month ends. Not from being careless. They just don't have a clear picture of what they've spent, what they can still afford to buy, or what they can even make with what's in the fridge. And by the time they're figuring that out, they're usually already standing at the store.
+                  People using EBT run out of money before the month ends. Not from being careless. But rather, they just don't have a clear picture of what they've spent, what they can still afford to buy, or what they can even make with what's in the fridge. And by the time they're figuring that out, they're usually already standing at the store.
                 </p>
               </div>
 
@@ -174,9 +174,14 @@ function CaseStudy() {
               >
                 User Research
               </h2>
-              <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '16px', color: 'rgba(255,255,255,0.5)', lineHeight: '1.6', marginBottom: '40px' }}>
-                We talked to three people: <strong style={{ color: '#E8E8E3' }}>Ann</strong>, a 16-year-old whose family uses SNAP EBT and SUN Bucks; <strong style={{ color: '#E8E8E3' }}>Lydia</strong>, a 24-year-old therapist who shares an EBT account with her parents; and <strong style={{ color: '#E8E8E3' }}>Jaden</strong>, a 21-year-old UCSD student who handles most of the grocery shopping for his household. We went in expecting to hear that people just needed a better way to check their balance. That was barely the start of it.
+              <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '16px', color: 'rgba(255,255,255,0.5)', lineHeight: '1.6', marginBottom: '16px' }}>
+                We talked to three people. We went in expecting to hear that people just needed a better way to check their balance but walked out with learning new problems EBT users experience.
               </p>
+              <ul style={{ fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6', marginBottom: '40px', paddingLeft: '24px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <li><strong style={{ color: '#C4B5FD' }}>Ann</strong> - 16-year-old whose family uses SNAP EBT and SUN Bucks</li>
+                <li><strong style={{ color: '#C4B5FD' }}>Lydia</strong> - 24-year-old therapist who shares an EBT account with her parents</li>
+                <li><strong style={{ color: '#C4B5FD' }}>Jaden</strong> - 21-year-old UCSD student who handles most of the grocery shopping for his household</li>
+              </ul>
 
               {/* Ann */}
               <div style={{ marginBottom: '40px' }}>
@@ -193,16 +198,16 @@ function CaseStudy() {
                 </h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6' }}>
                   <p>
-                    We asked Ann how she figures out what to cook. She opens the fridge, looks at what's in there, and goes from there. That's the whole system. No list, no plan, no thinking about it before she's hungry.
+                    We asked Ann how she figures out what to cook. She opens the fridge, looks at what's in there, and goes from there. That's it. No list, no plan, no thinking about it before she's hungry.
                   </p>
                   <p>
-                    We had been designing around the idea that someone would sit down, pick out meals for the week, and shop from a list. Ann does none of that. She works backwards from whatever's already in the house. Any feature that asks her to plan before she even opens the fridge is probably going to get skipped.
+                    We had been ideating with the mindset that someone would sit down, pick out meals for the week, and shop from a list. Ann does none of that. She works backwards from whatever she already had in the house. Any feature that asks her to plan before she even opens the fridge is probably going to get skipped.
                   </p>
                   <p>
                     She also finds recipes on TikTok, not Google. Short videos, she can see exactly what the dish looks like without reading anything. That's worth keeping in mind for how recipes show up in the app.
                   </p>
                   <p style={{ color: 'rgba(255,255,255,0.5)' }}>
-                    One thing we almost missed: Ann doesn't use the EBT card. Her mom does. Ann comes on the grocery trips but her mom handles the card the whole time. So whoever we're actually designing for here, it's the parent.
+                    One thing we almost missed: Ann doesn't use the EBT card. Her mom does. Ann tags along grocery trips but her mom handles the card the whole time. So whoever we're actually designing for here, it's the parent.
                   </p>
                 </div>
               </div>
@@ -225,10 +230,10 @@ function CaseStudy() {
                     Partway through our interview, we asked Lydia to check her balance. She opened Propel and showed us: <strong style={{ color: '#C4B5FD' }}>$4 remaining</strong> for the rest of the month. When she runs out, she said, the family just goes to fast food places until the deposit comes in on the 2nd.
                   </p>
                   <p>
-                    Then we mentioned that cold pre-made food, like sushi or deli items, is covered by EBT. She genuinely laughed. She had no idea. She'd been spending her own money on fast food when she could have been buying ready-made stuff at the grocery store using her benefits.
+                    Then we mentioned that cold pre made food, like sushi or deli items, is covered by EBT. She let out a little laugh. She had no idea. She'd been spending her own money on fast food when she could have been buying ready made stuff at the grocery store using her benefits.
                   </p>
                   <p>
-                    That was a pretty big moment for us. There's a real gap between what EBT actually covers and what people think it covers, and nobody tells you. That gap has real consequences for how people eat and spend at the end of the month.
+                    There's a real gap between what EBT actually covers and what people think it covers, and nobody tells you. That gap has real consequences for how people eat and spend at the end of the month.
                   </p>
                 </div>
               </div>
@@ -281,7 +286,7 @@ function CaseStudy() {
                     We came in thinking: give people a clean way to track their budget and pick out meals. What we actually heard was that people cook from what they already have, a lot of them don't know what their benefits cover, and the card itself isn't always in the same person's hands.
                   </p>
                   <p>
-                    So we stopped trying to build something rigid and started thinking about something that fits around how people already live, not how we assumed they did.
+                    So we stopped trying to build something fixed and started thinking about something that fits around how people already live, not how we assumed they did.
                   </p>
                 </div>
               </div>
