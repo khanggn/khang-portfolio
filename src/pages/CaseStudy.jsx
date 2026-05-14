@@ -1,8 +1,29 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X } from 'lucide-react';
 import FooterWithSpotlight from '../components/FooterWithSpotlight';
 
 function CaseStudy() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = isMobileMenuOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [isMobileMenuOpen]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768) setIsMobileMenuOpen(false);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#262626] text-white flex flex-col">
       {/* Navbar */}
@@ -10,7 +31,7 @@ function CaseStudy() {
         className="sticky top-0 z-50 bg-[#262626] border-b border-white/10"
         style={{
           height: '72px',
-          padding: '22px 158px',
+          padding: '22px var(--page-padding)',
           boxShadow: '0 8px 24px rgba(255, 255, 255, 0.08)'
         }}
       >
@@ -18,12 +39,14 @@ function CaseStudy() {
           <Link
             to="/"
             className="font-bold"
-            style={{ fontFamily: "'Clash Display', sans-serif", fontSize: '27px' }}
+            style={{ fontFamily: "'Clash Display', sans-serif", fontSize: 'clamp(20px, 2.5vw, 27px)' }}
           >
             Khang's Wrapped
           </Link>
+
+          {/* Desktop nav */}
           <div
-            className="flex items-center"
+            className="nav-links-desktop items-center"
             style={{ fontFamily: "'Inter', sans-serif", gap: '29px', fontSize: '14px' }}
           >
             <Link to="/" className="hover:text-[#C4B5FD] transition-colors">
@@ -44,11 +67,69 @@ function CaseStudy() {
               Resume
             </a>
           </div>
+
+          {/* Hamburger (mobile) */}
+          <button
+            className="nav-hamburger"
+            onClick={() => setIsMobileMenuOpen(true)}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: '#E8E8E3',
+              cursor: 'pointer',
+              padding: '8px',
+              minWidth: '44px',
+              minHeight: '44px',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+            aria-label="Open menu"
+          >
+            <Menu size={24} />
+          </button>
         </div>
       </nav>
 
+      {/* Mobile menu overlay */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            className="mobile-menu-overlay"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.25 }}
+          >
+            <button
+              className="mobile-menu-close"
+              onClick={() => setIsMobileMenuOpen(false)}
+              aria-label="Close menu"
+            >
+              <X size={28} />
+            </button>
+            <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>
+              Home
+            </Link>
+            <Link to="/about" onClick={() => setIsMobileMenuOpen(false)}>
+              About
+            </Link>
+            <Link to="/playlist" onClick={() => setIsMobileMenuOpen(false)}>
+              My Playlists
+            </Link>
+            <a
+              href="/resume/khangresume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Resume
+            </a>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Main Content */}
-      <main className="flex-1" style={{ padding: '0 158px' }}>
+      <main className="flex-1" style={{ padding: '0 var(--page-padding)' }}>
         <section style={{ paddingTop: '80px', paddingBottom: '80px' }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -60,7 +141,7 @@ function CaseStudy() {
             className="font-bold"
             style={{
               fontFamily: "'Clash Display', sans-serif",
-              fontSize: '64px',
+              fontSize: 'clamp(32px, 5vw, 64px)',
               lineHeight: '1.2',
               marginBottom: '16px'
             }}
@@ -70,7 +151,7 @@ function CaseStudy() {
           <p
             style={{
               fontFamily: "'Inter', sans-serif",
-              fontSize: '20px',
+              fontSize: 'clamp(16px, 2vw, 20px)',
               color: '#9D92C8',
               marginBottom: '24px',
               lineHeight: '1.6'
@@ -95,7 +176,7 @@ function CaseStudy() {
               <h2
                 style={{
                   fontFamily: "'Clash Display', sans-serif",
-                  fontSize: '32px',
+                  fontSize: 'clamp(24px, 3.5vw, 32px)',
                   fontWeight: '600',
                   marginBottom: '24px',
                   color: '#C4B5FD'
@@ -121,7 +202,7 @@ function CaseStudy() {
               <h2
                 style={{
                   fontFamily: "'Clash Display', sans-serif",
-                  fontSize: '32px',
+                  fontSize: 'clamp(24px, 3.5vw, 32px)',
                   fontWeight: '600',
                   marginBottom: '24px',
                   color: '#C4B5FD'
@@ -166,7 +247,7 @@ function CaseStudy() {
               <h2
                 style={{
                   fontFamily: "'Clash Display', sans-serif",
-                  fontSize: '32px',
+                  fontSize: 'clamp(24px, 3.5vw, 32px)',
                   fontWeight: '600',
                   marginBottom: '16px',
                   color: '#C4B5FD'
@@ -297,7 +378,7 @@ function CaseStudy() {
               <h2
                 style={{
                   fontFamily: "'Clash Display', sans-serif",
-                  fontSize: '32px',
+                  fontSize: 'clamp(24px, 3.5vw, 32px)',
                   fontWeight: '600',
                   marginBottom: '16px',
                   color: '#C4B5FD'
@@ -322,7 +403,7 @@ function CaseStudy() {
               <h2
                 style={{
                   fontFamily: "'Clash Display', sans-serif",
-                  fontSize: '32px',
+                  fontSize: 'clamp(24px, 3.5vw, 32px)',
                   fontWeight: '600',
                   marginBottom: '16px',
                   color: '#C4B5FD'
@@ -347,7 +428,7 @@ function CaseStudy() {
               <h2
                 style={{
                   fontFamily: "'Clash Display', sans-serif",
-                  fontSize: '32px',
+                  fontSize: 'clamp(24px, 3.5vw, 32px)',
                   fontWeight: '600',
                   marginBottom: '16px',
                   color: '#C4B5FD'

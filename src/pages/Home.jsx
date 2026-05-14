@@ -738,6 +738,28 @@ function Home() {
                 />
               )}
 
+              {/* Groceries slide-in animation - only for Coming Soon project */}
+              {currentProjectIndex === 2 && (
+                <motion.img
+                  className="card-hover-image"
+                  src="/images/projects/groceries.png"
+                  alt="Groceries"
+                  initial={{ x: 200, y: 200, opacity: 0, rotate: -15 }}
+                  animate={isCardHovered ? { x: 0, y: 0, opacity: 1, rotate: -15 } : { x: 200, y: 200, opacity: 0, rotate: -15 }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                  style={{
+                    position: 'absolute',
+                    right: -80,
+                    bottom: -90,
+                    height: '70%',
+                    width: 'auto',
+                    objectFit: 'contain',
+                    pointerEvents: 'none',
+                    zIndex: 1
+                  }}
+                />
+              )}
+
               <div className="card-content-flex">
                 {/* Project Media (Image or Video) */}
                 <motion.div className="card-media">

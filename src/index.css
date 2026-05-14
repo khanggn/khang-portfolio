@@ -403,9 +403,18 @@ body {
     grid-row: 2;
     grid-column: 1 / -1;
     padding-left: 0 !important;
-    padding-right: 0 !important;
+    padding-right: 12px !important;
     padding-top: 40px;
     padding-bottom: 40px;
+  }
+
+  .footer-top-text,
+  .footer-connect-text {
+    font-size: 14px !important;
+  }
+
+  .footer-bottom-left {
+    font-size: 12px !important;
   }
 
   .footer-typography > div:first-child h2 {
