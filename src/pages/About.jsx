@@ -314,7 +314,6 @@ function About() {
                   height: '100%',
                   objectFit: 'cover',
                   borderRadius: '16px',
-                  border: '2px solid #E8E8E3'
                 }}
               />
             </motion.div>

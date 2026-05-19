@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Island Funny';
+  src: url('/fonts/IslandFunny-5yMXx.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --bg: #262626;
   --accent-green: #4a7c5f;

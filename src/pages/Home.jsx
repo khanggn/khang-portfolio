@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence, useScroll, useTransform, useInView } from 'framer-motion';
 import { Home as HomeIcon, Mic2, Library, Music, Download, Menu, X } from 'lucide-react';
 import { SkipBack, SkipForward, Play, Pause, MusicNote, MusicNotes, MusicNotesSimple, ArrowRight } from '@phosphor-icons/react';
@@ -180,6 +180,7 @@ const projects = [
     media: "/images/projects/plasticbeach.mp4",
     mediaType: "video",
     date: "Apr 2025 - Jul 2025",
+    caseStudy: "/case-study/plastic-beach",
     links: {
       final: "https://drive.google.com/file/d/1_jWW9Q3IAvawfwOCGiCDSiwZu14qLN4H/view?usp=sharing",
       slides: "https://docs.google.com/presentation/d/1eZOh0YGScuLrV9li4Mf-52dDeLcBS564lIW7Wg6i3wU/edit?usp=sharing"
@@ -207,6 +208,7 @@ function Home() {
   const [isViewAllHovered, setIsViewAllHovered] = useState(false);
   const [isDittoHovered, setIsDittoHovered] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
   const heroRef = useRef(null);
   const dittoImgRef = useRef(null);
   const titleTracksRef = useRef(null);
@@ -678,6 +680,10 @@ function Home() {
                 transition={{ duration: 0.5 }}
                 onHoverStart={() => setIsCardHovered(true)}
                 onHoverEnd={() => setIsCardHovered(false)}
+                onClick={() => {
+                  const project = projects[currentProjectIndex];
+                  if (project.caseStudy) navigate(project.caseStudy);
+                }}
                 whileHover={{
                   scale: 1.01
                 }}
