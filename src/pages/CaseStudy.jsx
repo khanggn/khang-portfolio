@@ -212,7 +212,7 @@ function CaseStudy() {
               </h2>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6' }}>
                 <p>
-                  People using EBT run out of money before the month ends. Not from being careless. But rather, they just don't have a clear picture of what they've spent, what they can still afford to buy, or what they can even make with what's in the fridge. And by the time they're figuring that out, they're usually already standing at the store.
+                  EBT SNAP otherwise known as Electronic Benefit Transfer of Supplemental Nutrition Assistance Program which is described to provide monthly food assistance to individuals in need. The EBT card that is given out to these people work as debit cards for the government's funding provisions. <b>A primary EBT cardholder supporting multiple family members needs clear, real-time visibility into their remaining balance and spending patterns in order to make their monthly benefit last without running out before the next refill.</b>
                 </p>
               </div>
 
