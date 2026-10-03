@@ -307,7 +307,7 @@ function About() {
               }}
             >
               <img
-                src="/images/projects/headshot.png"
+                src="/images/projects/headshot.webp"
                 alt="Khang Nguyen"
                 style={{
                   width: '100%',

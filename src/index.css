@@ -82,6 +82,30 @@ body {
   }
 }
 
+.live-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #22c55e;
+  margin-right: 6px;
+  vertical-align: middle;
+  animation: greenGlow 2s ease-in-out infinite;
+}
+
+@keyframes greenGlow {
+  0%, 100% {
+    box-shadow: 0 0 4px rgba(34, 197, 94, 0.6), 0 0 8px rgba(34, 197, 94, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 8px rgba(34, 197, 94, 0.9), 0 0 16px rgba(34, 197, 94, 0.5);
+  }
+}
+
+a:hover .live-site-arrow {
+  transform: translate(2px, -2px);
+}
+
 .gradient-text {
   background: linear-gradient(
     90deg,
@@ -95,6 +119,24 @@ body {
 }
 
 /* Fluid blob cursor animation - keeps all sides rounded */
+@property --border-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes spin-border {
+  to {
+    --border-angle: 360deg;
+  }
+}
+
+.spinning-border {
+  --border-angle: 0deg;
+  background: conic-gradient(from var(--border-angle), #C4B5FD, #4E4A5C, #9D92C8, #4E4A5C, #C4B5FD);
+  animation: spin-border 4s linear infinite;
+}
+
 @keyframes blobMorph {
   0%, 100% {
     border-radius: 58% 42% 55% 45% / 45% 58% 42% 55%;
@@ -623,6 +665,115 @@ body {
   }
 }
 
+@media (max-width: 768px) {
+  .learned-columns {
+    flex-direction: column !important;
+  }
+}
+
+@media (max-width: 1279px) {
+  .learned-layout {
+    flex-direction: column !important;
+  }
+
+  .learned-layout.learned-layout-reverse {
+    flex-direction: column !important;
+  }
+
+  .learned-layout .learned-text,
+  .learned-layout .learned-media {
+    flex: 1 1 100% !important;
+  }
+
+  .learned-layout-reverse .learned-text {
+    order: -1;
+  }
+
+  .decision-layout {
+    flex-direction: column !important;
+  }
+
+  .decision-layout.decision-layout-reverse {
+    flex-direction: column !important;
+  }
+
+  .decision-layout .decision-text,
+  .decision-layout .decision-media {
+    flex: 1 1 100% !important;
+  }
+
+  .decision-layout-reverse .decision-text {
+    order: -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .my-role-grid,
+  .lofi-hifi-compare {
+    grid-template-columns: 1fr !important;
+  }
+
+  .glance-stats {
+    flex-direction: column !important;
+    gap: 32px !important;
+  }
+
+  .glance-body {
+    flex-direction: column !important;
+  }
+
+  .glance-summary {
+    flex: 1 1 auto !important;
+  }
+
+  .glance-credits {
+    flex: 1 1 auto !important;
+  }
+
+  .problem-layout {
+    flex-direction: column !important;
+  }
+
+  .problem-layout > div {
+    flex: 1 1 100% !important;
+  }
+
+  .ideas-cards {
+    flex-direction: column !important;
+  }
+
+  .ideas-arrow .ideas-arrow-horizontal {
+    display: none !important;
+  }
+
+  .ideas-arrow .ideas-arrow-vertical {
+    display: block !important;
+  }
+
+  .ideas-arrow {
+    padding: 24px 0 !important;
+  }
+
+  .results-stats {
+    flex-direction: column !important;
+  }
+
+  .results-stats .results-divider {
+    width: 100% !important;
+    height: 1px !important;
+  }
+
+  .differently-row {
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+
+  .differently-row .differently-left,
+  .differently-row .differently-right {
+    flex: 1 1 100% !important;
+  }
+}
+
 /* Now playing + volume row */
 .now-playing-row {
   display: flex;
@@ -635,5 +786,48 @@ body {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
+  }
+}
+
+/* WCASL Case Study — TOC sidebar layout */
+.wcasl-two-col {
+  display: flex;
+  gap: 64px;
+  margin-top: 80px;
+}
+
+.wcasl-toc-sidebar {
+  width: 300px;
+  flex-shrink: 0;
+}
+
+.wcasl-content-col {
+  flex: 1;
+  min-width: 0;
+}
+
+.wcasl-content-col > div > p {
+  max-width: 680px;
+}
+
+@media (max-width: 1024px) {
+  .wcasl-toc-sidebar {
+    display: none;
+  }
+  .wcasl-two-col {
+    display: block;
+  }
+}
+
+/* Screenshot Panel — responsive padding */
+@media (max-width: 768px) {
+  .screenshot-panel-inner {
+    padding: 20px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .screenshot-panel-inner {
+    padding: 16px !important;
   }
 }

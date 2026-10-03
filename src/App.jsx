@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import Playlist from './pages/Playlist'
 import CaseStudy from './pages/CaseStudy'
 import PlasticBeachCaseStudy from './pages/PlasticBeachCaseStudy'
+import WCASLCaseStudy from './pages/WCASLCaseStudy'
 import About from './pages/About'
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path="/playlist" element={<Playlist />} />
         <Route path="/case-study" element={<CaseStudy />} />
         <Route path="/case-study/plastic-beach" element={<PlasticBeachCaseStudy />} />
+        <Route path="/case-study/wcasl" element={<WCASLCaseStudy />} />
       </Routes>
       <Analytics />
     </BrowserRouter>

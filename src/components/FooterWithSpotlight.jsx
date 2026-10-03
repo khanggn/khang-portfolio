@@ -233,6 +233,31 @@ function FooterWithSpotlight() {
         <JumpingText delay={0}>thanks</JumpingText> for stopping by {'>.<'}
       </motion.p>
 
+      {/* Top Right - Back to Top */}
+      <motion.p
+        key={`footer-back-top-${animationKey}`}
+        className="footer-positioned footer-top-right"
+        initial={{ opacity: 0, y: -20 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+        transition={{ duration: 0.6, delay: 0.8 }}
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        style={{
+          position: 'absolute',
+          top: '120px',
+          right: 'var(--page-padding)',
+          fontFamily: "'Inter', sans-serif",
+          fontSize: '14px',
+          fontWeight: '400',
+          color: '#E8E8E3',
+          margin: 0,
+          cursor: 'pointer',
+          userSelect: 'none',
+          zIndex: 20
+        }}
+      >
+        back to the top ↑
+      </motion.p>
+
       {/* Bottom Left Copyright */}
       <motion.p
         key={`footer-copyright-${animationKey}`}

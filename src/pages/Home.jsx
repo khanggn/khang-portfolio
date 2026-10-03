@@ -170,6 +170,7 @@ const projects = [
     media: "/images/projects/wcasl.mp4",
     mediaType: "video",
     date: "Apr 2025 – Present",
+    caseStudy: "/case-study/wcasl",
     links: {}
   },
   {
@@ -206,6 +207,7 @@ function Home() {
   const [isCardHovered, setIsCardHovered] = useState(false);
   const [isOnWhiteSection, setIsOnWhiteSection] = useState(false);
   const [isViewAllHovered, setIsViewAllHovered] = useState(false);
+  const [slideDirection, setSlideDirection] = useState(1);
   const [isDittoHovered, setIsDittoHovered] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
@@ -314,6 +316,7 @@ function Home() {
   useEffect(() => {
     if (progress >= 100 && !isPaused && titleTracksInView) {
       const timeout = setTimeout(() => {
+        setSlideDirection(1);
         setCurrentProjectIndex((prev) => (prev + 1) % projects.length);
         setProgress(0);
       }, 100);
@@ -323,11 +326,13 @@ function Home() {
   }, [progress, isPaused, titleTracksInView]);
 
   const handlePrevProject = () => {
+    setSlideDirection(-1);
     setCurrentProjectIndex((prev) => (prev - 1 + projects.length) % projects.length);
     setProgress(0);
   };
 
   const handleNextProject = () => {
+    setSlideDirection(1);
     setCurrentProjectIndex((prev) => (prev + 1) % projects.length);
     setProgress(0);
   };
@@ -671,12 +676,18 @@ function Home() {
             animate={titleTracksInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
           >
-            <AnimatePresence mode="wait">
+            <AnimatePresence mode="wait" custom={slideDirection}>
               <motion.div
                 key={currentProjectIndex}
-                initial={{ opacity: 0, x: 100 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -100 }}
+                custom={slideDirection}
+                variants={{
+                  enter: (dir) => ({ opacity: 0, x: 100 * dir }),
+                  center: { opacity: 1, x: 0 },
+                  exit: (dir) => ({ opacity: 0, x: -100 * dir }),
+                }}
+                initial="enter"
+                animate="center"
+                exit="exit"
                 transition={{ duration: 0.5 }}
                 onHoverStart={() => setIsCardHovered(true)}
                 onHoverEnd={() => setIsCardHovered(false)}
