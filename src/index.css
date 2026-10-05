@@ -527,6 +527,13 @@ a:hover .live-site-arrow {
     width: 200px !important;
     height: 200px !important;
   }
+
+  .now-playing-card {
+    margin-left: auto;
+    margin-right: auto;
+    /* The stacked hero sizes to its content, so cap the card at the screen width */
+    max-width: min(400px, calc(100vw - 2 * var(--page-padding))) !important;
+  }
 }
 
 @media (max-width: 480px) {

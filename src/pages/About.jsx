@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { MusicNote, MusicNotes, MusicNotesSimple } from '@phosphor-icons/react';
 import FooterWithSpotlight from '../components/FooterWithSpotlight';
+import NowPlaying from '../components/NowPlaying';
 
 // Music note cursor trail component
 function MusicCursorTrail() {
@@ -292,6 +293,9 @@ function About() {
               >
                 If you want someone who thinks about both the look and the feels, I'd love to connect.
               </motion.p>
+
+              {/* Live Spotify widget */}
+              <NowPlaying />
             </div>
 
             {/* Right side - Headshot */}
