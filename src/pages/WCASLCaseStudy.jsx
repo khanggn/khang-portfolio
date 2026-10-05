@@ -2,13 +2,17 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence, useReducedMotion, useInView } from 'framer-motion';
-import { Menu, X, ChevronLeft, ChevronRight, ArrowRight, ArrowDown, ArrowUpRight, PenTool, AppWindow, Code, Home } from 'lucide-react';
-import { SkipBack, SkipForward, Play, MusicNote, MusicNotes, MusicNotesSimple } from '@phosphor-icons/react';
+import { X, ChevronLeft, ChevronRight, ArrowRight, ArrowDown, PenTool, AppWindow, Code, Home } from 'lucide-react';
+import { SkipBack, SkipForward, MusicNote, MusicNotes, MusicNotesSimple } from '@phosphor-icons/react';
 import FooterWithSpotlight from '../components/FooterWithSpotlight';
 import ScreenshotPanel from '../components/ScreenshotPanel';
 import ImageToggle from '../components/ImageToggle';
 import ShowcasePanel from '../components/ShowcasePanel';
 import BrowserFrame from '../components/BrowserFrame';
+import WcaslNavbar from '../components/wcasl/WcaslNavbar';
+import WcaslHero from '../components/wcasl/WcaslHero';
+import WcaslPlayButton from '../components/wcasl/WcaslPlayButton';
+import styles from './WCASLCaseStudy.module.css';
 
 const problemSlides = [
   {
@@ -135,42 +139,23 @@ function ToolChip({ icon, label, tooltip, id, isOpen, onToggle, prefersReduced, 
       onFocus={() => onToggle(id)}
       onBlur={() => onToggle(null)}
       onClick={(e) => { e.stopPropagation(); }}
+      className={styles.toolChip}
       style={{
-        display: 'inline-flex',
-        alignItems: 'center',
-        gap: '5px',
-        padding: '3px 10px 3px 7px',
         border: isOpen ? '1px solid #C4B5FD' : '1px solid #4E4A5C',
-        borderRadius: '6px',
-        cursor: 'default',
-        position: 'relative',
-        outline: 'none',
         boxShadow: isOpen ? '0 0 11px rgba(196, 181, 253, 0.4)' : 'none',
-        transition: 'border-color 0.2s, box-shadow 0.2s',
       }}
       onKeyDown={(e) => { if (e.key === 'Escape') onToggle(null); }}
     >
       {icon}
-      <span style={{ fontSize: '13px', color: '#E8E8E3' }}>{label}</span>
+      <span className={styles.toolChipLabel}>{label}</span>
 
       {/* Tooltip */}
       <span
         id={tooltipId}
         role="tooltip"
+        className={styles.toolChipTooltip}
         style={{
-          position: 'absolute',
-          top: 'calc(100% + 8px)',
           ...(tooltipAlign === 'right' ? { right: 0 } : { left: 0 }),
-          backgroundColor: '#262626',
-          border: '1px solid #4E4A5C',
-          borderRadius: '8px',
-          padding: '6px 12px',
-          boxShadow: '0 4px 16px rgba(0,0,0,0.4)',
-          whiteSpace: 'nowrap',
-          fontFamily: "'Inter', sans-serif",
-          fontSize: '12px',
-          color: 'rgba(255,255,255,0.7)',
-          pointerEvents: 'none',
           opacity: isOpen ? 1 : 0,
           transform: isOpen
             ? 'translateY(0)'
@@ -178,7 +163,6 @@ function ToolChip({ icon, label, tooltip, id, isOpen, onToggle, prefersReduced, 
           transition: prefersReduced
             ? 'opacity 0.01s'
             : 'opacity 0.15s ease, transform 0.15s ease',
-          zIndex: 10,
         }}
       >
         {tooltip}
@@ -224,7 +208,7 @@ function MusicCursorTrail() {
   }, []);
 
   return (
-    <div style={{ position: 'fixed', top: 0, left: 0, pointerEvents: 'none', zIndex: 9999 }}>
+    <div className={styles.cursorTrailContainer}>
       {notes.map((note) => {
         const IconComponent = note.IconComponent;
         return (
@@ -247,7 +231,7 @@ function MusicCursorTrail() {
               duration: 1,
               ease: "easeOut"
             }}
-            style={{ position: 'absolute' }}
+            className={styles.cursorNote}
           >
             <IconComponent size={20} weight="fill" color={note.color} />
           </motion.div>
@@ -258,11 +242,6 @@ function MusicCursorTrail() {
 }
 
 function WCASLCaseStudy() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [learnedSlide, setLearnedSlide] = useState(0);
-  const [d01Slide, setD01Slide] = useState(0);
-  const [d02Slide, setD02Slide] = useState(0);
-  const [d04Slide, setD04Slide] = useState(0);
   const [activeSection, setActiveSection] = useState('where-we-started');
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [openTooltipId, setOpenTooltipId] = useState(null);
@@ -273,27 +252,10 @@ function WCASLCaseStudy() {
   const isScrollingRef = useRef(false);
   const contentColRef = useRef(null);
   const rafRef = useRef(null);
-  const learnedTouchStartX = useRef(0);
-  const d01TouchStartX = useRef(0);
-  const d02TouchStartX = useRef(0);
-  const d04TouchStartX = useRef(0);
 
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-  }, []);
-
-  useEffect(() => {
-    document.body.style.overflow = isMobileMenuOpen ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
-  }, [isMobileMenuOpen]);
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth > 768) setIsMobileMenuOpen(false);
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   // IntersectionObserver for TOC active state
@@ -402,404 +364,80 @@ function WCASLCaseStudy() {
     if (idx < tocSections.length - 1) scrollToSection(tocSections[idx + 1].id);
   }, [activeSection, scrollToSection]);
 
-  const elapsedMin = Math.round((scrollProgress / 100) * totalReadingMin);
-
-  const handleLearnedTouchStart = (e) => {
-    learnedTouchStartX.current = e.touches[0].clientX;
-  };
-
-  const handleLearnedTouchEnd = (e) => {
-    const diff = learnedTouchStartX.current - e.changedTouches[0].clientX;
-    if (diff > 50) {
-      setLearnedSlide((prev) => (prev + 1) % learnedSlides.length);
-    } else if (diff < -50) {
-      setLearnedSlide((prev) => (prev - 1 + learnedSlides.length) % learnedSlides.length);
-    }
-  };
-
-  const handleD01TouchStart = (e) => { d01TouchStartX.current = e.touches[0].clientX; };
-  const handleD01TouchEnd = (e) => {
-    const diff = d01TouchStartX.current - e.changedTouches[0].clientX;
-    if (diff > 50) setD01Slide((prev) => (prev + 1) % decision01Slides.length);
-    else if (diff < -50) setD01Slide((prev) => (prev - 1 + decision01Slides.length) % decision01Slides.length);
-  };
-
-  const handleD02TouchStart = (e) => { d02TouchStartX.current = e.touches[0].clientX; };
-  const handleD02TouchEnd = (e) => {
-    const diff = d02TouchStartX.current - e.changedTouches[0].clientX;
-    if (diff > 50) setD02Slide((prev) => (prev + 1) % decision02Slides.length);
-    else if (diff < -50) setD02Slide((prev) => (prev - 1 + decision02Slides.length) % decision02Slides.length);
-  };
-
-  const handleD04TouchStart = (e) => { d04TouchStartX.current = e.touches[0].clientX; };
-  const handleD04TouchEnd = (e) => {
-    const diff = d04TouchStartX.current - e.changedTouches[0].clientX;
-    if (diff > 50) setD04Slide((prev) => (prev + 1) % decision04Slides.length);
-    else if (diff < -50) setD04Slide((prev) => (prev - 1 + decision04Slides.length) % decision04Slides.length);
-  };
-
   return (
-    <div className="min-h-screen bg-[#262626] text-white flex flex-col">
+    <div className={`min-h-screen bg-[#262626] text-white flex flex-col ${styles.page}`}>
       <MusicCursorTrail />
-      {/* Navbar */}
-      <nav
-        className="sticky top-0 z-50 bg-[#262626] border-b border-white/10"
-        style={{
-          height: '72px',
-          padding: '22px var(--page-padding)',
-          boxShadow: '0 8px 24px rgba(255, 255, 255, 0.08)'
-        }}
-      >
-        <div className="flex justify-between items-center h-full">
-          <Link
-            to="/"
-            className="font-bold"
-            style={{ fontFamily: "'Clash Display', sans-serif", fontSize: 'clamp(20px, 2.5vw, 27px)' }}
-          >
-            Khang's Wrapped
-          </Link>
-
-          {/* Desktop nav */}
-          <div
-            className="nav-links-desktop items-center"
-            style={{ fontFamily: "'Inter', sans-serif", gap: '29px', fontSize: '14px' }}
-          >
-            <Link to="/" className="hover:text-[#C4B5FD] transition-colors">
-              Home
-            </Link>
-            <Link to="/about" className="hover:text-[#C4B5FD] transition-colors">
-              About
-            </Link>
-            <Link to="/playlist" className="hover:text-[#C4B5FD] transition-colors">
-              My Playlists
-            </Link>
-            <a
-              href="/resume/khangresume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-[#C4B5FD] transition-colors"
-            >
-              Resume
-            </a>
-          </div>
-
-          {/* Hamburger (mobile) */}
-          <button
-            className="nav-hamburger"
-            onClick={() => setIsMobileMenuOpen(true)}
-            style={{
-              background: 'none',
-              border: 'none',
-              color: '#E8E8E3',
-              cursor: 'pointer',
-              padding: '8px',
-              minWidth: '44px',
-              minHeight: '44px',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}
-            aria-label="Open menu"
-          >
-            <Menu size={24} />
-          </button>
-        </div>
-      </nav>
-
-      {/* Mobile menu overlay */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            className="mobile-menu-overlay"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.25 }}
-          >
-            <button
-              className="mobile-menu-close"
-              onClick={() => setIsMobileMenuOpen(false)}
-              aria-label="Close menu"
-            >
-              <X size={28} />
-            </button>
-            <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>
-              Home
-            </Link>
-            <Link to="/about" onClick={() => setIsMobileMenuOpen(false)}>
-              About
-            </Link>
-            <Link to="/playlist" onClick={() => setIsMobileMenuOpen(false)}>
-              My Playlists
-            </Link>
-            <a
-              href="/resume/khangresume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Resume
-            </a>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <WcaslNavbar />
 
       {/* Main Content */}
       <main className="flex-1">
-        {/* Landing Hero — 70vh so metadata peeks in */}
-        <section
-          style={{
-            height: 'calc(100vh - 72px)',
-            width: '100%',
-            position: 'relative',
-            overflow: 'hidden',
-            marginBottom: '-1px'
-          }}
-        >
-          <img
-            src="/images/projects/wcaslPhotoCS.png"
-            alt="West Coast Adult Soccer League hero"
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              objectPosition: 'center 60%'
-            }}
-          />
-          <div
-            style={{
-              position: 'absolute',
-              inset: 0,
-              background: 'linear-gradient(to bottom, transparent 40%, #262626 100%)'
-            }}
-          />
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            style={{
-              position: 'absolute',
-              bottom: '80px',
-              left: 'var(--page-padding)',
-              right: 'var(--page-padding)'
-            }}
-          >
-            <h1
-              className="font-bold"
-              style={{
-                fontFamily: "'Clash Display', sans-serif",
-                fontSize: 'clamp(40px, 7vw, 80px)',
-                lineHeight: '1.1',
-                color: '#E8E8E3'
-              }}
-            >
-              West Coast Adult Soccer League
-            </h1>
-            <p
-              style={{
-                fontFamily: "'Inter', sans-serif",
-                fontSize: 'clamp(14px, 2vw, 18px)',
-                color: 'rgba(255,255,255,0.6)',
-                marginTop: '16px'
-              }}
-            >
-              Website redesign for a recreational soccer league in South Orange County
-            </p>
-          </motion.div>
-        </section>
+        <WcaslHero />
 
         {/* Case Study Content */}
-        <section style={{ padding: '48px var(--page-padding) 80px' }}>
+        <section className={styles.caseStudySection}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            style={{ width: '100%' }}
+            className={styles.caseStudyInner}
           >
 
-          {/* Play button — links to live site */}
-          <div style={{ marginBottom: '32px' }}>
-            <a
-              href="https://www.wcasl.org/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="wcasl-play-btn"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: '56px',
-                height: '56px',
-                borderRadius: '50px',
-                backgroundColor: '#C4B5FD',
-                boxShadow: '0 4px 12px rgba(196, 181, 253, 0.5)',
-                cursor: 'pointer',
-                textDecoration: 'none',
-                overflow: 'hidden',
-                transition: 'width 0.3s ease, box-shadow 0.3s ease',
-                gap: '8px',
-                whiteSpace: 'nowrap',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.width = '180px';
-                e.currentTarget.style.boxShadow = '0 4px 20px rgba(196, 181, 253, 0.6)';
-                e.currentTarget.querySelector('.play-label').style.opacity = '1';
-                e.currentTarget.querySelector('.play-label').style.maxWidth = '100px';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.width = '56px';
-                e.currentTarget.style.boxShadow = '0 4px 12px rgba(196, 181, 253, 0.5)';
-                e.currentTarget.querySelector('.play-label').style.opacity = '0';
-                e.currentTarget.querySelector('.play-label').style.maxWidth = '0';
-              }}
-            >
-              <Play size={24} weight="fill" color="#262626" style={{ flexShrink: 0, marginLeft: '7px' }} />
-              <span
-                className="play-label"
-                style={{
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: '15px',
-                  fontWeight: '600',
-                  color: '#262626',
-                  opacity: 0,
-                  maxWidth: '0',
-                  overflow: 'hidden',
-                  transition: 'opacity 0.3s ease, max-width 0.3s ease',
-                }}
-              >
-                Go to Site
-              </span>
-            </a>
-          </div>
+          <WcaslPlayButton />
 
           {/* Hero stats */}
-          <div
-            className="glance-stats"
-            style={{
-              display: 'flex',
-              gap: '48px',
-              alignItems: 'baseline',
-              marginBottom: '32px',
-            }}
-          >
+          <div className={`glance-stats ${styles.glanceStats}`}>
             <div>
-              <span
-                className="gradient-shimmer"
-                style={{
-                  fontFamily: "'Clash Display', sans-serif",
-                  fontSize: 'clamp(40px, 6vw, 56px)',
-                  fontWeight: '600',
-                  display: 'block',
-                  lineHeight: '1',
-                }}
-              >
+              <span className={`gradient-shimmer ${styles.statValue}`}>
                 <AnimatedNumber value={7500} suffix="+" />
               </span>
-              <span
-                style={{
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: '16px',
-                  color: 'rgba(255,255,255,0.5)',
-                  marginTop: '8px',
-                  display: 'block',
-                }}
-              >
+              <span className={styles.statLabel}>
                 site visits in 2026
               </span>
             </div>
 
             <div>
-              <span
-                className="gradient-shimmer"
-                style={{
-                  fontFamily: "'Clash Display', sans-serif",
-                  fontSize: 'clamp(40px, 6vw, 56px)',
-                  fontWeight: '600',
-                  display: 'block',
-                  lineHeight: '1',
-                }}
-              >
+              <span className={`gradient-shimmer ${styles.statValue}`}>
                 <AnimatedNumber value={800} suffix="+" />
               </span>
-              <span
-                style={{
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: '16px',
-                  color: 'rgba(255,255,255,0.5)',
-                  marginTop: '8px',
-                  display: 'block',
-                }}
-              >
+              <span className={styles.statLabel}>
                 players served
               </span>
             </div>
           </div>
 
           {/* Summary + Credits side by side */}
-          <div
-            className="glance-body"
-            style={{
-              display: 'flex',
-              gap: '48px',
-              alignItems: 'flex-start',
-            }}
-          >
+          <div className={`glance-body ${styles.glanceBody}`}>
             {/* Problem / Solution / Impact — 60% */}
             <motion.div
-              className="glance-summary"
+              className={`glance-summary ${styles.glanceSummary}`}
               initial={prefersReduced ? false : { opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.15 }}
-              style={{
-                flex: '0 0 60%',
-                minWidth: 0,
-                fontFamily: "'Inter', sans-serif",
-                fontSize: '16px',
-                color: '#E8E8E3',
-                lineHeight: '1.6',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '20px',
-              }}
             >
               <div>
-                <h3 style={{ fontWeight: '700', marginBottom: '6px', color: '#C4B5FD', fontSize: '14px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Problem</h3>
-                <p style={{ margin: 0 }}>WCASL's old website lacked key information for both current and prospective players. Since most players are over 30, the new site also needed to be easy to navigate for people less comfortable online.</p>
+                <h3 className={styles.summaryHeading}>Problem</h3>
+                <p className={styles.summaryParagraph}>WCASL's old website lacked key information for both current and prospective players. Since most players are over 30, the new site also needed to be easy to navigate for people less comfortable online.</p>
               </div>
               <div>
-                <h3 style={{ fontWeight: '700', marginBottom: '6px', color: '#C4B5FD', fontSize: '14px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Solution</h3>
-                <p style={{ margin: 0 }}>Our team rebuilt the site in Squarespace with a clearer layout and more complete information, creating one hub for both new and returning players.</p>
+                <h3 className={styles.summaryHeading}>Solution</h3>
+                <p className={styles.summaryParagraph}>Our team rebuilt the site in Squarespace with a clearer layout and more complete information, creating one hub for both new and returning players.</p>
               </div>
               <div>
-                <h3 style={{ fontWeight: '700', marginBottom: '6px', color: '#C4B5FD', fontSize: '14px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Impact</h3>
-                <p style={{ margin: 0 }}>Live since August 2025, the site has had 7,500+ visits so far in 2026. The league's commissioner kept three of us on after the original project ended, and we continue to maintain and expand the site.</p>
+                <h3 className={styles.summaryHeading}>Impact</h3>
+                <p className={styles.summaryParagraph}>Live since August 2025, the site has had 7,500+ visits so far in 2026. The league's commissioner kept three of us on after the original project ended, and we continue to maintain and expand the site.</p>
               </div>
             </motion.div>
 
             {/* Credits — compact liner notes — 40% */}
             <motion.div
-              className="glance-credits"
+              className={`glance-credits ${styles.glanceCredits}`}
               initial={prefersReduced ? false : { opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              style={{
-                flex: '0 0 40%',
-                minWidth: 0,
-                fontFamily: "'Inter', sans-serif",
-              }}
             >
-              <span
-                style={{
-                  fontSize: '11px',
-                  fontWeight: '600',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.1em',
-                  color: 'rgba(255,255,255,0.4)',
-                  display: 'block',
-                  marginBottom: '12px',
-                }}
-              >
+              <span className={styles.creditsLabel}>
                 Credits
               </span>
               {[
@@ -809,15 +447,7 @@ function WCASLCaseStudy() {
                     <a
                       href="#my-role"
                       onClick={(e) => { e.preventDefault(); scrollToSection('my-role'); }}
-                      style={{
-                        color: '#E8E8E3',
-                        textDecoration: 'none',
-                        borderBottom: '1px solid rgba(255,255,255,0.2)',
-                        paddingBottom: '1px',
-                        transition: 'color 0.2s, border-color 0.2s',
-                      }}
-                      onMouseEnter={(e) => { e.currentTarget.style.color = '#C4B5FD'; e.currentTarget.style.borderColor = '#C4B5FD'; }}
-                      onMouseLeave={(e) => { e.currentTarget.style.color = '#E8E8E3'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'; }}
+                      className={styles.roleLink}
                     >
                       UI/UX Designer
                     </a>
@@ -833,19 +463,12 @@ function WCASLCaseStudy() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.3, delay: 0.35 + 0.08 * i }}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    marginBottom: '8px',
-                    fontSize: '14px',
-                    lineHeight: '1.5',
-                  }}
+                  className={styles.creditRow}
                 >
-                  <span style={{ color: 'rgba(255,255,255,0.5)', flexShrink: 0, minWidth: '72px' }}>
+                  <span className={styles.creditLabel}>
                     {item.label}
                   </span>
-                  <span style={{ color: '#E8E8E3' }}>
+                  <span className={styles.creditValue}>
                     {item.value}
                   </span>
                 </motion.div>
@@ -857,12 +480,12 @@ function WCASLCaseStudy() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.3, delay: 0.35 + 0.08 * 3 }}
-                style={{ marginTop: '4px' }}
+                className={styles.builtWithWrapper}
               >
-                <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px', display: 'block', marginBottom: '8px' }}>
+                <span className={styles.builtWithLabel}>
                   Built with
                 </span>
-                <span style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                <span className={styles.builtWithChips}>
                   <ToolChip
                     id="figma"
                     icon={<PenTool size={16} strokeWidth={1.75} color="#C4B5FD" />}
@@ -900,34 +523,30 @@ function WCASLCaseStudy() {
           <div className="wcasl-two-col">
             {/* Now Playing sidebar */}
             <aside className="wcasl-toc-sidebar">
-              <div style={{ position: 'sticky', top: 'calc(50vh - 250px)' }}>
+              <div className={styles.sidebarSticky}>
                 <nav aria-label="Case study sections" style={{ width: '100%' }}>
-                  <div style={{ border: '1px solid #4E4A5C', borderRadius: '16px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                  <div className={styles.sidebarCard}>
 
                     {/* Section list */}
-                    <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                    <ul className={styles.tocList}>
                       {tocSections.map((section) => {
                         const isActive = activeSection === section.id;
                         return (
-                          <li key={section.id} style={{ marginBottom: '12px' }}>
+                          <li key={section.id} className={styles.tocItem}>
                             <a
                               href={`#${section.id}`}
                               aria-current={isActive ? 'true' : undefined}
                               onClick={(e) => { e.preventDefault(); if (!isScrollingRef.current) scrollToSection(section.id); }}
+                              className={styles.tocLink}
                               style={{
-                                display: 'block',
                                 paddingLeft: isActive ? '12px' : '0',
                                 borderLeft: isActive ? '3px solid #C4B5FD' : '3px solid transparent',
-                                textDecoration: 'none',
-                                transition: 'all 0.2s',
                               }}
                             >
                               <span
+                                className={styles.tocLinkText}
                                 style={{
-                                  fontFamily: "'Inter', sans-serif", fontSize: '13px', fontWeight: '500',
-                                  textTransform: 'uppercase', letterSpacing: '0.08em',
                                   color: isActive ? '#C4B5FD' : 'rgba(255,255,255,0.5)',
-                                  transition: 'color 0.2s',
                                 }}
                                 onMouseEnter={(e) => { if (!isActive) e.currentTarget.style.color = '#E8E8E3'; }}
                                 onMouseLeave={(e) => { if (!isActive) e.currentTarget.style.color = 'rgba(255,255,255,0.5)'; }}
@@ -943,43 +562,31 @@ function WCASLCaseStudy() {
                     {/* Player controls — progress bar + prev/next */}
                     <div>
                       {/* Progress bar */}
-                      <div style={{ marginBottom: '12px' }}>
+                      <div className={styles.progressWrapper}>
                         <div
                           role="progressbar"
                           aria-valuenow={Math.round(scrollProgress)}
                           aria-valuemin={0}
                           aria-valuemax={100}
                           aria-label="Reading progress"
-                          style={{ width: '100%', height: '4px', backgroundColor: '#4E4A5C', borderRadius: '2px', overflow: 'hidden' }}
+                          className={styles.progressTrack}
                         >
                           <div
-                            style={{
-                              height: '100%',
-                              background: 'linear-gradient(90deg, #C4B5FD 0%, #E5DEFF 50%, #C4B5FD 100%)',
-                              width: `${scrollProgress}%`,
-                            }}
+                            className={styles.progressFill}
+                            style={{ width: `${scrollProgress}%` }}
                           />
                         </div>
                       </div>
 
-                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '24px' }}>
+                      <div className={styles.playerControls}>
                         <button
                           onClick={handlePrevSection}
                           aria-label="Previous section"
                           disabled={tocSections.findIndex(s => s.id === activeSection) === 0}
+                          className={styles.skipBtn}
                           style={{
-                            background: 'none',
-                            border: 'none',
                             cursor: tocSections.findIndex(s => s.id === activeSection) === 0 ? 'default' : 'pointer',
                             color: tocSections.findIndex(s => s.id === activeSection) === 0 ? 'rgba(255,255,255,0.2)' : '#E8E8E3',
-                            padding: '8px',
-                            minWidth: '40px',
-                            minHeight: '40px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            transition: 'all 0.3s',
-                            filter: 'drop-shadow(0 0 0px rgba(196, 181, 253, 0))',
                           }}
                           onMouseEnter={(e) => {
                             if (!e.currentTarget.disabled) {
@@ -1000,19 +607,10 @@ function WCASLCaseStudy() {
                           onClick={handleNextSection}
                           aria-label="Next section"
                           disabled={tocSections.findIndex(s => s.id === activeSection) === tocSections.length - 1}
+                          className={styles.skipBtn}
                           style={{
-                            background: 'none',
-                            border: 'none',
                             cursor: tocSections.findIndex(s => s.id === activeSection) === tocSections.length - 1 ? 'default' : 'pointer',
                             color: tocSections.findIndex(s => s.id === activeSection) === tocSections.length - 1 ? 'rgba(255,255,255,0.2)' : '#E8E8E3',
-                            padding: '8px',
-                            minWidth: '40px',
-                            minHeight: '40px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            transition: 'all 0.3s',
-                            filter: 'drop-shadow(0 0 0px rgba(196, 181, 253, 0))',
                           }}
                           onMouseEnter={(e) => {
                             if (!e.currentTarget.disabled) {
@@ -1041,19 +639,13 @@ function WCASLCaseStudy() {
             <div className="wcasl-content-col" ref={contentColRef}>
 
           {/* The Problem */}
-          <div id="where-we-started" style={{ scrollMarginTop: '104px' }}>
+          <div id="where-we-started" className={styles.sectionAnchor}>
             <motion.h2
-              className="gradient-shimmer"
+              className={`gradient-shimmer ${styles.sectionHeading}`}
               initial={prefersReduced ? false : { opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              style={{
-                fontFamily: "'Clash Display', sans-serif",
-                fontSize: 'clamp(24px, 3.5vw, 32px)',
-                fontWeight: '600',
-                marginBottom: '24px'
-              }}
             >
               Where We Started
             </motion.h2>
@@ -1063,9 +655,9 @@ function WCASLCaseStudy() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              style={{ maxWidth: '680px' }}
+              className={styles.bodyNarrow}
             >
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6' }}>
+              <div className={`${styles.sectionBody} ${styles.bodyParagraphs}`}>
                 <p>
                   Dave Rice runs the West Coast Adult Soccer League (WCASL), a recreational league in South Orange County founded in 2009. It has over 800 players across four divisions: 30+ Competitive, 45+ Veterans, 55+ Senior, and Coed Recreational.
                 </p>
@@ -1083,26 +675,20 @@ function WCASLCaseStudy() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              style={{ marginTop: '48px' }}
+              className={styles.subsectionSpacing}
             >
               <ScreenshotPanel slides={problemSlides} />
             </motion.div>
           </div>
 
           {/* My Role */}
-          <div id="my-role" style={{ marginTop: '80px', scrollMarginTop: '104px' }}>
+          <div id="my-role" className={styles.section}>
             <motion.h2
-              className="gradient-shimmer"
+              className={`gradient-shimmer ${styles.sectionHeading}`}
               initial={prefersReduced ? false : { opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              style={{
-                fontFamily: "'Clash Display', sans-serif",
-                fontSize: 'clamp(24px, 3.5vw, 32px)',
-                fontWeight: '600',
-                marginBottom: '24px'
-              }}
             >
               My Role
             </motion.h2>
@@ -1112,14 +698,7 @@ function WCASLCaseStudy() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              style={{
-                fontFamily: "'Inter', sans-serif",
-                fontSize: '16px',
-                color: '#E8E8E3',
-                lineHeight: '1.6',
-                maxWidth: '100%',
-                marginBottom: '48px'
-              }}
+              className={styles.roleIntro}
             >
               I worked as a UI/UX designer on a team of 7. After the original project ended in August 2025, three of us, including me, stayed on to keep improving and expanding the site.
             </motion.p>
@@ -1130,14 +709,14 @@ function WCASLCaseStudy() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              style={{ fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6' }}
+              className={styles.sectionBody}
             >
-              <h3 style={{ fontWeight: '700', marginBottom: '8px', color: '#C4B5FD' }}>Research and planning</h3>
-              <ul style={{ listStyle: 'disc', paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: '8px', maxWidth: '680px' }}>
+              <h3 className={styles.subsectionHeading}>Research and planning</h3>
+              <ul className={styles.bulletList}>
                 <li>Created two user personas representing the league's main audiences: a new player looking to join and a longtime player checking his weekly schedule</li>
                 <li>Mapped user flows for the two main audiences: new players joining the league and current players checking their match schedule</li>
               </ul>
-              <div style={{ marginTop: '32px' }}>
+              <div className={styles.showcaseWrapper}>
                 <ShowcasePanel>
                   <ImageToggle
                     options={[
@@ -1147,13 +726,7 @@ function WCASLCaseStudy() {
                           <img
                             src="/images/projects/wcasl-personas.png"
                             alt="User personas for WCASL representing a new player and a returning player"
-                            style={{
-                              width: '100%',
-                              height: 'auto',
-                              display: 'block',
-                              borderRadius: '12px',
-                              boxShadow: '0 12px 40px rgba(0,0,0,0.5), 0 4px 16px rgba(0,0,0,0.35)',
-                            }}
+                            className={styles.showcaseImage}
                           />
                         ),
                       },
@@ -1163,13 +736,7 @@ function WCASLCaseStudy() {
                           <img
                             src="/images/projects/wcasl-userflow.png"
                             alt="User flow diagram showing paths for new and returning WCASL players"
-                            style={{
-                              width: '100%',
-                              height: 'auto',
-                              display: 'block',
-                              borderRadius: '12px',
-                              boxShadow: '0 12px 40px rgba(0,0,0,0.5), 0 4px 16px rgba(0,0,0,0.35)',
-                            }}
+                            className={styles.showcaseImage}
                           />
                         ),
                       },
@@ -1185,14 +752,14 @@ function WCASLCaseStudy() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              style={{ marginTop: '48px', fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6' }}
+              className={`${styles.sectionBody} ${styles.subsectionSpacing}`}
             >
-              <h3 style={{ fontWeight: '700', marginBottom: '8px', color: '#C4B5FD' }}>Design</h3>
-              <ul style={{ listStyle: 'disc', paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: '8px', maxWidth: '680px' }}>
+              <h3 className={styles.subsectionHeading}>Design</h3>
+              <ul className={styles.bulletList}>
                 <li>Explored color palettes to give the league a consistent visual identity</li>
                 <li>Designed the navigation bar and footer, taking them from lo-fi wireframes to hi-fi designs that matched the new branding</li>
               </ul>
-              <div style={{ marginTop: '32px' }}>
+              <div className={styles.showcaseWrapper}>
                 <ShowcasePanel>
                   <ImageToggle
                     wipe
@@ -1203,7 +770,7 @@ function WCASLCaseStudy() {
                           <img
                             src="/images/projects/wcasl-lofi-home.png"
                             alt="Lo-fi wireframes of the WCASL Home, About, and Membership pages"
-                            style={{ width: '100%', height: 'auto', display: 'block' }}
+                            className={styles.blockImage}
                           />
                         ),
                       },
@@ -1213,7 +780,7 @@ function WCASLCaseStudy() {
                           <img
                             src="/images/projects/wcasl-hifi-home.png"
                             alt="Hi-fi designs of the WCASL Home, About, and Membership pages"
-                            style={{ width: '100%', height: 'auto', display: 'block' }}
+                            className={styles.blockImage}
                           />
                         ),
                       },
@@ -1229,20 +796,20 @@ function WCASLCaseStudy() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              style={{ marginTop: '48px', fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6' }}
+              className={`${styles.sectionBody} ${styles.subsectionSpacing}`}
             >
-              <h3 style={{ fontWeight: '700', marginBottom: '8px', color: '#C4B5FD' }}>Build and maintenance</h3>
-              <ul style={{ listStyle: 'disc', paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: '8px', maxWidth: '680px' }}>
+              <h3 className={styles.subsectionHeading}>Build and maintenance</h3>
+              <ul className={styles.bulletList}>
                 <li>Built our hi-fi designs in Squarespace for launch</li>
                 <li>Since launch, I've maintained the site with two teammates and added new pages, including Health &amp; Wellness, Donate, and Contact</li>
                 <li>The design kept evolving after hi-fi. Iteration and feedback from the league shaped the live site, so it differs from our original designs</li>
               </ul>
-              <div style={{ marginTop: '32px' }}>
+              <div className={styles.showcaseWrapper}>
                 <ShowcasePanel equalPadding>
                   <img
                     src="/images/projects/wcasl-live-home.png"
                     alt="Live WCASL website screenshots of the Home, About, and Membership pages"
-                    style={{ width: '100%', height: 'auto', display: 'block' }}
+                    className={styles.blockImage}
                   />
                 </ShowcasePanel>
               </div>
@@ -1250,46 +817,31 @@ function WCASLCaseStudy() {
           </div>
 
           {/* What I Learned Along the Way */}
-          <div id="what-i-learned" style={{ marginTop: '80px', scrollMarginTop: '104px' }}>
-            <h2
-              className="gradient-shimmer"
-              style={{
-                fontFamily: "'Clash Display', sans-serif",
-                fontSize: 'clamp(24px, 3.5vw, 32px)',
-                fontWeight: '600',
-                marginBottom: '24px'
-              }}
-            >
+          <div id="what-i-learned" className={styles.section}>
+            <h2 className={`gradient-shimmer ${styles.sectionHeading}`}>
               What I Learned Along the Way
             </h2>
 
             {/* Subsection 1 — full-width layout */}
-            <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6' }}>
-              <h3 style={{ fontWeight: '700', marginBottom: '8px', color: '#C4B5FD' }}>
+            <div className={styles.sectionBody}>
+              <h3 className={styles.subsectionHeading}>
                 Clear enough to act on, simple enough for everyone
               </h3>
-              <p style={{ marginBottom: '16px', maxWidth: '680px' }}>
+              <p className={styles.learnedParagraph}>
                 Every page needed enough detail that players knew exactly what to do next, while staying simple enough for someone who rarely uses websites. Finding that balance was one of the biggest challenges of the project.
               </p>
-              <p style={{ marginBottom: '16px', maxWidth: '680px' }}>Two changes made the biggest difference:</p>
+              <p className={styles.learnedParagraph}>Two changes made the biggest difference:</p>
 
               {/* Two-column takeaways */}
-              <div
-                className="learned-columns"
-                style={{
-                  display: 'flex',
-                  gap: '24px',
-                  marginBottom: '32px',
-                }}
-              >
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <h4 style={{ fontWeight: '700', marginBottom: '8px', color: '#C4B5FD', fontSize: '14px' }}>
+              <div className="learned-columns" style={{ display: 'flex', gap: '24px', marginBottom: '32px' }}>
+                <div className={styles.learnedColumnItem}>
+                  <h4 className={styles.subsectionHeadingSmall}>
                     1. Button size matches importance
                   </h4>
                   <p>The most important actions, like registering, got the largest buttons so players could get straight to what they came for.</p>
                 </div>
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <h4 style={{ fontWeight: '700', marginBottom: '8px', color: '#C4B5FD', fontSize: '14px' }}>
+                <div className={styles.learnedColumnItem}>
+                  <h4 className={styles.subsectionHeadingSmall}>
                     2. Higher-contrast color combinations
                   </h4>
                   <p>We avoided light text on light backgrounds, a problem all over the old site, so every page stays easy to read.</p>
@@ -1302,18 +854,18 @@ function WCASLCaseStudy() {
                   <img
                     src="/images/projects/wcasl-new-annotated.png"
                     alt="New WCASL site with large buttons and high-contrast text highlighted"
-                    style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)', boxShadow: '0 12px 40px rgba(0,0,0,0.5), 0 4px 16px rgba(0,0,0,0.35)' }}
+                    className={styles.showcaseImageBordered}
                   />
                 </BrowserFrame>
               </ShowcasePanel>
             </div>
 
             {/* Subsection 2 — full-width layout */}
-            <div style={{ marginTop: '64px', fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6' }}>
-              <h3 style={{ fontWeight: '700', marginBottom: '8px', color: '#C4B5FD' }}>
+            <div className={`${styles.sectionBody} ${styles.subsectionSpacingLg}`}>
+              <h3 className={styles.subsectionHeading}>
                 Learning Squarespace from scratch
               </h3>
-              <p style={{ marginBottom: '32px', maxWidth: '680px' }}>
+              <p className={styles.learnedParagraphLg}>
                 I had never used Squarespace before this project, so I learned it as I went. It made some things easy, but its layout options were limited. Squarespace does support custom code, so I used my programming background to fill the gaps. On the Health &amp; Wellness page, I embedded the clinic's articles with iframes, since Squarespace couldn't format them on its own. I also coded a custom carousel of the doctor's Instagram Reels, so interested players can see the clinic in action.
               </p>
 
@@ -1326,7 +878,7 @@ function WCASLCaseStudy() {
                         <img
                           src={slide.src}
                           alt={slide.alt}
-                          style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)', boxShadow: '0 12px 40px rgba(0,0,0,0.5), 0 4px 16px rgba(0,0,0,0.35)' }}
+                          className={styles.showcaseImageBordered}
                         />
                       </BrowserFrame>
                     ),
@@ -1337,25 +889,17 @@ function WCASLCaseStudy() {
           </div>
 
           {/* Key Decisions */}
-          <div id="key-decisions" style={{ marginTop: '80px', scrollMarginTop: '104px' }}>
-            <h2
-              className="gradient-shimmer"
-              style={{
-                fontFamily: "'Clash Display', sans-serif",
-                fontSize: 'clamp(24px, 3.5vw, 32px)',
-                fontWeight: '600',
-                marginBottom: '24px'
-              }}
-            >
+          <div id="key-decisions" className={styles.section}>
+            <h2 className={`gradient-shimmer ${styles.sectionHeading}`}>
               Key Decisions
             </h2>
 
             {/* Decision 01 */}
-            <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6' }}>
-              <h3 style={{ fontWeight: '700', marginBottom: '8px', color: '#C4B5FD', display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <div className={styles.sectionBody}>
+              <h3 className={styles.subsectionHeadingFlex}>
                 1. Rebuilding registration after losing AREENA
               </h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '32px', maxWidth: '680px' }}>
+              <div className={styles.decisionParagraphs}>
                 <p>
                   When we started, the league ran everything through AREENA, a league management app that handled player info, payments, and schedules. The website was built around it. We embedded AREENA's schedules on the site, and anyone who wanted to register was sent to the app store to create an account.
                 </p>
@@ -1372,7 +916,7 @@ function WCASLCaseStudy() {
                     label: slide.label,
                     content: (
                       <BrowserFrame noControls>
-                        <img src={slide.src} alt={slide.alt} style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)', boxShadow: '0 12px 40px rgba(0,0,0,0.5), 0 4px 16px rgba(0,0,0,0.35)' }} />
+                        <img src={slide.src} alt={slide.alt} className={styles.showcaseImageBordered} />
                       </BrowserFrame>
                     ),
                   }))}
@@ -1381,11 +925,11 @@ function WCASLCaseStudy() {
             </div>
 
             {/* Decision 02 */}
-            <div style={{ marginTop: '64px', fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6' }}>
-              <h3 style={{ fontWeight: '700', marginBottom: '8px', color: '#C4B5FD', display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <div className={`${styles.sectionBody} ${styles.subsectionSpacingLg}`}>
+              <h3 className={styles.subsectionHeadingFlex}>
                 2. Choosing a simpler solution for game videos
               </h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '32px', maxWidth: '680px' }}>
+              <div className={styles.decisionParagraphs}>
                 <p>
                   The commissioner kept a Google Sheet of game recordings, listing the teams, date, and field for each match. I wanted players to be able to find and rewatch their games directly on the website instead of searching through a spreadsheet.
                 </p>
@@ -1401,7 +945,7 @@ function WCASLCaseStudy() {
                   options={decision02Slides.map((slide) => ({
                     label: slide.label,
                     content: (
-                      <img src={slide.src} alt={slide.alt} style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px', boxShadow: '0 12px 40px rgba(0,0,0,0.5), 0 4px 16px rgba(0,0,0,0.35)' }} />
+                      <img src={slide.src} alt={slide.alt} className={styles.showcaseImage} />
                     ),
                   }))}
                 />
@@ -1409,11 +953,11 @@ function WCASLCaseStudy() {
             </div>
 
             {/* Decision 03 */}
-            <div style={{ marginTop: '64px', fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6' }}>
-              <h3 style={{ fontWeight: '700', marginBottom: '8px', color: '#C4B5FD', display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <div className={`${styles.sectionBody} ${styles.subsectionSpacingLg}`}>
+              <h3 className={styles.subsectionHeadingFlex}>
                 3. Adding a Health &amp; Wellness page
               </h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '32px', maxWidth: '680px' }}>
+              <div className={styles.decisionParagraphs}>
                 <p>
                   WCASL partners with local health practitioners, including Goswami Clinic, a regenerative medicine clinic. The old site never mentioned them. Current players may have known, but new players had no way to find out. We saw these partnerships as a reason for someone to join, so the three of us proposed a Health &amp; Wellness page. I built the page's custom sections, including the article previews and the Instagram Reels carousel. The commissioner loved how the page turned out and is excited for more players to take advantage of these partnerships.
                 </p>
@@ -1422,17 +966,17 @@ function WCASLCaseStudy() {
                 <img
                   src="/images/projects/wcasl-health-page.png"
                   alt="WCASL Health & Wellness page showing partnership information, article previews, and Instagram Reels carousel"
-                  style={{ width: '100%', height: 'auto', display: 'block' }}
+                  className={styles.blockImage}
                 />
               </ShowcasePanel>
             </div>
 
             {/* Decision 04 */}
-            <div style={{ marginTop: '64px', fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6' }}>
-              <h3 style={{ fontWeight: '700', marginBottom: '8px', color: '#C4B5FD', display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <div className={`${styles.sectionBody} ${styles.subsectionSpacingLg}`}>
+              <h3 className={styles.subsectionHeadingFlex}>
                 4. Letting the client lead on color
               </h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '32px', maxWidth: '680px' }}>
+              <div className={styles.decisionParagraphs}>
                 <p>
                   We originally wanted to pull colors from the league's logo so everything would match. The team liked the idea, but the commissioner didn't like those colors, even though they came from his own logo. We could push for consistency with the logo or create a palette he was happy with. Since it's his league, we developed a new palette, which he approved.
                 </p>
@@ -1442,7 +986,7 @@ function WCASLCaseStudy() {
                   options={decision04Slides.map((slide) => ({
                     label: slide.label,
                     content: (
-                      <img src={slide.src} alt={slide.alt} style={{ width: '100%', height: 'auto', display: 'block' }} />
+                      <img src={slide.src} alt={slide.alt} className={styles.blockImage} />
                     ),
                   }))}
                 />
@@ -1451,25 +995,13 @@ function WCASLCaseStudy() {
           </div>
 
           {/* Ideas That Changed Along the Way */}
-          <div id="ideas-that-changed" style={{ marginTop: '80px', scrollMarginTop: '104px' }}>
-            <h2
-              className="gradient-shimmer"
-              style={{
-                fontFamily: "'Clash Display', sans-serif",
-                fontSize: 'clamp(24px, 3.5vw, 32px)',
-                fontWeight: '600',
-                marginBottom: '24px'
-              }}
-            >
+          <div id="ideas-that-changed" className={styles.section}>
+            <h2 className={`gradient-shimmer ${styles.sectionHeading}`}>
               Ideas That Changed Along the Way
             </h2>
             <div
               className="ideas-cards"
-              style={{
-                display: 'flex',
-                alignItems: 'stretch',
-                gap: '0px',
-              }}
+              style={{ display: 'flex', alignItems: 'stretch', gap: '0px' }}
             >
               {/* Card 1 */}
               <motion.div
@@ -1477,33 +1009,18 @@ function WCASLCaseStudy() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                style={{
-                  flex: 1,
-                  border: '1px solid #4E4A5C',
-                  borderRadius: '12px',
-                  padding: '32px',
-                  background: 'transparent',
-                }}
+                className={styles.ideasCard}
               >
-                <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '12px', fontWeight: '500', color: '#C4B5FD', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '12px' }}>
+                <span className={styles.ideasCardLabel}>
                   At First
                 </span>
-                <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6', margin: 0 }}>
+                <p className={styles.ideasCardText}>
                   Early on, we suggested adding a donation page, since WCASL is a nonprofit league. The commissioner decided against it because he didn't want to ask players for money, so we set the idea aside.
                 </p>
               </motion.div>
 
               {/* Arrow */}
-              <div
-                className="ideas-arrow"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  padding: '0 24px',
-                  flexShrink: 0,
-                }}
-              >
+              <div className={`ideas-arrow ${styles.ideasArrow}`}>
                 <ArrowRight className="ideas-arrow-horizontal" size={24} color="#9D92C8" />
                 <ArrowDown className="ideas-arrow-vertical" size={24} color="#9D92C8" style={{ display: 'none' }} />
               </div>
@@ -1514,18 +1031,12 @@ function WCASLCaseStudy() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.15 }}
-                style={{
-                  flex: 1,
-                  border: '1px solid #4E4A5C',
-                  borderRadius: '12px',
-                  padding: '32px',
-                  background: 'transparent',
-                }}
+                className={styles.ideasCard}
               >
-                <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '12px', fontWeight: '500', color: '#C4B5FD', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '12px' }}>
+                <span className={styles.ideasCardLabel}>
                   Later
                 </span>
-                <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6', margin: 0 }}>
+                <p className={styles.ideasCardText}>
                   After one of the league's players passed away, the commissioner asked us to create a page where the community could donate to the player's family. We built the Donate page the next day, giving the league a simple way to support the family when it mattered most.
                 </p>
               </motion.div>
@@ -1533,66 +1044,53 @@ function WCASLCaseStudy() {
           </div>
 
           {/* Results */}
-          <div id="results" style={{ marginTop: '80px', scrollMarginTop: '104px' }}>
-            <h2
-              className="gradient-shimmer"
-              style={{
-                fontFamily: "'Clash Display', sans-serif",
-                fontSize: 'clamp(24px, 3.5vw, 32px)',
-                fontWeight: '600',
-                marginBottom: '24px'
-              }}
-            >
+          <div id="results" className={styles.section}>
+            <h2 className={`gradient-shimmer ${styles.sectionHeading}`}>
               Results
             </h2>
 
             {/* Stat row */}
             <motion.div
-              className="results-stats"
+              className={`results-stats ${styles.resultsStatRow}`}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                marginBottom: '48px',
-              }}
             >
-              <div style={{ flex: 1, textAlign: 'center', padding: '24px 0' }}>
-                <span style={{ fontFamily: "'Clash Display', sans-serif", fontSize: '56px', fontWeight: '600', color: '#C4B5FD', display: 'block', lineHeight: '1.1' }}>
+              <div className={styles.resultsStat}>
+                <span className={styles.resultsStatValue}>
                   <AnimatedNumber value={7500} suffix="+" />
                 </span>
-                <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '16px', color: 'rgba(255,255,255,0.5)', marginTop: '8px', display: 'block' }}>
+                <span className={styles.resultsStatLabel}>
                   visits so far in 2026
                 </span>
               </div>
 
-              <div className="results-divider" style={{ width: '1px', height: '80px', backgroundColor: '#4E4A5C', flexShrink: 0 }} />
+              <div className={`results-divider ${styles.resultsDivider}`} />
 
-              <div style={{ flex: 1, textAlign: 'center', padding: '24px 0' }}>
-                <span style={{ fontFamily: "'Clash Display', sans-serif", fontSize: '56px', fontWeight: '600', color: '#C4B5FD', display: 'block', lineHeight: '1.1' }}>
+              <div className={styles.resultsStat}>
+                <span className={styles.resultsStatValue}>
                   <AnimatedNumber value={800} suffix="+" />
                 </span>
-                <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '16px', color: 'rgba(255,255,255,0.5)', marginTop: '8px', display: 'block' }}>
+                <span className={styles.resultsStatLabel}>
                   players across four divisions
                 </span>
               </div>
 
-              <div className="results-divider" style={{ width: '1px', height: '80px', backgroundColor: '#4E4A5C', flexShrink: 0 }} />
+              <div className={`results-divider ${styles.resultsDivider}`} />
 
-              <div style={{ flex: 1, textAlign: 'center', padding: '24px 0' }}>
-                <span style={{ fontFamily: "'Clash Display', sans-serif", fontSize: '56px', fontWeight: '600', color: '#C4B5FD', display: 'block', lineHeight: '1.1' }}>
+              <div className={styles.resultsStat}>
+                <span className={styles.resultsStatValue}>
                   <AnimatedNumber value={3} />
                 </span>
-                <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '16px', color: 'rgba(255,255,255,0.5)', marginTop: '8px', display: 'block' }}>
+                <span className={styles.resultsStatLabel}>
                   new pages added since launch
                 </span>
               </div>
             </motion.div>
 
             {/* Bullets */}
-            <ul style={{ fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6', maxWidth: '720px', listStyle: 'disc', paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <ul className={styles.resultsBullets}>
               <li>Registration kept working after the switch away from AREENA, with clear steps for new and returning players</li>
               <li>Testimonials from current players help new visitors see the league is legit</li>
               <li>The Health &amp; Wellness page connects players with the league's health partners for the first time</li>
@@ -1601,51 +1099,34 @@ function WCASLCaseStudy() {
           </div>
 
           {/* What I'd Do Differently */}
-          <div id="what-id-do-differently" style={{ marginTop: '80px', scrollMarginTop: '104px' }}>
-            <h2
-              className="gradient-shimmer"
-              style={{
-                fontFamily: "'Clash Display', sans-serif",
-                fontSize: 'clamp(24px, 3.5vw, 32px)',
-                fontWeight: '600',
-                marginBottom: '24px'
-              }}
-            >
+          <div id="what-id-do-differently" className={styles.section}>
+            <h2 className={`gradient-shimmer ${styles.sectionHeading}`}>
               What I'd Do Differently
             </h2>
 
             <div>
               {/* Row 01 */}
               <motion.div
-                className="differently-row"
+                className={`differently-row ${styles.differentlyRow}`}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                style={{
-                  borderTop: '1px solid #4E4A5C',
-                  padding: '32px 0',
-                  display: 'flex',
-                  gap: '48px',
-                  alignItems: 'flex-start',
-                }}
               >
-                <div className="differently-left" style={{ flex: '0 0 35%', minWidth: 0 }}>
-                  <span style={{ fontFamily: "'Clash Display', sans-serif", fontSize: '20px', fontWeight: '600', color: '#C4B5FD', display: 'block', marginBottom: '8px' }}>01</span>
-                  <h3 style={{ fontFamily: "'Inter', sans-serif", fontSize: '20px', fontWeight: '600', color: '#E8E8E3', lineHeight: '1.3', margin: 0 }}>
+                <div className={`differently-left ${styles.differentlyLeft}`}>
+                  <span className={styles.differentlyNum}>01</span>
+                  <h3 className={styles.differentlyTitle}>
                     Find another way to test when players don't respond
                   </h3>
                 </div>
-                <div className="differently-right" style={{ flex: '0 0 65%', minWidth: 0 }}>
-                  <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6', margin: 0, maxWidth: '640px' }}>
+                <div className={`differently-right ${styles.differentlyRight}`}>
+                  <p className={styles.differentlyText}>
                     We asked the commissioner to help recruit players for usability testing, but no one took part. Looking back, I should have tested with people outside the league who fit the audience, like family members or family friends over 30, so we had some feedback before launch. This problem later inspired{' '}
                     <a
                       href="https://devpost.com/software/agent-ux"
                       target="_blank"
                       rel="noopener noreferrer"
-                      style={{ color: '#C4B5FD', textDecoration: 'none' }}
-                      onMouseEnter={(e) => { e.currentTarget.style.textDecoration = 'underline'; }}
-                      onMouseLeave={(e) => { e.currentTarget.style.textDecoration = 'none'; }}
+                      className={styles.agentuxLink}
                     >
                       AgentUX
                     </a>
@@ -1656,27 +1137,20 @@ function WCASLCaseStudy() {
 
               {/* Row 02 */}
               <motion.div
-                className="differently-row"
+                className={`differently-row ${styles.differentlyRow}`}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                style={{
-                  borderTop: '1px solid #4E4A5C',
-                  padding: '32px 0',
-                  display: 'flex',
-                  gap: '48px',
-                  alignItems: 'flex-start',
-                }}
               >
-                <div className="differently-left" style={{ flex: '0 0 35%', minWidth: 0 }}>
-                  <span style={{ fontFamily: "'Clash Display', sans-serif", fontSize: '20px', fontWeight: '600', color: '#C4B5FD', display: 'block', marginBottom: '8px' }}>02</span>
-                  <h3 style={{ fontFamily: "'Inter', sans-serif", fontSize: '20px', fontWeight: '600', color: '#E8E8E3', lineHeight: '1.3', margin: 0 }}>
+                <div className={`differently-left ${styles.differentlyLeft}`}>
+                  <span className={styles.differentlyNum}>02</span>
+                  <h3 className={styles.differentlyTitle}>
                     Check what the platform can handle before building
                   </h3>
                 </div>
-                <div className="differently-right" style={{ flex: '0 0 65%', minWidth: 0 }}>
-                  <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6', margin: 0, maxWidth: '640px' }}>
+                <div className={`differently-right ${styles.differentlyRight}`}>
+                  <p className={styles.differentlyText}>
                     I spent two to three months on the game videos page before realizing Squarespace couldn't keep it updated. Now I'd ask early on whether a feature can run without me.
                   </p>
                 </div>
@@ -1684,27 +1158,20 @@ function WCASLCaseStudy() {
 
               {/* Row 03 */}
               <motion.div
-                className="differently-row"
+                className={`differently-row ${styles.differentlyRow}`}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                style={{
-                  borderTop: '1px solid #4E4A5C',
-                  padding: '32px 0',
-                  display: 'flex',
-                  gap: '48px',
-                  alignItems: 'flex-start',
-                }}
               >
-                <div className="differently-left" style={{ flex: '0 0 35%', minWidth: 0 }}>
-                  <span style={{ fontFamily: "'Clash Display', sans-serif", fontSize: '20px', fontWeight: '600', color: '#C4B5FD', display: 'block', marginBottom: '8px' }}>03</span>
-                  <h3 style={{ fontFamily: "'Inter', sans-serif", fontSize: '20px', fontWeight: '600', color: '#E8E8E3', lineHeight: '1.3', margin: 0 }}>
+                <div className={`differently-left ${styles.differentlyLeft}`}>
+                  <span className={styles.differentlyNum}>03</span>
+                  <h3 className={styles.differentlyTitle}>
                     Avoid relying on a single outside service
                   </h3>
                 </div>
-                <div className="differently-right" style={{ flex: '0 0 65%', minWidth: 0 }}>
-                  <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6', margin: 0, maxWidth: '640px' }}>
+                <div className={`differently-right ${styles.differentlyRight}`}>
+                  <p className={styles.differentlyText}>
                     When the league stopped using AREENA, a lot of the site broke at once. I'd keep essential information, like how to register, on the site itself.
                   </p>
                 </div>
@@ -1712,28 +1179,20 @@ function WCASLCaseStudy() {
 
               {/* Row 04 */}
               <motion.div
-                className="differently-row"
+                className={`differently-row ${styles.differentlyRowLast}`}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                style={{
-                  borderTop: '1px solid #4E4A5C',
-                  borderBottom: '1px solid #4E4A5C',
-                  padding: '32px 0',
-                  display: 'flex',
-                  gap: '48px',
-                  alignItems: 'flex-start',
-                }}
               >
-                <div className="differently-left" style={{ flex: '0 0 35%', minWidth: 0 }}>
-                  <span style={{ fontFamily: "'Clash Display', sans-serif", fontSize: '20px', fontWeight: '600', color: '#C4B5FD', display: 'block', marginBottom: '8px' }}>04</span>
-                  <h3 style={{ fontFamily: "'Inter', sans-serif", fontSize: '20px', fontWeight: '600', color: '#E8E8E3', lineHeight: '1.3', margin: 0 }}>
+                <div className={`differently-left ${styles.differentlyLeft}`}>
+                  <span className={styles.differentlyNum}>04</span>
+                  <h3 className={styles.differentlyTitle}>
                     Get the client's input earlier
                   </h3>
                 </div>
-                <div className="differently-right" style={{ flex: '0 0 65%', minWidth: 0 }}>
-                  <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6', margin: 0, maxWidth: '640px' }}>
+                <div className={`differently-right ${styles.differentlyRight}`}>
+                  <p className={styles.differentlyText}>
                     We built a palette around the logo before checking how the commissioner felt about those colors. Asking first would have saved us a round of work.
                   </p>
                 </div>
@@ -1748,74 +1207,28 @@ function WCASLCaseStudy() {
         </section>
 
         {/* Thanks for Reading + Navigation */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '0 var(--page-padding) 80px', gap: '0px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '48px' }}>
+        <div className={styles.thanksSection}>
+          <div className={styles.thanksNav}>
             {/* Previous case study */}
             <Link
               to="/case-study/plastic-beach"
               aria-label="Previous case study"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: '48px',
-                height: '48px',
-                borderRadius: '50%',
-                border: '1px solid #4E4A5C',
-                color: '#E8E8E3',
-                textDecoration: 'none',
-                transition: 'all 0.25s ease',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = '#C4B5FD';
-                e.currentTarget.style.color = '#C4B5FD';
-                e.currentTarget.style.boxShadow = '0 0 16px rgba(196, 181, 253, 0.25)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = '#4E4A5C';
-                e.currentTarget.style.color = '#E8E8E3';
-                e.currentTarget.style.boxShadow = 'none';
-              }}
+              className={styles.navCircle}
             >
               <ChevronLeft size={22} />
             </Link>
 
             {/* Ditto image + Home button stacked */}
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <div className={styles.thanksCenter}>
               <img
                 src="/images/projects/thanks-for-reading.png"
                 alt="Thanks for reading"
-                style={{ maxWidth: '300px', width: '100%', height: 'auto' }}
+                className={styles.thanksImage}
               />
               {/* Home button */}
               <Link
                 to="/"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: '13px',
-                  fontWeight: '500',
-                  letterSpacing: '0.04em',
-                  color: '#E8E8E3',
-                  textDecoration: 'none',
-                  marginTop: '24px',
-                  padding: '10px 24px',
-                  borderRadius: '999px',
-                  border: '1px solid #4E4A5C',
-                  transition: 'all 0.25s ease',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = '#C4B5FD';
-                  e.currentTarget.style.color = '#C4B5FD';
-                  e.currentTarget.style.boxShadow = '0 0 16px rgba(196, 181, 253, 0.25)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = '#4E4A5C';
-                  e.currentTarget.style.color = '#E8E8E3';
-                  e.currentTarget.style.boxShadow = 'none';
-                }}
+                className={styles.homeBtn}
               >
                 <Home size={15} />
                 <span>Back to Home</span>
@@ -1826,28 +1239,7 @@ function WCASLCaseStudy() {
             <Link
               to="/case-study/plastic-beach"
               aria-label="Next case study"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: '48px',
-                height: '48px',
-                borderRadius: '50%',
-                border: '1px solid #4E4A5C',
-                color: '#E8E8E3',
-                textDecoration: 'none',
-                transition: 'all 0.25s ease',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = '#C4B5FD';
-                e.currentTarget.style.color = '#C4B5FD';
-                e.currentTarget.style.boxShadow = '0 0 16px rgba(196, 181, 253, 0.25)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = '#4E4A5C';
-                e.currentTarget.style.color = '#E8E8E3';
-                e.currentTarget.style.boxShadow = 'none';
-              }}
+              className={styles.navCircle}
             >
               <ChevronRight size={22} />
             </Link>
@@ -1855,7 +1247,7 @@ function WCASLCaseStudy() {
         </div>
 
         {/* Footer Section */}
-        <div style={{ padding: '0 var(--page-padding)' }}>
+        <div className={styles.footerWrapper}>
           <FooterWithSpotlight />
         </div>
 
@@ -1866,24 +1258,12 @@ function WCASLCaseStudy() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={() => setLightboxOpen(false)}
-          style={{
-            position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',
-            backgroundColor: 'rgba(0, 0, 0, 0.9)', zIndex: 10000,
-            padding: 'clamp(16px, 5vw, 80px)', boxSizing: 'border-box',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-          }}
+          className={styles.lightboxOverlay}
         >
           <button
             onClick={() => setLightboxOpen(false)}
             aria-label="Close"
-            style={{
-              position: 'fixed', top: 'clamp(16px, 3vw, 40px)', right: 'clamp(16px, 3vw, 40px)',
-              background: 'none', border: 'none', cursor: 'pointer', color: '#E8E8E3',
-              opacity: 0.7, transition: 'opacity 0.2s', zIndex: 10001,
-              minWidth: '44px', minHeight: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center',
-            }}
-            onMouseEnter={(e) => { e.currentTarget.style.opacity = '1'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.opacity = '0.7'; }}
+            className={styles.lightboxClose}
           >
             <X size={36} />
           </button>
@@ -1894,10 +1274,7 @@ function WCASLCaseStudy() {
             src="/images/projects/wcasl-old-site-overview.png"
             alt="Screenshots of the old WCASL Home, Divisions, and About pages"
             onClick={(e) => e.stopPropagation()}
-            style={{
-              maxWidth: '100%', maxHeight: '100%', objectFit: 'contain',
-              borderRadius: '14px', boxShadow: '0 0 60px rgba(196, 181, 253, 0.4)',
-            }}
+            className={styles.lightboxImage}
           />
         </motion.div>,
         document.body
@@ -1905,60 +1282,24 @@ function WCASLCaseStudy() {
 
       {/* Mobile bottom bar — shown when sidebar is hidden */}
       {!isSidebarVisible && createPortal(
-        <div
-          className="wcasl-mobile-bar"
-          style={{
-            position: 'fixed',
-            bottom: 0,
-            left: 0,
-            right: 0,
-            zIndex: 100,
-            backgroundColor: 'rgba(38, 38, 38, 0.95)',
-            backdropFilter: 'blur(8px)',
-            borderTop: '1px solid #4E4A5C',
-            padding: '10px 16px',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '12px',
-          }}
-        >
+        <div className={`wcasl-mobile-bar ${styles.mobileBar}`}>
           {/* Prev */}
           <button
             onClick={handlePrevSection}
             aria-label="Previous section"
             disabled={tocSections.findIndex(s => s.id === activeSection) === 0}
+            className={styles.mobileBarBtn}
             style={{
-              background: 'none',
-              border: 'none',
               cursor: tocSections.findIndex(s => s.id === activeSection) === 0 ? 'default' : 'pointer',
               color: tocSections.findIndex(s => s.id === activeSection) === 0 ? 'rgba(255,255,255,0.2)' : '#E8E8E3',
-              padding: '6px',
-              minWidth: '36px',
-              minHeight: '36px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexShrink: 0,
             }}
           >
             <SkipBack size={18} weight="fill" />
           </button>
 
           {/* Section name + progress */}
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <span
-              style={{
-                fontFamily: "'Inter', sans-serif",
-                fontSize: '12px',
-                fontWeight: '500',
-                color: '#E8E8E3',
-                display: 'block',
-                whiteSpace: 'nowrap',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                marginBottom: '6px',
-              }}
-            >
+          <div className={styles.mobileBarSection}>
+            <span className={styles.mobileBarLabel}>
               {tocSections.find(s => s.id === activeSection)?.label || ''}
             </span>
             <div
@@ -1967,12 +1308,11 @@ function WCASLCaseStudy() {
               aria-valuemin={0}
               aria-valuemax={100}
               aria-label="Reading progress"
-              style={{ width: '100%', height: '3px', backgroundColor: '#4E4A5C', borderRadius: '2px', overflow: 'hidden' }}
+              className={styles.mobileBarProgress}
             >
               <div
+                className={styles.mobileBarProgressFill}
                 style={{
-                  height: '100%',
-                  background: 'linear-gradient(90deg, #C4B5FD 0%, #E5DEFF 50%, #C4B5FD 100%)',
                   width: `${scrollProgress}%`,
                   transition: prefersReduced ? 'none' : 'width 0.15s linear',
                 }}
@@ -1985,18 +1325,10 @@ function WCASLCaseStudy() {
             onClick={handleNextSection}
             aria-label="Next section"
             disabled={tocSections.findIndex(s => s.id === activeSection) === tocSections.length - 1}
+            className={styles.mobileBarBtn}
             style={{
-              background: 'none',
-              border: 'none',
               cursor: tocSections.findIndex(s => s.id === activeSection) === tocSections.length - 1 ? 'default' : 'pointer',
               color: tocSections.findIndex(s => s.id === activeSection) === tocSections.length - 1 ? 'rgba(255,255,255,0.2)' : '#E8E8E3',
-              padding: '6px',
-              minWidth: '36px',
-              minHeight: '36px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexShrink: 0,
             }}
           >
             <SkipForward size={18} weight="fill" />
