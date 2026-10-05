@@ -72,7 +72,7 @@ function formatItem(item) {
 export default async function handler(req, res) {
   // Let Vercel's CDN share one answer across visitors for 15s,
   // so traffic spikes don't burn through Spotify's rate limit.
-  res.setHeader('Cache-Control', 's-maxage=15, stale-while-revalidate=30');
+  res.setHeader('Cache-Control', 'no-cache, s-maxage=15, stale-while-revalidate=30');
 
   try {
     const token = await getAccessToken();
