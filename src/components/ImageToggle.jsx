@@ -40,13 +40,23 @@ function ImageToggle({ options, caption, wipe = false }) {
     measurePill();
   }, [measurePill]);
 
-  // Measure active content height for smooth fade transitions
+  // Measure active content height for smooth fade transitions,
+  // re-measuring when images load and resize the content
   useEffect(() => {
     if (wipe || !contentRef.current) return;
-    const children = contentRef.current.children;
-    if (children[active]) {
-      setContentHeight(children[active].scrollHeight);
+    const container = contentRef.current;
+    const measure = () => {
+      const children = container.children;
+      if (children[active]) {
+        setContentHeight(children[active].scrollHeight);
+      }
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    if (container.children[active]) {
+      ro.observe(container.children[active]);
     }
+    return () => ro.disconnect();
   }, [active, wipe]);
 
   const handleKeyDown = (e, index) => {

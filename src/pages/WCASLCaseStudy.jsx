@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence, useReducedMotion, useInView } from 'framer-motion';
-import { Menu, X, ChevronLeft, ChevronRight, ArrowRight, ArrowDown, ArrowUpRight, PenTool, AppWindow, Code } from 'lucide-react';
+import { Menu, X, ChevronLeft, ChevronRight, ArrowRight, ArrowDown, ArrowUpRight, PenTool, AppWindow, Code, Home } from 'lucide-react';
 import { SkipBack, SkipForward, Play, MusicNote, MusicNotes, MusicNotesSimple } from '@phosphor-icons/react';
 import FooterWithSpotlight from '../components/FooterWithSpotlight';
 import ScreenshotPanel from '../components/ScreenshotPanel';
@@ -900,7 +900,7 @@ function WCASLCaseStudy() {
           <div className="wcasl-two-col">
             {/* Now Playing sidebar */}
             <aside className="wcasl-toc-sidebar">
-              <div style={{ position: 'sticky', top: '104px', height: 'calc(100vh - 208px)', display: 'flex', alignItems: 'center' }}>
+              <div style={{ position: 'sticky', top: 'calc(50vh - 250px)' }}>
                 <nav aria-label="Case study sections" style={{ width: '100%' }}>
                   <div style={{ border: '1px solid #4E4A5C', borderRadius: '16px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
 
@@ -1042,8 +1042,12 @@ function WCASLCaseStudy() {
 
           {/* The Problem */}
           <div id="where-we-started" style={{ scrollMarginTop: '104px' }}>
-            <h2
+            <motion.h2
               className="gradient-shimmer"
+              initial={prefersReduced ? false : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
               style={{
                 fontFamily: "'Clash Display', sans-serif",
                 fontSize: 'clamp(24px, 3.5vw, 32px)',
@@ -1052,9 +1056,15 @@ function WCASLCaseStudy() {
               }}
             >
               Where We Started
-            </h2>
+            </motion.h2>
 
-            <div style={{ maxWidth: '680px' }}>
+            <motion.div
+              initial={prefersReduced ? false : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              style={{ maxWidth: '680px' }}
+            >
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6' }}>
                 <p>
                   Dave Rice runs the West Coast Adult Soccer League (WCASL), a recreational league in South Orange County founded in 2009. It has over 800 players across four divisions: 30+ Competitive, 45+ Veterans, 55+ Senior, and Coed Recreational.
@@ -1066,17 +1076,27 @@ function WCASLCaseStudy() {
                   The audience was the other key factor. With most players over 30, the site had to be clear and easy to navigate for people less comfortable online.
                 </p>
               </div>
-            </div>
+            </motion.div>
 
-            <div style={{ marginTop: '48px' }}>
+            <motion.div
+              initial={prefersReduced ? false : { opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              style={{ marginTop: '48px' }}
+            >
               <ScreenshotPanel slides={problemSlides} />
-            </div>
+            </motion.div>
           </div>
 
           {/* My Role */}
           <div id="my-role" style={{ marginTop: '80px', scrollMarginTop: '104px' }}>
-            <h2
+            <motion.h2
               className="gradient-shimmer"
+              initial={prefersReduced ? false : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
               style={{
                 fontFamily: "'Clash Display', sans-serif",
                 fontSize: 'clamp(24px, 3.5vw, 32px)',
@@ -1085,9 +1105,13 @@ function WCASLCaseStudy() {
               }}
             >
               My Role
-            </h2>
+            </motion.h2>
 
-            <p
+            <motion.p
+              initial={prefersReduced ? false : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
               style={{
                 fontFamily: "'Inter', sans-serif",
                 fontSize: '16px',
@@ -1098,10 +1122,16 @@ function WCASLCaseStudy() {
               }}
             >
               I worked as a UI/UX designer on a team of 7. After the original project ended in August 2025, three of us, including me, stayed on to keep improving and expanding the site.
-            </p>
+            </motion.p>
 
             {/* Research and planning */}
-            <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6' }}>
+            <motion.div
+              initial={prefersReduced ? false : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              style={{ fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6' }}
+            >
               <h3 style={{ fontWeight: '700', marginBottom: '8px', color: '#C4B5FD' }}>Research and planning</h3>
               <ul style={{ listStyle: 'disc', paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: '8px', maxWidth: '680px' }}>
                 <li>Created two user personas representing the league's main audiences: a new player looking to join and a longtime player checking his weekly schedule</li>
@@ -1147,10 +1177,16 @@ function WCASLCaseStudy() {
                   />
                 </ShowcasePanel>
               </div>
-            </div>
+            </motion.div>
 
             {/* Design */}
-            <div style={{ marginTop: '48px', fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6' }}>
+            <motion.div
+              initial={prefersReduced ? false : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              style={{ marginTop: '48px', fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6' }}
+            >
               <h3 style={{ fontWeight: '700', marginBottom: '8px', color: '#C4B5FD' }}>Design</h3>
               <ul style={{ listStyle: 'disc', paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: '8px', maxWidth: '680px' }}>
                 <li>Explored color palettes to give the league a consistent visual identity</li>
@@ -1185,10 +1221,16 @@ function WCASLCaseStudy() {
                   />
                 </ShowcasePanel>
               </div>
-            </div>
+            </motion.div>
 
             {/* Build and maintenance */}
-            <div style={{ marginTop: '48px', fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6' }}>
+            <motion.div
+              initial={prefersReduced ? false : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              style={{ marginTop: '48px', fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6' }}
+            >
               <h3 style={{ fontWeight: '700', marginBottom: '8px', color: '#C4B5FD' }}>Build and maintenance</h3>
               <ul style={{ listStyle: 'disc', paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: '8px', maxWidth: '680px' }}>
                 <li>Built our hi-fi designs in Squarespace for launch</li>
@@ -1204,7 +1246,7 @@ function WCASLCaseStudy() {
                   />
                 </ShowcasePanel>
               </div>
-            </div>
+            </motion.div>
           </div>
 
           {/* What I Learned Along the Way */}
@@ -1704,6 +1746,113 @@ function WCASLCaseStudy() {
 
         </motion.div>
         </section>
+
+        {/* Thanks for Reading + Navigation */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '0 var(--page-padding) 80px', gap: '0px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '48px' }}>
+            {/* Previous case study */}
+            <Link
+              to="/case-study/plastic-beach"
+              aria-label="Previous case study"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '48px',
+                height: '48px',
+                borderRadius: '50%',
+                border: '1px solid #4E4A5C',
+                color: '#E8E8E3',
+                textDecoration: 'none',
+                transition: 'all 0.25s ease',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = '#C4B5FD';
+                e.currentTarget.style.color = '#C4B5FD';
+                e.currentTarget.style.boxShadow = '0 0 16px rgba(196, 181, 253, 0.25)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = '#4E4A5C';
+                e.currentTarget.style.color = '#E8E8E3';
+                e.currentTarget.style.boxShadow = 'none';
+              }}
+            >
+              <ChevronLeft size={22} />
+            </Link>
+
+            {/* Ditto image + Home button stacked */}
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <img
+                src="/images/projects/thanks-for-reading.png"
+                alt="Thanks for reading"
+                style={{ maxWidth: '300px', width: '100%', height: 'auto' }}
+              />
+              {/* Home button */}
+              <Link
+                to="/"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: '13px',
+                  fontWeight: '500',
+                  letterSpacing: '0.04em',
+                  color: '#E8E8E3',
+                  textDecoration: 'none',
+                  marginTop: '24px',
+                  padding: '10px 24px',
+                  borderRadius: '999px',
+                  border: '1px solid #4E4A5C',
+                  transition: 'all 0.25s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = '#C4B5FD';
+                  e.currentTarget.style.color = '#C4B5FD';
+                  e.currentTarget.style.boxShadow = '0 0 16px rgba(196, 181, 253, 0.25)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = '#4E4A5C';
+                  e.currentTarget.style.color = '#E8E8E3';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
+              >
+                <Home size={15} />
+                <span>Back to Home</span>
+              </Link>
+            </div>
+
+            {/* Next case study */}
+            <Link
+              to="/case-study/plastic-beach"
+              aria-label="Next case study"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '48px',
+                height: '48px',
+                borderRadius: '50%',
+                border: '1px solid #4E4A5C',
+                color: '#E8E8E3',
+                textDecoration: 'none',
+                transition: 'all 0.25s ease',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = '#C4B5FD';
+                e.currentTarget.style.color = '#C4B5FD';
+                e.currentTarget.style.boxShadow = '0 0 16px rgba(196, 181, 253, 0.25)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = '#4E4A5C';
+                e.currentTarget.style.color = '#E8E8E3';
+                e.currentTarget.style.boxShadow = 'none';
+              }}
+            >
+              <ChevronRight size={22} />
+            </Link>
+          </div>
+        </div>
 
         {/* Footer Section */}
         <div style={{ padding: '0 var(--page-padding)' }}>
