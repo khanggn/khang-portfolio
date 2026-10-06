@@ -5,6 +5,7 @@ import { Menu, X } from 'lucide-react';
 import { MusicNote, MusicNotes, MusicNotesSimple } from '@phosphor-icons/react';
 import FooterWithSpotlight from '../components/FooterWithSpotlight';
 import NowPlaying from '../components/NowPlaying';
+import OnRepeat from '../components/OnRepeat';
 
 // Music note cursor trail component
 function MusicCursorTrail() {
@@ -295,7 +296,13 @@ function About() {
               </motion.p>
 
               {/* Live Spotify widget */}
-              <NowPlaying />
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 1.0 }}
+              >
+                <NowPlaying />
+              </motion.div>
             </div>
 
             {/* Right side - Headshot */}
@@ -324,33 +331,8 @@ function About() {
           </div>
         </section>
 
-        {/* Divider */}
-        <div
-          style={{
-            width: '100%',
-            height: '1px',
-            backgroundColor: 'rgba(255, 255, 255, 0.1)',
-            marginLeft: 'calc(var(--page-padding) * -1)',
-            marginRight: 'calc(var(--page-padding) * -1)'
-          }}
-        />
-
-        {/* New Section - Blank for now */}
-        <section
-          style={{
-            height: '100vh',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: '#E8E8E3',
-            marginLeft: 'calc(var(--page-padding) * -1)',
-            marginRight: 'calc(var(--page-padding) * -1)',
-            paddingLeft: 'var(--page-padding)',
-            paddingRight: 'var(--page-padding)'
-          }}
-        >
-          {/* Content placeholder */}
-        </section>
+        {/* On Repeat Since 2018 */}
+        <OnRepeat />
 
         {/* Footer Section */}
         <FooterWithSpotlight />

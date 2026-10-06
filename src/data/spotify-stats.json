@@ -1,0 +1,485 @@
+{
+  "generatedAt": "2026-10-05",
+  "dataThrough": "2026-10-02",
+  "totalHours": 12826,
+  "allTime": {
+    "minutes": 769583,
+    "days": 534.4,
+    "topArtists": [
+      {
+        "name": "NewJeans",
+        "minutes": 182442,
+        "image": "https://i.scdn.co/image/ab67616100005174841bdcf28a956f3a384ffcf4"
+      },
+      {
+        "name": "LE SSERAFIM",
+        "minutes": 143573,
+        "image": "https://i.scdn.co/image/ab67616100005174b976b6defd4f7343c78d63c0"
+      },
+      {
+        "name": "TWICE",
+        "minutes": 50312,
+        "image": "https://i.scdn.co/image/ab676161000051743d8820046fd455b38d644864"
+      }
+    ],
+    "topSongs": [
+      {
+        "title": "Hype Boy",
+        "artist": "NewJeans",
+        "plays": 10075,
+        "uri": "spotify:track:0a4MMyCrzT0En247IhqZbD",
+        "image": "https://i.scdn.co/image/ab67616d00001e029d28fd01859073a3ae6ea209"
+      },
+      {
+        "title": "HOT",
+        "artist": "LE SSERAFIM",
+        "plays": 9609,
+        "uri": "spotify:track:406IpEtZPvbxApWTGM3twY",
+        "image": "https://i.scdn.co/image/ab67616d00001e021fc0f4faafaa183cc70297e5"
+      },
+      {
+        "title": "ETA",
+        "artist": "NewJeans",
+        "plays": 8625,
+        "uri": "spotify:track:56v8WEnGzLByGsDAXDiv4d",
+        "image": "https://i.scdn.co/image/ab67616d00001e020744690248ef3ba7b776ea7b"
+      },
+      {
+        "title": "OMG",
+        "artist": "NewJeans",
+        "plays": 8221,
+        "uri": "spotify:track:65FftemJ1DbbZ45DUfHJXE",
+        "image": "https://i.scdn.co/image/ab67616d00001e02d70036292d54f29e8b68ec01"
+      },
+      {
+        "title": "Ditto",
+        "artist": "NewJeans",
+        "plays": 7809,
+        "uri": "spotify:track:3r8RuvgbX9s7ammBn07D3W",
+        "image": "https://i.scdn.co/image/ab67616d00001e02edf5b257be1d6593e81bb45f"
+      }
+    ]
+  },
+  "years": [
+    {
+      "year": 2018,
+      "partial": false,
+      "minutes": 787,
+      "days": 0.5,
+      "topArtists": [
+        {
+          "name": "BLACKPINK",
+          "minutes": 587,
+          "image": "https://i.scdn.co/image/ab67616100005174623538b7014238c54ceee056"
+        },
+        {
+          "name": "iKON",
+          "minutes": 70,
+          "image": "https://i.scdn.co/image/ab676161000051748eb5e57e526ceb14f06ea203"
+        },
+        {
+          "name": "BTS",
+          "minutes": 15,
+          "image": "https://i.scdn.co/image/ab67616100005174f80ec63ea7a0ef0fba60957d"
+        }
+      ],
+      "topSongs": [
+        {
+          "title": "PLAYING WITH FIRE",
+          "artist": "BLACKPINK",
+          "plays": 33,
+          "uri": "spotify:track:7e7VjLxO5xJINHvnRytrqi",
+          "image": "https://i.scdn.co/image/ab67616d00001e02895cda6254392eb17aae5390"
+        },
+        {
+          "title": "As If It's Your Last",
+          "artist": "BLACKPINK",
+          "plays": 31,
+          "uri": "spotify:track:1Zyd6zQnC6XIIzmg3hP7Ot",
+          "image": "https://i.scdn.co/image/ab67616d00001e02d9ac4a9970da8f98ce2e2b35"
+        },
+        {
+          "title": "BOOMBAYAH - Japanese Version",
+          "artist": "BLACKPINK",
+          "plays": 27,
+          "uri": "spotify:track:58gwQRB2sJ5EwKEntGR0MA",
+          "image": "https://i.scdn.co/image/ab67616d00001e0255ef3902e9215876105bb1e2"
+        },
+        {
+          "title": "STAY",
+          "artist": "BLACKPINK",
+          "plays": 26,
+          "uri": "spotify:track:4TWHREp4wv0TmewqR6rgRd",
+          "image": "https://i.scdn.co/image/ab67616d00001e02895cda6254392eb17aae5390"
+        },
+        {
+          "title": "BOOMBAYAH",
+          "artist": "BLACKPINK",
+          "plays": 26,
+          "uri": "spotify:track:3yHQKddM8SVCRnuPSo3HPN",
+          "image": "https://i.scdn.co/image/ab67616d00001e02231a1b74cc820bb632de108c"
+        }
+      ]
+    },
+    {
+      "year": 2021,
+      "partial": false,
+      "minutes": 2040,
+      "days": 1.4,
+      "topArtists": [
+        {
+          "name": "Lil Uzi Vert",
+          "minutes": 488,
+          "image": "https://i.scdn.co/image/ab676161000051740eb7019b6bb9ce078a9ac03b"
+        },
+        {
+          "name": "Kendrick Lamar",
+          "minutes": 362,
+          "image": "https://i.scdn.co/image/ab6761610000517439ba6dcd4355c03de0b50918"
+        },
+        {
+          "name": "Tyler, The Creator",
+          "minutes": 261,
+          "image": "https://i.scdn.co/image/ab67616100005174df2728294ff77dd11eeb18fb"
+        }
+      ],
+      "topSongs": [
+        {
+          "title": "See You Again (feat. Kali Uchis)",
+          "artist": "Tyler, The Creator",
+          "plays": 84,
+          "uri": "spotify:track:7KA4W4McWYRpgf0fWsJZWB",
+          "image": "https://i.scdn.co/image/ab67616d00001e028940ac99f49e44f59e6f7fb3"
+        },
+        {
+          "title": "Money Trees",
+          "artist": "Kendrick Lamar",
+          "plays": 60,
+          "uri": "spotify:track:2HbKqm4o0w5wEeEFXm2sD4",
+          "image": "https://i.scdn.co/image/ab67616d00001e02d28d2ebdedb220e479743797"
+        },
+        {
+          "title": "ORANGE SODA",
+          "artist": "Baby Keem",
+          "plays": 51,
+          "uri": "spotify:track:5FkoSXiJPKTNyYgALRJFhD",
+          "image": "https://i.scdn.co/image/ab67616d00001e02683757f1fd40a7f7ef64bec1"
+        },
+        {
+          "title": "Space Cadet (feat. Gunna)",
+          "artist": "Metro Boomin",
+          "plays": 47,
+          "uri": "spotify:track:1fewSx2d5KIZ04wsooEBOz",
+          "image": "https://i.scdn.co/image/ab67616d00001e022887f8c05b5a9f1cb105be29"
+        },
+        {
+          "title": "20 Min",
+          "artist": "Lil Uzi Vert",
+          "plays": 45,
+          "uri": "spotify:track:0uxSUdBrJy9Un0EYoBowng",
+          "image": "https://i.scdn.co/image/ab67616d00001e02d7e1c68ed8e464b03095afda"
+        }
+      ]
+    },
+    {
+      "year": 2022,
+      "partial": false,
+      "minutes": 111041,
+      "days": 77.1,
+      "topArtists": [
+        {
+          "name": "LE SSERAFIM",
+          "minutes": 19672,
+          "image": "https://i.scdn.co/image/ab67616100005174b976b6defd4f7343c78d63c0"
+        },
+        {
+          "name": "NewJeans",
+          "minutes": 19058,
+          "image": "https://i.scdn.co/image/ab67616100005174841bdcf28a956f3a384ffcf4"
+        },
+        {
+          "name": "TWICE",
+          "minutes": 16935,
+          "image": "https://i.scdn.co/image/ab676161000051743d8820046fd455b38d644864"
+        }
+      ],
+      "topSongs": [
+        {
+          "title": "Hype Boy",
+          "artist": "NewJeans",
+          "plays": 2997,
+          "uri": "spotify:track:0a4MMyCrzT0En247IhqZbD",
+          "image": "https://i.scdn.co/image/ab67616d00001e029d28fd01859073a3ae6ea209"
+        },
+        {
+          "title": "Attention",
+          "artist": "NewJeans",
+          "plays": 1549,
+          "uri": "spotify:track:2pIUpMhHL6L9Z5lnKxJJr9",
+          "image": "https://i.scdn.co/image/ab67616d00001e029d28fd01859073a3ae6ea209"
+        },
+        {
+          "title": "Sour Grapes",
+          "artist": "LE SSERAFIM",
+          "plays": 1389,
+          "uri": "spotify:track:6wBpO4Xc4YgShnENGSFA1M",
+          "image": "https://i.scdn.co/image/ab67616d00001e029ae8d973353277c7dec2c27d"
+        },
+        {
+          "title": "Talk that Talk",
+          "artist": "TWICE",
+          "plays": 1256,
+          "uri": "spotify:track:0RDqNCRBGrSegk16Avfzuq",
+          "image": "https://i.scdn.co/image/ab67616d00001e02c3040848e6ef0e132c5c8340"
+        },
+        {
+          "title": "Impurities",
+          "artist": "LE SSERAFIM",
+          "plays": 1256,
+          "uri": "spotify:track:7F0MuIk5glqtowCUjbn9es",
+          "image": "https://i.scdn.co/image/ab67616d00001e029cfed1dd2d368a0855d7b1a4"
+        }
+      ]
+    },
+    {
+      "year": 2023,
+      "partial": false,
+      "minutes": 176064,
+      "days": 122.3,
+      "topArtists": [
+        {
+          "name": "NewJeans",
+          "minutes": 98111,
+          "image": "https://i.scdn.co/image/ab67616100005174841bdcf28a956f3a384ffcf4"
+        },
+        {
+          "name": "LE SSERAFIM",
+          "minutes": 18020,
+          "image": "https://i.scdn.co/image/ab67616100005174b976b6defd4f7343c78d63c0"
+        },
+        {
+          "name": "IVE",
+          "minutes": 10071,
+          "image": "https://i.scdn.co/image/ab67616100005174e9134cc9371327f8238b1840"
+        }
+      ],
+      "topSongs": [
+        {
+          "title": "OMG",
+          "artist": "NewJeans",
+          "plays": 6814,
+          "uri": "spotify:track:65FftemJ1DbbZ45DUfHJXE",
+          "image": "https://i.scdn.co/image/ab67616d00001e02d70036292d54f29e8b68ec01"
+        },
+        {
+          "title": "ETA",
+          "artist": "NewJeans",
+          "plays": 6561,
+          "uri": "spotify:track:56v8WEnGzLByGsDAXDiv4d",
+          "image": "https://i.scdn.co/image/ab67616d00001e020744690248ef3ba7b776ea7b"
+        },
+        {
+          "title": "Hype Boy",
+          "artist": "NewJeans",
+          "plays": 5102,
+          "uri": "spotify:track:0a4MMyCrzT0En247IhqZbD",
+          "image": "https://i.scdn.co/image/ab67616d00001e029d28fd01859073a3ae6ea209"
+        },
+        {
+          "title": "Ditto",
+          "artist": "NewJeans",
+          "plays": 5023,
+          "uri": "spotify:track:3r8RuvgbX9s7ammBn07D3W",
+          "image": "https://i.scdn.co/image/ab67616d00001e02edf5b257be1d6593e81bb45f"
+        },
+        {
+          "title": "Super Shy",
+          "artist": "NewJeans",
+          "plays": 4451,
+          "uri": "spotify:track:5sdQOyqq2IDhvmx2lHOpwd",
+          "image": "https://i.scdn.co/image/ab67616d00001e023d98a0ae7c78a3a9babaf8af"
+        }
+      ]
+    },
+    {
+      "year": 2024,
+      "partial": false,
+      "minutes": 177590,
+      "days": 123.3,
+      "topArtists": [
+        {
+          "name": "NewJeans",
+          "minutes": 49013,
+          "image": "https://i.scdn.co/image/ab67616100005174841bdcf28a956f3a384ffcf4"
+        },
+        {
+          "name": "LE SSERAFIM",
+          "minutes": 25775,
+          "image": "https://i.scdn.co/image/ab67616100005174b976b6defd4f7343c78d63c0"
+        },
+        {
+          "name": "KISS OF LIFE",
+          "minutes": 15058,
+          "image": "https://i.scdn.co/image/ab676161000051744b89abdc6c414c949aa45cbe"
+        }
+      ],
+      "topSongs": [
+        {
+          "title": "Right Now",
+          "artist": "NewJeans",
+          "plays": 3195,
+          "uri": "spotify:track:58Q3FZFs1YXPpliWQB5kXB",
+          "image": "https://i.scdn.co/image/ab67616d00001e027e1eeb0d7cc374a168369c80"
+        },
+        {
+          "title": "love you twice",
+          "artist": "HUH YUNJIN",
+          "plays": 2452,
+          "uri": "spotify:track:0GLXQAdrh4tdvz0JLw8DX8",
+          "image": "https://i.scdn.co/image/ab67616d00001e025f0ecf30e9dc530bb9340ba3"
+        },
+        {
+          "title": "How Sweet",
+          "artist": "NewJeans",
+          "plays": 2198,
+          "uri": "spotify:track:38tXZcL1gZRfbqfOG0VMTH",
+          "image": "https://i.scdn.co/image/ab67616d00001e02b657fbb27b17e7bd4691c2b2"
+        },
+        {
+          "title": "Bubble Gum",
+          "artist": "NewJeans",
+          "plays": 2093,
+          "uri": "spotify:track:19D8LNpWwIPpi6hs9BG7dq",
+          "image": "https://i.scdn.co/image/ab67616d00001e02b657fbb27b17e7bd4691c2b2"
+        },
+        {
+          "title": "Smart",
+          "artist": "LE SSERAFIM",
+          "plays": 1953,
+          "uri": "spotify:track:4lR8sYGMGZPvthF2yUfo7T",
+          "image": "https://i.scdn.co/image/ab67616d00001e02d17ea5fa9f991aa284c862a7"
+        }
+      ]
+    },
+    {
+      "year": 2025,
+      "partial": false,
+      "minutes": 180524,
+      "days": 125.4,
+      "topArtists": [
+        {
+          "name": "LE SSERAFIM",
+          "minutes": 53351,
+          "image": "https://i.scdn.co/image/ab67616100005174b976b6defd4f7343c78d63c0"
+        },
+        {
+          "name": "KATSEYE",
+          "minutes": 29769,
+          "image": "https://i.scdn.co/image/ab6761610000517404ba72b2749f90d62152ebec"
+        },
+        {
+          "name": "Sabrina Carpenter",
+          "minutes": 14234,
+          "image": "https://i.scdn.co/image/ab6761610000517478e45cfa4697ce3c437cb455"
+        }
+      ],
+      "topSongs": [
+        {
+          "title": "HOT",
+          "artist": "LE SSERAFIM",
+          "plays": 8544,
+          "uri": "spotify:track:406IpEtZPvbxApWTGM3twY",
+          "image": "https://i.scdn.co/image/ab67616d00001e021fc0f4faafaa183cc70297e5"
+        },
+        {
+          "title": "Gabriela",
+          "artist": "KATSEYE",
+          "plays": 2347,
+          "uri": "spotify:track:1xOqGUkyxGQRdCvGpvWKmL",
+          "image": "https://i.scdn.co/image/ab67616d00001e02f8d4d00ffe09373efb13ce29"
+        },
+        {
+          "title": "Gnarly",
+          "artist": "KATSEYE",
+          "plays": 2209,
+          "uri": "spotify:track:1j15Ar0qGDzIR0v3CQv3JL",
+          "image": "https://i.scdn.co/image/ab67616d00001e022ca769bb73374b00d09a1c82"
+        },
+        {
+          "title": "SPAGHETTI",
+          "artist": "LE SSERAFIM",
+          "plays": 1905,
+          "uri": "spotify:track:2N9miXnewVmUrgl6JSK1FI",
+          "image": "https://i.scdn.co/image/ab67616d00001e026c4a726c271daf4a4b97e35b"
+        },
+        {
+          "title": "CRAZY",
+          "artist": "LE SSERAFIM",
+          "plays": 1886,
+          "uri": "spotify:track:3AoEQRuFf8zVXWqSLo2UOi",
+          "image": "https://i.scdn.co/image/ab67616d00001e0213134929dd979f89b8f4f477"
+        }
+      ]
+    },
+    {
+      "year": 2026,
+      "partial": true,
+      "minutes": 121536,
+      "days": 84.4,
+      "topArtists": [
+        {
+          "name": "LE SSERAFIM",
+          "minutes": 26755,
+          "image": "https://i.scdn.co/image/ab67616100005174b976b6defd4f7343c78d63c0"
+        },
+        {
+          "name": "KATSEYE",
+          "minutes": 17470,
+          "image": "https://i.scdn.co/image/ab6761610000517404ba72b2749f90d62152ebec"
+        },
+        {
+          "name": "TWICE",
+          "minutes": 13018,
+          "image": "https://i.scdn.co/image/ab676161000051743d8820046fd455b38d644864"
+        }
+      ],
+      "topSongs": [
+        {
+          "title": "RUDE!",
+          "artist": "Hearts2Hearts",
+          "plays": 3358,
+          "uri": "spotify:track:2bAQsNqdo62T8akkIvWzGl",
+          "image": "https://i.scdn.co/image/ab67616d00001e02d505bec2fbfee5857725d333"
+        },
+        {
+          "title": "PINKY UP",
+          "artist": "KATSEYE",
+          "plays": 2505,
+          "uri": "spotify:track:4KmkJjHTNlr1jFY56Lyz4E",
+          "image": "https://i.scdn.co/image/ab67616d00001e02f995fcdb4d6f1c273a3bc56b"
+        },
+        {
+          "title": "Animal",
+          "artist": "KATSEYE",
+          "plays": 1986,
+          "uri": "spotify:track:3ouNEk0tv5TTi8VWMe1xbX",
+          "image": "https://i.scdn.co/image/ab67616d00001e029e8d48f27391ce383862b8e8"
+        },
+        {
+          "title": "ICONIC BY MISTAKE",
+          "artist": "LE SSERAFIM",
+          "plays": 1685,
+          "uri": "spotify:track:6fl4Gu0lJm5hc8FM5JzCZD",
+          "image": "https://i.scdn.co/image/ab67616d00001e0255886e2f0784a2b7b62b7fe7"
+        },
+        {
+          "title": "HOT",
+          "artist": "LE SSERAFIM",
+          "plays": 1065,
+          "uri": "spotify:track:406IpEtZPvbxApWTGM3twY",
+          "image": "https://i.scdn.co/image/ab67616d00001e021fc0f4faafaa183cc70297e5"
+        }
+      ]
+    }
+  ]
+}
