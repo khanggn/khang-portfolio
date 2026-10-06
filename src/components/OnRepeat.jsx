@@ -515,6 +515,18 @@ function MobileContent({ stage }) {
 
 function RollingText({ text, className, style }) {
   const reduceMotion = useReducedMotion();
+  const [prev, setPrev] = useState(text);
+  const [exiting, setExiting] = useState(null);
+
+  useEffect(() => {
+    if (text !== prev) {
+      setExiting(prev);
+      setPrev(text);
+      // Clear the old sizer after the exit animation finishes
+      const t = setTimeout(() => setExiting(null), 400);
+      return () => clearTimeout(t);
+    }
+  }, [text, prev]);
 
   if (reduceMotion) {
     return (
@@ -528,13 +540,30 @@ function RollingText({ text, className, style }) {
     <span
       style={{
         ...style,
-        display: 'inline-block',
+        display: 'inline-grid',
         position: 'relative',
         overflow: 'hidden',
         height: '1.15em',
+        justifyItems: 'center',
       }}
     >
-      <AnimatePresence mode="popLayout" initial={false}>
+      {/* Invisible sizers stacked in same grid cell — container takes the
+          wider of current + exiting text so nothing gets clipped */}
+      <span
+        className={className}
+        style={{ gridArea: '1/1', whiteSpace: 'nowrap', visibility: 'hidden' }}
+      >
+        {text}
+      </span>
+      {exiting && (
+        <span
+          className={className}
+          style={{ gridArea: '1/1', whiteSpace: 'nowrap', visibility: 'hidden' }}
+        >
+          {exiting}
+        </span>
+      )}
+      <AnimatePresence initial={false}>
         <motion.span
           key={text}
           className={className}
@@ -542,7 +571,10 @@ function RollingText({ text, className, style }) {
           animate={{ y: '0%' }}
           exit={{ y: '-100%' }}
           transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
-          style={{ display: 'block', whiteSpace: 'nowrap' }}
+          style={{
+            gridArea: '1/1',
+            whiteSpace: 'nowrap',
+          }}
         >
           {text}
         </motion.span>
