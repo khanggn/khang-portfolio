@@ -153,10 +153,10 @@ function NowPlaying() {
           {song.isPlaying && <Equalizer />}
           <span
             style={{
-              fontFamily: "'Gamja Flower', sans-serif",
-              fontSize: '18px',
-              fontWeight: 500,
-              letterSpacing: '0.04em',
+              fontFamily: "'Inter', sans-serif",
+              fontSize: '12px',
+              fontWeight: 600,
+              letterSpacing: '0.08em',
               textTransform: 'uppercase',
               color: song.isPlaying ? '#C4B5FD' : 'rgba(255,255,255,0.5)',
             }}
@@ -165,10 +165,10 @@ function NowPlaying() {
           </span>
         </div>
 
-        <p style={{ ...truncate, fontFamily: "'Clash Display', sans-serif", fontSize: '22px', fontWeight: 600, color: '#E8E8E3', lineHeight: 1.3 }}>
+        <p style={{ ...truncate, fontFamily: "'Clash Display', sans-serif", fontSize: '16px', fontWeight: 600, color: '#E8E8E3', lineHeight: 1.3 }}>
           {song.title}
         </p>
-        <p style={{ ...truncate, fontFamily: "'Gamja Flower', sans-serif", fontSize: '20px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.4 }}>
+        <p style={{ ...truncate, fontFamily: "'Inter', sans-serif", fontSize: '14px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.4 }}>
           {song.artist}
         </p>
 
@@ -191,21 +191,21 @@ function NowPlaying() {
 const cardStyle = {
   display: 'flex',
   alignItems: 'center',
-  gap: '16px',
+  gap: '12px',
   width: '100%',
-  maxWidth: '400px',
-  padding: '16px',
+  maxWidth: '340px',
+  padding: '12px',
   marginTop: '32px',
-  borderRadius: '16px',
+  borderRadius: '12px',
   border: '1px solid #4E4A5C',
   backgroundColor: 'rgba(78, 74, 92, 0.35)',
   textAlign: 'left',
 };
 
 const artStyle = {
-  width: '64px',
-  height: '64px',
-  borderRadius: '8px',
+  width: '48px',
+  height: '48px',
+  borderRadius: '6px',
   objectFit: 'cover',
   flexShrink: 0,
 };
@@ -217,8 +217,8 @@ const truncate = {
 };
 
 const timeStyle = {
-  fontFamily: "'Gamja Flower', sans-serif",
-  fontSize: '18px',
+  fontFamily: "'Inter', sans-serif",
+  fontSize: '12px',
   color: 'rgba(255,255,255,0.5)',
   fontVariantNumeric: 'tabular-nums',
 };
