@@ -149,12 +149,12 @@ function NowPlaying() {
       )}
 
       <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '2px' }}>
           {song.isPlaying && <Equalizer />}
           <span
             style={{
               fontFamily: "'Inter', sans-serif",
-              fontSize: '12px',
+              fontSize: '10px',
               fontWeight: 600,
               letterSpacing: '0.08em',
               textTransform: 'uppercase',
@@ -165,15 +165,15 @@ function NowPlaying() {
           </span>
         </div>
 
-        <p style={{ ...truncate, fontFamily: "'Clash Display', sans-serif", fontSize: '16px', fontWeight: 600, color: '#E8E8E3', lineHeight: 1.3 }}>
+        <p style={{ ...truncate, fontFamily: "'Clash Display', sans-serif", fontSize: '14px', fontWeight: 600, color: '#E8E8E3', lineHeight: 1.3 }}>
           {song.title}
         </p>
-        <p style={{ ...truncate, fontFamily: "'Inter', sans-serif", fontSize: '14px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.4 }}>
+        <p style={{ ...truncate, fontFamily: "'Inter', sans-serif", fontSize: '12px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.4 }}>
           {song.artist}
         </p>
 
         {song.isPlaying && (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '8px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '6px' }}>
             <span style={timeStyle}>{formatTime(progressMs)}</span>
             <div style={{ flex: 1, height: '3px', borderRadius: '2px', backgroundColor: 'rgba(255,255,255,0.1)', overflow: 'hidden' }}>
               <div style={{ width: `${progressPct}%`, height: '100%', backgroundColor: '#C4B5FD', transition: 'width 1s linear' }} />
@@ -191,10 +191,10 @@ function NowPlaying() {
 const cardStyle = {
   display: 'flex',
   alignItems: 'center',
-  gap: '12px',
+  gap: '10px',
   width: '100%',
-  maxWidth: '340px',
-  padding: '12px',
+  maxWidth: '100%',
+  padding: '10px',
   marginTop: '32px',
   borderRadius: '12px',
   border: '1px solid #4E4A5C',
@@ -203,8 +203,8 @@ const cardStyle = {
 };
 
 const artStyle = {
-  width: '48px',
-  height: '48px',
+  width: '40px',
+  height: '40px',
   borderRadius: '6px',
   objectFit: 'cover',
   flexShrink: 0,
@@ -218,7 +218,7 @@ const truncate = {
 
 const timeStyle = {
   fontFamily: "'Inter', sans-serif",
-  fontSize: '12px',
+  fontSize: '10px',
   color: 'rgba(255,255,255,0.5)',
   fontVariantNumeric: 'tabular-nums',
 };
