@@ -65,8 +65,8 @@ function ScreenshotPanel({ slides, heading }) {
       {heading && (
         <p
           style={{
-            fontFamily: "'Inter', sans-serif",
-            fontSize: '14px',
+            fontFamily: "inherit",
+            fontSize: '15px',
             color: 'rgba(255,255,255,0.5)',
             marginBottom: '8px',
           }}
@@ -120,8 +120,8 @@ function ScreenshotPanel({ slides, heading }) {
                       onClick={() => goTo(i)}
                       onKeyDown={(e) => handleTabKeyDown(e, i)}
                       style={{
-                        fontFamily: "'Inter', sans-serif",
-                        fontSize: '13px',
+                        fontFamily: "inherit",
+                        fontSize: '14px',
                         fontWeight: 500,
                         lineHeight: 1,
                         padding: '6px 14px',

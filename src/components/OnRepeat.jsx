@@ -178,7 +178,7 @@ function Timeline({ activeStage, onSelect }) {
               style={{
                 flex: 1,
                 textAlign: 'center',
-                fontFamily: "'Inter', sans-serif",
+                fontFamily: "'Gamja Flower', sans-serif",
                 fontSize: 11,
                 fontWeight: current ? 600 : 400,
                 color: reached ? '#E8E8E3' : 'rgba(255,255,255,0.4)',
@@ -252,7 +252,7 @@ function ArtistFloat({ artist, pos, i, noMotion }) {
       />
       <span
         style={{
-          fontFamily: "'Inter', sans-serif",
+          fontFamily: "'Gamja Flower', sans-serif",
           fontSize: 13,
           fontWeight: 600,
           color: '#E8E8E3',
@@ -264,7 +264,7 @@ function ArtistFloat({ artist, pos, i, noMotion }) {
       </span>
       <span
         style={{
-          fontFamily: "'Inter', sans-serif",
+          fontFamily: "'Gamja Flower', sans-serif",
           fontSize: 11,
           color: '#9D92C8',
         }}
@@ -336,7 +336,7 @@ function SongFloat({ song, rank, pos, i, noMotion }) {
       <div style={{ minWidth: 0, flex: 1 }}>
         <p
           style={{
-            fontFamily: "'Inter', sans-serif",
+            fontFamily: "'Gamja Flower', sans-serif",
             fontSize: 13,
             fontWeight: 600,
             color: '#E8E8E3',
@@ -352,7 +352,7 @@ function SongFloat({ song, rank, pos, i, noMotion }) {
         </p>
         <p
           style={{
-            fontFamily: "'Inter', sans-serif",
+            fontFamily: "'Gamja Flower', sans-serif",
             fontSize: 12,
             color: '#C4B5FD',
             margin: 0,
@@ -411,7 +411,7 @@ function MobileContent({ stage }) {
             />
             <span
               style={{
-                fontFamily: "'Inter', sans-serif",
+                fontFamily: "'Gamja Flower', sans-serif",
                 fontSize: 11,
                 fontWeight: 600,
                 color: '#E8E8E3',
@@ -426,7 +426,7 @@ function MobileContent({ stage }) {
             </span>
             <span
               style={{
-                fontFamily: "'Inter', sans-serif",
+                fontFamily: "'Gamja Flower', sans-serif",
                 fontSize: 10,
                 color: '#9D92C8',
               }}
@@ -468,7 +468,7 @@ function MobileContent({ stage }) {
             />
             <span
               style={{
-                fontFamily: "'Inter', sans-serif",
+                fontFamily: "'Gamja Flower', sans-serif",
                 fontSize: 11,
                 fontWeight: 500,
                 color: '#9D92C8',
@@ -480,7 +480,7 @@ function MobileContent({ stage }) {
             </span>
             <p
               style={{
-                fontFamily: "'Inter', sans-serif",
+                fontFamily: "'Gamja Flower', sans-serif",
                 fontSize: 13,
                 fontWeight: 500,
                 color: '#E8E8E3',
@@ -496,7 +496,7 @@ function MobileContent({ stage }) {
             </p>
             <span
               style={{
-                fontFamily: "'Inter', sans-serif",
+                fontFamily: "'Gamja Flower', sans-serif",
                 fontSize: 11,
                 color: '#C4B5FD',
                 flexShrink: 0,
@@ -596,7 +596,7 @@ function StatsText({ stage, wide }) {
     <div style={{ textAlign: 'center' }}>
       <p
         style={{
-          fontFamily: "'Inter', sans-serif",
+          fontFamily: "'Gamja Flower', sans-serif",
           fontSize: wide ? 'clamp(16px, 1.5vw, 20px)' : 14,
           color: '#E8E8E3',
           margin: '6px 0 0',
@@ -606,7 +606,7 @@ function StatsText({ stage, wide }) {
       </p>
       <p
         style={{
-          fontFamily: "'Inter', sans-serif",
+          fontFamily: "'Gamja Flower', sans-serif",
           fontSize: wide ? 'clamp(14px, 1.2vw, 16px)' : 13,
           color: 'rgba(255,255,255,0.5)',
           margin: '4px 0 0',
@@ -670,7 +670,7 @@ function OnRepeat() {
         </h2>
         <p
           style={{
-            fontFamily: "'Inter', sans-serif",
+            fontFamily: "'Gamja Flower', sans-serif",
             fontSize: 16,
             color: 'rgba(255,255,255,0.5)',
             margin: '8px 0 0',
@@ -814,7 +814,7 @@ function OnRepeat() {
       {/* caption */}
       <p
         style={{
-          fontFamily: "'Inter', sans-serif",
+          fontFamily: "'Gamja Flower', sans-serif",
           fontSize: 12,
           color: 'rgba(255,255,255,0.3)',
           textAlign: 'center',

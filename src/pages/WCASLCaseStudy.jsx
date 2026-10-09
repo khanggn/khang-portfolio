@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence, useReducedMotion, useInView } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight, ArrowRight, ArrowDown, PenTool, AppWindow, Code, Home } from 'lucide-react';
-import { SkipBack, SkipForward, MusicNote, MusicNotes, MusicNotesSimple } from '@phosphor-icons/react';
+import { SkipBack, SkipForward } from '@phosphor-icons/react';
 import FooterWithSpotlight from '../components/FooterWithSpotlight';
 import ScreenshotPanel from '../components/ScreenshotPanel';
 import ImageToggle from '../components/ImageToggle';
@@ -171,76 +171,6 @@ function ToolChip({ icon, label, tooltip, id, isOpen, onToggle, prefersReduced, 
   );
 }
 
-function MusicCursorTrail() {
-  const [notes, setNotes] = useState([]);
-  const noteIcons = [MusicNote, MusicNotes, MusicNotesSimple];
-
-  useEffect(() => {
-    let noteId = 0;
-
-    const handleMouseMove = (e) => {
-      if (Math.random() > 0.85) {
-        const element = document.elementFromPoint(e.clientX, e.clientY);
-        const bgColor = element ? window.getComputedStyle(element).backgroundColor : '';
-        const isOnLightBackground = bgColor.includes('232, 232, 227') || bgColor.includes('rgb(232, 232, 227)');
-
-        const newNote = {
-          id: noteId++,
-          x: e.clientX,
-          y: e.clientY,
-          rotation: Math.random() * 360,
-          scale: 0.5 + Math.random() * 0.5,
-          direction: Math.random() > 0.5 ? 1 : -1,
-          IconComponent: noteIcons[Math.floor(Math.random() * noteIcons.length)],
-          color: isOnLightBackground ? '#C4B5FD' : '#E8E8E3'
-        };
-
-        setNotes((prev) => [...prev, newNote]);
-
-        setTimeout(() => {
-          setNotes((prev) => prev.filter((note) => note.id !== newNote.id));
-        }, 1000);
-      }
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
-  return (
-    <div className={styles.cursorTrailContainer}>
-      {notes.map((note) => {
-        const IconComponent = note.IconComponent;
-        return (
-          <motion.div
-            key={note.id}
-            initial={{
-              x: note.x,
-              y: note.y,
-              opacity: 0.8,
-              scale: note.scale,
-              rotate: note.rotation
-            }}
-            animate={{
-              x: note.x + (note.direction * 30),
-              y: note.y - 40,
-              opacity: 0,
-              rotate: note.rotation + (note.direction * 45)
-            }}
-            transition={{
-              duration: 1,
-              ease: "easeOut"
-            }}
-            className={styles.cursorNote}
-          >
-            <IconComponent size={20} weight="fill" color={note.color} />
-          </motion.div>
-        );
-      })}
-    </div>
-  );
-}
-
 function WCASLCaseStudy() {
   const [activeSection, setActiveSection] = useState('where-we-started');
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -366,7 +296,6 @@ function WCASLCaseStudy() {
 
   return (
     <div className={`min-h-screen bg-[#262626] text-white flex flex-col ${styles.page}`}>
-      <MusicCursorTrail />
       <WcaslNavbar />
 
       {/* Main Content */}

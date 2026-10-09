@@ -75,8 +75,8 @@ function ProjectDetail({ project, isOpen }) {
                     key={tag}
                     whileHover={{ scale: 1.05, boxShadow: '0 0 12px rgba(196, 181, 253, 0.4)' }}
                     style={{
-                      fontFamily: "'Inter', sans-serif",
-                      fontSize: '12px',
+                      fontFamily: "'Gamja Flower', sans-serif",
+                      fontSize: '18px',
                       padding: '5px 13px',
                       backgroundColor: 'rgba(196, 181, 253, 0.15)',
                       border: '1px solid #9D92C8',
@@ -100,8 +100,8 @@ function ProjectDetail({ project, isOpen }) {
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{
-                        fontFamily: "'Inter', sans-serif",
-                        fontSize: '13px',
+                        fontFamily: "'Gamja Flower', sans-serif",
+                        fontSize: '19px',
                         color: '#C4B5FD',
                         textDecoration: 'none',
                         display: 'flex',
@@ -126,8 +126,8 @@ function ProjectDetail({ project, isOpen }) {
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{
-                        fontFamily: "'Inter', sans-serif",
-                        fontSize: '13px',
+                        fontFamily: "'Gamja Flower', sans-serif",
+                        fontSize: '19px',
                         color: '#C4B5FD',
                         textDecoration: 'none',
                         display: 'flex',
@@ -152,8 +152,8 @@ function ProjectDetail({ project, isOpen }) {
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{
-                        fontFamily: "'Inter', sans-serif",
-                        fontSize: '13px',
+                        fontFamily: "'Gamja Flower', sans-serif",
+                        fontSize: '19px',
                         color: '#C4B5FD',
                         textDecoration: 'none',
                         display: 'flex',
@@ -178,8 +178,8 @@ function ProjectDetail({ project, isOpen }) {
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{
-                        fontFamily: "'Inter', sans-serif",
-                        fontSize: '13px',
+                        fontFamily: "'Gamja Flower', sans-serif",
+                        fontSize: '19px',
                         color: '#C4B5FD',
                         textDecoration: 'none',
                         display: 'flex',
@@ -208,7 +208,7 @@ function ProjectDetail({ project, isOpen }) {
                 <h3
                   style={{
                     fontFamily: "'Clash Display', sans-serif",
-                    fontSize: '18px',
+                    fontSize: '20px',
                     fontWeight: '600',
                     color: '#C4B5FD',
                     marginBottom: '14px'
@@ -218,8 +218,8 @@ function ProjectDetail({ project, isOpen }) {
                 </h3>
                 <p
                   style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: '15px',
+                    fontFamily: "'Gamja Flower', sans-serif",
+                    fontSize: '21px',
                     lineHeight: '1.7',
                     color: 'rgba(255,255,255,0.8)'
                   }}
@@ -235,7 +235,7 @@ function ProjectDetail({ project, isOpen }) {
                 <h3
                   style={{
                     fontFamily: "'Clash Display', sans-serif",
-                    fontSize: '18px',
+                    fontSize: '20px',
                     fontWeight: '600',
                     color: '#C4B5FD',
                     marginBottom: '14px'
@@ -248,8 +248,8 @@ function ProjectDetail({ project, isOpen }) {
                     <li
                       key={index}
                       style={{
-                        fontFamily: "'Inter', sans-serif",
-                        fontSize: '15px',
+                        fontFamily: "'Gamja Flower', sans-serif",
+                        fontSize: '21px',
                         lineHeight: '1.7',
                         color: 'rgba(255,255,255,0.8)',
                         marginBottom: '11px',
@@ -279,7 +279,7 @@ function ProjectDetail({ project, isOpen }) {
                 <h3
                   style={{
                     fontFamily: "'Clash Display', sans-serif",
-                    fontSize: '18px',
+                    fontSize: '20px',
                     fontWeight: '600',
                     color: '#C4B5FD',
                     marginBottom: '14px'
@@ -289,8 +289,8 @@ function ProjectDetail({ project, isOpen }) {
                 </h3>
                 <p
                   style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: '15px',
+                    fontFamily: "'Gamja Flower', sans-serif",
+                    fontSize: '21px',
                     lineHeight: '1.7',
                     color: 'rgba(255,255,255,0.8)'
                   }}
@@ -306,7 +306,7 @@ function ProjectDetail({ project, isOpen }) {
                 <h3
                   style={{
                     fontFamily: "'Clash Display', sans-serif",
-                    fontSize: '18px',
+                    fontSize: '20px',
                     fontWeight: '600',
                     color: '#C4B5FD',
                     marginBottom: '14px'
@@ -319,8 +319,8 @@ function ProjectDetail({ project, isOpen }) {
                     <li
                       key={index}
                       style={{
-                        fontFamily: "'Inter', sans-serif",
-                        fontSize: '15px',
+                        fontFamily: "'Gamja Flower', sans-serif",
+                        fontSize: '21px',
                         lineHeight: '1.7',
                         color: 'rgba(255,255,255,0.8)',
                         marginBottom: '11px',
@@ -350,7 +350,7 @@ function ProjectDetail({ project, isOpen }) {
                 <h3
                   style={{
                     fontFamily: "'Clash Display', sans-serif",
-                    fontSize: '18px',
+                    fontSize: '20px',
                     fontWeight: '600',
                     color: '#C4B5FD',
                     marginBottom: '14px'

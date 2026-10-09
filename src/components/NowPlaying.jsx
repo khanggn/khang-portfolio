@@ -153,8 +153,8 @@ function NowPlaying() {
           {song.isPlaying && <Equalizer />}
           <span
             style={{
-              fontFamily: "'Inter', sans-serif",
-              fontSize: '12px',
+              fontFamily: "'Gamja Flower', sans-serif",
+              fontSize: '18px',
               fontWeight: 500,
               letterSpacing: '0.04em',
               textTransform: 'uppercase',
@@ -165,10 +165,10 @@ function NowPlaying() {
           </span>
         </div>
 
-        <p style={{ ...truncate, fontFamily: "'Clash Display', sans-serif", fontSize: '16px', fontWeight: 600, color: '#E8E8E3', lineHeight: 1.3 }}>
+        <p style={{ ...truncate, fontFamily: "'Clash Display', sans-serif", fontSize: '22px', fontWeight: 600, color: '#E8E8E3', lineHeight: 1.3 }}>
           {song.title}
         </p>
-        <p style={{ ...truncate, fontFamily: "'Inter', sans-serif", fontSize: '14px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.4 }}>
+        <p style={{ ...truncate, fontFamily: "'Gamja Flower', sans-serif", fontSize: '20px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.4 }}>
           {song.artist}
         </p>
 
@@ -217,8 +217,8 @@ const truncate = {
 };
 
 const timeStyle = {
-  fontFamily: "'Inter', sans-serif",
-  fontSize: '12px',
+  fontFamily: "'Gamja Flower', sans-serif",
+  fontSize: '18px',
   color: 'rgba(255,255,255,0.5)',
   fontVariantNumeric: 'tabular-nums',
 };

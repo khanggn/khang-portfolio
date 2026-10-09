@@ -115,8 +115,8 @@ function ImageToggle({ options, caption, wipe = false }) {
                 onClick={() => goTo(i)}
                 onKeyDown={(e) => handleKeyDown(e, i)}
                 style={{
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: '13px',
+                  fontFamily: "inherit",
+                  fontSize: '14px',
                   fontWeight: 500,
                   lineHeight: 1,
                   padding: '6px 14px',
@@ -239,8 +239,8 @@ function ImageToggle({ options, caption, wipe = false }) {
       {caption && (
         <p
           style={{
-            fontFamily: "'Inter', sans-serif",
-            fontSize: '14px',
+            fontFamily: "inherit",
+            fontSize: '15px',
             color: 'rgba(255,255,255,0.5)',
             textAlign: 'center',
             marginTop: '16px',

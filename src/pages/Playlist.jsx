@@ -2,161 +2,10 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu } from 'lucide-react';
-import { MusicNote, MusicNotes, MusicNotesSimple, Play, Pause, X, SpeakerHigh, SpeakerLow, SpeakerSlash, CaretDown, CheckCircle } from '@phosphor-icons/react';
+import { Play, Pause, X, SpeakerHigh, SpeakerLow, SpeakerSlash, CaretDown, CheckCircle } from '@phosphor-icons/react';
 import ProjectDetail from '../components/ProjectDetail';
 import FooterWithSpotlight from '../components/FooterWithSpotlight';
 
-// Music note cursor trail component
-function MusicCursorTrail() {
-  const [notes, setNotes] = useState([]);
-  const noteIcons = [MusicNote, MusicNotes, MusicNotesSimple];
-
-  useEffect(() => {
-    let noteId = 0;
-
-    const handleMouseMove = (e) => {
-      // Only spawn notes occasionally (every ~50ms based on random chance)
-      if (Math.random() > 0.85) {
-        // Detect if mouse is over light background by checking the element's background color
-        const element = document.elementFromPoint(e.clientX, e.clientY);
-        const bgColor = element ? window.getComputedStyle(element).backgroundColor : '';
-        const isOnLightBackground = bgColor.includes('232, 232, 227') || bgColor.includes('rgb(232, 232, 227)');
-
-        const newNote = {
-          id: noteId++,
-          x: e.clientX,
-          y: e.clientY,
-          rotation: Math.random() * 360,
-          scale: 0.5 + Math.random() * 0.5,
-          direction: Math.random() > 0.5 ? 1 : -1,
-          IconComponent: noteIcons[Math.floor(Math.random() * noteIcons.length)],
-          color: isOnLightBackground ? '#C4B5FD' : '#E8E8E3'
-        };
-
-        setNotes((prev) => [...prev, newNote]);
-
-        // Remove note after animation completes
-        setTimeout(() => {
-          setNotes((prev) => prev.filter((note) => note.id !== newNote.id));
-        }, 1000);
-      }
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
-  return (
-    <div className="music-cursor-trail" style={{ position: 'fixed', top: 0, left: 0, pointerEvents: 'none', zIndex: 9999 }}>
-      {notes.map((note) => {
-        const IconComponent = note.IconComponent;
-        return (
-          <motion.div
-            key={note.id}
-            initial={{
-              x: note.x,
-              y: note.y,
-              opacity: 0.8,
-              scale: note.scale,
-              rotate: note.rotation
-            }}
-            animate={{
-              x: note.x + (note.direction * 30),
-              y: note.y - 40,
-              opacity: 0,
-              rotate: note.rotation + (note.direction * 45)
-            }}
-            transition={{
-              duration: 1,
-              ease: "easeOut"
-            }}
-            style={{ position: 'absolute' }}
-          >
-            <IconComponent size={20} weight="fill" color={note.color} />
-          </motion.div>
-        );
-      })}
-    </div>
-  );
-}
-
-// Scroll animation music notes component
-function ScrollMusicNotes({ isScrolling, shouldSpawn }) {
-  const [notes, setNotes] = useState([]);
-  const noteIcons = [MusicNote, MusicNotes, MusicNotesSimple];
-  const colors = ['#E8E8E3', '#C4B5FD', '#9D92C8'];
-
-  useEffect(() => {
-    if (!isScrolling && notes.length === 0) {
-      return;
-    }
-
-    if (!shouldSpawn) {
-      // Stop spawning but let existing notes finish
-      return;
-    }
-
-    let noteId = 0;
-    const spawnInterval = setInterval(() => {
-      const newNotes = [];
-
-      // Spawn 5-8 notes across the entire screen width
-      const noteCount = 5 + Math.floor(Math.random() * 4);
-      for (let i = 0; i < noteCount; i++) {
-        const id = `note-${noteId++}`;
-        newNotes.push({
-          id,
-          x: Math.random() * window.innerWidth, // Anywhere across the screen
-          y: window.innerHeight - 50 + Math.random() * 50, // Spawn at bottom of viewport
-          rotation: Math.random() * 360,
-          scale: 0.6 + Math.random() * 0.8,
-          IconComponent: noteIcons[Math.floor(Math.random() * noteIcons.length)],
-          color: colors[Math.floor(Math.random() * colors.length)]
-        });
-      }
-
-      setNotes((prev) => {
-        // Keep only recent notes to prevent memory issues
-        const allNotes = [...prev, ...newNotes];
-        return allNotes.slice(-60); // Keep max 60 notes
-      });
-    }, 100); // Spawn every 100ms
-
-    return () => clearInterval(spawnInterval);
-  }, [isScrolling, shouldSpawn]);
-
-  return (
-    <div style={{ position: 'fixed', top: 0, left: 0, pointerEvents: 'none', zIndex: 9998, width: '100vw', height: '100vh' }}>
-      {notes.map((note) => {
-        const IconComponent = note.IconComponent;
-        return (
-          <motion.div
-            key={note.id}
-            initial={{
-              x: note.x,
-              y: note.y,
-              opacity: 0.9,
-              scale: note.scale,
-              rotate: note.rotation
-            }}
-            animate={{
-              y: -100, // Move upward off screen
-              opacity: 0,
-              rotate: note.rotation + 180
-            }}
-            transition={{
-              duration: 1,
-              ease: "linear"
-            }}
-            style={{ position: 'absolute' }}
-          >
-            <IconComponent size={40} weight="fill" color={note.color} />
-          </motion.div>
-        );
-      })}
-    </div>
-  );
-}
 
 const playlists = [
   {
@@ -444,8 +293,6 @@ const projects = [
 function Playlist() {
   const [selectedPlaylist, setSelectedPlaylist] = useState(null);
   const [blurAmount, setBlurAmount] = useState(0);
-  const [isScrolling, setIsScrolling] = useState(false);
-  const [shouldSpawnNotes, setShouldSpawnNotes] = useState(false);
   const [hoveredPlaylist, setHoveredPlaylist] = useState(null);
   const [playingPlaylist, setPlayingPlaylist] = useState(null);
   const [pulseIntensity, setPulseIntensity] = useState(0);
@@ -718,28 +565,18 @@ function Playlist() {
 
     const element = document.getElementById(`playlist-${playlistId}`);
     if (element) {
-      setIsScrolling(true);
-      setShouldSpawnNotes(true);
-
       // Get target position
       const targetPosition = element.offsetTop - 80; // Account for navbar height
       const startPosition = window.pageYOffset;
       const distance = targetPosition - startPosition;
       const duration = 2000; // 2 seconds for slower scroll
       let start = null;
-      let stoppedSpawning = false;
 
       // Custom scroll animation
       const scrollAnimation = (currentTime) => {
         if (start === null) start = currentTime;
         const timeElapsed = currentTime - start;
         const progress = Math.min(timeElapsed / duration, 1);
-
-        // Stop spawning at 50% progress (when unblurring starts)
-        if (progress >= 0.5 && !stoppedSpawning) {
-          setShouldSpawnNotes(false); // Stop spawning new notes
-          stoppedSpawning = true;
-        }
 
         // Blur control: Full blur (10px) from 0-50%, then unblur from 50-100%
         if (progress < 0.5) {
@@ -760,7 +597,6 @@ function Playlist() {
         } else {
           // Ensure blur is completely removed
           setBlurAmount(0);
-          setIsScrolling(false);
         }
       };
 
@@ -770,13 +606,6 @@ function Playlist() {
 
   return (
     <div className="min-h-screen bg-[#262626] text-white flex flex-col">
-      {/* Music Note Cursor Trail */}
-      <MusicCursorTrail />
-
-      {/* Scroll Animation Music Notes */}
-      <ScrollMusicNotes isScrolling={isScrolling} shouldSpawn={shouldSpawnNotes} />
-
-
       {/* Navbar */}
       <nav
         className="sticky top-0 z-50 bg-[#262626] border-b border-white/10"
@@ -798,7 +627,7 @@ function Playlist() {
           {/* Desktop nav */}
           <div
             className="nav-links-desktop items-center"
-            style={{ fontFamily: "'Inter', sans-serif", gap: '29px', fontSize: '14px' }}
+            style={{ fontFamily: "'Gamja Flower', sans-serif", gap: '29px', fontSize: '20px' }}
           >
             <Link to="/" className="hover:text-[#C4B5FD] transition-colors">
               Home
@@ -921,8 +750,8 @@ function Playlist() {
                 {/* Description */}
                 <p
                   style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: '16px',
+                    fontFamily: "'Gamja Flower', sans-serif",
+                    fontSize: '22px',
                     color: 'rgba(255,255,255,0.7)',
                     lineHeight: '1.6',
                     marginTop: '24px'
@@ -958,12 +787,12 @@ function Playlist() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 style={{
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: '14px',
+                  fontFamily: "'Gamja Flower', sans-serif",
+                  fontSize: '16px',
                   fontWeight: '500',
-                  padding: '11px 29px',
-                  minHeight: '44px',
-                  borderRadius: '22px',
+                  padding: '8px 20px',
+                  minHeight: '36px',
+                  borderRadius: '999px',
                   border: '2px solid #C4B5FD',
                   cursor: 'pointer',
                   position: 'relative',
@@ -1102,7 +931,7 @@ function Playlist() {
                   <h3
                     style={{
                       fontFamily: "'Clash Display', sans-serif",
-                      fontSize: '18px',
+                      fontSize: '15px',
                       fontWeight: '600',
                       color: '#262626',
                       lineHeight: '1.3',
@@ -1113,8 +942,8 @@ function Playlist() {
                   </h3>
                   <p
                     style={{
-                      fontFamily: "'Inter', sans-serif",
-                      fontSize: '11px',
+                      fontFamily: "'Gamja Flower', sans-serif",
+                      fontSize: '17px',
                       color: 'rgba(38, 38, 38, 0.7)',
                       lineHeight: '1.4'
                     }}
@@ -1232,8 +1061,8 @@ function Playlist() {
                   <div className="playlist-header-info" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', flex: 1 }}>
                     <p
                       style={{
-                        fontFamily: "'Inter', sans-serif",
-                        fontSize: '13px',
+                        fontFamily: "'Gamja Flower', sans-serif",
+                        fontSize: '19px',
                         fontWeight: '600',
                         color: '#E8E8E3',
                         marginBottom: '7px'
@@ -1255,8 +1084,8 @@ function Playlist() {
                     </h2>
                     <p
                       style={{
-                        fontFamily: "'Inter', sans-serif",
-                        fontSize: '13px',
+                        fontFamily: "'Gamja Flower', sans-serif",
+                        fontSize: '19px',
                         color: 'rgba(255,255,255,0.7)',
                         lineHeight: '1.6'
                       }}
@@ -1333,10 +1162,10 @@ function Playlist() {
                   <div className="now-playing-row">
                     {/* Now Playing */}
                     <div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
-                      <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '11px', color: 'rgba(255,255,255,0.5)' }}>
+                      <span style={{ fontFamily: "'Gamja Flower', sans-serif", fontSize: '17px', color: 'rgba(255,255,255,0.5)' }}>
                         Now Playing:
                       </span>
-                      <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '11px', color: '#C4B5FD', fontWeight: '500' }}>
+                      <span style={{ fontFamily: "'Gamja Flower', sans-serif", fontSize: '17px', color: '#C4B5FD', fontWeight: '500' }}>
                         {playlist.songName}
                       </span>
                     </div>
@@ -1383,8 +1212,8 @@ function Playlist() {
                         setOpenSortDropdown(openSortDropdown === playlist.id ? null : playlist.id);
                       }}
                       style={{
-                        fontFamily: "'Inter', sans-serif",
-                        fontSize: '12px',
+                        fontFamily: "'Gamja Flower', sans-serif",
+                        fontSize: '18px',
                         color: '#C4B5FD',
                         background: 'rgba(196, 181, 253, 0.1)',
                         border: '1px solid rgba(196, 181, 253, 0.3)',
@@ -1455,8 +1284,8 @@ function Playlist() {
                               border: 'none',
                               borderBottom: idx < 2 ? '1px solid rgba(255, 255, 255, 0.05)' : 'none',
                               cursor: 'pointer',
-                              fontFamily: "'Inter', sans-serif",
-                              fontSize: '12px',
+                              fontFamily: "'Gamja Flower', sans-serif",
+                              fontSize: '18px',
                               color: currentSort === option.value ? '#C4B5FD' : '#E8E8E3',
                               textAlign: 'left',
                               transition: 'all 0.2s',
@@ -1513,8 +1342,8 @@ function Playlist() {
                   >
                     <span
                       style={{
-                        fontFamily: "'Inter', sans-serif",
-                        fontSize: '13px',
+                        fontFamily: "'Gamja Flower', sans-serif",
+                        fontSize: '19px',
                         color: 'rgba(255,255,255,0.5)',
                         fontWeight: '500'
                       }}
@@ -1523,8 +1352,8 @@ function Playlist() {
                     </span>
                     <span
                       style={{
-                        fontFamily: "'Inter', sans-serif",
-                        fontSize: '13px',
+                        fontFamily: "'Gamja Flower', sans-serif",
+                        fontSize: '19px',
                         color: 'rgba(255,255,255,0.5)',
                         fontWeight: '500'
                       }}
@@ -1534,8 +1363,8 @@ function Playlist() {
                     <span
                       className="project-date-column"
                       style={{
-                        fontFamily: "'Inter', sans-serif",
-                        fontSize: '13px',
+                        fontFamily: "'Gamja Flower', sans-serif",
+                        fontSize: '19px',
                         color: 'rgba(255,255,255,0.5)',
                         fontWeight: '500',
                         textAlign: 'right'
@@ -1583,8 +1412,8 @@ function Playlist() {
                         {/* Track Number */}
                         <span
                           style={{
-                            fontFamily: "'Inter', sans-serif",
-                            fontSize: '13px',
+                            fontFamily: "'Gamja Flower', sans-serif",
+                            fontSize: '19px',
                             color: 'rgba(255,255,255,0.7)',
                             display: 'flex',
                             alignItems: 'center'
@@ -1616,8 +1445,8 @@ function Playlist() {
                           <div>
                             <p
                               style={{
-                                fontFamily: "'Inter', sans-serif",
-                                fontSize: '14px',
+                                fontFamily: "'Gamja Flower', sans-serif",
+                                fontSize: '20px',
                                 fontWeight: '500',
                                 color: '#E8E8E3',
                                 marginBottom: '4px'
@@ -1627,8 +1456,8 @@ function Playlist() {
                             </p>
                             <p
                               style={{
-                                fontFamily: "'Inter', sans-serif",
-                                fontSize: '12px',
+                                fontFamily: "'Gamja Flower', sans-serif",
+                                fontSize: '18px',
                                 color: 'rgba(255,255,255,0.5)'
                               }}
                             >
@@ -1649,8 +1478,8 @@ function Playlist() {
                         >
                           <span
                             style={{
-                              fontFamily: "'Inter', sans-serif",
-                              fontSize: '13px',
+                              fontFamily: "'Gamja Flower', sans-serif",
+                              fontSize: '19px',
                               color: 'rgba(255,255,255,0.7)'
                             }}
                           >

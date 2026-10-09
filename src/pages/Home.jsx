@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence, useScroll, useTransform, useInView } from 'framer-motion';
 import { Home as HomeIcon, Mic2, Library, Music, Download, Menu, X } from 'lucide-react';
-import { SkipBack, SkipForward, Play, Pause, MusicNote, MusicNotes, MusicNotesSimple, ArrowRight } from '@phosphor-icons/react';
+import { SkipBack, SkipForward, Play, Pause, ArrowRight } from '@phosphor-icons/react';
 import FooterWithSpotlight from '../components/FooterWithSpotlight';
 
 const roles = [
@@ -84,80 +84,11 @@ function AnimatedCounter({ target, duration = 2000 }) {
     return () => cancelAnimationFrame(animationFrame);
   }, [target, duration]);
 
-  return <span>{count.toLocaleString()}</span>;
-}
-
-// Music note cursor trail component
-function MusicCursorTrail() {
-  const [notes, setNotes] = useState([]);
-  const noteIcons = [MusicNote, MusicNotes, MusicNotesSimple];
-
-  useEffect(() => {
-    let noteId = 0;
-
-    const handleMouseMove = (e) => {
-      // Only spawn notes occasionally (every ~50ms based on random chance)
-      if (Math.random() > 0.85) {
-        // Detect if mouse is over light background by checking the element's background color
-        const element = document.elementFromPoint(e.clientX, e.clientY);
-        const bgColor = element ? window.getComputedStyle(element).backgroundColor : '';
-        const isOnLightBackground = bgColor.includes('232, 232, 227') || bgColor.includes('rgb(232, 232, 227)');
-
-        const newNote = {
-          id: noteId++,
-          x: e.clientX,
-          y: e.clientY,
-          rotation: Math.random() * 360,
-          scale: 0.5 + Math.random() * 0.5,
-          direction: Math.random() > 0.5 ? 1 : -1,
-          IconComponent: noteIcons[Math.floor(Math.random() * noteIcons.length)],
-          color: isOnLightBackground ? '#C4B5FD' : '#E8E8E3'
-        };
-
-        setNotes((prev) => [...prev, newNote]);
-
-        // Remove note after animation completes
-        setTimeout(() => {
-          setNotes((prev) => prev.filter((note) => note.id !== newNote.id));
-        }, 1000);
-      }
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
   return (
-    <div className="music-cursor-trail" style={{ position: 'fixed', top: 0, left: 0, pointerEvents: 'none', zIndex: 9999 }}>
-      {notes.map((note) => {
-        const IconComponent = note.IconComponent;
-        return (
-          <motion.div
-            key={note.id}
-            initial={{
-              x: note.x,
-              y: note.y,
-              opacity: 0.8,
-              scale: note.scale,
-              rotate: note.rotation
-            }}
-            animate={{
-              x: note.x + (note.direction * 30),
-              y: note.y - 40,
-              opacity: 0,
-              rotate: note.rotation + (note.direction * 45)
-            }}
-            transition={{
-              duration: 1,
-              ease: "easeOut"
-            }}
-            style={{ position: 'absolute' }}
-          >
-            <IconComponent size={20} weight="fill" color={note.color} />
-          </motion.div>
-        );
-      })}
-    </div>
+    <span style={{ display: 'inline-block', position: 'relative', marginRight: '0.22em' }}>
+      <span style={{ visibility: 'hidden' }}>{target.toLocaleString()}</span>
+      <span style={{ position: 'absolute', left: 0, top: 0, whiteSpace: 'nowrap' }}>{count.toLocaleString()}</span>
+    </span>
   );
 }
 
@@ -343,9 +274,6 @@ function Home() {
 
   return (
     <div className="min-h-screen bg-[#262626] text-white flex flex-col">
-      {/* Music Note Cursor Trail */}
-      <MusicCursorTrail />
-
       {/* Navbar */}
       <nav
         className="sticky top-0 z-50 bg-[#262626] border-b border-white/10"
@@ -369,7 +297,7 @@ function Home() {
           {/* Desktop nav links */}
           <div
             className="nav-links-desktop items-center"
-            style={{ fontFamily: "'Inter', sans-serif", gap: '29px', fontSize: '14px' }}
+            style={{ fontFamily: "'Gamja Flower', sans-serif", gap: '29px', fontSize: '20px' }}
           >
             <a
               href="#"
@@ -489,7 +417,7 @@ function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
               style={{
-                fontFamily: "'Inter', sans-serif",
+                fontFamily: "'Gamja Flower', sans-serif",
                 fontSize: 'clamp(18px, 2.5vw, 29px)',
                 lineHeight: '1.2',
                 color: '#E8E8E3',
@@ -508,7 +436,7 @@ function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
               style={{
-                fontFamily: "'Inter', sans-serif",
+                fontFamily: "'Gamja Flower', sans-serif",
                 fontSize: 'clamp(28px, 5vw, 58px)',
                 height: 'auto',
                 minHeight: 'clamp(36px, 6vw, 72px)',
@@ -540,7 +468,7 @@ function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
               style={{
-                fontFamily: "'Inter', sans-serif",
+                fontFamily: "'Gamja Flower', sans-serif",
                 fontSize: 'clamp(15px, 2vw, 22px)',
                 lineHeight: '1.6',
                 color: '#E8E8E3',
@@ -558,8 +486,8 @@ function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.7 }}
               style={{
-                fontFamily: "'Inter', sans-serif",
-                fontSize: 'clamp(12px, 1.2vw, 14px)',
+                fontFamily: "'Gamja Flower', sans-serif",
+                fontSize: 'clamp(16px, 1.5vw, 20px)',
                 lineHeight: '1.6',
                 color: '#E8E8E3',
                 marginBottom: 'clamp(32px, 5vw, 64px)'
@@ -574,14 +502,14 @@ function Home() {
               transition={{ duration: 0.6, delay: 0.9 }}
               className="italic fun-fact"
               style={{
-                fontFamily: "'Courier New', monospace",
-                fontSize: 'clamp(11px, 1.1vw, 14px)',
+                fontFamily: "'Gamja Flower', sans-serif",
+                fontSize: 'clamp(15px, 1.4vw, 18px)',
                 lineHeight: '1.6',
                 color: '#E8E8E3',
                 opacity: 1
               }}
             >
-              fun fact: I spent <span style={{ color: '#C4B5FD' }}><AnimatedCounter target={153601} duration={5000} /></span> minutes listening to music last year (that's 107 days I could've spent learning other programming languages... but music &gt; syntax errors)
+              fun fact: I spent <span style={{ color: '#C4B5FD' }}><AnimatedCounter target={153601} duration={2500} /></span> minutes listening to music last year (that's 107 days I could've spent learning other programming languages... but music &gt; syntax errors)
             </motion.p>
           </motion.div>
 
@@ -840,8 +768,8 @@ function Home() {
                     </h4>
                     <p
                       style={{
-                        fontFamily: "'Inter', sans-serif",
-                        fontSize: '16px',
+                        fontFamily: "'Gamja Flower', sans-serif",
+                        fontSize: '22px',
                         color: '#ffffff',
                         lineHeight: '1.6',
                         marginTop: 'auto',
@@ -858,8 +786,8 @@ function Home() {
                       <span
                         key={type}
                         style={{
-                          fontFamily: "'Inter', sans-serif",
-                          fontSize: '12px',
+                          fontFamily: "'Gamja Flower', sans-serif",
+                          fontSize: '18px',
                           padding: '5px 13px',
                           backgroundColor: 'rgba(196, 181, 253, 0.15)',
                           border: '1px solid #C4B5FD',
@@ -897,8 +825,8 @@ function Home() {
               {/* Start timestamp */}
               <span
                 style={{
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: '11px',
+                  fontFamily: "'Gamja Flower', sans-serif",
+                  fontSize: '17px',
                   color: '#4E4A5C',
                   flexShrink: 0
                 }}
@@ -929,8 +857,8 @@ function Home() {
               {/* End timestamp */}
               <span
                 style={{
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: '11px',
+                  fontFamily: "'Gamja Flower', sans-serif",
+                  fontSize: '17px',
                   color: '#4E4A5C',
                   flexShrink: 0
                 }}

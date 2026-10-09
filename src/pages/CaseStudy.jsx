@@ -47,7 +47,7 @@ function CaseStudy() {
           {/* Desktop nav */}
           <div
             className="nav-links-desktop items-center"
-            style={{ fontFamily: "'Inter', sans-serif", gap: '29px', fontSize: '14px' }}
+            style={{ fontFamily: "'Gamja Flower', sans-serif", gap: '29px', fontSize: '20px' }}
           >
             <Link to="/" className="hover:text-[#C4B5FD] transition-colors">
               Home
@@ -150,7 +150,7 @@ function CaseStudy() {
           </h1>
           <p
             style={{
-              fontFamily: "'Inter', sans-serif",
+              fontFamily: "'Gamja Flower', sans-serif",
               fontSize: 'clamp(16px, 2vw, 20px)',
               color: '#9D92C8',
               marginBottom: '24px',
@@ -184,7 +184,7 @@ function CaseStudy() {
               >
                 Overview
               </h2>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontFamily: "'Gamja Flower', sans-serif", fontSize: '22px', color: '#E8E8E3', lineHeight: '1.6' }}>
                 <p>
                   47 million Americans face food insecurity. 40 million of them get SNAP benefits. And a lot of them still run out before the month is over.
                 </p>
@@ -210,7 +210,7 @@ function CaseStudy() {
               >
                 Problem Statement
               </h2>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontFamily: "'Gamja Flower', sans-serif", fontSize: '22px', color: '#E8E8E3', lineHeight: '1.6' }}>
                 <p>
                   EBT SNAP otherwise known as Electronic Benefit Transfer of Supplemental Nutrition Assistance Program which is described to provide monthly food assistance to individuals in need. The EBT card that is given out to these people work as debit cards for the government's funding provisions. <b>A primary EBT cardholder supporting multiple family members needs clear, real-time visibility into their remaining balance and spending patterns in order to make their monthly benefit last without running out before the next refill.</b>
                 </p>
@@ -228,7 +228,7 @@ function CaseStudy() {
                 <h3
                   style={{
                     fontFamily: "'Clash Display', sans-serif",
-                    fontSize: '20px',
+                    fontSize: '22px',
                     fontWeight: '600',
                     marginBottom: '12px',
                     color: '#C4B5FD'
@@ -236,7 +236,7 @@ function CaseStudy() {
                 >
                   What We're Building
                 </h3>
-                <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6' }}>
+                <p style={{ fontFamily: "'Gamja Flower', sans-serif", fontSize: '22px', color: '#E8E8E3', lineHeight: '1.6' }}>
                   A meal planning feature inside Propel. You put in your budget, how many people you're feeding, and how many servings you want to make. The app suggests recipes with estimated costs so you can actually see if the week adds up before you go shopping.
                 </p>
               </div>
@@ -255,10 +255,10 @@ function CaseStudy() {
               >
                 User Research
               </h2>
-              <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '16px', color: 'rgba(255,255,255,0.5)', lineHeight: '1.6', marginBottom: '16px' }}>
+              <p style={{ fontFamily: "'Gamja Flower', sans-serif", fontSize: '22px', color: 'rgba(255,255,255,0.5)', lineHeight: '1.6', marginBottom: '16px' }}>
                 We talked to three people. We went in expecting to hear that people just needed a better way to check their balance but walked out with learning new problems EBT users experience.
               </p>
-              <ul style={{ fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6', marginBottom: '40px', paddingLeft: '24px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <ul style={{ fontFamily: "'Gamja Flower', sans-serif", fontSize: '22px', color: '#E8E8E3', lineHeight: '1.6', marginBottom: '40px', paddingLeft: '24px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 <li><strong style={{ color: '#C4B5FD' }}>Ann</strong> - 16-year-old whose family uses SNAP EBT and SUN Bucks</li>
                 <li><strong style={{ color: '#C4B5FD' }}>Lydia</strong> - 24-year-old therapist who shares an EBT account with her parents</li>
                 <li><strong style={{ color: '#C4B5FD' }}>Jaden</strong> - 21-year-old UCSD student who handles most of the grocery shopping for his household</li>
@@ -269,7 +269,7 @@ function CaseStudy() {
                 <h3
                   style={{
                     fontFamily: "'Clash Display', sans-serif",
-                    fontSize: '20px',
+                    fontSize: '22px',
                     fontWeight: '600',
                     marginBottom: '16px',
                     color: '#E8E8E3'
@@ -277,7 +277,7 @@ function CaseStudy() {
                 >
                   Ann doesn't plan meals. She opens the fridge.
                 </h3>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontFamily: "'Gamja Flower', sans-serif", fontSize: '22px', color: '#E8E8E3', lineHeight: '1.6' }}>
                   <p>
                     We asked Ann how she figures out what to cook. She opens the fridge, looks at what's in there, and goes from there. That's it. No list, no plan, no thinking about it before she's hungry.
                   </p>
@@ -298,7 +298,7 @@ function CaseStudy() {
                 <h3
                   style={{
                     fontFamily: "'Clash Display', sans-serif",
-                    fontSize: '20px',
+                    fontSize: '22px',
                     fontWeight: '600',
                     marginBottom: '16px',
                     color: '#E8E8E3'
@@ -306,7 +306,7 @@ function CaseStudy() {
                 >
                   Lydia had $4 left and had no idea she could buy sushi.
                 </h3>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontFamily: "'Gamja Flower', sans-serif", fontSize: '22px', color: '#E8E8E3', lineHeight: '1.6' }}>
                   <p>
                     Partway through our interview, we asked Lydia to check her balance. She opened Propel and showed us: <strong style={{ color: '#C4B5FD' }}>$4 remaining</strong> for the rest of the month. When she runs out, she said, the family just goes to fast food places until the deposit comes in on the 2nd.
                   </p>
@@ -324,7 +324,7 @@ function CaseStudy() {
                 <h3
                   style={{
                     fontFamily: "'Clash Display', sans-serif",
-                    fontSize: '20px',
+                    fontSize: '22px',
                     fontWeight: '600',
                     marginBottom: '16px',
                     color: '#E8E8E3'
@@ -332,7 +332,7 @@ function CaseStudy() {
                 >
                   Jaden's family passes one EBT card between two cities.
                 </h3>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontFamily: "'Gamja Flower', sans-serif", fontSize: '22px', color: '#E8E8E3', lineHeight: '1.6' }}>
                   <p>
                     Jaden's dad takes the card to the Bay Area every week for work. His mom uses it in San Diego. Neither of them knows the balance without stopping to check.
                   </p>
@@ -354,7 +354,7 @@ function CaseStudy() {
                 <h3
                   style={{
                     fontFamily: "'Clash Display', sans-serif",
-                    fontSize: '20px',
+                    fontSize: '22px',
                     fontWeight: '600',
                     marginBottom: '12px',
                     color: '#C4B5FD'
@@ -362,7 +362,7 @@ function CaseStudy() {
                 >
                   What changed for us
                 </h3>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontFamily: "'Gamja Flower', sans-serif", fontSize: '22px', color: '#E8E8E3', lineHeight: '1.6' }}>
                   <p>
                     We came in thinking: give people a clean way to track their budget and pick out meals. What we actually heard was that people cook from what they already have, a lot of them don't know what their benefits cover, and the card itself isn't always in the same person's hands.
                   </p>
@@ -386,7 +386,7 @@ function CaseStudy() {
               >
                 Design Process
               </h2>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontFamily: "'Gamja Flower', sans-serif", fontSize: '22px', color: '#E8E8E3', lineHeight: '1.6' }}>
                 <p>
                   Our research forced us to rethink the feature from the ground up. We had sketched a traditional meal planner: pick meals for the week, generate a list, shop from it. But Ann showed us that nobody in her household plans that way. She opens the fridge first. So we redesigned the flow around that behavior: the app lets you mark what you already have, and only adds what's missing to your shopping list.
                 </p>
@@ -413,7 +413,7 @@ function CaseStudy() {
                 {/* Pair 1 */}
                 <div style={{ display: 'flex', gap: '0px', flexWrap: 'wrap' }}>
                   <div style={{ flex: '1 1 50%', minWidth: '300px', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '0 16px' }}>
-                    <h3 style={{ fontFamily: "'Clash Display', sans-serif", fontSize: '20px', fontWeight: '600', marginBottom: '12px', color: '#E8E8E3', textAlign: 'center' }}>
+                    <h3 style={{ fontFamily: "'Clash Display', sans-serif", fontSize: '22px', fontWeight: '600', marginBottom: '12px', color: '#E8E8E3', textAlign: 'center' }}>
                       Your Shopping List
                     </h3>
                     <img
@@ -421,12 +421,12 @@ function CaseStudy() {
                       alt="Shopping List Screen"
                       style={{ width: '100%', maxWidth: '320px', borderRadius: '40px', boxShadow: '0 8px 32px rgba(0,0,0,0.4)', marginBottom: '16px' }}
                     />
-                    <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6', maxWidth: '420px' }}>
+                    <p style={{ fontFamily: "'Gamja Flower', sans-serif", fontSize: '22px', color: '#E8E8E3', lineHeight: '1.6', maxWidth: '420px' }}>
                       The shopping list is the payoff of the whole feature. For the first time, users can see their EBT balance before and after a planned week of meals, before ever stepping into a store. This directly solves the core problem: people run out not from carelessness, but because they had no way to see the month's trajectory in advance.
                     </p>
                   </div>
                   <div style={{ flex: '1 1 50%', minWidth: '300px', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '0 16px' }}>
-                    <h3 style={{ fontFamily: "'Clash Display', sans-serif", fontSize: '20px', fontWeight: '600', marginBottom: '12px', color: '#E8E8E3', textAlign: 'center' }}>
+                    <h3 style={{ fontFamily: "'Clash Display', sans-serif", fontSize: '22px', fontWeight: '600', marginBottom: '12px', color: '#E8E8E3', textAlign: 'center' }}>
                       Home Screen
                     </h3>
                     <img
@@ -434,7 +434,7 @@ function CaseStudy() {
                       alt="Home Screen"
                       style={{ width: '100%', maxWidth: '320px', borderRadius: '40px', boxShadow: '0 8px 32px rgba(0,0,0,0.4)', marginBottom: '16px' }}
                     />
-                    <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6', maxWidth: '420px' }}>
+                    <p style={{ fontFamily: "'Gamja Flower', sans-serif", fontSize: '22px', color: '#E8E8E3', lineHeight: '1.6', maxWidth: '420px' }}>
                       We integrated the meal planning entry point into Propel's existing home screen rather than creating a new tab. Propel users already open the app to check their balance, so the "Plan your week" prompt meets them at the exact moment they're thinking about money. The spending-pace warning banner also lives here, alerting users before the problem becomes critical, not after.
                     </p>
                   </div>
@@ -443,7 +443,7 @@ function CaseStudy() {
                 {/* Pair 2 */}
                 <div style={{ display: 'flex', gap: '0px', flexWrap: 'wrap' }}>
                   <div style={{ flex: '1 1 50%', minWidth: '300px', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '0 16px' }}>
-                    <h3 style={{ fontFamily: "'Clash Display', sans-serif", fontSize: '20px', fontWeight: '600', marginBottom: '12px', color: '#E8E8E3', textAlign: 'center' }}>
+                    <h3 style={{ fontFamily: "'Clash Display', sans-serif", fontSize: '22px', fontWeight: '600', marginBottom: '12px', color: '#E8E8E3', textAlign: 'center' }}>
                       Find Recipes
                     </h3>
                     <img
@@ -451,12 +451,12 @@ function CaseStudy() {
                       alt="Find Recipes Screen"
                       style={{ width: '100%', maxWidth: '320px', borderRadius: '40px', boxShadow: '0 8px 32px rgba(0,0,0,0.4)', marginBottom: '16px' }}
                     />
-                    <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6', maxWidth: '420px' }}>
+                    <p style={{ fontFamily: "'Gamja Flower', sans-serif", fontSize: '22px', color: '#E8E8E3', lineHeight: '1.6', maxWidth: '420px' }}>
                       Before showing any recipes, the app surfaces the user's current plan: budget, people, and servings, so every suggestion is already filtered to what's actually affordable. The grid layout with food photography and price tags up front lets users evaluate options at a glance, without reading through ingredient lists first.
                     </p>
                   </div>
                   <div style={{ flex: '1 1 50%', minWidth: '300px', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '0 16px' }}>
-                    <h3 style={{ fontFamily: "'Clash Display', sans-serif", fontSize: '20px', fontWeight: '600', marginBottom: '12px', color: '#E8E8E3', textAlign: 'center' }}>
+                    <h3 style={{ fontFamily: "'Clash Display', sans-serif", fontSize: '22px', fontWeight: '600', marginBottom: '12px', color: '#E8E8E3', textAlign: 'center' }}>
                       Recipe Detail
                     </h3>
                     <img
@@ -464,7 +464,7 @@ function CaseStudy() {
                       alt="Recipe Detail Screen"
                       style={{ width: '100%', maxWidth: '320px', borderRadius: '40px', boxShadow: '0 8px 32px rgba(0,0,0,0.4)', marginBottom: '16px' }}
                     />
-                    <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6', maxWidth: '420px' }}>
+                    <p style={{ fontFamily: "'Gamja Flower', sans-serif", fontSize: '22px', color: '#E8E8E3', lineHeight: '1.6', maxWidth: '420px' }}>
                       The EBT Eligible column in the ingredient list was designed around Lydia's moment in our interview. She had $4 left and didn't know she could buy sushi because she assumed pre-made food wasn't covered. By surfacing eligibility at the ingredient level, users can shop with confidence rather than anxiety at checkout.
                     </p>
                   </div>
@@ -473,7 +473,7 @@ function CaseStudy() {
                 {/* Pair 3 */}
                 <div style={{ display: 'flex', gap: '0px', flexWrap: 'wrap' }}>
                   <div style={{ flex: '1 1 50%', minWidth: '300px', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '0 16px' }}>
-                    <h3 style={{ fontFamily: "'Clash Display', sans-serif", fontSize: '20px', fontWeight: '600', marginBottom: '12px', color: '#E8E8E3', textAlign: 'center' }}>
+                    <h3 style={{ fontFamily: "'Clash Display', sans-serif", fontSize: '22px', fontWeight: '600', marginBottom: '12px', color: '#E8E8E3', textAlign: 'center' }}>
                       Plan This Recipe
                     </h3>
                     <img
@@ -481,12 +481,12 @@ function CaseStudy() {
                       alt="Plan This Recipe Screen"
                       style={{ width: '100%', maxWidth: '320px', borderRadius: '40px', boxShadow: '0 8px 32px rgba(0,0,0,0.4)', marginBottom: '16px' }}
                     />
-                    <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6', maxWidth: '420px' }}>
+                    <p style={{ fontFamily: "'Gamja Flower', sans-serif", fontSize: '22px', color: '#E8E8E3', lineHeight: '1.6', maxWidth: '420px' }}>
                       The "Have it?" checkboxes respond to Ann's actual behavior: she starts from the fridge, not from a recipe list. Checking off ingredients she already owns drops them from the estimated total in real time. The design respects how EBT families actually cook, resourcefully, from what's already there.
                     </p>
                   </div>
                   <div style={{ flex: '1 1 50%', minWidth: '300px', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '0 16px' }}>
-                    <h3 style={{ fontFamily: "'Clash Display', sans-serif", fontSize: '20px', fontWeight: '600', marginBottom: '12px', color: '#E8E8E3', textAlign: 'center' }}>
+                    <h3 style={{ fontFamily: "'Clash Display', sans-serif", fontSize: '22px', fontWeight: '600', marginBottom: '12px', color: '#E8E8E3', textAlign: 'center' }}>
                       Your EBT / Digital Envelope
                     </h3>
                     <img
@@ -494,7 +494,7 @@ function CaseStudy() {
                       alt="Your EBT Digital Envelope Screen"
                       style={{ width: '100%', maxWidth: '320px', borderRadius: '40px', boxShadow: '0 8px 32px rgba(0,0,0,0.4)', marginBottom: '16px' }}
                     />
-                    <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6', maxWidth: '420px' }}>
+                    <p style={{ fontFamily: "'Gamja Flower', sans-serif", fontSize: '22px', color: '#E8E8E3', lineHeight: '1.6', maxWidth: '420px' }}>
                       The Digital Envelope feature extends Propel's existing analytics view with proactive spending pacing. It shows users how quickly they're burning through their balance relative to days left in the month, and suggests a weekly spending split to make benefits last.
                     </p>
                   </div>
@@ -517,7 +517,7 @@ function CaseStudy() {
               </h2>
 
               {/* Methodology */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontFamily: "'Gamja Flower', sans-serif", fontSize: '22px', color: '#E8E8E3', lineHeight: '1.6' }}>
                 <p>
                   Our team conducted in-person user testing sessions with two participants from our target user population. We walked each participant through our Figma prototypes and asked them to think out loud as they navigated through the screens. Sessions lasted about 60 minutes and included three tasks: checking their EBT balance, creating a meal plan, and exploring the budgeting suggestions feature.
                 </p>
@@ -529,7 +529,7 @@ function CaseStudy() {
                 <h3
                   style={{
                     fontFamily: "'Clash Display', sans-serif",
-                    fontSize: '20px',
+                    fontSize: '22px',
                     fontWeight: '600',
                     marginBottom: '16px',
                     color: '#E8E8E3'
@@ -537,7 +537,7 @@ function CaseStudy() {
                 >
                   Key Findings
                 </h3>
-                <ul style={{ fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6', paddingLeft: '24px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <ul style={{ fontFamily: "'Gamja Flower', sans-serif", fontSize: '22px', color: '#E8E8E3', lineHeight: '1.6', paddingLeft: '24px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
                   <li>Both participants navigated the app quickly because nothing felt unfamiliar. Ann compared the recipe cards to scrolling TikTok, which is where she actually finds recipes in real life.</li>
                   <li>The flat recipe list in the original shopping list screen felt hard to act on. Neither participant had a clear sense of when they would cook the meals they were adding.</li>
                   <li>The "People" and "Servings" filters on the Find Recipes screen confused Jaden. He said adjusting them did not change what recipes appeared, so they felt pointless on that screen.</li>
@@ -558,7 +558,7 @@ function CaseStudy() {
                 <h3
                   style={{
                     fontFamily: "'Clash Display', sans-serif",
-                    fontSize: '20px',
+                    fontSize: '22px',
                     fontWeight: '600',
                     marginBottom: '12px',
                     color: '#C4B5FD'
@@ -566,7 +566,7 @@ function CaseStudy() {
                 >
                   Point of View
                 </h3>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontFamily: "'Gamja Flower', sans-serif", fontSize: '22px', color: '#E8E8E3', lineHeight: '1.6' }}>
                   <p>
                     We believe that EBT users are more likely to use a feature if it feels like something they already do and if all the features feel like they belong together. Our participants picked up every part of the app quickly because nothing felt foreign. At the same time, the clearest signal from testing was that participants preferred the version where budgeting felt tied to meal planning rather than sitting on its own.
                   </p>
@@ -586,7 +586,7 @@ function CaseStudy() {
                 >
                   Before & After: Shopping List to Meal Plan
                 </h3>
-                <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6', fontStyle: 'italic', marginBottom: '32px' }}>
+                <p style={{ fontFamily: "'Gamja Flower', sans-serif", fontSize: '22px', color: '#E8E8E3', lineHeight: '1.6', fontStyle: 'italic', marginBottom: '32px' }}>
                   The shopping list screen was redesigned into a meal plan view after both user testing participants said the recipe list felt disconnected from how they actually think about meals. The new screen organizes meals by day and meal type under a weekly calendar, making it immediately clear what to cook and when. The estimated post shopping balance got moved to the top since that is the number users care about most while planning.
                 </p>
 
@@ -614,7 +614,7 @@ function CaseStudy() {
                 <h4
                   style={{
                     fontFamily: "'Clash Display', sans-serif",
-                    fontSize: '18px',
+                    fontSize: '20px',
                     fontWeight: '600',
                     marginBottom: '16px',
                     color: '#C4B5FD'
@@ -622,7 +622,7 @@ function CaseStudy() {
                 >
                   What Changed
                 </h4>
-                <ol style={{ fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6', paddingLeft: '24px', display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '32px', listStyleType: 'decimal', listStylePosition: 'outside'}}>
+                <ol style={{ fontFamily: "'Gamja Flower', sans-serif", fontSize: '22px', color: '#E8E8E3', lineHeight: '1.6', paddingLeft: '24px', display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '32px', listStyleType: 'decimal', listStylePosition: 'outside'}}>
                   <li>Changing the title helps reframe the screen from just a passive list to an active weekly planning tool.</li>
                   <li>When planning meals, users care about what they will have left after shopping. They are not really focusing on their current balance. Moving the estimated number up answers the most important question first.</li>
                   <li>Recipes had no time context. The new week view lets users see and manage meals day by day. This change directly addresses Jaden's feedback that the plan should be "mapped out across the week."</li>
@@ -633,7 +633,7 @@ function CaseStudy() {
                 <h4
                   style={{
                     fontFamily: "'Clash Display', sans-serif",
-                    fontSize: '18px',
+                    fontSize: '20px',
                     fontWeight: '600',
                     marginBottom: '16px',
                     color: '#C4B5FD'
@@ -641,7 +641,7 @@ function CaseStudy() {
                 >
                   Why We Made These Changes
                 </h4>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontFamily: "'Gamja Flower', sans-serif", fontSize: '22px', color: '#E8E8E3', lineHeight: '1.6' }}>
                   <p>
                     During user testing, Jaden said he wanted recipes "mapped out across the week more explicitly" and that the original list as designed did not help him act on a plan. Ann compared the recipe cards to scrolling TikTok. It was familiar to look at, but she did not really have a sense of when or how she would actually cook anything. Both participants also preferred the version of the app where budgeting and meal planning felt like one rather than two separate screens.
                   </p>
@@ -664,7 +664,7 @@ function CaseStudy() {
                 >
                   Before & After: Find Recipes Screen
                 </h3>
-                <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6', fontStyle: 'italic', marginBottom: '32px' }}>
+                <p style={{ fontFamily: "'Gamja Flower', sans-serif", fontSize: '22px', color: '#E8E8E3', lineHeight: '1.6', fontStyle: 'italic', marginBottom: '32px' }}>
                   The Find Recipes screen was simplified and better connected to the meal plan based on user testing feedback. The People and Servings filters were removed because they did not change what recipes showed up and only made the screen feel cluttered. "Your Current Plan" was renamed "Your Next Week" to make it clear the budget is for that week. A "View Current Meal Plan" button was also added so users can quickly check what they have already planned without leaving the screen.
                 </p>
 
@@ -692,7 +692,7 @@ function CaseStudy() {
                 <h4
                   style={{
                     fontFamily: "'Clash Display', sans-serif",
-                    fontSize: '18px',
+                    fontSize: '20px',
                     fontWeight: '600',
                     marginBottom: '16px',
                     color: '#C4B5FD'
@@ -700,7 +700,7 @@ function CaseStudy() {
                 >
                   What Changed
                 </h4>
-                <ol style={{ fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6', paddingLeft: '24px', display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '32px', listStyleType: 'decimal', listStylePosition: 'outside'}}>
+                <ol style={{ fontFamily: "'Gamja Flower', sans-serif", fontSize: '22px', color: '#E8E8E3', lineHeight: '1.6', paddingLeft: '24px', display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '32px', listStyleType: 'decimal', listStylePosition: 'outside'}}>
                   <li>Changing the subheading is an important change because "Your Current Plan" was confusing to both participants. Saying "Your Next Week" supports the two components of budget and the current meal plan being confined to that week the user is in.</li>
                   <li>During user testing, Jaden talked about how the "people" and especially "servings" filter did not make sense to show on this screen. The filters did not change the screen in any significant way, and these numbers can be placed within the specific recipe view.</li>
                   <li>In the original flow, recipes and the meal plan were separated. Jaden noted during testing that the features felt a little disconnected. He wanted to be able to see his plan while browsing. The new button creates a direct link between the two screens, making the app feel like one tool rather than separate features.</li>
@@ -710,7 +710,7 @@ function CaseStudy() {
                 <h4
                   style={{
                     fontFamily: "'Clash Display', sans-serif",
-                    fontSize: '18px',
+                    fontSize: '20px',
                     fontWeight: '600',
                     marginBottom: '16px',
                     color: '#C4B5FD'
@@ -718,7 +718,7 @@ function CaseStudy() {
                 >
                   Why We Made These Changes
                 </h4>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontFamily: "'Gamja Flower', sans-serif", fontSize: '22px', color: '#E8E8E3', lineHeight: '1.6' }}>
                   <p>
                     During user testing, Jaden pointed out that the People and Servings filters on the Find Recipes screen did not make sense there. Adjusting them did not change which recipes appeared, and those numbers fit better on the individual recipe page where they can actually affect ingredient amounts. The subheading "Your Current Plan" also confused both participants. Neither of them was sure if it referred to a weekly budget, a saved list, or something else, and they did not feel confident about how it connected to the rest of the app.
                   </p>
@@ -733,7 +733,7 @@ function CaseStudy() {
                 <h3
                   style={{
                     fontFamily: "'Clash Display', sans-serif",
-                    fontSize: '20px',
+                    fontSize: '22px',
                     fontWeight: '600',
                     marginBottom: '16px',
                     color: '#E8E8E3'
@@ -741,7 +741,7 @@ function CaseStudy() {
                 >
                   Personal Reflection
                 </h3>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontFamily: "'Gamja Flower', sans-serif", fontSize: '22px', color: '#E8E8E3', lineHeight: '1.6' }}>
                   <p>
                     This project felt personal to me because I use EBT myself to buy groceries each month. I know firsthand how stressful it can be to watch your balance get low before the next deposit. Working on Propel gave me a chance to design something I would actually want to use. The biggest thing I took away from user testing is that people do not want to be told how to budget in abstract terms. They want to see their money connected to real meals on real days.
                   </p>
@@ -762,7 +762,7 @@ function CaseStudy() {
               >
                 Tradeoffs & Future Work
               </h2>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontFamily: "'Gamja Flower', sans-serif", fontSize: '22px', color: '#E8E8E3', lineHeight: '1.6' }}>
                 <p>
                   Our biggest assumption going in was that EBT users needed a better interface for something they were already doing. What we found was that most of them weren't doing it at all, not because they lacked motivation, but because no tool had ever fit around the way they actually live. Ann cooks from the fridge. Lydia doesn't know what's covered. Jaden's card is in two cities at once. A rigid meal planner wouldn't have helped any of them.
                 </p>
@@ -779,8 +779,8 @@ function CaseStudy() {
           <Link
             to="/"
             style={{
-              fontFamily: "'Inter', sans-serif",
-              fontSize: '16px',
+              fontFamily: "'Gamja Flower', sans-serif",
+              fontSize: '22px',
               color: '#C4B5FD',
               textDecoration: 'none',
               fontWeight: '600',

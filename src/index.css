@@ -13,7 +13,7 @@
   --accent-green: #4a7c5f;
   --green-highlight: #C4B5FD;
 
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'Gamja Flower', system-ui, sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -552,7 +552,6 @@ a:hover .live-site-arrow {
 
 /* Hide cursor effects on touch devices */
 @media (hover: none) and (pointer: coarse) {
-  .music-cursor-trail,
   .blob-cursor {
     display: none !important;
   }
@@ -836,5 +835,19 @@ a:hover .live-site-arrow {
 @media (max-width: 480px) {
   .screenshot-panel-inner {
     padding: 16px !important;
+  }
+}
+
+/* Click spark burst animation */
+@keyframes clickspark-travel {
+  0% {
+    translate: 0 0;
+    opacity: 1;
+    scale: 1;
+  }
+  100% {
+    translate: var(--spark-tx) var(--spark-ty);
+    opacity: 0;
+    scale: 0.3;
   }
 }

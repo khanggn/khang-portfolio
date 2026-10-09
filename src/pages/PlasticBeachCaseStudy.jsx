@@ -1,270 +1,492 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { motion, useReducedMotion, useInView } from 'framer-motion';
+import { ChevronLeft, ChevronRight, Home, PenTool, AppWindow, Code } from 'lucide-react';
+import { SkipBack, SkipForward } from '@phosphor-icons/react';
 import FooterWithSpotlight from '../components/FooterWithSpotlight';
+import PbNavbar from '../components/plasticbeach/PbNavbar';
+import PbHero from '../components/plasticbeach/PbHero';
+import PbPlayButton from '../components/plasticbeach/PbPlayButton';
+import styles from './PlasticBeachCaseStudy.module.css';
+
+const tocSections = [
+  { id: 'overview', num: '01', label: 'OVERVIEW', summary: 'A nonprofit with outdated materials.' },
+  { id: 'placard-redesign', num: '02', label: 'PLACARD REDESIGN', summary: 'Fixing a confusing sorting guide.' },
+  { id: 'website-redesign', num: '03', label: 'WEBSITE REDESIGN', summary: 'Rebuilding the online presence.' },
+  { id: 'results', num: '04', label: 'RESULTS', summary: 'Impact and outcomes.' },
+  { id: 'what-id-do-differently', num: '05', label: "WHAT I'D DO DIFFERENTLY", summary: "Lessons I'm taking forward." },
+];
+
+function AnimatedNumber({ value, suffix = '', duration = 1.2 }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true });
+  const prefersReduced = useReducedMotion();
+  const [display, setDisplay] = useState(prefersReduced ? value : 0);
+
+  useEffect(() => {
+    if (!inView || prefersReduced) return;
+    const start = performance.now();
+    const step = (now) => {
+      const progress = Math.min((now - start) / (duration * 1000), 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setDisplay(Math.round(eased * value));
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }, [inView, value, duration, prefersReduced]);
+
+  return <span ref={ref}>{display.toLocaleString()}{suffix}</span>;
+}
+
+function ToolChip({ icon, label, tooltip, id, isOpen, onToggle, prefersReduced, tooltipAlign = 'left' }) {
+  const chipRef = useRef(null);
+  const tooltipId = `tooltip-${id}`;
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleOutside = (e) => {
+      if (chipRef.current && !chipRef.current.contains(e.target)) onToggle(null);
+    };
+    document.addEventListener('pointerdown', handleOutside);
+    return () => document.removeEventListener('pointerdown', handleOutside);
+  }, [isOpen, onToggle]);
+
+  return (
+    <span
+      ref={chipRef}
+      tabIndex={0}
+      role="group"
+      aria-describedby={isOpen ? tooltipId : undefined}
+      onMouseEnter={() => onToggle(id)}
+      onMouseLeave={() => onToggle(null)}
+      onFocus={() => onToggle(id)}
+      onBlur={() => onToggle(null)}
+      onClick={(e) => { e.stopPropagation(); }}
+      className={styles.toolChip}
+      style={{
+        border: isOpen ? '1px solid #C4B5FD' : '1px solid #4E4A5C',
+        boxShadow: isOpen ? '0 0 11px rgba(196, 181, 253, 0.4)' : 'none',
+      }}
+      onKeyDown={(e) => { if (e.key === 'Escape') onToggle(null); }}
+    >
+      {icon}
+      <span className={styles.toolChipLabel}>{label}</span>
+      <span
+        id={tooltipId}
+        role="tooltip"
+        className={styles.toolChipTooltip}
+        style={{
+          ...(tooltipAlign === 'right' ? { right: 0 } : { left: 0 }),
+          opacity: isOpen ? 1 : 0,
+          transform: isOpen
+            ? 'translateY(0)'
+            : (prefersReduced ? 'translateY(0)' : 'translateY(4px)'),
+          transition: prefersReduced
+            ? 'opacity 0.01s'
+            : 'opacity 0.15s ease, transform 0.15s ease',
+        }}
+      >
+        {tooltip}
+      </span>
+    </span>
+  );
+}
 
 function PlasticBeachCaseStudy() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('overview');
+  const [openTooltipId, setOpenTooltipId] = useState(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [isSidebarVisible, setIsSidebarVisible] = useState(true);
+  const prefersReduced = useReducedMotion();
+  const isScrollingRef = useRef(false);
+  const contentColRef = useRef(null);
+  const rafRef = useRef(null);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, []);
 
+  // IntersectionObserver for TOC active state
   useEffect(() => {
-    document.body.style.overflow = isMobileMenuOpen ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
-  }, [isMobileMenuOpen]);
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth > 768) setIsMobileMenuOpen(false);
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    const ids = tocSections.map(s => s.id);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (isScrollingRef.current) return;
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: '-104px 0px -60% 0px', threshold: 0 }
+    );
+    ids.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
   }, []);
 
+  // Scroll progress via rAF
+  useEffect(() => {
+    const update = () => {
+      const col = contentColRef.current;
+      if (col) {
+        const rect = col.getBoundingClientRect();
+        const top = -rect.top;
+        const total = rect.height - window.innerHeight;
+        const pct = total > 0 ? Math.min(Math.max(top / total, 0), 1) * 100 : 0;
+        setScrollProgress(pct);
+      }
+      rafRef.current = requestAnimationFrame(update);
+    };
+    rafRef.current = requestAnimationFrame(update);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, []);
+
+  // Track sidebar visibility for mobile bottom bar
+  useEffect(() => {
+    const check = () => setIsSidebarVisible(window.innerWidth > 1024);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  const scrollToSection = useCallback((id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    isScrollingRef.current = true;
+    setActiveSection(id);
+    const targetTop = el.getBoundingClientRect().top + window.scrollY - 104;
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReduced) {
+      window.scrollTo(0, targetTop);
+      isScrollingRef.current = false;
+      return;
+    }
+
+    const startTop = window.scrollY;
+    const distance = targetTop - startTop;
+    const duration = 900;
+    const startTime = performance.now();
+    const step = (now) => {
+      const progress = Math.min((now - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      window.scrollTo(0, startTop + distance * eased);
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        isScrollingRef.current = false;
+      }
+    };
+    requestAnimationFrame(step);
+  }, []);
+
+  const handlePrevSection = useCallback(() => {
+    const idx = tocSections.findIndex(s => s.id === activeSection);
+    if (idx > 0) scrollToSection(tocSections[idx - 1].id);
+  }, [activeSection, scrollToSection]);
+
+  const handleNextSection = useCallback(() => {
+    const idx = tocSections.findIndex(s => s.id === activeSection);
+    if (idx < tocSections.length - 1) scrollToSection(tocSections[idx + 1].id);
+  }, [activeSection, scrollToSection]);
+
   return (
-    <div className="min-h-screen bg-[#262626] text-white flex flex-col">
-      {/* Navbar */}
-      <nav
-        className="sticky top-0 z-50 bg-[#262626] border-b border-white/10"
-        style={{
-          height: '72px',
-          padding: '22px var(--page-padding)',
-          boxShadow: '0 8px 24px rgba(255, 255, 255, 0.08)'
-        }}
-      >
-        <div className="flex justify-between items-center h-full">
-          <Link
-            to="/"
-            className="font-bold"
-            style={{ fontFamily: "'Clash Display', sans-serif", fontSize: 'clamp(20px, 2.5vw, 27px)' }}
-          >
-            Khang's Wrapped
-          </Link>
-
-          {/* Desktop nav */}
-          <div
-            className="nav-links-desktop items-center"
-            style={{ fontFamily: "'Inter', sans-serif", gap: '29px', fontSize: '14px' }}
-          >
-            <Link to="/" className="hover:text-[#C4B5FD] transition-colors">
-              Home
-            </Link>
-            <Link to="/about" className="hover:text-[#C4B5FD] transition-colors">
-              About
-            </Link>
-            <Link to="/playlist" className="hover:text-[#C4B5FD] transition-colors">
-              My Playlists
-            </Link>
-            <a
-              href="/resume/khangresume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-[#C4B5FD] transition-colors"
-            >
-              Resume
-            </a>
-          </div>
-
-          {/* Hamburger (mobile) */}
-          <button
-            className="nav-hamburger"
-            onClick={() => setIsMobileMenuOpen(true)}
-            style={{
-              background: 'none',
-              border: 'none',
-              color: '#E8E8E3',
-              cursor: 'pointer',
-              padding: '8px',
-              minWidth: '44px',
-              minHeight: '44px',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}
-            aria-label="Open menu"
-          >
-            <Menu size={24} />
-          </button>
-        </div>
-      </nav>
-
-      {/* Mobile menu overlay */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            className="mobile-menu-overlay"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.25 }}
-          >
-            <button
-              className="mobile-menu-close"
-              onClick={() => setIsMobileMenuOpen(false)}
-              aria-label="Close menu"
-            >
-              <X size={28} />
-            </button>
-            <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>
-              Home
-            </Link>
-            <Link to="/about" onClick={() => setIsMobileMenuOpen(false)}>
-              About
-            </Link>
-            <Link to="/playlist" onClick={() => setIsMobileMenuOpen(false)}>
-              My Playlists
-            </Link>
-            <a
-              href="/resume/khangresume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Resume
-            </a>
-          </motion.div>
-        )}
-      </AnimatePresence>
+    <div className={`min-h-screen bg-[#262626] text-white flex flex-col ${styles.page}`}>
+      <PbNavbar />
 
       {/* Main Content */}
       <main className="flex-1">
-        {/* Landing Hero — full viewport */}
-        <section
-          style={{
-            height: 'calc(100vh - 72px)',
-            width: '100%',
-            position: 'relative',
-            overflow: 'hidden'
-          }}
-        >
-          <img
-            src="/images/projects/plasticbeach-hero.jpg"
-            alt="PlasticBeach hero"
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              objectPosition: 'center 60%'
-            }}
-          />
-          <div
-            style={{
-              position: 'absolute',
-              inset: 0,
-              background: 'linear-gradient(to bottom, transparent 40%, #262626 100%)'
-            }}
-          />
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            style={{
-              position: 'absolute',
-              bottom: '80px',
-              left: 'var(--page-padding)',
-              right: 'var(--page-padding)'
-            }}
-          >
-            <h1
-              className="font-bold"
-              style={{
-                fontFamily: "'Clash Display', sans-serif",
-                fontSize: 'clamp(40px, 7vw, 80px)',
-                lineHeight: '1.1',
-                color: '#E8E8E3'
-              }}
-            >
-              PlasticBeach
-            </h1>
-            <p
-              style={{
-                fontFamily: "'Inter', sans-serif",
-                fontSize: 'clamp(14px, 2vw, 18px)',
-                color: 'rgba(255,255,255,0.6)',
-                marginTop: '16px'
-              }}
-            >
-              Case Study
-            </p>
-          </motion.div>
-        </section>
+        <PbHero />
 
         {/* Case Study Content */}
-        <section style={{ padding: '48px var(--page-padding) 80px' }}>
+        <section className={styles.caseStudySection}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            style={{ width: '100%' }}
+            className={styles.caseStudyInner}
           >
 
-          {/* Section divider */}
-          <div
-            style={{
-              height: '1px',
-              width: '100%',
-              backgroundColor: 'rgba(255,255,255,0.1)',
-              marginBottom: '48px'
-            }}
-          />
+          <PbPlayButton />
 
-          {/* Project metadata */}
-          <div
-            style={{
-              display: 'flex',
-              gap: '32px',
-              flexWrap: 'wrap',
-              marginBottom: '24px',
-              fontFamily: "'Inter', sans-serif",
-              fontSize: '16px'
-            }}
-          >
+          {/* Hero stats */}
+          <div className={`glance-stats ${styles.glanceStats}`}>
             <div>
-              <span style={{ color: 'rgba(255,255,255,0.5)' }}>Role</span>
-              <p style={{ color: '#E8E8E3', marginTop: '4px' }}>UI/UX Designer</p>
+              <span className={`gradient-shimmer ${styles.statValue}`}>
+                <AnimatedNumber value={250000} suffix="+" />
+              </span>
+              <span className={styles.statLabel}>
+                lbs of plastic diverted
+              </span>
             </div>
+
             <div>
-              <span style={{ color: 'rgba(255,255,255,0.5)' }}>Team</span>
-              <p style={{ color: '#E8E8E3', marginTop: '4px' }}>5 Designers</p>
-            </div>
-            <div>
-              <span style={{ color: 'rgba(255,255,255,0.5)' }}>Type</span>
-              <p style={{ color: '#E8E8E3', marginTop: '4px' }}>Product Design · UX Design · Web Redesign</p>
-            </div>
-            <div>
-              <span style={{ color: 'rgba(255,255,255,0.5)' }}>Timeline</span>
-              <p style={{ color: '#E8E8E3', marginTop: '4px' }}>Apr 2025 – Jul 2025</p>
+              <span className={`gradient-shimmer ${styles.statValue}`}>
+                <AnimatedNumber value={40} suffix="+" />
+              </span>
+              <span className={styles.statLabel}>
+                business partners
+              </span>
             </div>
           </div>
 
-          <div
-            style={{
-              height: '4px',
-              width: '120px',
-              backgroundColor: '#C4B5FD',
-              marginBottom: '48px'
-            }}
-          />
+          {/* Summary + Credits side by side */}
+          <div className={`glance-body ${styles.glanceBody}`}>
+            {/* Problem / Solution / Impact — 60% */}
+            <motion.div
+              className={`glance-summary ${styles.glanceSummary}`}
+              initial={prefersReduced ? false : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.15 }}
+            >
+              <div>
+                <h3 className={styles.summaryHeading}>Problem</h3>
+                <p className={styles.summaryParagraph}>Plastic Beach had no brand style guide, no consistent visual language, and two failing touchpoints: a sorting placard that business partners couldn't use effectively, and a website that left visitors confused about what the org actually does.</p>
+              </div>
+              <div>
+                <h3 className={styles.summaryHeading}>Solution</h3>
+                <p className={styles.summaryParagraph}>We built a design system first, then applied it to a visual-first sorting placard and a clearer website, across a 13-week project through Design for America at UC San Diego.</p>
+              </div>
+              <div>
+                <h3 className={styles.summaryHeading}>Impact</h3>
+                <p className={styles.summaryParagraph}>8 out of 10 participants sorted plastics correctly in usability testing (up from 6.3/10 baseline). All four surveyed business partners rated the redesigned placard clear and helpful.</p>
+              </div>
+            </motion.div>
 
-          {/* Content sections - placeholder for now */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '64px', textAlign: 'left', marginTop: '48px' }}>
+            {/* Credits — compact liner notes — 40% */}
+            <motion.div
+              className={`glance-credits ${styles.glanceCredits}`}
+              initial={prefersReduced ? false : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
+              <span className={styles.creditsLabel}>
+                Credits
+              </span>
+              {[
+                {
+                  label: 'Role',
+                  value: (
+                    <a
+                      href="#overview"
+                      onClick={(e) => { e.preventDefault(); scrollToSection('overview'); }}
+                      className={styles.roleLink}
+                    >
+                      UI/UX Designer
+                    </a>
+                  ),
+                },
+                { label: 'Team', value: '5 Designers' },
+                { label: 'Type', value: 'Product Design · UX Design · Web Redesign' },
+                { label: 'Timeline', value: 'Apr 2025 – Jul 2025' },
+              ].map((item, i) => (
+                <motion.div
+                  key={item.label}
+                  initial={prefersReduced ? false : { opacity: 0, y: 8 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.3, delay: 0.35 + 0.08 * i }}
+                  className={styles.creditRow}
+                >
+                  <span className={styles.creditLabel}>
+                    {item.label}
+                  </span>
+                  <span className={styles.creditValue}>
+                    {item.value}
+                  </span>
+                </motion.div>
+              ))}
 
-            {/* Overview */}
-            <div>
-              <h2
-                style={{
-                  fontFamily: "'Clash Display', sans-serif",
-                  fontSize: 'clamp(24px, 3.5vw, 32px)',
-                  fontWeight: '600',
-                  marginBottom: '24px',
-                  color: '#C4B5FD'
-                }}
+              {/* Built with */}
+              <motion.div
+                initial={prefersReduced ? false : { opacity: 0, y: 8 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.3, delay: 0.35 + 0.08 * 3 }}
+                className={styles.builtWithWrapper}
               >
-                Overview
-              </h2>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6' }}>
+                <span className={styles.builtWithLabel}>
+                  Built with
+                </span>
+                <span className={styles.builtWithChips}>
+                  <ToolChip
+                    id="figma"
+                    icon={<PenTool size={16} strokeWidth={1.75} color="#C4B5FD" />}
+                    label="Figma"
+                    tooltip="Wireframes, mockups & prototypes"
+                    isOpen={openTooltipId === 'figma'}
+                    onToggle={setOpenTooltipId}
+                    prefersReduced={prefersReduced}
+                  />
+                  <ToolChip
+                    id="wix"
+                    icon={<AppWindow size={16} strokeWidth={1.75} color="#C4B5FD" />}
+                    label="Wix"
+                    tooltip="Site build & content management"
+                    isOpen={openTooltipId === 'wix'}
+                    onToggle={setOpenTooltipId}
+                    prefersReduced={prefersReduced}
+                  />
+                  <ToolChip
+                    id="code"
+                    icon={<Code size={16} strokeWidth={1.75} color="#C4B5FD" />}
+                    label="Custom code"
+                    tooltip="Custom HTML/CSS/JS beyond Wix's defaults"
+                    isOpen={openTooltipId === 'code'}
+                    onToggle={setOpenTooltipId}
+                    prefersReduced={prefersReduced}
+                    tooltipAlign="right"
+                  />
+                </span>
+              </motion.div>
+            </motion.div>
+          </div>
+
+          {/* Two-column layout: TOC sidebar + content */}
+          <div className="wcasl-two-col">
+            {/* Now Playing sidebar */}
+            <aside className="wcasl-toc-sidebar">
+              <div className={styles.sidebarSticky}>
+                <nav aria-label="Case study sections" style={{ width: '100%' }}>
+                  <div className={styles.sidebarCard}>
+
+                    {/* Section list */}
+                    <ul className={styles.tocList}>
+                      {tocSections.map((section) => {
+                        const isActive = activeSection === section.id;
+                        return (
+                          <li key={section.id} className={styles.tocItem}>
+                            <a
+                              href={`#${section.id}`}
+                              aria-current={isActive ? 'true' : undefined}
+                              onClick={(e) => { e.preventDefault(); if (!isScrollingRef.current) scrollToSection(section.id); }}
+                              className={styles.tocLink}
+                              style={{
+                                paddingLeft: isActive ? '12px' : '0',
+                                borderLeft: isActive ? '3px solid #C4B5FD' : '3px solid transparent',
+                              }}
+                            >
+                              <span
+                                className={styles.tocLinkText}
+                                style={{
+                                  color: isActive ? '#C4B5FD' : 'rgba(255,255,255,0.5)',
+                                }}
+                                onMouseEnter={(e) => { if (!isActive) e.currentTarget.style.color = '#E8E8E3'; }}
+                                onMouseLeave={(e) => { if (!isActive) e.currentTarget.style.color = 'rgba(255,255,255,0.5)'; }}
+                              >
+                                {section.num} · {section.label}
+                              </span>
+                            </a>
+                          </li>
+                        );
+                      })}
+                    </ul>
+
+                    {/* Player controls — progress bar + prev/next */}
+                    <div>
+                      {/* Progress bar */}
+                      <div className={styles.progressWrapper}>
+                        <div
+                          role="progressbar"
+                          aria-valuenow={Math.round(scrollProgress)}
+                          aria-valuemin={0}
+                          aria-valuemax={100}
+                          aria-label="Reading progress"
+                          className={styles.progressTrack}
+                        >
+                          <div
+                            className={styles.progressFill}
+                            style={{ width: `${scrollProgress}%` }}
+                          />
+                        </div>
+                      </div>
+
+                      <div className={styles.playerControls}>
+                        <button
+                          onClick={handlePrevSection}
+                          aria-label="Previous section"
+                          disabled={tocSections.findIndex(s => s.id === activeSection) === 0}
+                          className={styles.skipBtn}
+                          style={{
+                            cursor: tocSections.findIndex(s => s.id === activeSection) === 0 ? 'default' : 'pointer',
+                            color: tocSections.findIndex(s => s.id === activeSection) === 0 ? 'rgba(255,255,255,0.2)' : '#E8E8E3',
+                          }}
+                          onMouseEnter={(e) => {
+                            if (!e.currentTarget.disabled) {
+                              e.currentTarget.style.color = '#C4B5FD';
+                              e.currentTarget.style.filter = 'drop-shadow(0 0 8px rgba(196, 181, 253, 0.6))';
+                            }
+                          }}
+                          onMouseLeave={(e) => {
+                            if (!e.currentTarget.disabled) {
+                              e.currentTarget.style.color = '#E8E8E3';
+                              e.currentTarget.style.filter = 'drop-shadow(0 0 0px rgba(196, 181, 253, 0))';
+                            }
+                          }}
+                        >
+                          <SkipBack size={22} weight="fill" />
+                        </button>
+                        <button
+                          onClick={handleNextSection}
+                          aria-label="Next section"
+                          disabled={tocSections.findIndex(s => s.id === activeSection) === tocSections.length - 1}
+                          className={styles.skipBtn}
+                          style={{
+                            cursor: tocSections.findIndex(s => s.id === activeSection) === tocSections.length - 1 ? 'default' : 'pointer',
+                            color: tocSections.findIndex(s => s.id === activeSection) === tocSections.length - 1 ? 'rgba(255,255,255,0.2)' : '#E8E8E3',
+                          }}
+                          onMouseEnter={(e) => {
+                            if (!e.currentTarget.disabled) {
+                              e.currentTarget.style.color = '#C4B5FD';
+                              e.currentTarget.style.filter = 'drop-shadow(0 0 8px rgba(196, 181, 253, 0.6))';
+                            }
+                          }}
+                          onMouseLeave={(e) => {
+                            if (!e.currentTarget.disabled) {
+                              e.currentTarget.style.color = '#E8E8E3';
+                              e.currentTarget.style.filter = 'drop-shadow(0 0 0px rgba(196, 181, 253, 0))';
+                            }
+                          }}
+                        >
+                          <SkipForward size={22} weight="fill" />
+                        </button>
+                      </div>
+                    </div>
+
+                  </div>
+                </nav>
+              </div>
+            </aside>
+
+            {/* Content column */}
+            <div className="wcasl-content-col" ref={contentColRef}>
+
+          {/* Overview */}
+          <div id="overview" className={styles.sectionAnchor}>
+            <motion.h2
+              className={`gradient-shimmer ${styles.sectionHeading}`}
+              initial={prefersReduced ? false : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              Overview
+            </motion.h2>
+
+            <motion.div
+              initial={prefersReduced ? false : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className={styles.bodyNarrow}
+            >
+              <div className={`${styles.sectionBody} ${styles.bodyParagraphs}`}>
                 <p>
                   Plastic Beach is a 501(c)(3) nonprofit based in Encinitas, CA, facilitating soft plastic recycling across 40+ business partners and six community collection sites. Despite a clear mission and real operational impact (250,000+ pounds diverted from landfills), their materials weren't keeping up. They had no brand style guide, no consistent visual language, and two failing touchpoints:
                 </p>
@@ -276,312 +498,394 @@ function PlasticBeachCaseStudy() {
                   Our team of five, through Design for America at UC San Diego, took on both. We built a design system first, then applied it to the placard and the website across a 13-week project.
                 </p>
               </div>
-            </div>
+            </motion.div>
+          </div>
 
-            {/* Placard Redesign */}
-            <div>
-              <h2
-                style={{
-                  fontFamily: "'Clash Display', sans-serif",
-                  fontSize: 'clamp(24px, 3.5vw, 32px)',
-                  fontWeight: '600',
-                  marginBottom: '24px',
-                  color: '#C4B5FD'
-                }}
-              >
-                Placard Redesign
-              </h2>
+          {/* Placard Redesign */}
+          <div id="placard-redesign" className={styles.section}>
+            <motion.h2
+              className={`gradient-shimmer ${styles.sectionHeading}`}
+              initial={prefersReduced ? false : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              Placard Redesign
+            </motion.h2>
 
-              {/* Problem */}
-              <div>
-                <h3
-                  style={{
-                    fontFamily: "'Clash Display', sans-serif",
-                    fontSize: '20px',
-                    fontWeight: '600',
-                    marginBottom: '16px',
-                    color: '#E8E8E3'
-                  }}
-                >
-                  Problem
-                </h3>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6' }}>
-                  <p>
-                    Business partners were placing incorrect materials in soft plastic collection bins. The existing placard, meant to guide sorting decisions at partner locations, scored 6.3/10 from users and was consistently described as text-heavy, visually overwhelming, and hard to scan under real workplace conditions.
-                  </p>
-                </div>
-
-                {/* Annotated old placard */}
-                <div
-                  style={{
-                    marginTop: '48px',
-                    position: 'relative',
-                    maxWidth: '55%',
-                    marginLeft: 'auto',
-                    marginRight: 'auto',
-                    overflow: 'visible'
-                  }}
-                >
-                  {/* Image */}
-                  <img
-                    src="/images/projects/plasticbeach-old-placard.jpg"
-                    alt="Original Plastic Beach sorting placard"
-                    style={{
-                      width: '100%',
-                      borderRadius: '12px',
-                      border: '1px solid rgba(255,255,255,0.1)',
-                      display: 'block'
-                    }}
-                  />
-
-                  {/* Annotation: Top banner - hard to read title */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
-                    viewport={{ once: true }}
-                    className="gradient-text"
-                    style={{
-                      position: 'absolute',
-                      top: '3%',
-                      left: 'calc(100% + 24px)',
-                      fontFamily: "'Island Funny', sans-serif",
-                      fontSize: 'clamp(10px, 1.5vw, 18px)',
-                      transform: 'rotate(-4deg)',
-                      whiteSpace: 'nowrap',
-                      lineHeight: '1.4'
-                    }}
-                  >
-                    Colors clash, title font <br/>is hard to read
-                    {/* Line pointing to top banner */}
-                  </motion.div>
-
-                  {/* Annotation: Left side - inconsistent alignment */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.25 }}
-                    viewport={{ once: true }}
-                    className="gradient-text"
-                    style={{
-                      position: 'absolute',
-                      top: '3%',
-                      right: 'calc(100% + 24px)',
-                      fontFamily: "'Island Funny', sans-serif",
-                      fontSize: 'clamp(10px, 1.5vw, 18px)',
-                      transform: 'rotate(3deg)',
-                      whiteSpace: 'nowrap',
-                      textAlign: 'right',
-                      lineHeight: '1.4'
-                    }}
-                  >
-                    Inconsistent spacing and <br/>alignment across sections
-                  </motion.div>
-
-                  {/* Annotation: Left side - crammed label */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.3 }}
-                    viewport={{ once: true }}
-                    className="gradient-text"
-                    style={{
-                      position: 'absolute',
-                      top: '42%',
-                      right: 'calc(100% + 24px)',
-                      fontFamily: "'Island Funny', sans-serif",
-                      fontSize: 'clamp(10px, 1.5vw, 18px)',
-                      transform: 'rotate(-3deg)',
-                      whiteSpace: 'nowrap',
-                      textAlign: 'right',
-                      lineHeight: '1.4'
-                    }}
-                  >
-                    Too many items crammed <br/>into one label
-                  </motion.div>
-
-                  {/* Annotation: Left side - too much text */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.4 }}
-                    viewport={{ once: true }}
-                    className="gradient-text"
-                    style={{
-                      position: 'absolute',
-                      top: '75%',
-                      right: 'calc(100% + 24px)',
-                      fontFamily: "'Island Funny', sans-serif",
-                      fontSize: 'clamp(10px, 1.5vw, 18px)',
-                      transform: 'rotate(-2deg)',
-                      whiteSpace: 'nowrap',
-                      textAlign: 'right',
-                      lineHeight: '1.4'
-                    }}
-                  >
-                    Too much text, <br/> too small to read
-                  </motion.div>
-
-                  {/* Annotation: Right side - overwhelming do not include */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.6 }}
-                    viewport={{ once: true }}
-                    className="gradient-text"
-                    style={{
-                      position: 'absolute',
-                      top: '40%',
-                      left: 'calc(100% + 24px)',
-                      fontFamily: "'Island Funny', sans-serif",
-                      fontSize: 'clamp(10px, 1.5vw, 18px)',
-                      transform: 'rotate(3deg)',
-                      whiteSpace: 'nowrap',
-                      lineHeight: '1.4'
-                    }}
-                  >
-                    Overwhelming "Do <br/>Not Include" list
-                  </motion.div>
-
-                  {/* Annotation: Bottom right - confusing symbols */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.8 }}
-                    viewport={{ once: true }}
-                    className="gradient-text"
-                    style={{
-                      position: 'absolute',
-                      top: '80%',
-                      left: 'calc(100% + 24px)',
-                      fontFamily: "'Island Funny', sans-serif",
-                      fontSize: 'clamp(10px, 1.5vw, 18px)',
-                      transform: 'rotate(2deg)',
-                      whiteSpace: 'nowrap',
-                      lineHeight: '1.4'
-                    }}
-                  >
-                    Store drop-off symbol <br/> is confusing
-                  </motion.div>
-                </div>
-
-                <p
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: '14px',
-                    color: '#e8e8e3',
-                    textAlign: 'center',
-                    marginTop: '24px',
-                    maxWidth: '55%',
-                    marginLeft: 'auto',
-                    marginRight: 'auto'
-                  }}
-                >
-                  The original sorting placard with annotations with our team's initial observations
+            {/* Problem */}
+            <motion.div
+              initial={prefersReduced ? false : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className={styles.sectionBody}
+            >
+              <h3 className={styles.subsectionHeading}>Problem</h3>
+              <div className={styles.bodyParagraphs}>
+                <p>
+                  Business partners were placing incorrect materials in soft plastic collection bins. The existing placard, meant to guide sorting decisions at partner locations, scored 6.3/10 from users and was consistently described as text-heavy, visually overwhelming, and hard to scan under real workplace conditions.
                 </p>
               </div>
 
-              {/* Outcome */}
-              <div style={{ marginTop: '64px' }}>
-                <h3
-                  style={{
-                    fontFamily: "'Clash Display', sans-serif",
-                    fontSize: '20px',
-                    fontWeight: '600',
-                    marginBottom: '16px',
-                    color: '#E8E8E3'
-                  }}
-                >
-                  Outcome
-                </h3>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6' }}>
-                  <p>
-                    All four business partners surveyed after launch rated the redesigned placard clear and helpful. 8 out of 10 general public participants sorted plastics correctly in a task-based usability test, compared to a <strong style={{ color: '#C4B5FD' }}>6.3/10 baseline</strong> on the original. The project also produced a brand style guide giving Plastic Beach a reusable system applicable to social media and the website redesign.
-                  </p>
-                </div>
-              </div>
+              {/* Annotated old placard */}
+              <div className={styles.annotatedContainer}>
+                <img
+                  src="/images/projects/plasticbeach-old-placard.jpg"
+                  alt="Original Plastic Beach sorting placard"
+                  className={styles.annotatedImage}
+                />
 
-              {/* Solution */}
-              <div style={{ marginTop: '64px' }}>
-                <h3
-                  style={{
-                    fontFamily: "'Clash Display', sans-serif",
-                    fontSize: '20px',
-                    fontWeight: '600',
-                    marginBottom: '16px',
-                    color: '#E8E8E3'
-                  }}
-                >
-                  Solution
-                </h3>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#E8E8E3', lineHeight: '1.6' }}>
-                  <p>
-                    A visual-first placard that removed the exhaustive "do not include" list and replaced it with a single decision rule: the <strong style={{ color: '#C4B5FD' }}>Stretch Test</strong>. Accepted plastic types display as a labeled illustration grid. A QR code routes edge-case questions to the website.
-                  </p>
-                </div>
-
-                {/* Final placard image */}
+                {/* Annotation: Top right - hard to read title */}
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
                   viewport={{ once: true }}
-                  style={{
-                    marginTop: '48px',
-                    maxWidth: '55%',
-                    marginLeft: 'auto',
-                    marginRight: 'auto'
-                  }}
+                  className={`gradient-text ${styles.annotationRight}`}
+                  style={{ top: '3%', transform: 'rotate(-4deg)' }}
                 >
-                  <img
-                    src="/images/projects/pb-final-placard.png"
-                    alt="Redesigned Plastic Beach sorting placard"
-                    style={{
-                      width: '100%',
-                      borderRadius: '12px',
-                      border: '1px solid rgba(255,255,255,0.1)',
-                      display: 'block'
-                    }}
-                  />
-                  <p
-                    style={{
-                      fontFamily: "'Inter', sans-serif",
-                      fontSize: '14px',
-                      color: '#e8e8e3',
-                      textAlign: 'center',
-                      marginTop: '24px'
-                    }}
-                  >
-                    The redesigned sorting placard
-                  </p>
+                  Colors clash, title font <br/>is hard to read
+                </motion.div>
+
+                {/* Annotation: Top left - inconsistent alignment */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.25 }}
+                  viewport={{ once: true }}
+                  className={`gradient-text ${styles.annotationLeft}`}
+                  style={{ top: '3%', transform: 'rotate(3deg)' }}
+                >
+                  Inconsistent spacing and <br/>alignment across sections
+                </motion.div>
+
+                {/* Annotation: Left - crammed label */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
+                  viewport={{ once: true }}
+                  className={`gradient-text ${styles.annotationLeft}`}
+                  style={{ top: '42%', transform: 'rotate(-3deg)' }}
+                >
+                  Too many items crammed <br/>into one label
+                </motion.div>
+
+                {/* Annotation: Left - too much text */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.4 }}
+                  viewport={{ once: true }}
+                  className={`gradient-text ${styles.annotationLeft}`}
+                  style={{ top: '75%', transform: 'rotate(-2deg)' }}
+                >
+                  Too much text, <br/> too small to read
+                </motion.div>
+
+                {/* Annotation: Right - overwhelming do not include */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.6 }}
+                  viewport={{ once: true }}
+                  className={`gradient-text ${styles.annotationRight}`}
+                  style={{ top: '40%', transform: 'rotate(3deg)' }}
+                >
+                  Overwhelming "Do <br/>Not Include" list
+                </motion.div>
+
+                {/* Annotation: Bottom right - confusing symbols */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.8 }}
+                  viewport={{ once: true }}
+                  className={`gradient-text ${styles.annotationRight}`}
+                  style={{ top: '80%', transform: 'rotate(2deg)' }}
+                >
+                  Store drop-off symbol <br/> is confusing
                 </motion.div>
               </div>
-            </div>
 
+              <p className={styles.imageCaption}>
+                The original sorting placard with annotations with our team's initial observations
+              </p>
+            </motion.div>
+
+            {/* Outcome */}
+            <motion.div
+              initial={prefersReduced ? false : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className={`${styles.sectionBody} ${styles.subsectionSpacingLg}`}
+            >
+              <h3 className={styles.subsectionHeading}>Outcome</h3>
+              <div className={styles.bodyParagraphs}>
+                <p>
+                  All four business partners surveyed after launch rated the redesigned placard clear and helpful. 8 out of 10 general public participants sorted plastics correctly in a task-based usability test, compared to a <strong style={{ color: '#C4B5FD' }}>6.3/10 baseline</strong> on the original. The project also produced a brand style guide giving Plastic Beach a reusable system applicable to social media and the website redesign.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Solution */}
+            <motion.div
+              initial={prefersReduced ? false : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className={`${styles.sectionBody} ${styles.subsectionSpacingLg}`}
+            >
+              <h3 className={styles.subsectionHeading}>Solution</h3>
+              <div className={styles.bodyParagraphs}>
+                <p>
+                  A visual-first placard that removed the exhaustive "do not include" list and replaced it with a single decision rule: the <strong style={{ color: '#C4B5FD' }}>Stretch Test</strong>. Accepted plastic types display as a labeled illustration grid. A QR code routes edge-case questions to the website.
+                </p>
+              </div>
+
+              {/* Final placard image */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true }}
+                className={styles.annotatedContainer}
+                style={{ marginTop: '48px' }}
+              >
+                <img
+                  src="/images/projects/pb-final-placard.png"
+                  alt="Redesigned Plastic Beach sorting placard"
+                  className={styles.annotatedImage}
+                />
+                <p className={styles.imageCaption} style={{ maxWidth: '100%' }}>
+                  The redesigned sorting placard
+                </p>
+              </motion.div>
+            </motion.div>
           </div>
 
-          <Link
-            to="/"
-            style={{
-              fontFamily: "'Inter', sans-serif",
-              fontSize: '16px',
-              color: '#C4B5FD',
-              textDecoration: 'none',
-              fontWeight: '600',
-              marginTop: '80px',
-              display: 'inline-block'
-            }}
-            className="hover:text-white transition-colors"
-          >
-            ← Back to Home
-          </Link>
+          {/* Website Redesign — placeholder */}
+          <div id="website-redesign" className={styles.section}>
+            <motion.h2
+              className={`gradient-shimmer ${styles.sectionHeading}`}
+              initial={prefersReduced ? false : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              Website Redesign
+            </motion.h2>
+
+            <motion.div
+              initial={prefersReduced ? false : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className={styles.bodyNarrow}
+            >
+              <div className={`${styles.sectionBody} ${styles.bodyParagraphs}`}>
+                <p style={{ color: 'rgba(255,255,255,0.4)', fontStyle: 'italic' }}>
+                  Coming soon — content in progress.
+                </p>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Results — placeholder */}
+          <div id="results" className={styles.section}>
+            <motion.h2
+              className={`gradient-shimmer ${styles.sectionHeading}`}
+              initial={prefersReduced ? false : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              Results
+            </motion.h2>
+
+            {/* Stat row */}
+            <motion.div
+              className={`results-stats ${styles.resultsStatRow}`}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <div className={styles.resultsStat}>
+                <span className={styles.resultsStatValue}>
+                  8/10
+                </span>
+                <span className={styles.resultsStatLabel}>
+                  sorting accuracy in usability test
+                </span>
+              </div>
+
+              <div className={`results-divider ${styles.resultsDivider}`} />
+
+              <div className={styles.resultsStat}>
+                <span className={styles.resultsStatValue}>
+                  4/4
+                </span>
+                <span className={styles.resultsStatLabel}>
+                  partners rated placard clear
+                </span>
+              </div>
+
+              <div className={`results-divider ${styles.resultsDivider}`} />
+
+              <div className={styles.resultsStat}>
+                <span className={styles.resultsStatValue}>
+                  1
+                </span>
+                <span className={styles.resultsStatLabel}>
+                  brand style guide delivered
+                </span>
+              </div>
+            </motion.div>
+
+            <ul className={styles.resultsBullets}>
+              <li>Sorting accuracy improved from 6.3/10 to 8/10 in task-based usability tests</li>
+              <li>All four surveyed business partners rated the redesigned placard clear and helpful</li>
+              <li>Brand style guide gives Plastic Beach a reusable system for social media and future materials</li>
+            </ul>
+          </div>
+
+          {/* What I'd Do Differently — placeholder */}
+          <div id="what-id-do-differently" className={styles.section}>
+            <motion.h2
+              className={`gradient-shimmer ${styles.sectionHeading}`}
+              initial={prefersReduced ? false : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              What I'd Do Differently
+            </motion.h2>
+
+            <motion.div
+              initial={prefersReduced ? false : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className={styles.bodyNarrow}
+            >
+              <div className={`${styles.sectionBody} ${styles.bodyParagraphs}`}>
+                <p style={{ color: 'rgba(255,255,255,0.4)', fontStyle: 'italic' }}>
+                  Coming soon — content in progress.
+                </p>
+              </div>
+            </motion.div>
+          </div>
+
+            </div>{/* close content column */}
+          </div>{/* close two-col wrapper */}
+
         </motion.div>
         </section>
 
+        {/* Thanks for Reading + Navigation */}
+        <div className={styles.thanksSection}>
+          <div className={styles.thanksNav}>
+            {/* Previous case study */}
+            <Link
+              to="/case-study/wcasl"
+              aria-label="Previous case study"
+              className={styles.navCircle}
+            >
+              <ChevronLeft size={22} />
+            </Link>
+
+            {/* Ditto image + Home button stacked */}
+            <div className={styles.thanksCenter}>
+              <img
+                src="/images/projects/thanks-for-reading.png"
+                alt="Thanks for reading"
+                className={styles.thanksImage}
+              />
+              {/* Home button */}
+              <Link
+                to="/"
+                className={styles.homeBtn}
+              >
+                <Home size={15} />
+                <span>Back to Home</span>
+              </Link>
+            </div>
+
+            {/* Next case study */}
+            <Link
+              to="/case-study/wcasl"
+              aria-label="Next case study"
+              className={styles.navCircle}
+            >
+              <ChevronRight size={22} />
+            </Link>
+          </div>
+        </div>
+
         {/* Footer Section */}
-        <div style={{ padding: '0 var(--page-padding)' }}>
+        <div className={styles.footerWrapper}>
           <FooterWithSpotlight />
         </div>
+
+      {/* Mobile bottom bar — shown when sidebar is hidden */}
+      {!isSidebarVisible && createPortal(
+        <div className={`wcasl-mobile-bar ${styles.mobileBar}`}>
+          {/* Prev */}
+          <button
+            onClick={handlePrevSection}
+            aria-label="Previous section"
+            disabled={tocSections.findIndex(s => s.id === activeSection) === 0}
+            className={styles.mobileBarBtn}
+            style={{
+              cursor: tocSections.findIndex(s => s.id === activeSection) === 0 ? 'default' : 'pointer',
+              color: tocSections.findIndex(s => s.id === activeSection) === 0 ? 'rgba(255,255,255,0.2)' : '#E8E8E3',
+            }}
+          >
+            <SkipBack size={18} weight="fill" />
+          </button>
+
+          {/* Section name + progress */}
+          <div className={styles.mobileBarSection}>
+            <span className={styles.mobileBarLabel}>
+              {tocSections.find(s => s.id === activeSection)?.label || ''}
+            </span>
+            <div
+              role="progressbar"
+              aria-valuenow={Math.round(scrollProgress)}
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-label="Reading progress"
+              className={styles.mobileBarProgress}
+            >
+              <div
+                className={styles.mobileBarProgressFill}
+                style={{
+                  width: `${scrollProgress}%`,
+                  transition: prefersReduced ? 'none' : 'width 0.15s linear',
+                }}
+              />
+            </div>
+          </div>
+
+          {/* Next */}
+          <button
+            onClick={handleNextSection}
+            aria-label="Next section"
+            disabled={tocSections.findIndex(s => s.id === activeSection) === tocSections.length - 1}
+            className={styles.mobileBarBtn}
+            style={{
+              cursor: tocSections.findIndex(s => s.id === activeSection) === tocSections.length - 1 ? 'default' : 'pointer',
+              color: tocSections.findIndex(s => s.id === activeSection) === tocSections.length - 1 ? 'rgba(255,255,255,0.2)' : '#E8E8E3',
+            }}
+          >
+            <SkipForward size={18} weight="fill" />
+          </button>
+        </div>,
+        document.body
+      )}
       </main>
     </div>
   );

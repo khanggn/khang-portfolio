@@ -6,10 +6,12 @@ import CaseStudy from './pages/CaseStudy'
 import PlasticBeachCaseStudy from './pages/PlasticBeachCaseStudy'
 import WCASLCaseStudy from './pages/WCASLCaseStudy'
 import About from './pages/About'
+import ClickSpark from './components/ClickSpark'
 
 function App() {
   return (
     <BrowserRouter>
+      <ClickSpark />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />

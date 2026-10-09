@@ -2,81 +2,9 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
-import { MusicNote, MusicNotes, MusicNotesSimple } from '@phosphor-icons/react';
 import FooterWithSpotlight from '../components/FooterWithSpotlight';
 import NowPlaying from '../components/NowPlaying';
 import OnRepeat from '../components/OnRepeat';
-
-// Music note cursor trail component
-function MusicCursorTrail() {
-  const [notes, setNotes] = useState([]);
-  const noteIcons = [MusicNote, MusicNotes, MusicNotesSimple];
-
-  useEffect(() => {
-    let noteId = 0;
-
-    const handleMouseMove = (e) => {
-      if (Math.random() > 0.85) {
-        const element = document.elementFromPoint(e.clientX, e.clientY);
-        const bgColor = element ? window.getComputedStyle(element).backgroundColor : '';
-        const isOnLightBackground = bgColor.includes('232, 232, 227') || bgColor.includes('rgb(232, 232, 227)');
-
-        const newNote = {
-          id: noteId++,
-          x: e.clientX,
-          y: e.clientY,
-          rotation: Math.random() * 360,
-          scale: 0.5 + Math.random() * 0.5,
-          direction: Math.random() > 0.5 ? 1 : -1,
-          IconComponent: noteIcons[Math.floor(Math.random() * noteIcons.length)],
-          color: isOnLightBackground ? '#C4B5FD' : '#E8E8E3'
-        };
-
-        setNotes((prev) => [...prev, newNote]);
-
-        setTimeout(() => {
-          setNotes((prev) => prev.filter((note) => note.id !== newNote.id));
-        }, 1000);
-      }
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
-  return (
-    <div className="music-cursor-trail" style={{ position: 'fixed', top: 0, left: 0, pointerEvents: 'none', zIndex: 9999 }}>
-      {notes.map((note) => {
-        const IconComponent = note.IconComponent;
-        return (
-          <motion.div
-            key={note.id}
-            initial={{
-              x: note.x,
-              y: note.y,
-              opacity: 0.8,
-              scale: note.scale,
-              rotate: note.rotation
-            }}
-            animate={{
-              x: note.x + (note.direction * 30),
-              y: note.y - 40,
-              opacity: 0,
-              rotate: note.rotation + (note.direction * 45)
-            }}
-            transition={{
-              duration: 1,
-              ease: "easeOut"
-            }}
-            style={{ position: 'absolute' }}
-          >
-            <IconComponent size={20} weight="fill" color={note.color} />
-          </motion.div>
-        );
-      })}
-    </div>
-  );
-}
 
 function About() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -100,9 +28,6 @@ function About() {
 
   return (
     <div className="min-h-screen bg-[#262626] text-white flex flex-col">
-      {/* Music Note Cursor Trail */}
-      <MusicCursorTrail />
-
       {/* Navbar */}
       <nav
         className="sticky top-0 z-50 bg-[#262626] border-b border-white/10"
@@ -124,7 +49,7 @@ function About() {
           {/* Desktop nav */}
           <div
             className="nav-links-desktop items-center"
-            style={{ fontFamily: "'Inter', sans-serif", gap: '29px', fontSize: '14px' }}
+            style={{ fontFamily: "'Gamja Flower', sans-serif", gap: '29px', fontSize: '20px' }}
           >
             <Link to="/" className="hover:text-[#C4B5FD] transition-colors">
               Home
@@ -241,8 +166,8 @@ function About() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
                 style={{
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: '16px',
+                  fontFamily: "'Gamja Flower', sans-serif",
+                  fontSize: '22px',
                   lineHeight: '1.6',
                   color: '#E8E8E3',
                   marginBottom: '16px'
@@ -256,8 +181,8 @@ function About() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
                 style={{
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: '16px',
+                  fontFamily: "'Gamja Flower', sans-serif",
+                  fontSize: '22px',
                   lineHeight: '1.6',
                   color: '#E8E8E3',
                   marginBottom: '16px'
@@ -271,8 +196,8 @@ function About() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.6 }}
                 style={{
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: '16px',
+                  fontFamily: "'Gamja Flower', sans-serif",
+                  fontSize: '22px',
                   lineHeight: '1.6',
                   color: '#E8E8E3',
                   marginBottom: '16px'
@@ -286,8 +211,8 @@ function About() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.8 }}
                 style={{
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: '16px',
+                  fontFamily: "'Gamja Flower', sans-serif",
+                  fontSize: '22px',
                   lineHeight: '1.6',
                   color: '#E8E8E3'
                 }}
@@ -318,7 +243,7 @@ function About() {
               }}
             >
               <img
-                src="/images/projects/headshot.webp"
+                src="/images/projects/about-me.gif"
                 alt="Khang Nguyen"
                 style={{
                   width: '100%',
