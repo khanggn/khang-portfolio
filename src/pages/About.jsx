@@ -142,7 +142,7 @@ function About() {
             paddingBottom: 'clamp(40px, 8vh, 80px)'
           }}
         >
-          <div className="about-hero-flex" style={{ display: 'flex', gap: 'clamp(32px, 5vw, 64px)', alignItems: 'center', width: '100%' }}>
+          <div className="about-hero-flex" style={{ display: 'flex', gap: 'clamp(32px, 5vw, 64px)', alignItems: 'flex-start', width: '100%' }}>
             {/* Left side - Text content */}
             <div style={{ flex: 1 }}>
               <motion.h1
@@ -154,6 +154,7 @@ function About() {
                   fontFamily: "'Clash Display', sans-serif",
                   fontSize: 'clamp(32px, 5vw, 58px)',
                   lineHeight: '1.2',
+                  marginTop: '-0.15em',
                   marginBottom: 'clamp(20px, 3vw, 32px)',
                   color: '#E8E8E3'
                 }}
@@ -220,7 +221,30 @@ function About() {
                 If you want someone who thinks about both the look and the feels, I'd love to connect.
               </motion.p>
 
-              {/* Live Spotify widget */}
+            </div>
+
+            {/* Right side - Headshot */}
+            <div className="about-headshot" style={{ flexShrink: 0, display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                style={{
+                  width: 'clamp(200px, 30vw, 400px)',
+                  height: 'clamp(200px, 30vw, 400px)',
+                }}
+              >
+                <img
+                  src="/images/projects/about-me.gif"
+                  alt="Khang Nguyen"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    borderRadius: '16px',
+                  }}
+                />
+              </motion.div>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -229,30 +253,6 @@ function About() {
                 <NowPlaying />
               </motion.div>
             </div>
-
-            {/* Right side - Headshot */}
-            <motion.div
-              className="about-headshot"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              style={{
-                width: 'clamp(200px, 30vw, 400px)',
-                height: 'clamp(200px, 30vw, 400px)',
-                flexShrink: 0
-              }}
-            >
-              <img
-                src="/images/projects/about-me.gif"
-                alt="Khang Nguyen"
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  borderRadius: '16px',
-                }}
-              />
-            </motion.div>
           </div>
         </section>
 
