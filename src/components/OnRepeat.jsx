@@ -9,16 +9,16 @@ const STAGES = [
 
 const ARTIST_POS = [
   { top: '10%', left: '18%' },
-  { top: '11%', right: '10%' },
+  { top: '11%', right: '18%' },
   { bottom: '8%', left: '17%' },
 ];
 
 const SONG_POS = [
   { top: '10%', left: '45%', transform: 'translateX(-50%)' },
   { top: '42%', left: '1%' },
-  { top: '43%', right: '7%' },
+  { top: '43%', right: '3%' },
   { bottom: '5%', left: '46%', transform: 'translateX(-50%)' },
-  { bottom: '14%', right: '8%' },
+  { bottom: '14%', right: '12%' },
 ];
 
 function fmt(n) {
@@ -153,6 +153,7 @@ function Timeline({ activeStage, onSelect }) {
                 }}
               >
                 <motion.div
+                  key={`${s.key}-${current}`}
                   whileHover={!current ? {
                     scale: [1, 1.15, 1],
                     boxShadow: [
@@ -258,8 +259,8 @@ function ArtistFloat({ artist, pos, i, noMotion }) {
         alt={artist.name}
         loading="lazy"
         style={{
-          width: 72,
-          height: 72,
+          width: 96,
+          height: 96,
           borderRadius: '50%',
           objectFit: 'cover',
           border: '2px solid rgba(196,181,253,0.25)',
@@ -268,11 +269,11 @@ function ArtistFloat({ artist, pos, i, noMotion }) {
       <span
         style={{
           fontFamily: "'Gamja Flower', sans-serif",
-          fontSize: 13,
+          fontSize: 16,
           fontWeight: 600,
           color: '#E8E8E3',
           textAlign: 'center',
-          maxWidth: 110,
+          maxWidth: 140,
         }}
       >
         {artist.name}
@@ -280,7 +281,7 @@ function ArtistFloat({ artist, pos, i, noMotion }) {
       <span
         style={{
           fontFamily: "'Gamja Flower', sans-serif",
-          fontSize: 11,
+          fontSize: 13,
           color: '#9D92C8',
         }}
       >
@@ -323,13 +324,13 @@ function SongFloat({ song, rank, pos, i, noMotion }) {
         ...pos,
         display: 'flex',
         alignItems: 'center',
-        gap: 10,
-        padding: '8px 12px',
-        borderRadius: 12,
+        gap: 12,
+        padding: '10px 16px',
+        borderRadius: 14,
         backgroundColor: 'rgba(78,74,92,0.45)',
         border: '1px solid rgba(157,146,200,0.15)',
         backdropFilter: 'blur(8px)',
-        maxWidth: 220,
+        maxWidth: 260,
         zIndex: 2,
         textDecoration: 'none',
         cursor: 'pointer',
@@ -341,9 +342,9 @@ function SongFloat({ song, rank, pos, i, noMotion }) {
         alt={`${song.title} cover`}
         loading="lazy"
         style={{
-          width: 36,
-          height: 36,
-          borderRadius: 4,
+          width: 48,
+          height: 48,
+          borderRadius: 6,
           objectFit: 'cover',
           flexShrink: 0,
         }}
@@ -352,7 +353,7 @@ function SongFloat({ song, rank, pos, i, noMotion }) {
         <p
           style={{
             fontFamily: "'Gamja Flower', sans-serif",
-            fontSize: 13,
+            fontSize: 15,
             fontWeight: 600,
             color: '#E8E8E3',
             whiteSpace: 'nowrap',
@@ -368,7 +369,7 @@ function SongFloat({ song, rank, pos, i, noMotion }) {
         <p
           style={{
             fontFamily: "'Gamja Flower', sans-serif",
-            fontSize: 12,
+            fontSize: 14,
             color: '#C4B5FD',
             margin: 0,
             lineHeight: 1.4,
@@ -604,8 +605,8 @@ function StatsText({ stage, wide }) {
   const mins = useCountUp(stage.minutes);
   const dayLabel =
     stage.days < 1
-      ? `that's like ${Math.round(stage.minutes / 60)} hours`
-      : `that's like ${stage.days.toFixed(1)} days`;
+      ? `that's roughly ${Math.round(stage.minutes / 60)} hours`
+      : `that's roughly ${stage.days.toFixed(1)} days`;
 
   return (
     <div style={{ textAlign: 'center' }}>
@@ -688,7 +689,7 @@ function OnRepeat() {
       {/* timeline */}
       <div
         style={{
-          padding: '24px clamp(4px, 3vw, 48px) 0',
+          padding: '48px clamp(4px, 3vw, 48px) 0',
         }}
       >
         <Timeline activeStage={active} onSelect={setActive} />
@@ -816,20 +817,6 @@ function OnRepeat() {
         )}
       </div>
 
-      {/* caption */}
-      <p
-        style={{
-          fontFamily: "'Gamja Flower', sans-serif",
-          fontSize: 12,
-          color: 'rgba(255,255,255,0.3)',
-          textAlign: 'center',
-          padding: '16px 0 32px',
-          margin: 0,
-        }}
-      >
-        From my Spotify streaming history, through{' '}
-        {fmtDate(stats.dataThrough)}
-      </p>
     </section>
   );
 }

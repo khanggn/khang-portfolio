@@ -758,7 +758,7 @@ function Home() {
                       className="gradient-text"
                       style={{
                         fontFamily: "'Clash Display', sans-serif",
-                        fontSize: 'clamp(24px, 4.5vw, 58px)',
+                        fontSize: 'clamp(22px, 3.5vw, 58px)',
                         fontWeight: '700',
                         marginBottom: 'clamp(14px, 2.5vw, 29px)',
                         lineHeight: '1.2'
@@ -769,11 +769,15 @@ function Home() {
                     <p
                       style={{
                         fontFamily: "'Gamja Flower', sans-serif",
-                        fontSize: '22px',
+                        fontSize: 'clamp(14px, 1.8vw, 22px)',
                         color: '#ffffff',
                         lineHeight: '1.6',
                         marginTop: 'auto',
-                        marginBottom: 'auto'
+                        marginBottom: 'auto',
+                        display: '-webkit-box',
+                        WebkitLineClamp: 4,
+                        WebkitBoxOrient: 'vertical',
+                        overflow: 'hidden'
                       }}
                     >
                       {projects[currentProjectIndex].summary.replace(' — ', ' ')}

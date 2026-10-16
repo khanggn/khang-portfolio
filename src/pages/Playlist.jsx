@@ -1321,13 +1321,7 @@ function Playlist() {
                     backgroundColor: 'rgba(78, 74, 92, 0.2)',
                     borderRadius: '7px',
                     padding: '22px',
-                    boxShadow: playingPlaylist === playlist.id && pulseIntensity > 0
-                      ? `0 0 ${15 + pulseIntensity * 25}px rgba(196, 181, 253, ${0.3 + pulseIntensity * 0.3}),
-                         0 0 ${10 + pulseIntensity * 20}px rgba(196, 181, 253, ${0.4 + pulseIntensity * 0.2}),
-                         inset 0 0 ${8 + pulseIntensity * 15}px rgba(196, 181, 253, ${0.2 + pulseIntensity * 0.3})`
-                      : playingPlaylist === playlist.id
-                      ? '0 0 10px rgba(196, 181, 253, 0.15)'
-                      : 'none',
+                    boxShadow: 'none',
                     transition: 'none'
                   }}
                 >

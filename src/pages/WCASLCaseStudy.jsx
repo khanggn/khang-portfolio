@@ -468,10 +468,30 @@ function WCASLCaseStudy() {
                               onClick={(e) => { e.preventDefault(); if (!isScrollingRef.current) scrollToSection(section.id); }}
                               className={styles.tocLink}
                               style={{
-                                paddingLeft: isActive ? '12px' : '0',
-                                borderLeft: isActive ? '3px solid #C4B5FD' : '3px solid transparent',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: 8,
+                                borderLeft: 'none',
+                                paddingLeft: 0,
                               }}
                             >
+                              <AnimatePresence>
+                                {isActive && (
+                                  <motion.img
+                                    src="/images/projects/ditto-separator.png"
+                                    alt=""
+                                    initial={{ scale: 0, opacity: 0 }}
+                                    animate={{ scale: 1, opacity: 1 }}
+                                    exit={{ scale: 0, opacity: 0 }}
+                                    transition={{ duration: 0.25, ease: 'easeOut' }}
+                                    style={{
+                                      width: 24,
+                                      height: 16,
+                                      flexShrink: 0,
+                                    }}
+                                  />
+                                )}
+                              </AnimatePresence>
                               <span
                                 className={styles.tocLinkText}
                                 style={{

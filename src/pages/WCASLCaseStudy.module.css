@@ -109,22 +109,22 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 56px;
+  width: 180px;
   height: 56px;
   border-radius: 50px;
   background-color: var(--wcasl-accent);
-  box-shadow: 0 4px 12px rgba(196, 181, 253, 0.5);
+  box-shadow: 0 4px 20px rgba(196, 181, 253, 0.6);
   cursor: pointer;
   text-decoration: none;
   overflow: hidden;
-  transition: width 0.3s ease, box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
   gap: 8px;
   white-space: nowrap;
 }
 
 .playBtn:hover {
-  width: 180px;
-  box-shadow: 0 4px 20px rgba(196, 181, 253, 0.6);
+  box-shadow: 0 4px 28px rgba(196, 181, 253, 0.75);
+  transform: scale(1.04);
 }
 
 .playIcon {
@@ -137,15 +137,9 @@
   font-size: 15px;
   font-weight: 600;
   color: var(--wcasl-bg);
-  opacity: 0;
-  max-width: 0;
-  overflow: hidden;
-  transition: opacity 0.3s ease, max-width 0.3s ease;
-}
-
-.playBtn:hover .playLabel {
   opacity: 1;
   max-width: 100px;
+  overflow: hidden;
 }
 
 /* ─── Case Study Section ─── */

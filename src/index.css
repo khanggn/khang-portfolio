@@ -838,6 +838,24 @@ a:hover .live-site-arrow {
   }
 }
 
+/* B-Sides responsive grids */
+@media (max-width: 768px) {
+  .bsides-travels-layout {
+    flex-direction: column !important;
+  }
+  .bsides-travels-layout > div:first-child {
+    width: 100% !important;
+    flex-direction: row !important;
+    overflow-x: auto;
+  }
+  .bsides-travels-layout > div:nth-child(2) {
+    max-width: 100% !important;
+  }
+  .bsides-currently-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
 /* Click spark burst animation */
 @keyframes clickspark-travel {
   0% {

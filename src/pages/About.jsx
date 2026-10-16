@@ -5,6 +5,7 @@ import { Menu, X } from 'lucide-react';
 import FooterWithSpotlight from '../components/FooterWithSpotlight';
 import NowPlaying from '../components/NowPlaying';
 import OnRepeat from '../components/OnRepeat';
+import BSides from '../components/BSides';
 
 function About() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -252,6 +253,9 @@ function About() {
 
         {/* On Repeat Since 2018 */}
         <OnRepeat />
+
+        {/* B-Sides */}
+        <BSides />
 
         {/* Footer Section */}
         <FooterWithSpotlight />
