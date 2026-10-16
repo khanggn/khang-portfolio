@@ -114,7 +114,9 @@ function NowPlaying() {
 
   if (status === 'hidden') return null;
 
-  if (status === 'loading') return null;
+  if (status === 'loading') {
+    return <div style={{ ...cardStyle, visibility: 'hidden' }} />;
+  }
 
   const progressPct = song.durationMs ? (progressMs / song.durationMs) * 100 : 0;
   const label = song.isPlaying ? 'Listening now' : `Last played · ${timeAgo(song.playedAt)}`;

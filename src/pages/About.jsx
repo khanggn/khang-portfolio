@@ -226,8 +226,8 @@ function About() {
             {/* Right side - Headshot */}
             <div className="about-headshot" style={{ flexShrink: 0, display: 'flex', flexDirection: 'column' }}>
               <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
                 style={{
                   width: 'clamp(200px, 30vw, 400px)',
