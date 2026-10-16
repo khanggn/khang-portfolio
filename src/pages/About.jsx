@@ -137,8 +137,8 @@ function About() {
           style={{
             minHeight: 'calc(100vh - 72px)',
             display: 'flex',
-            alignItems: 'center',
-            paddingTop: 'clamp(40px, 8vh, 80px)',
+            alignItems: 'flex-start',
+            paddingTop: 'clamp(80px, 15vh, 160px)',
             paddingBottom: 'clamp(40px, 8vh, 80px)'
           }}
         >

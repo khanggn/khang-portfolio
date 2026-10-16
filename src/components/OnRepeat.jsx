@@ -82,7 +82,7 @@ function useCountUp(target, duration = 700) {
 /* ---- timeline ---- */
 
 function Timeline({ activeStage, onSelect }) {
-  const DOT = 14;
+  const DOT = 28;
   const n = STAGES.length;
   const trackLeft = `${(0.5 / n) * 100}%`;
   const trackRight = `${(0.5 / n) * 100}%`;
@@ -95,7 +95,7 @@ function Timeline({ activeStage, onSelect }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
       {/* dots row — the line runs through the vertical center of this row */}
-      <div style={{ position: 'relative', height: DOT }}>
+      <div style={{ position: 'relative', height: DOT, display: 'flex', alignItems: 'center' }}>
         {/* track bg — spans first dot center to last dot center */}
         <div
           style={{
@@ -103,8 +103,8 @@ function Timeline({ activeStage, onSelect }) {
             top: '50%',
             left: trackLeft,
             right: trackRight,
-            height: 2,
-            marginTop: -1,
+            height: 4,
+            transform: 'translateY(-50%)',
             backgroundColor: 'rgba(255,255,255,0.08)',
           }}
         />
@@ -114,8 +114,8 @@ function Timeline({ activeStage, onSelect }) {
             position: 'absolute',
             top: '50%',
             left: fillLeft,
-            height: 2,
-            marginTop: -1,
+            height: 4,
+            transform: 'translateY(-50%)',
             width: fillWidth,
             backgroundColor: '#C4B5FD',
             transition: 'width 0.3s ease-out',
@@ -126,13 +126,15 @@ function Timeline({ activeStage, onSelect }) {
           style={{
             position: 'relative',
             display: 'flex',
-            height: '100%',
+            alignItems: 'center',
+            width: '100%',
+            height: DOT + 16,
           }}
         >
           {STAGES.map((s, i) => {
             const reached = i <= activeStage;
             const current = i === activeStage;
-            const size = current ? 14 : 10;
+            const size = current ? 28 : 18;
             return (
               <button
                 key={s.key}
@@ -150,13 +152,26 @@ function Timeline({ activeStage, onSelect }) {
                   height: '100%',
                 }}
               >
-                <div
+                <motion.div
+                  whileHover={!current ? {
+                    scale: [1, 1.15, 1],
+                    boxShadow: [
+                      '0 0 4px rgba(196,181,253,0.2)',
+                      '0 0 12px rgba(196,181,253,0.45)',
+                      '0 0 4px rgba(196,181,253,0.2)',
+                    ],
+                    transition: {
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: 'easeInOut',
+                    },
+                  } : undefined}
                   style={{
                     width: size,
                     height: size,
                     borderRadius: '50%',
                     backgroundColor: reached ? '#C4B5FD' : '#9D92C8',
-                    transition: 'all 0.3s',
+                    transition: 'background-color 0.3s',
                     boxShadow: current
                       ? '0 0 10px rgba(196,181,253,0.5)'
                       : 'none',
@@ -179,7 +194,7 @@ function Timeline({ activeStage, onSelect }) {
                 flex: 1,
                 textAlign: 'center',
                 fontFamily: "'Gamja Flower', sans-serif",
-                fontSize: 11,
+                fontSize: 16,
                 fontWeight: current ? 600 : 400,
                 color: reached ? '#E8E8E3' : 'rgba(255,255,255,0.4)',
                 transition: 'color 0.3s',
@@ -659,7 +674,7 @@ function OnRepeat() {
         <h2
           style={{
             fontFamily: "'Clash Display', sans-serif",
-            fontSize: 32,
+            fontSize: 'clamp(36px, 4vw, 48px)',
             fontWeight: 600,
             color: '#E8E8E3',
             margin: 0,
@@ -668,16 +683,6 @@ function OnRepeat() {
         >
           What's in My Headphones
         </h2>
-        <p
-          style={{
-            fontFamily: "'Gamja Flower', sans-serif",
-            fontSize: 16,
-            color: 'rgba(255,255,255,0.5)',
-            margin: '8px 0 0',
-          }}
-        >
-          {fmt(stats.totalHours)} hours of music and counting
-        </p>
       </div>
 
       {/* timeline */}
