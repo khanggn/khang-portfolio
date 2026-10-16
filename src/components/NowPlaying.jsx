@@ -113,18 +113,7 @@ function NowPlaying() {
 
   if (status === 'hidden') return null;
 
-  if (status === 'loading') {
-    return (
-      <div className="now-playing-card" aria-hidden="true" style={cardStyle}>
-        <div style={{ ...artStyle, backgroundColor: 'rgba(255,255,255,0.08)' }} />
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '8px' }}>
-          <div style={{ height: '10px', width: '40%', borderRadius: '4px', backgroundColor: 'rgba(255,255,255,0.08)' }} />
-          <div style={{ height: '14px', width: '75%', borderRadius: '4px', backgroundColor: 'rgba(255,255,255,0.08)' }} />
-          <div style={{ height: '12px', width: '55%', borderRadius: '4px', backgroundColor: 'rgba(255,255,255,0.08)' }} />
-        </div>
-      </div>
-    );
-  }
+  if (status === 'loading') return null;
 
   const progressPct = song.durationMs ? (progressMs / song.durationMs) * 100 : 0;
   const label = song.isPlaying ? 'Listening now' : `Last played · ${timeAgo(song.playedAt)}`;
@@ -195,7 +184,7 @@ const cardStyle = {
   width: '100%',
   maxWidth: '100%',
   padding: '10px',
-  marginTop: '32px',
+  marginTop: '12px',
   borderRadius: '12px',
   border: '1px solid #4E4A5C',
   backgroundColor: 'rgba(78, 74, 92, 0.35)',
@@ -203,8 +192,8 @@ const cardStyle = {
 };
 
 const artStyle = {
-  width: '40px',
-  height: '40px',
+  width: '52px',
+  height: '52px',
   borderRadius: '6px',
   objectFit: 'cover',
   flexShrink: 0,
