@@ -295,7 +295,7 @@ function Playlist() {
   const [blurAmount, setBlurAmount] = useState(0);
   const [hoveredPlaylist, setHoveredPlaylist] = useState(null);
   const [playingPlaylist, setPlayingPlaylist] = useState(null);
-  const [pulseIntensity, setPulseIntensity] = useState(0);
+
   const [audioProgress, setAudioProgress] = useState({});
   const [audioVolume, setAudioVolume] = useState(0.15);
   const [selectedProject, setSelectedProject] = useState(null);
@@ -310,7 +310,7 @@ function Playlist() {
   const animationFrameRef = useRef(null);
   const lastBeatTime = useRef(0);
   const energyHistory = useRef([]);
-  const dropdownRef = useRef(null);
+
 
   // Scroll to top when component mounts
   useEffect(() => {
@@ -446,14 +446,7 @@ function Playlist() {
       const intensity = 0.6 + ((energyRatio - 1) / 1.5) * 0.4; // Maps 1-2.5x to 0.6-1.0
 
       console.log('🎵 BEAT!', 'Energy:', Math.round(currentEnergy), 'Avg:', Math.round(avgEnergy), 'Ratio:', (currentEnergy/avgEnergy).toFixed(2), 'Intensity:', intensity.toFixed(2));
-      setPulseIntensity(intensity);
       lastBeatTime.current = now;
-
-      // Fade out intensity over 200ms
-      setTimeout(() => setPulseIntensity(0), 200);
-    } else {
-      // Gradually fade intensity to 0 when no beat
-      setPulseIntensity(prev => Math.max(0, prev * 0.8));
     }
 
     // Continue loop
@@ -470,7 +463,6 @@ function Playlist() {
       // Pause current playlist
       audio.pause();
       setPlayingPlaylist(null);
-      setPulseIntensity(0);
 
       // Stop beat detection
       if (animationFrameRef.current) {

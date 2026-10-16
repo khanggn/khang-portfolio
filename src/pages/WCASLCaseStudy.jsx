@@ -176,7 +176,7 @@ function WCASLCaseStudy() {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [openTooltipId, setOpenTooltipId] = useState(null);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [totalReadingMin, setTotalReadingMin] = useState(0);
+
   const [isSidebarVisible, setIsSidebarVisible] = useState(true);
   const prefersReduced = useReducedMotion();
   const isScrollingRef = useRef(false);
@@ -236,14 +236,6 @@ function WCASLCaseStudy() {
     return () => cancelAnimationFrame(rafRef.current);
   }, []);
 
-  // Compute reading time from content word count
-  useEffect(() => {
-    const col = contentColRef.current;
-    if (!col) return;
-    const text = col.textContent || '';
-    const words = text.trim().split(/\s+/).length;
-    setTotalReadingMin(Math.max(1, Math.round(words / 230)));
-  }, []);
 
   // Track sidebar visibility for mobile bottom bar
   useEffect(() => {
