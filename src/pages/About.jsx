@@ -224,7 +224,7 @@ function About() {
             </div>
 
             {/* Right side - Headshot */}
-            <div className="about-headshot" style={{ flexShrink: 0, display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+            <div className="about-headshot" style={{ flexShrink: 0, display: 'flex', flexDirection: 'column' }}>
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -245,13 +245,7 @@ function About() {
                   }}
                 />
               </motion.div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 1.0 }}
-              >
-                <NowPlaying />
-              </motion.div>
+              <NowPlaying />
             </div>
           </div>
         </section>
