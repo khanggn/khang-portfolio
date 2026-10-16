@@ -129,9 +129,9 @@ function NowPlaying() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`${song.isPlaying ? 'Khang is listening to' : 'Khang last played'} ${song.title} by ${song.artist} on Spotify`}
-      initial={shouldAnimate ? { opacity: 0, y: 12 } : false}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      initial={shouldAnimate ? { opacity: 0 } : false}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.4, delay: shouldAnimate ? 0.8 : 0 }}
       whileHover={{ y: -2, borderColor: '#9D92C8' }}
       style={{ ...cardStyle, textDecoration: 'none', color: 'inherit' }}
     >
@@ -188,7 +188,7 @@ const cardStyle = {
   width: '100%',
   maxWidth: '100%',
   padding: '10px',
-  marginTop: '12px',
+  marginTop: '24px',
   borderRadius: '12px',
   border: '1px solid #4E4A5C',
   backgroundColor: 'rgba(78, 74, 92, 0.35)',
