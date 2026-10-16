@@ -16,17 +16,17 @@ import styles from './WCASLCaseStudy.module.css';
 
 const problemSlides = [
   {
-    src: '/images/projects/wcasl-old-divisions.png',
+    src: '/images/wcasl/old-divisions.png',
     label: 'Divisions Page',
     alt: 'Old WCASL Divisions page',
   },
   {
-    src: '/images/projects/wcasl-old-home.png',
+    src: '/images/wcasl/old-home.png',
     label: 'Home Page',
     alt: 'Old WCASL Homepage',
   },
   {
-    src: '/images/projects/wcasl-old-about.png',
+    src: '/images/wcasl/old-about.png',
     label: 'About Page',
     alt: 'Old WCASL About page',
   },
@@ -34,12 +34,12 @@ const problemSlides = [
 
 const learnedSlides = [
   {
-    src: '/images/projects/wcasl-health-articles.png',
+    src: '/images/wcasl/health-articles.png',
     label: 'Article Previews',
     alt: 'Health & Wellness page with embedded article previews',
   },
   {
-    src: '/images/projects/wcasl-health-reels.png',
+    src: '/images/wcasl/health-reels.png',
     label: 'Instagram Reels Carousel',
     alt: 'Health & Wellness page with Instagram Reels carousel',
   },
@@ -47,12 +47,12 @@ const learnedSlides = [
 
 const decision01Slides = [
   {
-    src: '/images/projects/wcasl-registration-before.png',
+    src: '/images/wcasl/registration-before.png',
     label: 'Before: AREENA App Banner',
     alt: 'Old WCASL registration flow sending users to the AREENA app',
   },
   {
-    src: '/images/projects/wcasl-registration-after.png',
+    src: '/images/wcasl/registration-after.png',
     label: 'After: New Registration Page',
     alt: 'New WCASL step-by-step registration page for new and returning players',
   },
@@ -60,12 +60,12 @@ const decision01Slides = [
 
 const decision04Slides = [
   {
-    src: '/images/projects/wcasl-palette-initial.png',
+    src: '/images/wcasl/palette-initial.png',
     label: 'Initial Color Palette',
     alt: 'Initial WCASL color palette derived from the league logo',
   },
   {
-    src: '/images/projects/wcasl-palette-final.png',
+    src: '/images/wcasl/palette-final.png',
     label: 'Approved Branding Style',
     alt: 'Final approved WCASL branding style and color palette',
   },
@@ -73,12 +73,12 @@ const decision04Slides = [
 
 const decision02Slides = [
   {
-    src: '/images/projects/wcasl-game-sheet.png',
+    src: '/images/wcasl/game-sheet.png',
     label: 'Recordings Spreadsheet',
     alt: 'Google Sheet listing WCASL game recordings with teams, dates, and fields',
   },
   {
-    src: '/images/projects/wcasl-game-cards.png',
+    src: '/images/wcasl/game-cards.png',
     label: 'Game Video Page',
     alt: 'Custom match cards built in Squarespace that were eventually scrapped',
   },
@@ -470,7 +470,7 @@ function WCASLCaseStudy() {
                               <AnimatePresence>
                                 {isActive && (
                                   <motion.img
-                                    src="/images/projects/ditto-separator.png"
+                                    src="/images/shared/ditto-separator.png"
                                     alt=""
                                     initial={{ scale: 0, opacity: 0 }}
                                     animate={{ scale: 1, opacity: 1 }}
@@ -665,7 +665,7 @@ function WCASLCaseStudy() {
                         label: 'Personas',
                         content: (
                           <img
-                            src="/images/projects/wcasl-personas.png"
+                            src="/images/wcasl/personas.png"
                             alt="User personas for WCASL representing a new player and a returning player"
                             className={styles.showcaseImage}
                           />
@@ -675,7 +675,7 @@ function WCASLCaseStudy() {
                         label: 'User Flows',
                         content: (
                           <img
-                            src="/images/projects/wcasl-userflow.png"
+                            src="/images/wcasl/userflow.png"
                             alt="User flow diagram showing paths for new and returning WCASL players"
                             className={styles.showcaseImage}
                           />
@@ -709,7 +709,7 @@ function WCASLCaseStudy() {
                         label: 'Low Fidelity',
                         content: (
                           <img
-                            src="/images/projects/wcasl-lofi-home.png"
+                            src="/images/wcasl/lofi-home.png"
                             alt="Lo-fi wireframes of the WCASL Home, About, and Membership pages"
                             className={styles.blockImage}
                           />
@@ -719,7 +719,7 @@ function WCASLCaseStudy() {
                         label: 'High Fidelity',
                         content: (
                           <img
-                            src="/images/projects/wcasl-hifi-home.png"
+                            src="/images/wcasl/hifi-home.png"
                             alt="Hi-fi designs of the WCASL Home, About, and Membership pages"
                             className={styles.blockImage}
                           />
@@ -748,7 +748,7 @@ function WCASLCaseStudy() {
               <div className={styles.showcaseWrapper}>
                 <ShowcasePanel equalPadding>
                   <img
-                    src="/images/projects/wcasl-live-home.png"
+                    src="/images/wcasl/live-home.png"
                     alt="Live WCASL website screenshots of the Home, About, and Membership pages"
                     className={styles.blockImage}
                   />
@@ -793,7 +793,7 @@ function WCASLCaseStudy() {
               <ShowcasePanel equalPadding>
                 <BrowserFrame noControls>
                   <img
-                    src="/images/projects/wcasl-new-annotated.png"
+                    src="/images/wcasl/new-annotated.png"
                     alt="New WCASL site with large buttons and high-contrast text highlighted"
                     className={styles.showcaseImageBordered}
                   />
@@ -905,7 +905,7 @@ function WCASLCaseStudy() {
               </div>
               <ShowcasePanel equalPadding>
                 <img
-                  src="/images/projects/wcasl-health-page.png"
+                  src="/images/wcasl/health-page.png"
                   alt="WCASL Health & Wellness page showing partnership information, article previews, and Instagram Reels carousel"
                   className={styles.blockImage}
                 />
@@ -1162,7 +1162,7 @@ function WCASLCaseStudy() {
             {/* Ditto image + Home button stacked */}
             <div className={styles.thanksCenter}>
               <img
-                src="/images/projects/thanks-for-reading.png"
+                src="/images/shared/thanks-for-reading.png"
                 alt="Thanks for reading"
                 className={styles.thanksImage}
               />
@@ -1212,7 +1212,7 @@ function WCASLCaseStudy() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.3 }}
-            src="/images/projects/wcasl-old-site-overview.png"
+            src="/images/wcasl/old-site-overview.png"
             alt="Screenshots of the old WCASL Home, Divisions, and About pages"
             onClick={(e) => e.stopPropagation()}
             className={styles.lightboxImage}

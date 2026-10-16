@@ -417,7 +417,7 @@ function CaseStudy() {
                       Your Shopping List
                     </h3>
                     <img
-                      src="/images/projects/shoppingListScreen.png"
+                      src="/images/propel/shopping-list-screen.png"
                       alt="Shopping List Screen"
                       style={{ width: '100%', maxWidth: '320px', borderRadius: '40px', boxShadow: '0 8px 32px rgba(0,0,0,0.4)', marginBottom: '16px' }}
                     />
@@ -430,7 +430,7 @@ function CaseStudy() {
                       Home Screen
                     </h3>
                     <img
-                      src="/images/projects/Landing_Page.png"
+                      src="/images/propel/landing-page.png"
                       alt="Home Screen"
                       style={{ width: '100%', maxWidth: '320px', borderRadius: '40px', boxShadow: '0 8px 32px rgba(0,0,0,0.4)', marginBottom: '16px' }}
                     />
@@ -447,7 +447,7 @@ function CaseStudy() {
                       Find Recipes
                     </h3>
                     <img
-                      src="/images/projects/recipeScreen.png"
+                      src="/images/propel/recipe-screen.png"
                       alt="Find Recipes Screen"
                       style={{ width: '100%', maxWidth: '320px', borderRadius: '40px', boxShadow: '0 8px 32px rgba(0,0,0,0.4)', marginBottom: '16px' }}
                     />
@@ -460,7 +460,7 @@ function CaseStudy() {
                       Recipe Detail
                     </h3>
                     <img
-                      src="/images/projects/expandedRecipe.png"
+                      src="/images/propel/expanded-recipe.png"
                       alt="Recipe Detail Screen"
                       style={{ width: '100%', maxWidth: '320px', borderRadius: '40px', boxShadow: '0 8px 32px rgba(0,0,0,0.4)', marginBottom: '16px' }}
                     />
@@ -477,7 +477,7 @@ function CaseStudy() {
                       Plan This Recipe
                     </h3>
                     <img
-                      src="/images/projects/planningRecipeWithoutItems.png"
+                      src="/images/propel/planning-recipe-without-items.png"
                       alt="Plan This Recipe Screen"
                       style={{ width: '100%', maxWidth: '320px', borderRadius: '40px', boxShadow: '0 8px 32px rgba(0,0,0,0.4)', marginBottom: '16px' }}
                     />
@@ -490,7 +490,7 @@ function CaseStudy() {
                       Your EBT / Digital Envelope
                     </h3>
                     <img
-                      src="/images/projects/Your_EBT.png"
+                      src="/images/propel/your-ebt.png"
                       alt="Your EBT Digital Envelope Screen"
                       style={{ width: '100%', maxWidth: '320px', borderRadius: '40px', boxShadow: '0 8px 32px rgba(0,0,0,0.4)', marginBottom: '16px' }}
                     />
@@ -599,7 +599,7 @@ function CaseStudy() {
                   }}
                 >
                   <img
-                    src="/images/projects/shopping-list-redesign.png"
+                    src="/images/propel/shopping-list-redesign.png"
                     alt="Shopping List Redesign"
                     style={{
                       width: '100%',
@@ -677,7 +677,7 @@ function CaseStudy() {
                   }}
                 >
                   <img
-                    src="/images/projects/find-recipes-screen.png"
+                    src="/images/propel/find-recipes-screen.png"
                     alt="Shopping List Redesign"
                     style={{
                       width: '100%',

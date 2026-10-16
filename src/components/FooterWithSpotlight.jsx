@@ -255,7 +255,7 @@ function FooterWithSpotlight() {
           zIndex: 20
         }}
       >
-        back to the top <img src="/images/projects/ditto-up.png" alt="" style={{ height: '32px', display: 'inline-block', verticalAlign: 'middle', marginLeft: '2px', marginTop: '-18px' }} />
+        back to the top <img src="/images/shared/ditto-up.png" alt="" style={{ height: '32px', display: 'inline-block', verticalAlign: 'middle', marginLeft: '2px', marginTop: '-18px' }} />
       </motion.p>
 
       {/* Bottom Left Copyright */}

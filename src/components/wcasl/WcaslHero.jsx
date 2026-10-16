@@ -5,7 +5,7 @@ export default function WcaslHero() {
   return (
     <section className={styles.heroSection}>
       <img
-        src="/images/projects/wcaslPhotoCS.png"
+        src="/images/wcasl/hero.png"
         alt="West Coast Adult Soccer League hero"
         className={styles.heroImage}
       />

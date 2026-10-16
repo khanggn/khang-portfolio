@@ -5,7 +5,7 @@ export default function PbHero() {
   return (
     <section className={styles.heroSection}>
       <img
-        src="/images/projects/plasticbeach-hero.jpg"
+        src="/images/plasticbeach/hero.jpg"
         alt="PlasticBeach hero"
         className={styles.heroImage}
       />

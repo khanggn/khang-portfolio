@@ -236,7 +236,7 @@ function About() {
                 }}
               >
                 <img
-                  src="/images/projects/about-me.gif"
+                  src="/images/about/about-me.gif"
                   alt="Khang Nguyen"
                   style={{
                     width: '100%',

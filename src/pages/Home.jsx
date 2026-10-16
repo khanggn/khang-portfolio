@@ -98,7 +98,7 @@ const projects = [
     title: "West Coast Adult Soccer League",
     summary: "Designed and launched a full website for an 800+ player South OC soccer league — simple enough for schedule-checkers, smooth enough for first-time registrants.",
     types: ["Web Design", "Product Design"],
-    media: "/images/projects/wcasl.mp4",
+    media: "/images/wcasl/video.mp4",
     mediaType: "video",
     date: "Apr 2025 – Present",
     caseStudy: "/case-study/wcasl",
@@ -109,7 +109,7 @@ const projects = [
     title: "PlasticBeach",
     summary: "Redesigned the site and recycling materials for a SoCal nonprofit cutting soft-plastic waste across 40+ retail and distribution partners.",
     types: ["Product Design", "UI/UX Design", "Web Redesign"],
-    media: "/images/projects/plasticbeach.mp4",
+    media: "/images/plasticbeach/video.mp4",
     mediaType: "video",
     date: "Apr 2025 - Jul 2025",
     caseStudy: "/case-study/plastic-beach",
@@ -537,7 +537,7 @@ function Home() {
             />
             {/* Animated GIF - shown on hover */}
             <img
-              src="/images/projects/ditto.gif"
+              src="/images/shared/ditto.gif"
               alt="Ditto"
               style={{
                 width: '100%',
@@ -547,7 +547,7 @@ function Home() {
             />
             {/* Hidden img to load GIF and extract first frame */}
             <img
-              src="/images/projects/ditto.gif"
+              src="/images/shared/ditto.gif"
               alt=""
               style={{ display: 'none' }}
               onLoad={(e) => {
@@ -640,7 +640,7 @@ function Home() {
               {currentProjectIndex === 0 && (
                 <motion.img
                   className="card-hover-image"
-                  src="/images/projects/soccer.webp"
+                  src="/images/wcasl/soccer.webp"
                   alt="Soccer player"
                   initial={{ x: 200, y: 200, opacity: 0 }}
                   animate={isCardHovered ? { x: 0, y: 0, opacity: 1 } : { x: 200, y: 200, opacity: 0 }}
@@ -663,7 +663,7 @@ function Home() {
               {currentProjectIndex === 1 && (
                 <motion.img
                   className="card-hover-image"
-                  src="/images/projects/plasticbag.avif"
+                  src="/images/plasticbeach/plasticbag.avif"
                   alt="Plastic bag"
                   initial={{ x: 200, y: 200, opacity: 0, rotate: -30 }}
                   animate={isCardHovered ? { x: 0, y: 0, opacity: 1, rotate: -30 } : { x: 200, y: 200, opacity: 0, rotate: -30 }}
@@ -687,7 +687,7 @@ function Home() {
               {currentProjectIndex === 2 && (
                 <motion.img
                   className="card-hover-image"
-                  src="/images/projects/groceries.png"
+                  src="/images/propel/groceries.png"
                   alt="Groceries"
                   initial={{ x: 200, y: 200, opacity: 0, rotate: -15 }}
                   animate={isCardHovered ? { x: 0, y: 0, opacity: 1, rotate: -15 } : { x: 200, y: 200, opacity: 0, rotate: -15 }}

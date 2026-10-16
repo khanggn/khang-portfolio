@@ -531,7 +531,7 @@ function PlasticBeachCaseStudy() {
               {/* Annotated old placard */}
               <div className={styles.annotatedContainer}>
                 <img
-                  src="/images/projects/plasticbeach-old-placard.jpg"
+                  src="/images/plasticbeach/old-placard.jpg"
                   alt="Original Plastic Beach sorting placard"
                   className={styles.annotatedImage}
                 />
@@ -655,7 +655,7 @@ function PlasticBeachCaseStudy() {
                 style={{ marginTop: '48px' }}
               >
                 <img
-                  src="/images/projects/pb-final-placard.png"
+                  src="/images/plasticbeach/final-placard.png"
                   alt="Redesigned Plastic Beach sorting placard"
                   className={styles.annotatedImage}
                 />
@@ -800,7 +800,7 @@ function PlasticBeachCaseStudy() {
             {/* Ditto image + Home button stacked */}
             <div className={styles.thanksCenter}>
               <img
-                src="/images/projects/thanks-for-reading.png"
+                src="/images/shared/thanks-for-reading.png"
                 alt="Thanks for reading"
                 className={styles.thanksImage}
               />

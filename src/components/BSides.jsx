@@ -9,31 +9,31 @@ const ALBUM_ART = [
       {
         title: 'Japan',
         photos: [
-          '/images/projects/japan1.png',
-          '/images/projects/japan2.png',
-          '/images/projects/japan3.png',
-          '/images/projects/japan4.png',
-          '/images/projects/japan5.png',
+          '/images/about/japan-1.png',
+          '/images/about/japan-2.png',
+          '/images/about/japan-3.png',
+          '/images/about/japan-4.png',
+          '/images/about/japan-5.png',
         ],
       },
       {
         title: 'Vietnam',
         photos: [
-          '/images/projects/vietnam1.png',
-          '/images/projects/vietnam2.png',
-          '/images/projects/vietnam3.png',
-          '/images/projects/vietnam4.png',
-          '/images/projects/vietnam5.png',
+          '/images/about/vietnam-1.png',
+          '/images/about/vietnam-2.png',
+          '/images/about/vietnam-3.png',
+          '/images/about/vietnam-4.png',
+          '/images/about/vietnam-5.png',
         ],
       },
       {
         title: 'Cancun',
         photos: [
-          '/images/projects/cancun1.png',
-          '/images/projects/cancun2.png',
-          '/images/projects/cancun3.png',
-          '/images/projects/cancun4.png',
-          '/images/projects/cancun5.png',
+          '/images/about/cancun-1.png',
+          '/images/about/cancun-2.png',
+          '/images/about/cancun-3.png',
+          '/images/about/cancun-4.png',
+          '/images/about/cancun-5.png',
         ],
       },
     ],
@@ -45,13 +45,13 @@ const ALBUM_ART = [
         title: 'The Squad',
         animation: 'fade',
         photos: [
-          '/images/projects/squad1.png',
-          '/images/projects/squad2.png',
-          '/images/projects/squad3.png',
-          '/images/projects/squad4.png',
-          '/images/projects/squad5.png',
-          '/images/projects/squad6.png',
-          '/images/projects/squad7.png',
+          '/images/about/squad-1.png',
+          '/images/about/squad-2.png',
+          '/images/about/squad-3.png',
+          '/images/about/squad-4.png',
+          '/images/about/squad-5.png',
+          '/images/about/squad-6.png',
+          '/images/about/squad-7.png',
         ],
       },
     ],
@@ -392,7 +392,7 @@ function AlbumArtSection() {
                       >
                         {isEntActive && (
                           <motion.img
-                            src="/images/projects/ditto-separator.png"
+                            src="/images/shared/ditto-separator.png"
                             alt=""
                             initial={{ scale: 0, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}

@@ -13,7 +13,7 @@ const playlists = [
     title: 'git push --force origin main',
     description: 'Full-stack development, coding projects, and technical builds.',
     color: '#E8E8E3',
-    image: '/images/projects/snorlax.jpeg',
+    image: '/images/about/snorlax.jpeg',
     category: 'swe',
     audio: '/audio/crazy(130bpm).mp3',
     bpm: 130,
@@ -24,7 +24,7 @@ const playlists = [
     title: 'user tested, khang approved',
     description: 'Product design, UX research, and Figma prototypes.',
     color: '#E8E8E3',
-    image: '/images/projects/pysduck.jpg',
+    image: '/images/about/pysduck.jpg',
     category: 'uiux',
     audio: '/audio/bubblegum(105bpm).mp3',
     bpm: 105,
@@ -39,7 +39,7 @@ const projects = [
     role: 'Product Designer',
     projectType: 'Case Study',
     category: 'uiux',
-    image: '/images/projects/wcasl.png',
+    image: '/images/wcasl/thumbnail.png',
     startDate: 'Apr 2025',
     endDate: 'Present'
   },
@@ -49,7 +49,7 @@ const projects = [
     role: 'Product Designer',
     projectType: 'Case Study',
     category: 'uiux',
-    image: '/images/projects/plasticbeach.png',
+    image: '/images/plasticbeach/thumbnail.png',
     startDate: 'Apr 2025',
     endDate: 'Jul 2025'
   },
@@ -59,7 +59,7 @@ const projects = [
     role: 'Product Designer',
     projectType: 'Designathon',
     category: 'uiux',
-    image: '/images/projects/nafasi.png',
+    image: '/images/uiux/nafasi.png',
     startDate: 'Mar 2026',
     endDate: 'Mar 2026'
   },
@@ -69,7 +69,7 @@ const projects = [
     role: 'Software Engineer',
     projectType: 'Project',
     category: 'swe',
-    image: '/images/projects/snapshot.png',
+    image: '/images/swe/snapshot/thumbnail.png',
     startDate: 'Jan 2026',
     endDate: 'Mar 2026',
     tags: ['Python', 'Git', 'Developer Tools', 'Diff Algorithms', 'Tkinter UI'],
@@ -81,8 +81,8 @@ const projects = [
     },
     description: 'Built a Git source control interface inside Python IDLE, enabling beginners to stage, commit, and visualize code changes through an interactive split-view diff editor.',
     previews: [
-      { id: 1, type: 'image', src: '/images/projects/snapshotp1.jpeg', alt: 'Preview 1' },
-      { id: 2, type: 'image', src: '/images/projects/snapshotp2.jpeg', alt: 'Preview 2' },
+      { id: 1, type: 'image', src: '/images/swe/snapshot/preview-1.jpeg', alt: 'Preview 1' },
+      { id: 2, type: 'image', src: '/images/swe/snapshot/preview-2.jpeg', alt: 'Preview 2' },
     ],
     keyFeatures: [
         'VS Code–style source control UI inside IDLE',
@@ -105,7 +105,7 @@ const projects = [
     role: 'Tech Lead & Frontend Developer',
     projectType: 'Project',
     category: 'swe',
-    image: '/images/projects/decidr.png',
+    image: '/images/swe/decidr/thumbnail.png',
     startDate: 'Oct 2025',
     endDate: 'Jan 2026',
     tags: [
@@ -148,7 +148,7 @@ const projects = [
     role: 'Frontend Developer',
     projectType: 'Project',
     category: 'swe',
-    image: '/images/projects/campusswipe.png',
+    image: '/images/swe/campusswipe/thumbnail.png',
     startDate: 'Mar 2025',
     endDate: 'Jun 2025',
     tags: ['JavaScript','HTML/CSS','Frontend Development','Agile','CI/CD'],
@@ -160,10 +160,10 @@ const projects = [
     },
     description: 'A swipe-based web app for discovering UCSD events, enabling students to browse, like, and share events through an interactive interface.',
     previews: [
-      { id: 1, type: 'image', src: '/images/projects/campusswipep1.png', alt: 'Preview 1' },
-      { id: 2, type: 'image', src: '/images/projects/campusswipep2.png', alt: 'Preview 2' },
-      { id: 3, type: 'image', src: '/images/projects/campusswipep3.png', alt: 'Preview 3' },
-      { id: 4, type: 'image', src: '/images/projects/campusswipep4.png', alt: 'Preview 4' }
+      { id: 1, type: 'image', src: '/images/swe/campusswipe/preview-1.png', alt: 'Preview 1' },
+      { id: 2, type: 'image', src: '/images/swe/campusswipe/preview-2.png', alt: 'Preview 2' },
+      { id: 3, type: 'image', src: '/images/swe/campusswipe/preview-3.png', alt: 'Preview 3' },
+      { id: 4, type: 'image', src: '/images/swe/campusswipe/preview-4.png', alt: 'Preview 4' }
     ],
     keyFeatures: [
       'Swipe-based event discovery interface',
@@ -187,7 +187,7 @@ const projects = [
     role: 'Frontend Developer',
     projectType: 'Hackathon',
     category: 'swe',
-    image: '/images/projects/zippy.png',
+    image: '/images/swe/zippy/thumbnail.png',
     startDate: 'Apr 2025',
     endDate: 'Apr 2025',
     tags: ['Next.js','TypeScript','Real-time UI','Gamification','Gemini API'],
@@ -199,10 +199,10 @@ const projects = [
     },
     description: 'A gamified education platform that motivates students to complete homework through real-time leaderboards, AI feedback, and a reward-driven gacha system.',
     previews: [
-      { id: 1, type: 'image', src: '/images/projects/zippyp1.png', alt: 'Preview 1' },
-      { id: 2, type: 'image', src: '/images/projects/zippyp2.png', alt: 'Preview 2' },
-      { id: 3, type: 'image', src: '/images/projects/zippyp3.png', alt: 'Preview 3' },
-      { id: 4, type: 'image', src: '/images/projects/zippyp4.png', alt: 'Preview 4' }
+      { id: 1, type: 'image', src: '/images/swe/zippy/preview-1.png', alt: 'Preview 1' },
+      { id: 2, type: 'image', src: '/images/swe/zippy/preview-2.png', alt: 'Preview 2' },
+      { id: 3, type: 'image', src: '/images/swe/zippy/preview-3.png', alt: 'Preview 3' },
+      { id: 4, type: 'image', src: '/images/swe/zippy/preview-4.png', alt: 'Preview 4' }
     ],
     keyFeatures: [
     'Gamified homework system with points, leaderboards, and rewards',
@@ -225,7 +225,7 @@ const projects = [
     role: 'Frontend Developer',
     projectType: 'Hackathon',
     category: 'swe',
-    image: '/images/projects/agentux.svg',
+    image: '/images/swe/agentux/thumbnail.svg',
     startDate: 'Apr 2026',
     endDate: 'Apr 2026',
     tags: ['HTML / CSS / JS', 'Chrome Extension', 'AI Agents', 'Browser Automation', 'Real-Time UI'],
@@ -237,10 +237,10 @@ const projects = [
     },
     description: 'AI-powered Chrome extension that automates usability testing by deploying real browsing agents to simulate user behavior, uncover friction points, and generate actionable UI fixes in minutes.',
     previews: [
-      { id: 1, type: 'image', src: '/images/projects/agentuxp1.png', alt: 'Preview 1' },
-      { id: 2, type: 'image', src: '/images/projects/agentuxp2.webp', alt: 'Preview 2' },
-      { id: 3, type: 'gif', src: '/images/projects/agentuxp3.gif', alt: 'Preview 3' },
-      { id: 4, type: 'image', src: '/images/projects/agentuxp4.png', alt: 'Preview 4' }
+      { id: 1, type: 'image', src: '/images/swe/agentux/preview-1.png', alt: 'Preview 1' },
+      { id: 2, type: 'image', src: '/images/swe/agentux/preview-2.webp', alt: 'Preview 2' },
+      { id: 3, type: 'gif', src: '/images/swe/agentux/preview-3.gif', alt: 'Preview 3' },
+      { id: 4, type: 'image', src: '/images/swe/agentux/preview-4.png', alt: 'Preview 4' }
     ],
     keyFeatures: [
       'AI agents simulate real user personas in live browser sessions',
@@ -264,7 +264,7 @@ const projects = [
     role: 'UI/UX Designer',
     projectType: 'Designathon',
     category: 'uiux',
-    image: '/images/projects/bontourismo.png',
+    image: '/images/uiux/bontourismo.png',
     startDate: 'Mar 2025',
     endDate: 'Mar 2025'
   },
@@ -274,7 +274,7 @@ const projects = [
     role: 'UI/UX Designer',
     projectType: 'Project',
     category: 'uiux',
-    image: '/images/projects/platemate.png',
+    image: '/images/uiux/platemate.png',
     startDate: 'Oct 2024',
     endDate: 'Jan 2025'
   },
@@ -284,7 +284,7 @@ const projects = [
     role: 'UI/UX Designer',
     projectType: 'Project',
     category: 'uiux',
-    image: '/images/projects/vendordex.png',
+    image: '/images/uiux/vendordex.png',
     startDate: 'Sep 2025',
     endDate: 'Dec 2025'
   }
@@ -766,7 +766,7 @@ function Playlist() {
             >
               {/* Music Notes GIF - Inside Box */}
               <img
-                src="/images/projects/musicnotes.gif"
+                src="/images/shared/musicnotes.gif"
                 alt="Music notes"
                 className="playlist-music-gif"
               />
