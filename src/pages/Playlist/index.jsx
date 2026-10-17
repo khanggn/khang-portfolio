@@ -13,12 +13,6 @@ function Playlist() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [openSortDropdown, setOpenSortDropdown] = useState(null);
   const audioRefs = useRef({});
-  const audioContextRef = useRef(null);
-  const analyserRef = useRef(null);
-  const audioSourcesRef = useRef({});
-  const animationFrameRef = useRef(null);
-  const lastBeatTime = useRef(0);
-  const energyHistory = useRef([]);
 
   // Scroll to top when component mounts
   useEffect(() => {
@@ -52,12 +46,6 @@ function Playlist() {
           audio.currentTime = 0;
         }
       });
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
-      }
-      if (audioContextRef.current) {
-        audioContextRef.current.close();
-      }
     };
   }, []);
 
@@ -84,57 +72,6 @@ function Playlist() {
     audio.currentTime = percentage * audio.duration;
   };
 
-  // Beat detection using Web Audio API with energy-based detection
-  const detectBeat = () => {
-    if (!analyserRef.current) {
-      console.log('❌ No analyser ref, stopping detection');
-      return;
-    }
-
-    const analyser = analyserRef.current;
-    const bufferLength = analyser.frequencyBinCount;
-    const dataArray = new Uint8Array(bufferLength);
-
-    analyser.getByteFrequencyData(dataArray);
-
-    // Focus on bass and low-mid frequencies (0-250 Hz)
-    const bassEnd = Math.floor(bufferLength * 0.2);
-    let currentEnergy = 0;
-
-    for (let i = 0; i < bassEnd; i++) {
-      currentEnergy += dataArray[i] * dataArray[i];
-    }
-
-    currentEnergy = currentEnergy / bassEnd;
-
-    // Keep history of last 43 frames (~0.7 seconds at 60fps)
-    energyHistory.current.push(currentEnergy);
-    if (energyHistory.current.length > 43) {
-      energyHistory.current.shift();
-    }
-
-    // Calculate average energy
-    const avgEnergy = energyHistory.current.reduce((a, b) => a + b, 0) / energyHistory.current.length;
-
-    // Detect beat if current energy is significantly higher than average
-    const now = Date.now();
-    const timeSinceLastBeat = now - lastBeatTime.current;
-
-    const energyThreshold = avgEnergy * 1.5;
-    const minBeatInterval = 400;
-
-    if (currentEnergy > energyThreshold && timeSinceLastBeat > minBeatInterval && currentEnergy > 3000) {
-      const energyRatio = Math.min(currentEnergy / energyThreshold, 2.5);
-      const intensity = 0.6 + ((energyRatio - 1) / 1.5) * 0.4;
-
-      console.log('🎵 BEAT!', 'Energy:', Math.round(currentEnergy), 'Avg:', Math.round(avgEnergy), 'Ratio:', (currentEnergy/avgEnergy).toFixed(2), 'Intensity:', intensity.toFixed(2));
-      lastBeatTime.current = now;
-    }
-
-    // Continue loop
-    animationFrameRef.current = requestAnimationFrame(detectBeat);
-  };
-
   // Handle play/pause button click
   const handlePlayPause = (playlistId) => {
     const audio = audioRefs.current[playlistId];
@@ -144,11 +81,6 @@ function Playlist() {
     if (playingPlaylist === playlistId) {
       audio.pause();
       setPlayingPlaylist(null);
-
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
-        animationFrameRef.current = null;
-      }
     } else {
       if (playingPlaylist) {
         const prevAudio = audioRefs.current[playingPlaylist];
@@ -158,49 +90,12 @@ function Playlist() {
         }
       }
 
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
-      }
-
-      if (!audioContextRef.current) {
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        audioContextRef.current = new AudioContext();
-        console.log('✅ Audio Context created');
-      }
-
-      if (audioContextRef.current.state === 'suspended') {
-        audioContextRef.current.resume();
-        console.log('▶️ Audio Context resumed');
-      }
-
-      if (!audioSourcesRef.current[playlistId]) {
-        console.log('🔧 Creating analyser for playlist:', playlistId);
-        const source = audioContextRef.current.createMediaElementSource(audio);
-        const analyser = audioContextRef.current.createAnalyser();
-
-        analyser.fftSize = 1024;
-        analyser.smoothingTimeConstant = 0.7;
-
-        source.connect(analyser);
-        analyser.connect(audioContextRef.current.destination);
-
-        audioSourcesRef.current[playlistId] = { source, analyser };
-        analyserRef.current = analyser;
-        console.log('✅ Analyser created and connected');
-      } else {
-        analyserRef.current = audioSourcesRef.current[playlistId].analyser;
-        console.log('♻️ Reusing existing analyser');
-      }
-
       if (playingPlaylist && playingPlaylist !== playlistId) {
         audio.currentTime = 0;
       }
       audio.volume = audioVolume;
       audio.play();
       setPlayingPlaylist(playlistId);
-
-      console.log('🎵 Starting beat detection...');
-      detectBeat();
     }
   };
 
