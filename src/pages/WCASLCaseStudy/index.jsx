@@ -10,7 +10,7 @@ import sharedStyles from '../../components/case-study/CaseStudy.module.css';
 import localStyles from './WCASLCaseStudy.module.css';
 
 import GlanceSection from './GlanceSection';
-import Sidebar from './Sidebar';
+import Sidebar from '../../components/case-study/Sidebar';
 import WhereWeStarted from './WhereWeStarted';
 import MyRole from './MyRole';
 import WhatILearned from './WhatILearned';
@@ -18,7 +18,7 @@ import KeyDecisions from './KeyDecisions';
 import IdeasThatChanged from './IdeasThatChanged';
 import Results from './Results';
 import WhatIdDoDifferently from './WhatIdDoDifferently';
-import MobileBar from './MobileBar';
+import MobileBar from '../../components/case-study/MobileBar';
 
 const styles = { ...sharedStyles, ...localStyles };
 

@@ -1,6 +1,6 @@
 /* ─── Page Variables ─── */
 .page {
-  composes: page from '../components/case-study/CaseStudy.module.css';
+  composes: page from '../../components/case-study/CaseStudy.module.css';
   --cs-font-ui: 'Inter', sans-serif;
 }
 
@@ -167,7 +167,7 @@
 
 /* ─── Key Decisions (page-specific) ─── */
 .decisionParagraphs {
-  composes: bodyParagraphs from '../components/case-study/CaseStudy.module.css';
+  composes: bodyParagraphs from '../../components/case-study/CaseStudy.module.css';
   margin-bottom: 32px;
   max-width: 680px;
 }
