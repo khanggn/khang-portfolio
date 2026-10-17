@@ -399,6 +399,17 @@ body {
     bottom: auto !important;
   }
 
+  /* Back to top: pinned near the top, centered */
+  .footer-section .footer-top-right {
+    position: absolute !important;
+    top: 200px !important;
+    left: 35% !important;
+    right: auto !important;
+    transform: translateX(-50%);
+    text-align: center;
+    white-space: nowrap;
+  }
+
   /* Row 1: "thanks" left, icons right */
   .footer-top-text {
     grid-row: 1;
@@ -483,22 +494,20 @@ body {
   }
 
   .about-headshot {
-    width: 200px !important;
-    height: 200px !important;
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  .about-headshot > div {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1;
   }
 
   .now-playing-card {
     margin-left: auto;
     margin-right: auto;
-    /* The stacked hero sizes to its content, so cap the card at the screen width */
-    max-width: min(400px, calc(100vw - 2 * var(--page-padding))) !important;
-  }
-}
-
-@media (max-width: 480px) {
-  .about-headshot {
-    width: 160px !important;
-    height: 160px !important;
+    max-width: 100% !important;
   }
 }
 
