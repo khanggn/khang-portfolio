@@ -481,21 +481,53 @@ body {
   }
 }
 
-/* About page hero layout */
+/* About page hero layout — desktop: two-column grid */
 .about-hero-flex {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto 1fr;
+  gap: 0 clamp(32px, 5vw, 64px);
+  align-items: start;
+}
+
+.about-heading {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.about-body-text {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.about-headshot {
+  grid-column: 2;
+  grid-row: 1 / 3;
 }
 
 @media (max-width: 768px) {
   .about-hero-flex {
-    flex-direction: column-reverse !important;
-    align-items: center !important;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 24px;
     text-align: center;
   }
 
+  .about-heading {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
   .about-headshot {
+    grid-column: 1;
+    grid-row: 2;
     width: 100% !important;
     height: auto !important;
+  }
+
+  .about-body-text {
+    grid-column: 1;
+    grid-row: 3;
   }
 
   .about-headshot > div {

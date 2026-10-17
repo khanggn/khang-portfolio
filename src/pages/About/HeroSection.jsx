@@ -12,30 +12,31 @@ function HeroSection() {
         paddingBottom: 'clamp(40px, 8vh, 80px)'
       }}
     >
-      <div className="about-hero-flex" style={{ display: 'flex', gap: 'clamp(32px, 5vw, 64px)', alignItems: 'flex-start', width: '100%' }}>
-        {/* Left side - Text content */}
-        <div style={{ flex: 1 }}>
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="font-bold"
-            style={{
-              fontFamily: "'Clash Display', sans-serif",
-              fontSize: 'clamp(32px, 5vw, 58px)',
-              lineHeight: '1.2',
-              marginTop: '-0.15em',
-              marginBottom: 'clamp(20px, 3vw, 32px)',
-              color: '#E8E8E3'
-            }}
-          >
-            Hey! I'm <span className="gradient-shimmer">Khang</span>
-          </motion.h1>
+      <div className="about-hero-flex" style={{ width: '100%' }}>
+        {/* Heading */}
+        <motion.h1
+          className="about-heading font-bold"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          style={{
+            fontFamily: "'Clash Display', sans-serif",
+            fontSize: 'clamp(32px, 5vw, 58px)',
+            lineHeight: '1.2',
+            marginTop: '-0.15em',
+            marginBottom: 'clamp(20px, 3vw, 32px)',
+            color: '#E8E8E3'
+          }}
+        >
+          Hey! I'm <span className="gradient-shimmer">Khang</span>
+        </motion.h1>
 
+        {/* Body text */}
+        <div className="about-body-text">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
             style={{
               fontFamily: "'Gamja Flower', sans-serif",
               fontSize: '22px',
@@ -50,7 +51,7 @@ function HeroSection() {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            transition={{ duration: 0.6, delay: 1.0 }}
             style={{
               fontFamily: "'Gamja Flower', sans-serif",
               fontSize: '22px',
@@ -65,7 +66,7 @@ function HeroSection() {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
+            transition={{ duration: 0.6, delay: 1.2 }}
             style={{
               fontFamily: "'Gamja Flower', sans-serif",
               fontSize: '22px',
@@ -80,7 +81,7 @@ function HeroSection() {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
+            transition={{ duration: 0.6, delay: 1.4 }}
             style={{
               fontFamily: "'Gamja Flower', sans-serif",
               fontSize: '22px',
@@ -90,15 +91,14 @@ function HeroSection() {
           >
             If you want someone who thinks about both the look and the feels, I'd love to connect.
           </motion.p>
-
         </div>
 
-        {/* Right side - Headshot */}
+        {/* Headshot + Spotify */}
         <div className="about-headshot" style={{ flexShrink: 0, display: 'flex', flexDirection: 'column' }}>
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
             style={{
               width: 'clamp(200px, 30vw, 400px)',
               height: 'clamp(200px, 30vw, 400px)',
