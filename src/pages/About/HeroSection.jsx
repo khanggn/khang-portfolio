@@ -105,7 +105,7 @@ function HeroSection() {
             }}
           >
             <img
-              src="/images/about/about-me.gif"
+              src="/images/about/about-me.webp"
               alt="Khang Nguyen"
               style={{
                 width: '100%',

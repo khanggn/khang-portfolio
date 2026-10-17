@@ -230,7 +230,7 @@ export const projects = [
     previews: [
       { id: 1, type: 'image', src: '/images/swe/agentux/preview-1.webp', alt: 'Preview 1' },
       { id: 2, type: 'image', src: '/images/swe/agentux/preview-2.webp', alt: 'Preview 2' },
-      { id: 3, type: 'gif', src: '/images/swe/agentux/preview-3.gif', alt: 'Preview 3' },
+      { id: 3, type: 'image', src: '/images/swe/agentux/preview-3.webp', alt: 'Preview 3' },
       { id: 4, type: 'image', src: '/images/swe/agentux/preview-4.webp', alt: 'Preview 4' }
     ],
     keyFeatures: [
