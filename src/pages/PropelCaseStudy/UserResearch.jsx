@@ -1,3 +1,5 @@
+import * as propelStyles from './styles';
+
 export default function UserResearch() {
   return (
     <div>
@@ -23,18 +25,10 @@ export default function UserResearch() {
 
       {/* Ann */}
       <div style={{ marginBottom: '40px' }}>
-        <h3
-          style={{
-            fontFamily: "'Clash Display', sans-serif",
-            fontSize: '22px',
-            fontWeight: '600',
-            marginBottom: '16px',
-            color: '#E8E8E3'
-          }}
-        >
+        <h3 style={propelStyles.subheading}>
           Ann doesn't plan meals. She opens the fridge.
         </h3>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontFamily: "'Inter', sans-serif", fontSize: '22px', color: '#E8E8E3', lineHeight: '1.6' }}>
+        <div style={propelStyles.bodyText}>
           <p>
             We asked Ann how she figures out what to cook. She opens the fridge, looks at what's in there, and goes from there. That's it. No list, no plan, no thinking about it before she's hungry.
           </p>
@@ -52,18 +46,10 @@ export default function UserResearch() {
 
       {/* Lydia */}
       <div style={{ marginBottom: '40px' }}>
-        <h3
-          style={{
-            fontFamily: "'Clash Display', sans-serif",
-            fontSize: '22px',
-            fontWeight: '600',
-            marginBottom: '16px',
-            color: '#E8E8E3'
-          }}
-        >
+        <h3 style={propelStyles.subheading}>
           Lydia had $4 left and had no idea she could buy sushi.
         </h3>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontFamily: "'Inter', sans-serif", fontSize: '22px', color: '#E8E8E3', lineHeight: '1.6' }}>
+        <div style={propelStyles.bodyText}>
           <p>
             Partway through our interview, we asked Lydia to check her balance. She opened Propel and showed us: <strong style={{ color: '#C4B5FD' }}>$4 remaining</strong> for the rest of the month. When she runs out, she said, the family just goes to fast food places until the deposit comes in on the 2nd.
           </p>
@@ -78,18 +64,10 @@ export default function UserResearch() {
 
       {/* Jaden */}
       <div style={{ marginBottom: '40px' }}>
-        <h3
-          style={{
-            fontFamily: "'Clash Display', sans-serif",
-            fontSize: '22px',
-            fontWeight: '600',
-            marginBottom: '16px',
-            color: '#E8E8E3'
-          }}
-        >
+        <h3 style={propelStyles.subheading}>
           Jaden's family passes one EBT card between two cities.
         </h3>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontFamily: "'Inter', sans-serif", fontSize: '22px', color: '#E8E8E3', lineHeight: '1.6' }}>
+        <div style={propelStyles.bodyText}>
           <p>
             Jaden's dad takes the card to the Bay Area every week for work. His mom uses it in San Diego. Neither of them knows the balance without stopping to check.
           </p>
@@ -108,18 +86,10 @@ export default function UserResearch() {
           borderLeft: '4px solid #C4B5FD'
         }}
       >
-        <h3
-          style={{
-            fontFamily: "'Clash Display', sans-serif",
-            fontSize: '22px',
-            fontWeight: '600',
-            marginBottom: '12px',
-            color: '#C4B5FD'
-          }}
-        >
+        <h3 style={propelStyles.calloutHeading}>
           What changed for us
         </h3>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontFamily: "'Inter', sans-serif", fontSize: '22px', color: '#E8E8E3', lineHeight: '1.6' }}>
+        <div style={propelStyles.calloutBodyText}>
           <p>
             We came in thinking: give people a clean way to track their budget and pick out meals. What we actually heard was that people cook from what they already have, a lot of them don't know what their benefits cover, and the card itself isn't always in the same person's hands.
           </p>

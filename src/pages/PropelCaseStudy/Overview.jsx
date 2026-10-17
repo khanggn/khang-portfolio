@@ -1,18 +1,12 @@
+import * as propelStyles from './styles';
+
 export default function Overview() {
   return (
     <div>
-      <h2
-        style={{
-          fontFamily: "'Clash Display', sans-serif",
-          fontSize: 'clamp(24px, 3.5vw, 32px)',
-          fontWeight: '600',
-          marginBottom: '24px',
-          color: '#C4B5FD'
-        }}
-      >
+      <h2 style={propelStyles.sectionHeading}>
         Overview
       </h2>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontFamily: "'Inter', sans-serif", fontSize: '22px', color: '#E8E8E3', lineHeight: '1.6' }}>
+      <div style={propelStyles.bodyText}>
         <p>
           47 million Americans face food insecurity. 40 million of them get SNAP benefits. And a lot of them still run out before the month is over.
         </p>
