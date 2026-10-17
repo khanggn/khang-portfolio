@@ -1,13 +1,13 @@
 /* ─── Page Variables ─── */
 .page {
   composes: page from '../components/case-study/CaseStudy.module.css';
-  --cs-font-ui: 'Gamja Flower', sans-serif;
+  --cs-font-ui: 'Inter', sans-serif;
 }
 
 /* ─── Hero (page-specific) ─── */
 .heroSubtitle {
   font-family: var(--cs-font-ui);
-  font-size: clamp(18px, 2vw, 18px);
+  font-size: clamp(14px, 1.5vw, 16px);
   color: rgba(255, 255, 255, 0.6);
   margin-top: 16px;
 }
@@ -37,7 +37,7 @@
 
 .playLabel {
   font-family: var(--cs-font-ui);
-  font-size: 21px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--cs-bg);
   opacity: 0;
@@ -53,7 +53,7 @@
 
 /* ─── Tool Chip (page-specific) ─── */
 .toolChipLabel {
-  font-size: 19px;
+  font-size: 14px;
   color: var(--cs-text);
 }
 
@@ -67,7 +67,7 @@
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
   white-space: nowrap;
   font-family: var(--cs-font-ui);
-  font-size: 18px;
+  font-size: 13px;
   color: rgba(255, 255, 255, 0.7);
   pointer-events: none;
   z-index: 10;
@@ -76,14 +76,14 @@
 /* ─── Glance (page-specific font sizes) ─── */
 .statLabel {
   font-family: var(--cs-font-ui);
-  font-size: 22px;
+  font-size: 16px;
   color: var(--cs-muted);
   margin-top: 8px;
   display: block;
 }
 
 .creditsLabel {
-  font-size: 17px;
+  font-size: 13px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -97,13 +97,13 @@
   align-items: center;
   gap: 8px;
   margin-bottom: 8px;
-  font-size: 20px;
+  font-size: 15px;
   line-height: 1.5;
 }
 
 .builtWithLabel {
   color: var(--cs-muted);
-  font-size: 20px;
+  font-size: 15px;
   display: block;
   margin-bottom: 8px;
 }
@@ -111,7 +111,7 @@
 /* ─── TOC (page-specific) ─── */
 .tocLinkText {
   font-family: var(--cs-font-ui);
-  font-size: 19px;
+  font-size: 14px;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -156,7 +156,7 @@
 
 .imageCaption {
   font-family: var(--cs-font-ui);
-  font-size: 20px;
+  font-size: 16px;
   color: var(--cs-text);
   text-align: center;
   margin-top: 24px;
@@ -191,7 +191,7 @@
 /* ─── Results (page-specific) ─── */
 .resultsStatLabel {
   font-family: var(--cs-font-ui);
-  font-size: 22px;
+  font-size: 16px;
   color: var(--cs-muted);
   margin-top: 8px;
   display: block;
@@ -200,7 +200,7 @@
 /* ─── What I'd Do Differently (page-specific) ─── */
 .differentlyTitle {
   font-family: var(--cs-font-ui);
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 600;
   color: var(--cs-text);
   line-height: 1.3;
@@ -213,7 +213,7 @@
   align-items: center;
   gap: 8px;
   font-family: var(--cs-font-ui);
-  font-size: 19px;
+  font-size: 15px;
   font-weight: 500;
   letter-spacing: 0.04em;
   color: var(--cs-text);
@@ -234,7 +234,7 @@
 /* ─── Mobile Bottom Bar (page-specific) ─── */
 .mobileBarLabel {
   font-family: var(--cs-font-ui);
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 500;
   color: var(--cs-text);
   display: block;
