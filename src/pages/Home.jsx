@@ -6,13 +6,7 @@ import { SkipBack, SkipForward, Play, Pause, ArrowRight } from '@phosphor-icons/
 import FooterWithSpotlight from '../components/FooterWithSpotlight';
 import JumpingText from '../components/JumpingText';
 import Navbar from '../components/Navbar';
-
-const roles = [
-  "Frontend Developer.",
-  "UI/UX Designer.",
-  "Software Engineer.",
-  "music enjoyer."
-];
+import { roles, featuredProjects } from '../data/home';
 
 // Animated counter component
 function AnimatedCounter({ target, duration = 2000 }) {
@@ -52,44 +46,6 @@ function AnimatedCounter({ target, duration = 2000 }) {
     </span>
   );
 }
-
-const projects = [
-  {
-    id: 1,
-    title: "West Coast Adult Soccer League",
-    summary: "Designed and launched a full website for an 800+ player South OC soccer league — simple enough for schedule-checkers, smooth enough for first-time registrants.",
-    types: ["Web Design", "Product Design"],
-    media: "/images/wcasl/video.mp4",
-    mediaType: "video",
-    date: "Apr 2025 – Present",
-    caseStudy: "/case-study/wcasl",
-    links: {}
-  },
-  {
-    id: 2,
-    title: "PlasticBeach",
-    summary: "Redesigned the site and recycling materials for a SoCal nonprofit cutting soft-plastic waste across 40+ retail and distribution partners.",
-    types: ["Product Design", "UI/UX Design", "Web Redesign"],
-    media: "/images/plasticbeach/video.mp4",
-    mediaType: "video",
-    date: "Apr 2025 - Jul 2025",
-    caseStudy: "/case-study/plastic-beach",
-    links: {
-      final: "https://drive.google.com/file/d/1_jWW9Q3IAvawfwOCGiCDSiwZu14qLN4H/view?usp=sharing",
-      slides: "https://docs.google.com/presentation/d/1eZOh0YGScuLrV9li4Mf-52dDeLcBS564lIW7Wg6i3wU/edit?usp=sharing"
-    }
-  },
-  {
-    id: 3,
-    title: "Coming Soon",
-    summary: "More projects on the way...",
-    types: ["TBA"],
-    media: "",
-    mediaType: null,
-    date: "2025",
-    links: {}
-  }
-];
 
 function Home() {
   const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
@@ -193,7 +149,7 @@ function Home() {
     if (progress >= 100 && !isPaused && titleTracksInView) {
       const timeout = setTimeout(() => {
         setSlideDirection(1);
-        setCurrentProjectIndex((prev) => (prev + 1) % projects.length);
+        setCurrentProjectIndex((prev) => (prev + 1) % featuredProjects.length);
         setProgress(0);
       }, 100);
 
@@ -203,13 +159,13 @@ function Home() {
 
   const handlePrevProject = () => {
     setSlideDirection(-1);
-    setCurrentProjectIndex((prev) => (prev - 1 + projects.length) % projects.length);
+    setCurrentProjectIndex((prev) => (prev - 1 + featuredProjects.length) % featuredProjects.length);
     setProgress(0);
   };
 
   const handleNextProject = () => {
     setSlideDirection(1);
-    setCurrentProjectIndex((prev) => (prev + 1) % projects.length);
+    setCurrentProjectIndex((prev) => (prev + 1) % featuredProjects.length);
     setProgress(0);
   };
 
@@ -457,7 +413,7 @@ function Home() {
                 onHoverStart={() => setIsCardHovered(true)}
                 onHoverEnd={() => setIsCardHovered(false)}
                 onClick={() => {
-                  const project = projects[currentProjectIndex];
+                  const project = featuredProjects[currentProjectIndex];
                   if (project.caseStudy) navigate(project.caseStudy);
                 }}
                 whileHover={{
@@ -545,10 +501,10 @@ function Home() {
               <div className="card-content-flex">
                 {/* Project Media (Image or Video) */}
                 <motion.div className="card-media">
-                  {projects[currentProjectIndex].media ? (
-                    projects[currentProjectIndex].mediaType === 'video' ? (
+                  {featuredProjects[currentProjectIndex].media ? (
+                    featuredProjects[currentProjectIndex].mediaType === 'video' ? (
                       <motion.video
-                        src={projects[currentProjectIndex].media}
+                        src={featuredProjects[currentProjectIndex].media}
                         autoPlay
                         loop
                         muted
@@ -563,8 +519,8 @@ function Home() {
                       />
                     ) : (
                       <motion.img
-                        src={projects[currentProjectIndex].media}
-                        alt={projects[currentProjectIndex].title}
+                        src={featuredProjects[currentProjectIndex].media}
+                        alt={featuredProjects[currentProjectIndex].title}
                         animate={{ scale: 1 }}
                         transition={{ duration: 0.4, ease: 'easeOut' }}
                         style={{
@@ -583,7 +539,7 @@ function Home() {
                         fontFamily: "'Clash Display', sans-serif"
                       }}
                     >
-                      0{projects[currentProjectIndex].id}
+                      0{featuredProjects[currentProjectIndex].id}
                     </span>
                   )}
                 </motion.div>
@@ -601,7 +557,7 @@ function Home() {
                         lineHeight: '1.2'
                       }}
                     >
-                      {projects[currentProjectIndex].title}
+                      {featuredProjects[currentProjectIndex].title}
                     </h4>
                     <p
                       style={{
@@ -617,13 +573,13 @@ function Home() {
                         overflow: 'hidden'
                       }}
                     >
-                      {projects[currentProjectIndex].summary.replace(' — ', ' ')}
+                      {featuredProjects[currentProjectIndex].summary.replace(' — ', ' ')}
                     </p>
                   </div>
 
                   {/* Type tags */}
                   <div style={{ display: 'flex', gap: '11px', flexWrap: 'wrap', alignItems: 'center' }}>
-                    {projects[currentProjectIndex].types.map((type) => (
+                    {featuredProjects[currentProjectIndex].types.map((type) => (
                       <span
                         key={type}
                         style={{
@@ -672,7 +628,7 @@ function Home() {
                   flexShrink: 0
                 }}
               >
-                {projects[currentProjectIndex].date.split(/ – | - /)[0]}
+                {featuredProjects[currentProjectIndex].date.split(/ – | - /)[0]}
               </span>
 
               {/* Progress Bar */}
@@ -704,7 +660,7 @@ function Home() {
                   flexShrink: 0
                 }}
               >
-                {projects[currentProjectIndex].date.split(/ – | - /)[1] || projects[currentProjectIndex].date}
+                {featuredProjects[currentProjectIndex].date.split(/ – | - /)[1] || featuredProjects[currentProjectIndex].date}
               </span>
             </div>
 
