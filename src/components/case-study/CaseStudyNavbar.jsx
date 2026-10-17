@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
-import styles from '../../pages/PlasticBeachCaseStudy.module.css';
+import styles from './CaseStudy.module.css';
 
-export default function PbNavbar() {
+export default function CaseStudyNavbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {

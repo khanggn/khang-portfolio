@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
-import { motion, AnimatePresence, useReducedMotion, useInView } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight, ArrowRight, ArrowDown, PenTool, AppWindow, Code, Home } from 'lucide-react';
 import { SkipBack, SkipForward } from '@phosphor-icons/react';
 import FooterWithSpotlight from '../components/FooterWithSpotlight';
@@ -9,10 +9,15 @@ import ScreenshotPanel from '../components/ScreenshotPanel';
 import ImageToggle from '../components/ImageToggle';
 import ShowcasePanel from '../components/ShowcasePanel';
 import BrowserFrame from '../components/BrowserFrame';
-import WcaslNavbar from '../components/wcasl/WcaslNavbar';
-import WcaslHero from '../components/wcasl/WcaslHero';
-import WcaslPlayButton from '../components/wcasl/WcaslPlayButton';
-import styles from './WCASLCaseStudy.module.css';
+import CaseStudyNavbar from '../components/case-study/CaseStudyNavbar';
+import CaseStudyHero from '../components/case-study/CaseStudyHero';
+import PlayButton from '../components/case-study/PlayButton';
+import AnimatedNumber from '../components/case-study/AnimatedNumber';
+import ToolChip from '../components/case-study/ToolChip';
+import sharedStyles from '../components/case-study/CaseStudy.module.css';
+import localStyles from './WCASLCaseStudy.module.css';
+
+const styles = { ...sharedStyles, ...localStyles };
 
 const problemSlides = [
   {
@@ -94,82 +99,7 @@ const tocSections = [
   { id: 'what-id-do-differently', num: '07', label: "WHAT I'D DO DIFFERENTLY", summary: "Lessons I'm taking forward." },
 ];
 
-function AnimatedNumber({ value, suffix = '', duration = 1.2 }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true });
-  const prefersReduced = useReducedMotion();
-  const [display, setDisplay] = useState(prefersReduced ? value : 0);
-
-  useEffect(() => {
-    if (!inView || prefersReduced) return;
-    const start = performance.now();
-    const step = (now) => {
-      const progress = Math.min((now - start) / (duration * 1000), 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setDisplay(Math.round(eased * value));
-      if (progress < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-  }, [inView, value, duration, prefersReduced]);
-
-  return <span ref={ref}>{display.toLocaleString()}{suffix}</span>;
-}
-
-function ToolChip({ icon, label, tooltip, id, isOpen, onToggle, prefersReduced, tooltipAlign = 'left' }) {
-  const chipRef = useRef(null);
-  const tooltipId = `tooltip-${id}`;
-  // Close on outside click/touch
-  useEffect(() => {
-    if (!isOpen) return;
-    const handleOutside = (e) => {
-      if (chipRef.current && !chipRef.current.contains(e.target)) onToggle(null);
-    };
-    document.addEventListener('pointerdown', handleOutside);
-    return () => document.removeEventListener('pointerdown', handleOutside);
-  }, [isOpen, onToggle]);
-
-  return (
-    <span
-      ref={chipRef}
-      tabIndex={0}
-      role="group"
-      aria-describedby={isOpen ? tooltipId : undefined}
-      onMouseEnter={() => onToggle(id)}
-      onMouseLeave={() => onToggle(null)}
-      onFocus={() => onToggle(id)}
-      onBlur={() => onToggle(null)}
-      onClick={(e) => { e.stopPropagation(); }}
-      className={styles.toolChip}
-      style={{
-        border: isOpen ? '1px solid #C4B5FD' : '1px solid #4E4A5C',
-        boxShadow: isOpen ? '0 0 11px rgba(196, 181, 253, 0.4)' : 'none',
-      }}
-      onKeyDown={(e) => { if (e.key === 'Escape') onToggle(null); }}
-    >
-      {icon}
-      <span className={styles.toolChipLabel}>{label}</span>
-
-      {/* Tooltip */}
-      <span
-        id={tooltipId}
-        role="tooltip"
-        className={styles.toolChipTooltip}
-        style={{
-          ...(tooltipAlign === 'right' ? { right: 0 } : { left: 0 }),
-          opacity: isOpen ? 1 : 0,
-          transform: isOpen
-            ? 'translateY(0)'
-            : (prefersReduced ? 'translateY(0)' : 'translateY(4px)'),
-          transition: prefersReduced
-            ? 'opacity 0.01s'
-            : 'opacity 0.15s ease, transform 0.15s ease',
-        }}
-      >
-        {tooltip}
-      </span>
-    </span>
-  );
-}
+/* AnimatedNumber and ToolChip imported from components/case-study */
 
 function WCASLCaseStudy() {
   const [activeSection, setActiveSection] = useState('where-we-started');
@@ -288,11 +218,17 @@ function WCASLCaseStudy() {
 
   return (
     <div className={`min-h-screen bg-[#262626] text-white flex flex-col ${styles.page}`}>
-      <WcaslNavbar />
+      <CaseStudyNavbar />
 
       {/* Main Content */}
       <main className="flex-1">
-        <WcaslHero />
+        <CaseStudyHero
+              image="/images/wcasl/hero.png"
+              alt="West Coast Adult Soccer League hero"
+              title="West Coast Adult Soccer League"
+              subtitle="Website redesign for a recreational soccer league in South Orange County"
+              subtitleClassName={styles.heroSubtitle}
+            />
 
         {/* Case Study Content */}
         <section className={styles.caseStudySection}>
@@ -303,7 +239,7 @@ function WCASLCaseStudy() {
             className={styles.caseStudyInner}
           >
 
-          <WcaslPlayButton />
+          <PlayButton href="https://www.wcasl.org/" label="Go to Site" styles={styles} />
 
           {/* Hero stats */}
           <div className={`glance-stats ${styles.glanceStats}`}>
@@ -415,6 +351,7 @@ function WCASLCaseStudy() {
                     isOpen={openTooltipId === 'figma'}
                     onToggle={setOpenTooltipId}
                     prefersReduced={prefersReduced}
+                    styles={styles}
                   />
                   <ToolChip
                     id="squarespace"
@@ -424,6 +361,7 @@ function WCASLCaseStudy() {
                     isOpen={openTooltipId === 'squarespace'}
                     onToggle={setOpenTooltipId}
                     prefersReduced={prefersReduced}
+                    styles={styles}
                   />
                   <ToolChip
                     id="code"
@@ -434,6 +372,7 @@ function WCASLCaseStudy() {
                     onToggle={setOpenTooltipId}
                     prefersReduced={prefersReduced}
                     tooltipAlign="right"
+                    styles={styles}
                   />
                 </span>
               </motion.div>

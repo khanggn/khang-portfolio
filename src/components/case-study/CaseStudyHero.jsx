@@ -1,12 +1,12 @@
 import { motion } from 'framer-motion';
-import styles from '../../pages/WCASLCaseStudy.module.css';
+import styles from './CaseStudy.module.css';
 
-export default function WcaslHero() {
+export default function CaseStudyHero({ image, alt, title, subtitle, subtitleClassName }) {
   return (
     <section className={styles.heroSection}>
       <img
-        src="/images/wcasl/hero.png"
-        alt="West Coast Adult Soccer League hero"
+        src={image}
+        alt={alt}
         className={styles.heroImage}
       />
       <div className={styles.heroGradient} />
@@ -17,10 +17,10 @@ export default function WcaslHero() {
         className={styles.heroContent}
       >
         <h1 className={`font-bold ${styles.heroTitle}`}>
-          West Coast Adult Soccer League
+          {title}
         </h1>
-        <p className={styles.heroSubtitle}>
-          Website redesign for a recreational soccer league in South Orange County
+        <p className={subtitleClassName}>
+          {subtitle}
         </p>
       </motion.div>
     </section>
