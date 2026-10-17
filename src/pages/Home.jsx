@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence, useScroll, useTransform, useInView } from 'framer-motion';
-import { Home as HomeIcon, Mic2, Library, Music, Download, Menu, X } from 'lucide-react';
+import { Home as HomeIcon, Mic2, Library, Music, Download } from 'lucide-react';
 import { SkipBack, SkipForward, Play, Pause, ArrowRight } from '@phosphor-icons/react';
 import FooterWithSpotlight from '../components/FooterWithSpotlight';
+import JumpingText from '../components/JumpingText';
+import Navbar from '../components/Navbar';
 
 const roles = [
   "Frontend Developer.",
@@ -11,47 +13,6 @@ const roles = [
   "Software Engineer.",
   "music enjoyer."
 ];
-
-// Animated text component with random jumping animation
-function JumpingText({ children, delay = 0 }) {
-  const [isAnimating, setIsAnimating] = useState(false);
-  const letters = children.split('');
-
-  useEffect(() => {
-    // Start animations at random intervals (3-8 seconds)
-    const startRandomAnimation = () => {
-      const randomDelay = 3000 + Math.random() * 5000;
-      setTimeout(() => {
-        setIsAnimating(true);
-        setTimeout(() => {
-          setIsAnimating(false);
-          startRandomAnimation(); // Schedule next animation
-        }, 400 + (letters.length * 50)); // Animation duration
-      }, randomDelay + delay);
-    };
-
-    startRandomAnimation();
-  }, [letters.length, delay]);
-
-  return (
-    <span style={{ display: 'inline-block', color: '#C4B5FD' }}>
-      {letters.map((letter, index) => (
-        <motion.span
-          key={index}
-          style={{ display: 'inline-block' }}
-          animate={isAnimating ? { y: [0, -8, 0] } : { y: 0 }}
-          transition={{
-            duration: 0.4,
-            delay: index * 0.05,
-            ease: "easeInOut"
-          }}
-        >
-          {letter === ' ' ? '\u00A0' : letter}
-        </motion.span>
-      ))}
-    </span>
-  );
-}
 
 // Animated counter component
 function AnimatedCounter({ target, duration = 2000 }) {
@@ -140,7 +101,6 @@ function Home() {
   const [isViewAllHovered, setIsViewAllHovered] = useState(false);
   const [slideDirection, setSlideDirection] = useState(1);
   const [isDittoHovered, setIsDittoHovered] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
   const heroRef = useRef(null);
   const dittoImgRef = useRef(null);
@@ -149,21 +109,6 @@ function Home() {
     once: false,  // Allow reverse animation
     amount: 0.3  // Trigger when 30% of section is visible
   });
-
-  // Lock body scroll when mobile menu is open
-  useEffect(() => {
-    document.body.style.overflow = isMobileMenuOpen ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
-  }, [isMobileMenuOpen]);
-
-  // Close mobile menu on resize to desktop
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth > 768) setIsMobileMenuOpen(false);
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   // Handle hash navigation on mount and scroll to top
   useEffect(() => {
@@ -275,120 +220,12 @@ function Home() {
   return (
     <div className="min-h-screen bg-[#262626] text-white flex flex-col">
       {/* Navbar */}
-      <nav
-        className="sticky top-0 z-50 bg-[#262626] border-b border-white/10"
-        style={{
-          height: '72px',
-          padding: '22px var(--page-padding)',
-          boxShadow: isOnWhiteSection
-            ? '0 8px 32px rgba(196, 181, 253, 0.6), 0 0 60px rgba(196, 181, 253, 0.4)'
-            : '0 8px 24px rgba(255, 255, 255, 0.08)',
-          transition: 'box-shadow 0.3s ease'
-        }}
-      >
-        <div className="flex justify-between items-center h-full">
-          <h1
-            className="font-bold"
-            style={{ fontFamily: "'Clash Display', sans-serif", fontSize: 'clamp(20px, 2.5vw, 27px)' }}
-          >
-            Khang's Wrapped
-          </h1>
-
-          {/* Desktop nav links */}
-          <div
-            className="nav-links-desktop items-center"
-            style={{ fontFamily: "'Gamja Flower', sans-serif", gap: '29px', fontSize: '20px' }}
-          >
-            <a
-              href="#"
-              onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-              className="hover:text-[#C4B5FD] transition-colors text-[#C4B5FD]"
-            >
-              Home
-            </a>
-            <Link to="/about" className="hover:text-[#C4B5FD] transition-colors">
-              About
-            </Link>
-            <Link to="/playlist" className="hover:text-[#C4B5FD] transition-colors">
-              My Playlists
-            </Link>
-            <a
-              href="/resume/khangresume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-[#C4B5FD] transition-colors"
-            >
-              Resume
-            </a>
-          </div>
-
-          {/* Hamburger button (mobile) */}
-          <button
-            className="nav-hamburger"
-            onClick={() => setIsMobileMenuOpen(true)}
-            style={{
-              background: 'none',
-              border: 'none',
-              color: '#E8E8E3',
-              cursor: 'pointer',
-              padding: '8px',
-              minWidth: '44px',
-              minHeight: '44px',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}
-            aria-label="Open menu"
-          >
-            <Menu size={24} />
-          </button>
-        </div>
-      </nav>
-
-      {/* Mobile menu overlay */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            className="mobile-menu-overlay"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.25 }}
-          >
-            <button
-              className="mobile-menu-close"
-              onClick={() => setIsMobileMenuOpen(false)}
-              aria-label="Close menu"
-            >
-              <X size={28} />
-            </button>
-            <a
-              href="#"
-              className="active"
-              onClick={(e) => {
-                e.preventDefault();
-                setIsMobileMenuOpen(false);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-            >
-              Home
-            </a>
-            <Link to="/about" onClick={() => setIsMobileMenuOpen(false)}>
-              About
-            </Link>
-            <Link to="/playlist" onClick={() => setIsMobileMenuOpen(false)}>
-              My Playlists
-            </Link>
-            <a
-              href="/resume/khangresume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Resume
-            </a>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <Navbar
+        activePage="home"
+        boxShadow={isOnWhiteSection
+          ? '0 8px 32px rgba(196, 181, 253, 0.6), 0 0 60px rgba(196, 181, 253, 0.4)'
+          : '0 8px 24px rgba(255, 255, 255, 0.08)'}
+      />
 
       {/* Main Content - fills middle, scrollable */}
       <main className="flex-1 overflow-y-auto" style={{ padding: '0 var(--page-padding)' }}>
