@@ -136,7 +136,7 @@ function PlasticBeachCaseStudy() {
 
       <main className="flex-1">
         <CaseStudyHero
-          image="/images/plasticbeach/hero.jpg"
+          image="/images/plasticbeach/hero.webp"
           alt="PlasticBeach hero"
           title="PlasticBeach"
           subtitle="Redesigning recycling materials for a SoCal nonprofit cutting soft-plastic waste"
@@ -199,7 +199,7 @@ function PlasticBeachCaseStudy() {
 
             <div className={styles.thanksCenter}>
               <img
-                src="/images/shared/thanks-for-reading.png"
+                src="/images/shared/thanks-for-reading.webp"
                 alt="Thanks for reading"
                 className={styles.thanksImage}
               />

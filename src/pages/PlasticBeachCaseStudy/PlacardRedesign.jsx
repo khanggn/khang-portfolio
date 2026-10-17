@@ -155,7 +155,7 @@ export default function PlacardRedesign({ styles, prefersReduced }) {
           style={{ marginTop: '48px' }}
         >
           <img
-            src="/images/plasticbeach/final-placard.png"
+            src="/images/plasticbeach/final-placard.webp"
             alt="Redesigned Plastic Beach sorting placard"
             className={styles.annotatedImage}
           />

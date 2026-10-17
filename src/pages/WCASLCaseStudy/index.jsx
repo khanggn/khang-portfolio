@@ -140,7 +140,7 @@ function WCASLCaseStudy() {
 
       <main className="flex-1">
         <CaseStudyHero
-          image="/images/wcasl/hero.png"
+          image="/images/wcasl/hero.webp"
           alt="West Coast Adult Soccer League hero"
           title="West Coast Adult Soccer League"
           subtitle="Website redesign for a recreational soccer league in South Orange County"
@@ -205,7 +205,7 @@ function WCASLCaseStudy() {
 
             <div className={styles.thanksCenter}>
               <img
-                src="/images/shared/thanks-for-reading.png"
+                src="/images/shared/thanks-for-reading.webp"
                 alt="Thanks for reading"
                 className={styles.thanksImage}
               />

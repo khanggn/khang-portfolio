@@ -14,7 +14,7 @@ export default function FinalSolution() {
               Your Shopping List
             </h3>
             <img
-              src="/images/propel/shopping-list-screen.png"
+              src="/images/propel/shopping-list-screen.webp"
               alt="Shopping List Screen"
               style={propelStyles.phoneMockup}
             />
@@ -27,7 +27,7 @@ export default function FinalSolution() {
               Home Screen
             </h3>
             <img
-              src="/images/propel/landing-page.png"
+              src="/images/propel/landing-page.webp"
               alt="Home Screen"
               style={propelStyles.phoneMockup}
             />
@@ -44,7 +44,7 @@ export default function FinalSolution() {
               Find Recipes
             </h3>
             <img
-              src="/images/propel/recipe-screen.png"
+              src="/images/propel/recipe-screen.webp"
               alt="Find Recipes Screen"
               style={propelStyles.phoneMockup}
             />
@@ -57,7 +57,7 @@ export default function FinalSolution() {
               Recipe Detail
             </h3>
             <img
-              src="/images/propel/expanded-recipe.png"
+              src="/images/propel/expanded-recipe.webp"
               alt="Recipe Detail Screen"
               style={propelStyles.phoneMockup}
             />
@@ -87,7 +87,7 @@ export default function FinalSolution() {
               Your EBT / Digital Envelope
             </h3>
             <img
-              src="/images/propel/your-ebt.png"
+              src="/images/propel/your-ebt.webp"
               alt="Your EBT Digital Envelope Screen"
               style={propelStyles.phoneMockup}
             />

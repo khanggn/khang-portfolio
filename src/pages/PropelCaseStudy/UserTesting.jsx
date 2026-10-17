@@ -60,7 +60,7 @@ export default function UserTesting() {
         {/* Screenshot */}
         <div style={propelStyles.screenshotCenter}>
           <img
-            src="/images/propel/shopping-list-redesign.png"
+            src="/images/propel/shopping-list-redesign.webp"
             alt="Shopping List Redesign"
             style={propelStyles.screenshotImg}
           />
@@ -103,7 +103,7 @@ export default function UserTesting() {
         {/* Screenshot */}
         <div style={propelStyles.screenshotCenter}>
           <img
-            src="/images/propel/find-recipes-screen.png"
+            src="/images/propel/find-recipes-screen.webp"
             alt="Shopping List Redesign"
             style={propelStyles.screenshotImg}
           />

@@ -4,12 +4,12 @@ import BrowserFrame from '../../components/case-study/BrowserFrame';
 
 const learnedSlides = [
   {
-    src: '/images/wcasl/health-articles.png',
+    src: '/images/wcasl/health-articles.webp',
     label: 'Article Previews',
     alt: 'Health & Wellness page with embedded article previews',
   },
   {
-    src: '/images/wcasl/health-reels.png',
+    src: '/images/wcasl/health-reels.webp',
     label: 'Instagram Reels Carousel',
     alt: 'Health & Wellness page with Instagram Reels carousel',
   },
@@ -52,7 +52,7 @@ export default function WhatILearned({ styles }) {
         <ShowcasePanel equalPadding>
           <BrowserFrame noControls>
             <img
-              src="/images/wcasl/new-annotated.png"
+              src="/images/wcasl/new-annotated.webp"
               alt="New WCASL site with large buttons and high-contrast text highlighted"
               className={styles.showcaseImageBordered}
             />

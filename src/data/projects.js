@@ -50,7 +50,7 @@ export const projects = [
     role: 'Product Designer',
     projectType: 'Designathon',
     category: 'uiux',
-    image: '/images/uiux/nafasi.png',
+    image: '/images/uiux/nafasi.webp',
     startDate: 'Mar 2026',
     endDate: 'Mar 2026'
   },
@@ -60,7 +60,7 @@ export const projects = [
     role: 'Software Engineer',
     projectType: 'Project',
     category: 'swe',
-    image: '/images/swe/snapshot/thumbnail.png',
+    image: '/images/swe/snapshot/thumbnail.webp',
     startDate: 'Jan 2026',
     endDate: 'Mar 2026',
     tags: ['Python', 'Git', 'Developer Tools', 'Diff Algorithms', 'Tkinter UI'],
@@ -151,10 +151,10 @@ export const projects = [
     },
     description: 'A swipe-based web app for discovering UCSD events, enabling students to browse, like, and share events through an interactive interface.',
     previews: [
-      { id: 1, type: 'image', src: '/images/swe/campusswipe/preview-1.png', alt: 'Preview 1' },
-      { id: 2, type: 'image', src: '/images/swe/campusswipe/preview-2.png', alt: 'Preview 2' },
-      { id: 3, type: 'image', src: '/images/swe/campusswipe/preview-3.png', alt: 'Preview 3' },
-      { id: 4, type: 'image', src: '/images/swe/campusswipe/preview-4.png', alt: 'Preview 4' }
+      { id: 1, type: 'image', src: '/images/swe/campusswipe/preview-1.webp', alt: 'Preview 1' },
+      { id: 2, type: 'image', src: '/images/swe/campusswipe/preview-2.webp', alt: 'Preview 2' },
+      { id: 3, type: 'image', src: '/images/swe/campusswipe/preview-3.webp', alt: 'Preview 3' },
+      { id: 4, type: 'image', src: '/images/swe/campusswipe/preview-4.webp', alt: 'Preview 4' }
     ],
     keyFeatures: [
       'Swipe-based event discovery interface',
@@ -190,7 +190,7 @@ export const projects = [
     },
     description: 'A gamified education platform that motivates students to complete homework through real-time leaderboards, AI feedback, and a reward-driven gacha system.',
     previews: [
-      { id: 1, type: 'image', src: '/images/swe/zippy/preview-1.png', alt: 'Preview 1' },
+      { id: 1, type: 'image', src: '/images/swe/zippy/preview-1.webp', alt: 'Preview 1' },
       { id: 2, type: 'image', src: '/images/swe/zippy/preview-2.png', alt: 'Preview 2' },
       { id: 3, type: 'image', src: '/images/swe/zippy/preview-3.png', alt: 'Preview 3' },
       { id: 4, type: 'image', src: '/images/swe/zippy/preview-4.png', alt: 'Preview 4' }
@@ -228,10 +228,10 @@ export const projects = [
     },
     description: 'AI-powered Chrome extension that automates usability testing by deploying real browsing agents to simulate user behavior, uncover friction points, and generate actionable UI fixes in minutes.',
     previews: [
-      { id: 1, type: 'image', src: '/images/swe/agentux/preview-1.png', alt: 'Preview 1' },
+      { id: 1, type: 'image', src: '/images/swe/agentux/preview-1.webp', alt: 'Preview 1' },
       { id: 2, type: 'image', src: '/images/swe/agentux/preview-2.webp', alt: 'Preview 2' },
       { id: 3, type: 'gif', src: '/images/swe/agentux/preview-3.gif', alt: 'Preview 3' },
-      { id: 4, type: 'image', src: '/images/swe/agentux/preview-4.png', alt: 'Preview 4' }
+      { id: 4, type: 'image', src: '/images/swe/agentux/preview-4.webp', alt: 'Preview 4' }
     ],
     keyFeatures: [
       'AI agents simulate real user personas in live browser sessions',

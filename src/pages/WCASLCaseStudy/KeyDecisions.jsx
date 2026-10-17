@@ -17,12 +17,12 @@ const decision01Slides = [
 
 const decision02Slides = [
   {
-    src: '/images/wcasl/game-sheet.png',
+    src: '/images/wcasl/game-sheet.webp',
     label: 'Recordings Spreadsheet',
     alt: 'Google Sheet listing WCASL game recordings with teams, dates, and fields',
   },
   {
-    src: '/images/wcasl/game-cards.png',
+    src: '/images/wcasl/game-cards.webp',
     label: 'Game Video Page',
     alt: 'Custom match cards built in Squarespace that were eventually scrapped',
   },
@@ -30,7 +30,7 @@ const decision02Slides = [
 
 const decision04Slides = [
   {
-    src: '/images/wcasl/palette-initial.png',
+    src: '/images/wcasl/palette-initial.webp',
     label: 'Initial Color Palette',
     alt: 'Initial WCASL color palette derived from the league logo',
   },
@@ -118,7 +118,7 @@ export default function KeyDecisions({ styles }) {
         </div>
         <ShowcasePanel equalPadding>
           <img
-            src="/images/wcasl/health-page.png"
+            src="/images/wcasl/health-page.webp"
             alt="WCASL Health & Wellness page showing partnership information, article previews, and Instagram Reels carousel"
             className={styles.blockImage}
           />

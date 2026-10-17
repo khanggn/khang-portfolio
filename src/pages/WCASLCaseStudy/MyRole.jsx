@@ -90,7 +90,7 @@ export default function MyRole({ styles, prefersReduced }) {
                   label: 'Low Fidelity',
                   content: (
                     <img
-                      src="/images/wcasl/lofi-home.png"
+                      src="/images/wcasl/lofi-home.webp"
                       alt="Lo-fi wireframes of the WCASL Home, About, and Membership pages"
                       className={styles.blockImage}
                     />
@@ -100,7 +100,7 @@ export default function MyRole({ styles, prefersReduced }) {
                   label: 'High Fidelity',
                   content: (
                     <img
-                      src="/images/wcasl/hifi-home.png"
+                      src="/images/wcasl/hifi-home.webp"
                       alt="Hi-fi designs of the WCASL Home, About, and Membership pages"
                       className={styles.blockImage}
                     />
@@ -129,7 +129,7 @@ export default function MyRole({ styles, prefersReduced }) {
         <div className={styles.showcaseWrapper}>
           <ShowcasePanel equalPadding>
             <img
-              src="/images/wcasl/live-home.png"
+              src="/images/wcasl/live-home.webp"
               alt="Live WCASL website screenshots of the Home, About, and Membership pages"
               className={styles.blockImage}
             />

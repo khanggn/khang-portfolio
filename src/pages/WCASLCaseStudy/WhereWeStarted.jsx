@@ -3,12 +3,12 @@ import ScreenshotPanel from '../../components/case-study/ScreenshotPanel';
 
 const problemSlides = [
   {
-    src: '/images/wcasl/old-divisions.png',
+    src: '/images/wcasl/old-divisions.webp',
     label: 'Divisions Page',
     alt: 'Old WCASL Divisions page',
   },
   {
-    src: '/images/wcasl/old-home.png',
+    src: '/images/wcasl/old-home.webp',
     label: 'Home Page',
     alt: 'Old WCASL Homepage',
   },
