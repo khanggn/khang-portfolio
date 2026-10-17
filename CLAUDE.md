@@ -1,7 +1,7 @@
 # Khang's Wrapped — Portfolio
 
 ## Project Overview
-Personal portfolio for Khang Nguyen, 3rd year CS student at UCSD with a minor in Cognitive Science. The theme is "Khang's Wrapped" — a Spotify Wrapped-inspired portfolio showcasing case work and side projects. The portfolio treats Khang as an "artist" and projects as "albums/playlists."
+Personal portfolio for Khang Nguyen, 4th year / senior CS student at UCSD with a minor in Cognitive Science. The theme is "Khang's Wrapped" — a Spotify Wrapped-inspired portfolio showcasing case work and side projects. The portfolio treats Khang as an "artist" and projects as "albums/playlists."
 
 ## Tech Stack
 - React 19 + Vite 8 (NOT Next.js — do not use "use client" directives)
@@ -11,24 +11,42 @@ Personal portfolio for Khang Nguyen, 3rd year CS student at UCSD with a minor in
 - Deployed on Vercel
 
 ## Fonts
-- **Clash Display** — all headings, navbar brand, hero text
-- **Inter** — body text, nav links, subtext, UI elements
-- **Island Funny** — handwritten annotation font (used on case study pages for annotated images). Loaded via `@font-face` in `index.css`, OTF file at `/fonts/IslandFunny-5yMXx.otf`
+- **Clash Display** — headings, hero text
+- **Gamja Flower** — navbar, footer, About page body text (loaded via Google Fonts)
+- **Inter** — case study content, UI elements
+- **Island Funny** — handwritten annotation font (case study annotated images). Loaded via `@font-face` in `index.css`, OTF file at `/fonts/IslandFunny-5yMXx.otf`
 
 ## File Structure
 ```
 src/
-├── App.jsx              — Router setup, all routes defined here
-├── index.css            — Global styles, @font-face, responsive CSS, animations
-├── pages/
-│   ├── Home.jsx         — Landing page with hero, title tracks carousel, footer
-│   ├── About.jsx        — About page
-│   ├── Playlist.jsx     — Playlist/works listing page
-│   ├── CaseStudy.jsx    — Generic case study page
-│   └── PlasticBeachCaseStudy.jsx — PlasticBeach case study (in progress)
+├── App.jsx                — Router setup, all routes
+├── main.jsx               — Vite entry point
+├── index.css              — Global styles, @font-face, responsive CSS, animations
+├── data/
+│   ├── home.js            — Hero roles, home page data
+│   ├── projects.js        — Playlist & project arrays
+│   └── spotify-stats.json — On Repeat timeline data
 ├── components/
-│   ├── FooterWithSpotlight.jsx  — Shared footer component
-│   └── ProjectDetail.jsx        — Project detail view
+│   ├── layout/            — Navbar, FooterWithSpotlight
+│   ├── ui/                — ClickSpark, JumpingText
+│   ├── about/             — BSides, NowPlaying, OnRepeat
+│   ├── playlist/          — ProjectDetail
+│   └── case-study/        — CaseStudyNavbar, CaseStudyHero, Sidebar, MobileBar,
+│                            PlayButton, ToolChip, AnimatedNumber, BrowserFrame,
+│                            ImageToggle, ScreenshotPanel, ShowcasePanel,
+│                            CaseStudy.module.css
+├── pages/
+│   ├── Home/              — index.jsx, HeroSection, TitleTracksSection, AnimatedCounter
+│   ├── About/             — index.jsx, HeroSection
+│   ├── Playlist/          — index.jsx, LandingSection, PlaylistDetailSection
+│   ├── PropelCaseStudy/   — index.jsx, Overview, ProblemStatement, UserResearch,
+│   │                        DesignProcess, FinalSolution, UserTesting,
+│   │                        TradeoffsFutureWork, styles.js
+│   ├── PlasticBeachCaseStudy/ — index.jsx, Overview, GlanceSection, PlacardRedesign,
+│   │                            WebsiteRedesign, Results, WhatIdDoDifferently
+│   └── WCASLCaseStudy/    — index.jsx, GlanceSection, WhereWeStarted, MyRole,
+│                            KeyDecisions, WhatILearned, IdeasThatChanged,
+│                            Results, WhatIdDoDifferently
 ```
 
 ## Routes
@@ -37,8 +55,9 @@ src/
 | `/` | Home | Landing page |
 | `/about` | About | About page |
 | `/playlist` | Playlist | Works listing |
-| `/case-study` | CaseStudy | Generic case study |
+| `/case-study` | PropelCaseStudy | Propel case study |
 | `/case-study/plastic-beach` | PlasticBeachCaseStudy | PlasticBeach case study |
+| `/case-study/wcasl` | WCASLCaseStudy | West Coast Adult Soccer League case study |
 
 ## Design System — Color Palette
 
@@ -207,6 +226,18 @@ Use **Framer Motion** for:
 
 ## Icons
 Use **Lucide Icons** throughout (Menu, X, Home, etc.)
+
+## Conventions
+- Images live in `public/images/<project>/` with lowercase-kebab-case names
+- Each page is a folder: `index.jsx` holds state/effects, section files are presentational
+- Shared case study pieces go in `src/components/case-study/`
+- Data arrays live in `src/data/`, not in components
+- Propel's repeated inline styles live in `PropelCaseStudy/styles.js` (imported as `propelStyles`)
+
+## Known Issues
+- Decidr previews have empty image paths
+- 24 pre-existing lint errors (Math.random purity, unused vars, refs-during-render)
+- `AnimatePresence mode="wait"` warnings in dev console
 
 ## Agent Send-Off
 
