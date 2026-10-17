@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
-import ShowcasePanel from '../../components/ShowcasePanel';
-import ImageToggle from '../../components/ImageToggle';
+import ShowcasePanel from '../../components/case-study/ShowcasePanel';
+import ImageToggle from '../../components/case-study/ImageToggle';
 
 export default function MyRole({ styles, prefersReduced }) {
   return (

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Pause, X, SpeakerHigh, SpeakerLow, SpeakerSlash, CaretDown, CheckCircle } from '@phosphor-icons/react';
-import ProjectDetail from '../../components/ProjectDetail';
+import ProjectDetail from '../../components/playlist/ProjectDetail';
 import { projects } from '../../data/projects';
 
 export default function PlaylistDetailSection({

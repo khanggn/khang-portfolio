@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
-import stats from '../data/spotify-stats.json';
+import stats from '../../data/spotify-stats.json';
 
 const STAGES = [
   ...stats.years.map((y) => ({ key: String(y.year), label: String(y.year), ...y })),

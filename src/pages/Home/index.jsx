@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import FooterWithSpotlight from '../../components/FooterWithSpotlight';
-import Navbar from '../../components/Navbar';
+import FooterWithSpotlight from '../../components/layout/FooterWithSpotlight';
+import Navbar from '../../components/layout/Navbar';
 import HeroSection from './HeroSection';
 import TitleTracksSection from './TitleTracksSection';
 

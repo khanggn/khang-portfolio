@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
-import JumpingText from '../../components/JumpingText';
+import JumpingText from '../../components/ui/JumpingText';
 import { roles } from '../../data/home';
 import AnimatedCounter from './AnimatedCounter';
 

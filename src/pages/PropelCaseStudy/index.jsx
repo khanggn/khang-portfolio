@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import FooterWithSpotlight from '../../components/FooterWithSpotlight';
+import FooterWithSpotlight from '../../components/layout/FooterWithSpotlight';
 import CaseStudyNavbar from '../../components/case-study/CaseStudyNavbar';
 
 import Overview from './Overview';

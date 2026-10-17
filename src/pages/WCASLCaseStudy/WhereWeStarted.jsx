@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import ScreenshotPanel from '../../components/ScreenshotPanel';
+import ScreenshotPanel from '../../components/case-study/ScreenshotPanel';
 
 const problemSlides = [
   {

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import FooterWithSpotlight from '../../components/FooterWithSpotlight';
-import Navbar from '../../components/Navbar';
+import FooterWithSpotlight from '../../components/layout/FooterWithSpotlight';
+import Navbar from '../../components/layout/Navbar';
 import { playlists } from '../../data/projects';
 import LandingSection from './LandingSection';
 import PlaylistDetailSection from './PlaylistDetailSection';

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { LinkedinLogo, GithubLogo, Envelope } from '@phosphor-icons/react';
-import JumpingText from './JumpingText';
+import JumpingText from '../ui/JumpingText';
 
 // Footer with spotlight cursor effect
 function FooterWithSpotlight() {

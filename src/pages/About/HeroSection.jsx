@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import NowPlaying from '../../components/NowPlaying';
+import NowPlaying from '../../components/about/NowPlaying';
 
 function HeroSection() {
   return (

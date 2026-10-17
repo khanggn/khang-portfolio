@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-import FooterWithSpotlight from '../../components/FooterWithSpotlight';
-import Navbar from '../../components/Navbar';
-import OnRepeat from '../../components/OnRepeat';
-import BSides from '../../components/BSides';
+import FooterWithSpotlight from '../../components/layout/FooterWithSpotlight';
+import Navbar from '../../components/layout/Navbar';
+import OnRepeat from '../../components/about/OnRepeat';
+import BSides from '../../components/about/BSides';
 import HeroSection from './HeroSection';
 
 function About() {

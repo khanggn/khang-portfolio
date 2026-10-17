@@ -6,7 +6,7 @@ import CaseStudy from './pages/PropelCaseStudy'
 import PlasticBeachCaseStudy from './pages/PlasticBeachCaseStudy'
 import WCASLCaseStudy from './pages/WCASLCaseStudy'
 import About from './pages/About'
-import ClickSpark from './components/ClickSpark'
+import ClickSpark from './components/ui/ClickSpark'
 
 function App() {
   return (

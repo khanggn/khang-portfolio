@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { motion, useReducedMotion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Home } from 'lucide-react';
-import FooterWithSpotlight from '../../components/FooterWithSpotlight';
+import FooterWithSpotlight from '../../components/layout/FooterWithSpotlight';
 import CaseStudyNavbar from '../../components/case-study/CaseStudyNavbar';
 import CaseStudyHero from '../../components/case-study/CaseStudyHero';
 import Sidebar from '../../components/case-study/Sidebar';

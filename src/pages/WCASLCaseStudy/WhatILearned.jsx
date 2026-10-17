@@ -1,6 +1,6 @@
-import ShowcasePanel from '../../components/ShowcasePanel';
-import ImageToggle from '../../components/ImageToggle';
-import BrowserFrame from '../../components/BrowserFrame';
+import ShowcasePanel from '../../components/case-study/ShowcasePanel';
+import ImageToggle from '../../components/case-study/ImageToggle';
+import BrowserFrame from '../../components/case-study/BrowserFrame';
 
 const learnedSlides = [
   {
