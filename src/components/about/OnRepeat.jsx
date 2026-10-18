@@ -652,6 +652,8 @@ function OnRepeat() {
         marginLeft: 'calc(var(--page-padding) * -1)',
         marginRight: 'calc(var(--page-padding) * -1)',
         padding: '0 var(--page-padding)',
+        paddingBottom: 96,
+        marginBottom: 64,
         backgroundColor: '#262626',
       }}
     >

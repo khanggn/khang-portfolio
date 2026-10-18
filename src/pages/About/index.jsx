@@ -19,11 +19,12 @@ function About() {
         {/* Hero Section */}
         <HeroSection />
 
+        {/* B-Sides */}
+        <BSides />
+        
         {/* On Repeat Since 2018 */}
         <OnRepeat />
 
-        {/* B-Sides */}
-        <BSides />
 
         {/* Footer Section */}
         <FooterWithSpotlight />
