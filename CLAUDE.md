@@ -23,13 +23,14 @@ src/
 ├── main.jsx               — Vite entry point
 ├── index.css              — Global styles, @font-face, responsive CSS, animations
 ├── data/
+│   ├── experience.js      — Experience & education data
 │   ├── home.js            — Hero roles, home page data
 │   ├── projects.js        — Playlist & project arrays
 │   └── spotify-stats.json — On Repeat timeline data
 ├── components/
 │   ├── layout/            — Navbar, FooterWithSpotlight
 │   ├── ui/                — ClickSpark, JumpingText
-│   ├── about/             — BSides, NowPlaying, OnRepeat
+│   ├── about/             — BSides, Experience, NowPlaying, OnRepeat
 │   ├── playlist/          — ProjectDetail
 │   └── case-study/        — CaseStudyNavbar, CaseStudyHero, Sidebar, MobileBar,
 │                            PlayButton, ToolChip, AnimatedNumber, BrowserFrame,

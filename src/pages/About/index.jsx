@@ -3,6 +3,7 @@ import FooterWithSpotlight from '../../components/layout/FooterWithSpotlight';
 import Navbar from '../../components/layout/Navbar';
 import OnRepeat from '../../components/about/OnRepeat';
 import BSides from '../../components/about/BSides';
+import Experience from '../../components/about/Experience';
 import HeroSection from './HeroSection';
 
 function About() {
@@ -18,6 +19,9 @@ function About() {
       <main className="flex-1" style={{ padding: '0 var(--page-padding)' }}>
         {/* Hero Section */}
         <HeroSection />
+
+        {/* Experience */}
+        <Experience />
 
         {/* B-Sides */}
         <BSides />
