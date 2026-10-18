@@ -133,7 +133,7 @@ function NowPlaying() {
       aria-label={`${song.isPlaying ? 'Khang is listening to' : 'Khang last played'} ${song.title} by ${song.artist} on Spotify`}
       initial={shouldAnimate ? { opacity: 0 } : false}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.4, delay: shouldAnimate ? 1.4 : 0 }}
+      transition={{ duration: 0.4, delay: shouldAnimate ? 0.65 : 0 }}
       whileHover={{ y: -2, borderColor: '#9D92C8' }}
       style={{ ...cardStyle, textDecoration: 'none', color: 'inherit' }}
     >
