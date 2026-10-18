@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import { LinkedinLogo, GithubLogo, Envelope } from '@phosphor-icons/react';
 
 const navLinks = [
   { key: 'home', label: 'Home', to: '/' },
@@ -50,7 +51,7 @@ export default function Navbar({ activePage, boxShadow }) {
             Khang's Wrapped
           </Link>
 
-          {/* Desktop nav */}
+          {/* Desktop nav: links + separator + social icons */}
           <div
             className="nav-links-desktop items-center"
             style={{ fontFamily: "'Gamja Flower', sans-serif", gap: '29px', fontSize: '20px' }}
@@ -87,6 +88,36 @@ export default function Navbar({ activePage, boxShadow }) {
             >
               Resume
             </a>
+
+            {/* Separator + social icons */}
+            <div className="h-5 w-px bg-white/20" />
+            <div className="flex items-center gap-4">
+              <a
+                href="https://www.linkedin.com/in/khangnguyen05/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#E8E8E3] hover:text-[#C4B5FD] transition-colors"
+                aria-label="LinkedIn"
+              >
+                <LinkedinLogo size={20} weight="fill" />
+              </a>
+              <a
+                href="https://github.com/khanggn"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#E8E8E3] hover:text-[#C4B5FD] transition-colors"
+                aria-label="GitHub"
+              >
+                <GithubLogo size={20} weight="fill" />
+              </a>
+              <a
+                href="mailto:khangg.nguyen05@gmail.com"
+                className="text-[#E8E8E3] hover:text-[#C4B5FD] transition-colors"
+                aria-label="Email"
+              >
+                <Envelope size={20} weight="fill" />
+              </a>
+            </div>
           </div>
 
           {/* Hamburger (mobile) */}
@@ -160,6 +191,33 @@ export default function Navbar({ activePage, boxShadow }) {
             >
               Resume
             </a>
+            <div className="flex items-center gap-5 mt-4">
+              <a
+                href="https://www.linkedin.com/in/khangnguyen05/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#E8E8E3] hover:text-[#C4B5FD] transition-colors"
+                aria-label="LinkedIn"
+              >
+                <LinkedinLogo size={24} weight="fill" />
+              </a>
+              <a
+                href="https://github.com/khanggn"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#E8E8E3] hover:text-[#C4B5FD] transition-colors"
+                aria-label="GitHub"
+              >
+                <GithubLogo size={24} weight="fill" />
+              </a>
+              <a
+                href="mailto:khangg.nguyen05@gmail.com"
+                className="text-[#E8E8E3] hover:text-[#C4B5FD] transition-colors"
+                aria-label="Email"
+              >
+                <Envelope size={24} weight="fill" />
+              </a>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
