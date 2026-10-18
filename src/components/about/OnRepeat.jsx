@@ -134,7 +134,6 @@ function Timeline({ activeStage, onSelect }) {
           {STAGES.map((s, i) => {
             const reached = i <= activeStage;
             const current = i === activeStage;
-            const size = current ? 28 : 18;
             return (
               <button
                 key={s.key}
@@ -153,7 +152,6 @@ function Timeline({ activeStage, onSelect }) {
                 }}
               >
                 <motion.div
-                  key={`${s.key}-${current}`}
                   whileHover={!current ? {
                     scale: [1, 1.15, 1],
                     boxShadow: [
@@ -167,15 +165,22 @@ function Timeline({ activeStage, onSelect }) {
                       ease: 'easeInOut',
                     },
                   } : undefined}
-                  style={{
-                    width: size,
-                    height: size,
-                    borderRadius: '50%',
+                  animate={{
+                    width: current ? 28 : 18,
+                    height: current ? 28 : 18,
                     backgroundColor: reached ? '#C4B5FD' : '#9D92C8',
-                    transition: 'background-color 0.3s',
                     boxShadow: current
                       ? '0 0 10px rgba(196,181,253,0.5)'
-                      : 'none',
+                      : '0 0 0px rgba(196,181,253,0)',
+                  }}
+                  transition={{
+                    width: { type: 'spring', stiffness: 400, damping: 25 },
+                    height: { type: 'spring', stiffness: 400, damping: 25 },
+                    backgroundColor: { duration: 0.3 },
+                    boxShadow: { duration: 0.3 },
+                  }}
+                  style={{
+                    borderRadius: '50%',
                   }}
                 />
               </button>

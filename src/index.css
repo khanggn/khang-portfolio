@@ -114,6 +114,41 @@ body {
   }
 }
 
+/* Headshot pulse glow */
+@keyframes headshotPulse {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(196, 181, 253, 0.15), 0 0 30px rgba(196, 181, 253, 0.08);
+  }
+  50% {
+    box-shadow: 0 0 22px rgba(196, 181, 253, 0.25), 0 0 40px rgba(196, 181, 253, 0.1);
+  }
+}
+
+.headshot-glow {
+  animation: headshotPulse 3s ease-in-out infinite;
+}
+
+/* Volume slider thumb */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #C4B5FD;
+  border: none;
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #C4B5FD;
+  border: none;
+  cursor: pointer;
+}
+
 .blob-cursor {
   animation: blobMorph 8s ease-in-out infinite;
 }

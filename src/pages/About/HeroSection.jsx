@@ -96,12 +96,14 @@ function HeroSection() {
         {/* Headshot + Spotify */}
         <div className="about-headshot" style={{ flexShrink: 0, display: 'flex', flexDirection: 'column' }}>
           <motion.div
+            className="headshot-glow"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.3 }}
             style={{
               width: 'clamp(200px, 30vw, 400px)',
               height: 'clamp(200px, 30vw, 400px)',
+              borderRadius: '16px',
             }}
           >
             <img
@@ -112,6 +114,7 @@ function HeroSection() {
                 height: '100%',
                 objectFit: 'cover',
                 borderRadius: '16px',
+                display: 'block',
               }}
             />
           </motion.div>
