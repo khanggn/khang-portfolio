@@ -6,9 +6,9 @@ export const playlists = [
     color: '#E8E8E3',
     image: '/images/about/snorlax.jpeg',
     category: 'swe',
-    audio: '/audio/crazy(130bpm).mp3',
+    audio: '/audio/hypeboy.mp3',
     bpm: 130,
-    songName: 'CRAZY - LE SSERAFIM'
+    songName: 'Hype Boy - NewJeans'
   },
   {
     id: 'uiux',
@@ -17,9 +17,9 @@ export const playlists = [
     color: '#E8E8E3',
     image: '/images/about/pysduck.jpg',
     category: 'uiux',
-    audio: '/audio/bubblegum(105bpm).mp3',
+    audio: '/audio/hot.mp3',
     bpm: 105,
-    songName: 'Bubble Gum - NewJeans'
+    songName: 'Hot - LE SSERAFIM'
   }
 ];
 

@@ -153,7 +153,7 @@ function PhotoStack({ photos, destination, animation, onPrev, onNext, prevLabel,
                   }
                 }
                 transition={{ duration: 0.3 }}
-                whileHover={isTop ? { scale: 1.02, rotate: 0 } : undefined}
+                whileHover={undefined}
                 style={{
                   position: 'absolute',
                   inset: 0,
