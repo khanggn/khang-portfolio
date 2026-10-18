@@ -402,7 +402,7 @@ function MobileContent({ stage }) {
       }}
     >
       {/* artists row */}
-      <div style={{ display: 'flex', justifyContent: 'center', gap: 16 }}>
+      <div style={{ display: 'flex', justifyContent: 'center', gap: 24 }}>
         {stage.topArtists.map((a) => (
           <a
             key={a.name}
@@ -413,8 +413,8 @@ function MobileContent({ stage }) {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              gap: 3,
-              width: 90,
+              gap: 6,
+              width: 100,
               textDecoration: 'none',
             }}
           >
@@ -423,8 +423,8 @@ function MobileContent({ stage }) {
               alt={a.name}
               loading="lazy"
               style={{
-                width: 48,
-                height: 48,
+                width: 72,
+                height: 72,
                 borderRadius: '50%',
                 objectFit: 'cover',
                 border: '2px solid rgba(196,181,253,0.25)',
@@ -433,11 +433,11 @@ function MobileContent({ stage }) {
             <span
               style={{
                 fontFamily: "'Gamja Flower', sans-serif",
-                fontSize: 11,
+                fontSize: 14,
                 fontWeight: 600,
                 color: '#E8E8E3',
                 textAlign: 'center',
-                maxWidth: 90,
+                maxWidth: 100,
                 whiteSpace: 'nowrap',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
@@ -448,7 +448,7 @@ function MobileContent({ stage }) {
             <span
               style={{
                 fontFamily: "'Gamja Flower', sans-serif",
-                fontSize: 10,
+                fontSize: 13,
                 color: '#9D92C8',
               }}
             >
@@ -458,7 +458,7 @@ function MobileContent({ stage }) {
         ))}
       </div>
       {/* songs list */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
         {stage.topSongs.map((s, i) => (
           <a
             key={s.uri}
@@ -468,9 +468,9 @@ function MobileContent({ stage }) {
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: 10,
-              padding: '6px 10px',
-              borderRadius: 10,
+              gap: 12,
+              padding: '10px 14px',
+              borderRadius: 12,
               backgroundColor: 'rgba(78,74,92,0.35)',
               textDecoration: 'none',
             }}
@@ -480,9 +480,9 @@ function MobileContent({ stage }) {
               alt={`${s.title} cover`}
               loading="lazy"
               style={{
-                width: 28,
-                height: 28,
-                borderRadius: 4,
+                width: 40,
+                height: 40,
+                borderRadius: 6,
                 objectFit: 'cover',
                 flexShrink: 0,
               }}
@@ -490,11 +490,11 @@ function MobileContent({ stage }) {
             <span
               style={{
                 fontFamily: "'Gamja Flower', sans-serif",
-                fontSize: 11,
+                fontSize: 14,
                 fontWeight: 500,
                 color: '#9D92C8',
                 flexShrink: 0,
-                width: 20,
+                width: 24,
               }}
             >
               #{i + 1}
@@ -502,7 +502,7 @@ function MobileContent({ stage }) {
             <p
               style={{
                 fontFamily: "'Gamja Flower', sans-serif",
-                fontSize: 13,
+                fontSize: 16,
                 fontWeight: 500,
                 color: '#E8E8E3',
                 margin: 0,
@@ -518,7 +518,7 @@ function MobileContent({ stage }) {
             <span
               style={{
                 fontFamily: "'Gamja Flower', sans-serif",
-                fontSize: 11,
+                fontSize: 14,
                 color: '#C4B5FD',
                 flexShrink: 0,
               }}
