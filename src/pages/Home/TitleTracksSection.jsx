@@ -377,6 +377,7 @@ export default function TitleTracksSection() {
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '32px' }}>
           {/* Previous Button */}
           <button
+            aria-label="Previous project"
             onClick={handlePrevProject}
             style={{
               background: 'none',
@@ -406,6 +407,7 @@ export default function TitleTracksSection() {
 
           {/* Pause/Play Button */}
           <button
+            aria-label={isPaused ? 'Play' : 'Pause'}
             onClick={togglePause}
             style={{
               background: '#262626',
@@ -436,6 +438,7 @@ export default function TitleTracksSection() {
 
           {/* Next Button */}
           <button
+            aria-label="Next project"
             onClick={handleNextProject}
             style={{
               background: 'none',
