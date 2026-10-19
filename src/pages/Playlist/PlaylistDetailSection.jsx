@@ -73,7 +73,8 @@ export default function PlaylistDetailSection({
         }}
       >
       {/* Close/Back to Top Icon */}
-      <motion.div
+      <motion.button
+        aria-label="Back to top"
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         whileHover={{ scale: 1.1, opacity: 1 }}
         whileTap={{ scale: 0.9 }}
@@ -83,11 +84,14 @@ export default function PlaylistDetailSection({
           right: '0',
           cursor: 'pointer',
           opacity: 0.5,
-          transition: 'opacity 0.2s ease'
+          transition: 'opacity 0.2s ease',
+          background: 'none',
+          border: 'none',
+          padding: 0
         }}
       >
         <X size={32} weight="regular" color="rgba(255, 255, 255, 0.7)" />
-      </motion.div>
+      </motion.button>
 
       {/* Playlist Header */}
       <div className="playlist-header">
@@ -144,6 +148,7 @@ export default function PlaylistDetailSection({
         {/* Play/Pause Button */}
         <div className="playlist-header-play" style={{ display: 'flex', alignItems: 'flex-end', paddingBottom: '7px' }}>
           <motion.button
+            aria-label={playingPlaylist === playlist.id ? 'Pause' : 'Play'}
             onClick={() => onPlayPause(playlist.id)}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -207,7 +212,7 @@ export default function PlaylistDetailSection({
         <div className="now-playing-row">
           {/* Now Playing */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
-            <span style={{ fontFamily: "'Gamja Flower', sans-serif", fontSize: '17px', color: 'rgba(255,255,255,0.5)' }}>
+            <span style={{ fontFamily: "'Gamja Flower', sans-serif", fontSize: '17px', color: 'rgba(255,255,255,0.65)' }}>
               Now Playing:
             </span>
             <span style={{ fontFamily: "'Gamja Flower', sans-serif", fontSize: '17px', color: '#C4B5FD', fontWeight: '500' }}>
@@ -231,6 +236,7 @@ export default function PlaylistDetailSection({
               step="0.01"
               value={audioVolume}
               onChange={onVolumeChange}
+              aria-label="Volume"
               style={{
                 width: '90px',
                 height: '4px',
@@ -279,7 +285,7 @@ export default function PlaylistDetailSection({
               e.currentTarget.style.background = 'rgba(196, 181, 253, 0.1)';
             }}
           >
-            <span style={{ color: 'rgba(255,255,255,0.5)' }}>Sort by:</span>
+            <span style={{ color: 'rgba(255,255,255,0.65)' }}>Sort by:</span>
             {sortOrder === 'newest' && 'Newest First'}
             {sortOrder === 'oldest' && 'Oldest First'}
             {sortOrder === 'type' && 'Project Type'}
@@ -383,7 +389,7 @@ export default function PlaylistDetailSection({
             style={{
               fontFamily: "'Gamja Flower', sans-serif",
               fontSize: '19px',
-              color: 'rgba(255,255,255,0.5)',
+              color: 'rgba(255,255,255,0.65)',
               fontWeight: '500'
             }}
           >
@@ -393,7 +399,7 @@ export default function PlaylistDetailSection({
             style={{
               fontFamily: "'Gamja Flower', sans-serif",
               fontSize: '19px',
-              color: 'rgba(255,255,255,0.5)',
+              color: 'rgba(255,255,255,0.65)',
               fontWeight: '500'
             }}
           >
@@ -404,7 +410,7 @@ export default function PlaylistDetailSection({
             style={{
               fontFamily: "'Gamja Flower', sans-serif",
               fontSize: '19px',
-              color: 'rgba(255,255,255,0.5)',
+              color: 'rgba(255,255,255,0.65)',
               fontWeight: '500',
               textAlign: 'right'
             }}
@@ -466,9 +472,11 @@ export default function PlaylistDetailSection({
                 <div style={{
                   width: '43px',
                   height: '43px',
+                  minWidth: '43px',
                   borderRadius: '4px',
                   overflow: 'hidden',
-                  position: 'relative'
+                  position: 'relative',
+                  flexShrink: 0
                 }}>
                   <img
                     src={project.image}
@@ -497,7 +505,7 @@ export default function PlaylistDetailSection({
                     style={{
                       fontFamily: "'Gamja Flower', sans-serif",
                       fontSize: '18px',
-                      color: 'rgba(255,255,255,0.5)'
+                      color: 'rgba(255,255,255,0.65)'
                     }}
                   >
                     {project.role}{project.projectType ? ` · ${project.projectType}` : ''}

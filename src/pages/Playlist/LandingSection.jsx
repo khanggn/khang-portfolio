@@ -34,7 +34,7 @@ export default function LandingSection({ onPlaylistClick }) {
             <p
               style={{
                 fontFamily: "'Gamja Flower', sans-serif",
-                fontSize: '22px',
+                fontSize: 'clamp(18px, 3vw, 22px)',
                 color: 'rgba(255,255,255,0.7)',
                 lineHeight: '1.6',
                 marginTop: '24px'
@@ -211,10 +211,10 @@ export default function LandingSection({ onPlaylistClick }) {
 
                 {/* Playlist Title & Description */}
                 <div style={{ padding: '0 18px', flex: 1 }}>
-                  <h3
+                  <h2
                     style={{
                       fontFamily: "'Clash Display', sans-serif",
-                      fontSize: '15px',
+                      fontSize: 'clamp(13px, 2.5vw, 15px)',
                       fontWeight: '600',
                       color: '#262626',
                       lineHeight: '1.3',
@@ -222,11 +222,11 @@ export default function LandingSection({ onPlaylistClick }) {
                     }}
                   >
                     {playlist.title}
-                  </h3>
+                  </h2>
                   <p
                     style={{
                       fontFamily: "'Gamja Flower', sans-serif",
-                      fontSize: '17px',
+                      fontSize: 'clamp(14px, 2.5vw, 17px)',
                       color: 'rgba(38, 38, 38, 0.7)',
                       lineHeight: '1.4'
                     }}

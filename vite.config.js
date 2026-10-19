@@ -11,6 +11,7 @@ export default defineConfig({
     include: ['@phosphor-icons/react', 'lucide-react']
   },
   build: {
+    sourcemap: true,
     rollupOptions: {
       external: []
     }

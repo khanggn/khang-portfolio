@@ -285,6 +285,7 @@ function FooterWithSpotlight() {
             href="https://www.linkedin.com/in/khangnguyen05/"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="LinkedIn"
             className="hover:opacity-80 transition-opacity"
             style={{
               width: '48px',
@@ -303,6 +304,7 @@ function FooterWithSpotlight() {
             href="https://github.com/khanggn"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="GitHub"
             className="hover:opacity-80 transition-opacity"
             style={{
               width: '48px',
@@ -319,6 +321,7 @@ function FooterWithSpotlight() {
           </a>
           <a
             href="mailto:khangg.nguyen05@gmail.com"
+            aria-label="Email"
             className="hover:opacity-80 transition-opacity"
             style={{
               width: '48px',
@@ -391,6 +394,7 @@ function FooterWithSpotlight() {
 
           {/* Shimmer Layer - Revealed by spotlight */}
           <h2
+            aria-hidden="true"
             className="gradient-shimmer"
             style={{
               fontFamily: "'Clash Display', sans-serif",

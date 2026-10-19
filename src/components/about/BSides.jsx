@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { RotateCcw, ChevronLeft, ChevronRight } from 'lucide-react';
+import HandDrawnBox from '../ui/HandDrawnBox';
 
 const ALBUM_ART = [
   {
@@ -326,11 +327,9 @@ function AlbumArtSection() {
           style={{
             width: '33.33%',
             flexShrink: 0,
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 4,
           }}
         >
+          <HandDrawnBox>
           {ALBUM_ART.map((cat, ci) => {
             const isCatActive = ci === activeCategory;
             return (
@@ -424,6 +423,7 @@ function AlbumArtSection() {
               </div>
             );
           })}
+          </HandDrawnBox>
         </div>
 
         {/* Right 2/3 — Photo stack centered */}

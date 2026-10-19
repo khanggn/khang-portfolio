@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://khang-n.com/sitemap.xml

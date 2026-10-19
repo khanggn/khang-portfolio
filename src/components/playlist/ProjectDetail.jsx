@@ -218,8 +218,8 @@ function ProjectDetail({ project, isOpen }) {
                 </h3>
                 <p
                   style={{
-                    fontFamily: "'Gamja Flower', sans-serif",
-                    fontSize: '21px',
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: '15px',
                     lineHeight: '1.7',
                     color: 'rgba(255,255,255,0.8)'
                   }}
@@ -248,8 +248,8 @@ function ProjectDetail({ project, isOpen }) {
                     <li
                       key={index}
                       style={{
-                        fontFamily: "'Gamja Flower', sans-serif",
-                        fontSize: '21px',
+                        fontFamily: "'Inter', sans-serif",
+                        fontSize: '15px',
                         lineHeight: '1.7',
                         color: 'rgba(255,255,255,0.8)',
                         marginBottom: '11px',
@@ -289,8 +289,8 @@ function ProjectDetail({ project, isOpen }) {
                 </h3>
                 <p
                   style={{
-                    fontFamily: "'Gamja Flower', sans-serif",
-                    fontSize: '21px',
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: '15px',
                     lineHeight: '1.7',
                     color: 'rgba(255,255,255,0.8)'
                   }}
@@ -319,8 +319,8 @@ function ProjectDetail({ project, isOpen }) {
                     <li
                       key={index}
                       style={{
-                        fontFamily: "'Gamja Flower', sans-serif",
-                        fontSize: '21px',
+                        fontFamily: "'Inter', sans-serif",
+                        fontSize: '15px',
                         lineHeight: '1.7',
                         color: 'rgba(255,255,255,0.8)',
                         marginBottom: '11px',
@@ -438,6 +438,7 @@ function ProjectDetail({ project, isOpen }) {
           >
             {/* Close Button */}
             <button
+              aria-label="Close image viewer"
               onClick={() => setExpandedImage(null)}
               style={{
                 position: 'fixed',
@@ -464,6 +465,7 @@ function ProjectDetail({ project, isOpen }) {
 
             {/* Previous Button */}
             <button
+              aria-label="Previous image"
               onClick={(e) => {
                 e.stopPropagation();
                 navigateImage('prev');
@@ -500,6 +502,7 @@ function ProjectDetail({ project, isOpen }) {
 
             {/* Next Button */}
             <button
+              aria-label="Next image"
               onClick={(e) => {
                 e.stopPropagation();
                 navigateImage('next');
